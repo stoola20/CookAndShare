@@ -65,9 +65,9 @@
 		37D69C57290BCF970034D8E1 /* CookAndShare */ = {
 			isa = PBXGroup;
 			children = (
+				37D69C5C290BCF970034D8E1 /* ViewController.swift */,
 				37D69C58290BCF970034D8E1 /* AppDelegate.swift */,
 				37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */,
-				37D69C5C290BCF970034D8E1 /* ViewController.swift */,
 				37D69C5E290BCF970034D8E1 /* Main.storyboard */,
 				37D69C61290BCF980034D8E1 /* Assets.xcassets */,
 				37D69C63290BCF980034D8E1 /* LaunchScreen.storyboard */,
@@ -83,7 +83,6 @@
 				92C4A81AF54EA5965DB8EE93 /* Pods-CookAndShare.debug.xcconfig */,
 				517F2D7545434C37ABC19360 /* Pods-CookAndShare.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
