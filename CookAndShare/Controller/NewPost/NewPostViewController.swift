@@ -18,6 +18,7 @@ class NewPostViewController: UIViewController {
     
     func setUpCollectionView() {
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.collectionViewLayout = configureCollectionViewLayout()
         collectionView.registerCellWithNib(identifier: DraftCell.identifier, bundle: nil)
         collectionView.registerCellWithNib(identifier: NewPostCell.identifier, bundle: nil)
@@ -61,6 +62,16 @@ extension NewPostViewController: UICollectionViewDataSource {
 
                 headerView.textLabel.text = Constant.draft
                 return headerView
+        }
+    }
+}
+
+extension NewPostViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath == IndexPath(item: 0, section: 1) {
+            let storyboard = UIStoryboard(name: "NewPost", bundle: nil)
+            guard let newRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewRecipeViewController.self)) as? NewRecipeViewController else { fatalError("Could not instantiate newRecipeVC") }
+            navigationController?.pushViewController(newRecipeVC, animated: true)
         }
     }
 }

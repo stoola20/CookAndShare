@@ -9,26 +9,26 @@ import Foundation
 import FirebaseFirestore
 
 struct Recipe: Codable {
-    let recipeId: String
-    let authorId: String
-    let cookDuration: Timestamp
-    let time: Timestamp
-    let title: String
-    let mainImageURL: String
-    let description: String
-    let quantity: Int
-    let ingredients: [Ingredient]
-    let procedures: [Procedure]
-    let likes: Int
+    var recipeId: String = String.empty
+    var authorId: String = String.empty
+    var cookDuration: Int = 0
+    var time: Timestamp = Timestamp()
+    var title: String = String.empty
+    var mainImageURL: String = String.empty
+    var description: String = String.empty
+    var quantity: Int = 0
+    var ingredients: [Ingredient] = []
+    var procedures: [Procedure] = []
+    var likes: Int = 0
 }
 
 struct Ingredient: Codable {
-    let name: String
-    let quantity: String
+    var name: String = String.empty
+    var quantity: String = String.empty
 }
 
 struct Procedure: Codable {
-    let step: Int
-    let description: String
-    let imageURL: String
+    var step: Int = 1
+    var description: String = String.empty
+    var imageURL: String = String.empty
 }

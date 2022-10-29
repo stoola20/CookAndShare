@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="676" id="KGk-i7-Jjw" customClass="NewRecipeDescriptionCell" customModule="CookAndShare" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="664"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="664"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2rS-Bb-V5O">
+                        <rect key="frame" x="0.0" y="0.5" width="414" height="298"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="300" id="4Xa-2e-DLb"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fef-cf-mqc">
+                        <rect key="frame" x="16" y="324" width="382" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mBd-Kh-aZA">
+                        <rect key="frame" x="16" y="353" width="382" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EI6-iT-yWJ">
+                        <rect key="frame" x="16" y="411" width="382" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PVl-1g-TeE">
+                        <rect key="frame" x="16" y="440" width="382" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AKe-h1-09X">
+                        <rect key="frame" x="16" y="498" width="382" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MQ3-bS-P80">
+                        <rect key="frame" x="16" y="527" width="382" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AEE-e1-GDD">
+                        <rect key="frame" x="16" y="585" width="382" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RRv-sg-gkp">
+                        <rect key="frame" x="16" y="614" width="382" height="34"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="2rS-Bb-V5O" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="1Zv-vN-Kex"/>
+                    <constraint firstAttribute="trailing" secondItem="RRv-sg-gkp" secondAttribute="trailing" constant="16" id="3sA-pq-jnk"/>
+                    <constraint firstItem="MQ3-bS-P80" firstAttribute="top" secondItem="AKe-h1-09X" secondAttribute="bottom" constant="8" symbolic="YES" id="5VV-DR-aTJ"/>
+                    <constraint firstItem="AKe-h1-09X" firstAttribute="top" secondItem="PVl-1g-TeE" secondAttribute="bottom" constant="24" id="CCC-Zi-1Uw"/>
+                    <constraint firstItem="fef-cf-mqc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="D32-yR-lJ8"/>
+                    <constraint firstAttribute="bottom" secondItem="RRv-sg-gkp" secondAttribute="bottom" constant="16" id="FLt-fL-HNw"/>
+                    <constraint firstItem="EI6-iT-yWJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="HWz-UT-9wN"/>
+                    <constraint firstItem="AEE-e1-GDD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="MHH-lS-QXy"/>
+                    <constraint firstItem="AKe-h1-09X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Mfp-bh-EY8"/>
+                    <constraint firstItem="2rS-Bb-V5O" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="SAD-s5-nAF"/>
+                    <constraint firstAttribute="trailing" secondItem="EI6-iT-yWJ" secondAttribute="trailing" constant="16" id="SnK-t1-fWG"/>
+                    <constraint firstItem="EI6-iT-yWJ" firstAttribute="top" secondItem="mBd-Kh-aZA" secondAttribute="bottom" constant="24" id="Uap-kQ-5zl"/>
+                    <constraint firstAttribute="trailing" secondItem="MQ3-bS-P80" secondAttribute="trailing" constant="16" id="VZ2-cM-jO3"/>
+                    <constraint firstAttribute="trailing" secondItem="2rS-Bb-V5O" secondAttribute="trailing" id="Xre-0A-jTL"/>
+                    <constraint firstAttribute="trailing" secondItem="AKe-h1-09X" secondAttribute="trailing" constant="16" id="YzQ-li-pl6"/>
+                    <constraint firstItem="fef-cf-mqc" firstAttribute="top" secondItem="2rS-Bb-V5O" secondAttribute="bottom" constant="24" id="ZOW-6y-PhY"/>
+                    <constraint firstItem="mBd-Kh-aZA" firstAttribute="top" secondItem="fef-cf-mqc" secondAttribute="bottom" constant="8" symbolic="YES" id="aOy-EO-TIs"/>
+                    <constraint firstItem="AEE-e1-GDD" firstAttribute="top" secondItem="MQ3-bS-P80" secondAttribute="bottom" constant="24" id="aoL-p5-CjM"/>
+                    <constraint firstItem="RRv-sg-gkp" firstAttribute="top" secondItem="AEE-e1-GDD" secondAttribute="bottom" constant="8" symbolic="YES" id="e7O-J8-Qw9"/>
+                    <constraint firstAttribute="trailing" secondItem="fef-cf-mqc" secondAttribute="trailing" constant="16" id="j7g-Vs-kVc"/>
+                    <constraint firstItem="MQ3-bS-P80" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="k58-dR-wHG"/>
+                    <constraint firstItem="RRv-sg-gkp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="kqu-62-4mK"/>
+                    <constraint firstAttribute="trailing" secondItem="PVl-1g-TeE" secondAttribute="trailing" constant="16" id="lLO-Um-fC5"/>
+                    <constraint firstAttribute="trailing" secondItem="mBd-Kh-aZA" secondAttribute="trailing" constant="16" id="me7-sI-u7r"/>
+                    <constraint firstAttribute="trailing" secondItem="AEE-e1-GDD" secondAttribute="trailing" constant="16" id="oeT-wv-3UO"/>
+                    <constraint firstItem="PVl-1g-TeE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="q7g-5A-r3j"/>
+                    <constraint firstItem="PVl-1g-TeE" firstAttribute="top" secondItem="EI6-iT-yWJ" secondAttribute="bottom" constant="8" symbolic="YES" id="usd-xW-JBy"/>
+                    <constraint firstItem="mBd-Kh-aZA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="x4Q-eC-nFN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="EI6-iT-yWJ" id="kgz-6E-ibc"/>
+                <outlet property="descriptionTextField" destination="PVl-1g-TeE" id="Mwe-ZI-Pi2"/>
+                <outlet property="durationLabel" destination="AKe-h1-09X" id="rpc-xn-VhC"/>
+                <outlet property="durationTextField" destination="MQ3-bS-P80" id="7a5-Ip-GAl"/>
+                <outlet property="nameLabel" destination="fef-cf-mqc" id="lzl-qM-fqg"/>
+                <outlet property="nameTextField" destination="mBd-Kh-aZA" id="R07-oG-Sqa"/>
+                <outlet property="quantityLabel" destination="AEE-e1-GDD" id="2o9-r0-NeD"/>
+                <outlet property="quantityTextField" destination="RRv-sg-gkp" id="6nn-bh-jI8"/>
+            </connections>
+            <point key="canvasLocation" x="204.34782608695653" y="110.49107142857143"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="camera" catalog="system" width="128" height="94"/>
+    </resources>
+</document>
