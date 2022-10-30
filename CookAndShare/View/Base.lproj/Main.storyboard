@@ -40,7 +40,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="InK-TP-Bej"/>
+                        <segue destination="1OM-Y2-adg" kind="relationship" relationship="rootViewController" id="InK-TP-Bej"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CiS-be-FRY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -63,22 +63,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Kz-3i-TgC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1610" y="688"/>
-        </scene>
-        <!--Recipe View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="RecipeViewController" customModule="CookAndShare" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="2RR-iC-HU3"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2504" y="1424"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Ez0-6h-fvm">
@@ -188,6 +172,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kmZ-7b-o8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-713" y="1424"/>
+        </scene>
+        <!--Recipe-->
+        <scene sceneID="TbE-so-ASL">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Recipe" id="1OM-Y2-adg" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="3uH-d5-M9Z"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S6q-0B-I27" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2504" y="1424"/>
         </scene>
     </scenes>
     <resources>

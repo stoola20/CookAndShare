@@ -38,4 +38,26 @@ struct FirestoreManager {
             }
         }
     }
+    
+    func downloadRecipe(completion: @escaping (Result<[Recipe], Error>) -> Void) {
+        var recipes = [Recipe]()
+
+        recipesCollection.getDocuments { (guerySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion(.failure(error))
+            } else {
+                guard let querySnapshot = guerySnapshot else { return }
+                querySnapshot.documents.forEach { document in
+                    do {
+                        let recipe = try document.data(as: Recipe.self)
+                        recipes.append(recipe)
+                    } catch {
+                        print(error)
+                    }
+                }
+                completion(.success(recipes))
+            }
+        }
+    }
 }
