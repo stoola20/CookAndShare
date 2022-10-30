@@ -105,6 +105,7 @@
                 <outlet property="descriptionTextField" destination="PVl-1g-TeE" id="Mwe-ZI-Pi2"/>
                 <outlet property="durationLabel" destination="AKe-h1-09X" id="rpc-xn-VhC"/>
                 <outlet property="durationTextField" destination="MQ3-bS-P80" id="7a5-Ip-GAl"/>
+                <outlet property="mainImageView" destination="2rS-Bb-V5O" id="076-vP-EMo"/>
                 <outlet property="nameLabel" destination="fef-cf-mqc" id="lzl-qM-fqg"/>
                 <outlet property="nameTextField" destination="mBd-Kh-aZA" id="R07-oG-Sqa"/>
                 <outlet property="quantityLabel" destination="AEE-e1-GDD" id="2o9-r0-NeD"/>

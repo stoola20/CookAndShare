@@ -51,6 +51,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="deleteButton" destination="1gD-oS-GUc" id="qcO-UF-c8g"/>
                 <outlet property="nameTextField" destination="nxi-48-7AX" id="dk3-YR-E3K"/>
                 <outlet property="quantityTextField" destination="xk9-70-puQ" id="3Ux-9a-fFa"/>
             </connections>

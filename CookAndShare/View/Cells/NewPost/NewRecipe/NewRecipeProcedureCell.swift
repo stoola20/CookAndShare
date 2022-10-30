@@ -10,6 +10,7 @@ import UIKit
 protocol NewRecipeProcedureDelegate: AnyObject {
     func didDelete(_ cell: NewRecipeProcedureCell)
     func didAddProcedure(_ cell: NewRecipeProcedureCell, description: String)
+    func willPickImage(_ cell: NewRecipeProcedureCell)
 }
 
 class NewRecipeProcedureCell: UITableViewCell {
@@ -26,7 +27,16 @@ class NewRecipeProcedureCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        procedureImageView.isUserInteractionEnabled = true
+        
+        procedureImageView.addGestureRecognizer(setGestureRecognizer())
+    }
+    
+    func setGestureRecognizer() -> UITapGestureRecognizer {
+        
+        var tapRecognizer = UITapGestureRecognizer()
+        tapRecognizer = UITapGestureRecognizer (target: self, action: #selector(pickImage))
+        return tapRecognizer
     }
     
     override func prepareForReuse() {
@@ -51,6 +61,10 @@ class NewRecipeProcedureCell: UITableViewCell {
 
     @IBAction func deleteProcedure(_ sender: UIButton) {
         delegate.didDelete(self)
+    }
+    
+    @objc func pickImage() {
+        delegate.willPickImage(self)
     }
     
     func passData() {

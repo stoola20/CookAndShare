@@ -10,33 +10,38 @@ import UIKit
 protocol NewRecipeIngredientDelegate: AnyObject {
     func didDelete(_ cell: NewRecipeIngredientCell, _ ingredient: Ingredient)
     func didAddIngredient(_ cell: NewRecipeIngredientCell, _ ingredient: Ingredient)
+    func addIngredient()
 }
 
 class NewRecipeIngredientCell: UITableViewCell {
     
     weak var delegate: NewRecipeIngredientDelegate!
 
+    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var nameTextField: UITextField! {
         didSet {
             nameTextField.delegate = self
             nameTextField.placeholder = Constant.ingredientName
+            nameTextField.returnKeyType = .next
         }
     }
     @IBOutlet weak var quantityTextField: UITextField! {
         didSet {
             quantityTextField.delegate = self
             quantityTextField.placeholder = Constant.ingredientQuantity
+            quantityTextField.returnKeyType = .done
         }
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        deleteButton.isHidden = true
     }
     
     override func prepareForReuse() {
         nameTextField.text = String.empty
         quantityTextField.text = String.empty
+        deleteButton.isHidden = true
     }
     
     @IBAction func deleteIngredient(_ sender: UIButton) {
@@ -57,6 +62,8 @@ class NewRecipeIngredientCell: UITableViewCell {
         } else {
             let ingredient = Ingredient(name: ingredientName, quantity: ingredientQuantity)
             delegate.didAddIngredient(self, ingredient)
+            delegate.addIngredient()
+            deleteButton.isHidden = false
         }
     }
 }
@@ -64,7 +71,11 @@ class NewRecipeIngredientCell: UITableViewCell {
 // MARK: - TextField Delegate
 extension NewRecipeIngredientCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField == nameTextField {
+            quantityTextField.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
         return true
     }
     

@@ -6,15 +6,19 @@
 //
 
 import UIKit
+import PhotosUI
 import FirebaseFirestore
 
 class NewRecipeViewController: UIViewController {
     
+// MARK: - Property
     @IBOutlet weak var tableView: UITableView!
     var firestoreManager = FirestoreManager.shared
-    var numOfIngredients = 3
-    var numOfProcedures = 3
     var recipe = Recipe()
+    var imageCell: UITableViewCell?
+    var indexPathForImage: IndexPath?
+    var numOfIngredients = 1
+    var numOfProcedures = 1
     var ingredientDict: [Int : Ingredient] = [:]
     var procedureDict: [Int : Procedure] = [:]
     
@@ -24,6 +28,7 @@ class NewRecipeViewController: UIViewController {
         setUpTableView()
     }
     
+// MARK: - Action
     func setUpTableView() {
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
@@ -34,6 +39,15 @@ class NewRecipeViewController: UIViewController {
         tableView.registerCellWithNib(identifier: NewRecipeProcedureCell.identifier, bundle: nil)
         tableView.register(NewRecipeHeaderView.self, forHeaderFooterViewReuseIdentifier: NewRecipeHeaderView.reuseIdentifier)
         tableView.register(NewRecipeFooterView.self, forHeaderFooterViewReuseIdentifier: NewRecipeFooterView.reuseIdentifier)
+    }
+    
+    func presentPHPicker() {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 1
+        let controller = PHPickerViewController(configuration: configuration)
+        controller.delegate = self
+        present(controller, animated: true)
     }
     
     @objc func addIngredient() {
@@ -52,9 +66,11 @@ class NewRecipeViewController: UIViewController {
         recipe.authorId = "me" // TODO
         recipe.time = Timestamp(date: Date())
         firestoreManager.addNewRecipe(recipe, to: document)
+        navigationController?.popViewController(animated: true)
     }
 }
 
+// MARK: - UITableViewDataSource
 extension NewRecipeViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         3
@@ -82,6 +98,7 @@ extension NewRecipeViewController: UITableViewDataSource {
                 self.recipe.cookDuration = Int(data.duration) ?? 0
                 self.recipe.quantity = Int(data.quantity) ?? 0
             }
+            cell.delegate = self
             return cell
 
         case 1:
@@ -98,6 +115,7 @@ extension NewRecipeViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension NewRecipeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 { return nil }
@@ -124,60 +142,156 @@ extension NewRecipeViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - NewRecipeDescriptionDelegate
+extension NewRecipeViewController: NewRecipeDescriptionDelegate {
+    func willPickImage(_ cell: NewRecipeDescriptionCell) {
+        self.imageCell = cell as NewRecipeDescriptionCell
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        self.indexPathForImage = indexPath
+        
+        presentPHPicker()
+    }
+}
+
+// MARK: - NewRecipeIngredientDelegate
 extension NewRecipeViewController: NewRecipeIngredientDelegate {
     func didDelete(_ cell: NewRecipeIngredientCell, _ ingredient: Ingredient) {
         numOfIngredients -= 1
+
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
         tableView.deleteRows(at: [indexPath], with: .left)
-        let newIngredients = self.recipe.ingredients.drop { element in
-            element.name == ingredient.name
-        }
+        self.recipe.ingredients.remove(at: indexPath.row)
+        self.ingredientDict.removeValue(forKey: indexPath.row)
 
-        print("===\(ingredientDict)")
-        self.recipe.ingredients = Array(newIngredients)
-        print(self.recipe.ingredients)
+        let sortedIngredient = ingredientDict.sorted { $0.key < $1.key }
+        var index = 0
+        var newIngredientDict = [Int : Ingredient]()
+        sortedIngredient.forEach { _, value in
+            newIngredientDict[index] = value
+            index += 1
+        }
+        self.ingredientDict = newIngredientDict
     }
     
     func didAddIngredient(_ cell: NewRecipeIngredientCell, _ ingredient: Ingredient) {
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
 
-        var ingredients = [Ingredient]()
         ingredientDict[indexPath.row] = ingredient
-        print("===\(self.ingredientDict)")
+
+        var ingredients = [Ingredient]()
         let sortedDict = ingredientDict.sorted { $0.key < $1.key }
         sortedDict.forEach { key, value in
             ingredients.append(value)
         }
+
         self.recipe.ingredients = ingredients
-        print(self.recipe.ingredients)
     }
 }
 
+// MARK: - NewRecipeProcedureDelegate
 extension NewRecipeViewController: NewRecipeProcedureDelegate {
+    func willPickImage(_ cell: NewRecipeProcedureCell) {
+        self.imageCell = cell as NewRecipeProcedureCell
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        self.indexPathForImage = indexPath
+        
+        presentPHPicker()
+    }
+    
     func didDelete(_ cell: NewRecipeProcedureCell) {
         numOfProcedures -= 1
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
-        var procedures = [Procedure]()
-        procedureDict.removeValue(forKey: indexPath.row)
-        procedureDict.forEach { key, value in
-            procedures.append(value)
-        }
-        self.recipe.procedures = procedures
-        print(self.recipe.procedures)
         tableView.deleteRows(at: [indexPath], with: .left)
-        tableView.reloadData()
+        self.procedureDict.removeValue(forKey: indexPath.row)
+        
+        let sortedProcedure = procedureDict.sorted { $0.key < $1.key }
+        var index = 0
+        var newProcedures = [Procedure]()
+        var newProcedureDict = [Int : Procedure]()
+        sortedProcedure.forEach { _, value in
+            newProcedureDict[index] = value
+            newProcedures.append(value)
+            index += 1
+        }
+        
+        for index in 0..<newProcedures.count {
+            var procedure = newProcedures[index]
+            procedure.step = index
+            newProcedures[index] = procedure
+        }
+        self.recipe.procedures = newProcedures
+        self.procedureDict = newProcedureDict
+        print(self.procedureDict)
+        print(self.recipe.procedures)
     }
     
     func didAddProcedure(_ cell: NewRecipeProcedureCell, description: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
 
-        let procedure = Procedure(step: indexPath.row + 1, description: description, imageURL: "")
+        procedureDict[indexPath.row] = Procedure(step: 0, description: description, imageURL: "")
+        print(self.procedureDict)
         var procedures = [Procedure]()
-        procedureDict[indexPath.row] = procedure
-        procedureDict.forEach { key, value in
+        let sortedDict = procedureDict.sorted { $0.key < $1.key }
+        sortedDict.forEach { key, value in
             procedures.append(value)
         }
+
+        for index in 0..<procedures.count {
+            var procedure = procedures[index]
+            procedure.step = index
+            procedures[index] = procedure
+        }
+        
         self.recipe.procedures = procedures
         print(self.recipe.procedures)
+    }
+}
+
+// MARK: - PHPickerViewControllerDelegate
+extension NewRecipeViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        if !results.isEmpty {
+            let result = results.first!
+            let itemProvider = result.itemProvider
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                    guard
+                        let image = image as? UIImage,
+                        let self = self,
+                        let indexPath = self.indexPathForImage
+                    else { return }
+                    
+                    // Upload photo
+                    self.firestoreManager.uploadPhoto(image: image) { result in
+                        switch result {
+                        case .success(let url):
+                            print(url)
+                            if self.imageCell is NewRecipeDescriptionCell {
+                                self.recipe.mainImageURL = url.absoluteString
+                            } else if self.imageCell is NewRecipeProcedureCell {
+                                self.recipe.procedures[indexPath.row].imageURL = url.absoluteString
+                                print("===\(self.recipe.procedures)")
+                            }
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                    
+                    // update image
+                    DispatchQueue.main.async {
+                    
+                        if self.imageCell is NewRecipeDescriptionCell {
+                            guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeDescriptionCell else { fatalError("Wrong cell") }
+                            cell.mainImageView.image = image
+                        } else if self.imageCell is NewRecipeProcedureCell {
+                            guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeProcedureCell else { fatalError("Wrong cell") }
+                            cell.procedureImageView.image = image
+                        }
+                    }
+                }
+            }
+        }
     }
 }

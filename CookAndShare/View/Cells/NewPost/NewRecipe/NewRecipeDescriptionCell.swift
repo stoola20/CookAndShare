@@ -6,25 +6,32 @@
 //
 
 import UIKit
+import PhotosUI
 
 struct RecipeDescriptionInputModel {
-    let name: String
-    let description: String
-    let duration: String
-    let quantity: String
+    var name: String = String.empty
+    var description: String = String.empty
+    var duration: String = String.empty
+    var quantity: String = String.empty
+}
+
+protocol NewRecipeDescriptionDelegate: AnyObject {
+    func willPickImage(_ cell: NewRecipeDescriptionCell)
 }
 
 class NewRecipeDescriptionCell: UITableViewCell {
     
     private let duration: [Int] = [10, 20, 30, 45, 60, 90, 120, 180]
     private let quantity: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    weak var delegate: NewRecipeDescriptionDelegate!
+    var data = RecipeDescriptionInputModel()
     var completion: ((RecipeDescriptionInputModel) -> (Void))?
 
+    @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var quantityLabel: UILabel!
-
     @IBOutlet weak var nameTextField: UITextField! {
         didSet {
             nameTextField.delegate = self
@@ -64,6 +71,19 @@ class NewRecipeDescriptionCell: UITableViewCell {
         descriptionLabel.text = Constant.description
         durationLabel.text = Constant.duration
         quantityLabel.text = Constant.quantity
+        mainImageView.isUserInteractionEnabled = true
+        mainImageView.addGestureRecognizer(setGestureRecognizer())
+    }
+    
+    func setGestureRecognizer() -> UITapGestureRecognizer {
+        
+        var tapRecognizer = UITapGestureRecognizer()
+        tapRecognizer = UITapGestureRecognizer (target: self, action: #selector(pickImage))
+        return tapRecognizer
+    }
+    
+    @objc func pickImage() {
+        delegate.willPickImage(self)
     }
     
     func passData() {
@@ -73,8 +93,12 @@ class NewRecipeDescriptionCell: UITableViewCell {
               let quantity = quantityTextField.text
         else { return }
         
-        let data = RecipeDescriptionInputModel(name: name, description: description, duration: duration, quantity: quantity)
-        self.completion?(data)
+        data.name = name
+        data.description = description
+        data.duration = duration
+        data.quantity = quantity
+
+        self.completion?(self.data)
     }
 }
 

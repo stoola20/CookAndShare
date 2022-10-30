@@ -9,4 +9,5 @@ target 'CookAndShare' do
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
   pod 'FirebaseFirestoreSwift'
+  pod 'FirebaseStorage'
 end

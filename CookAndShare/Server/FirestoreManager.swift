@@ -7,10 +7,12 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseStorage
 
 struct FirestoreManager {
     static let shared = FirestoreManager()
     let recipesCollection = Firestore.firestore().collection(Constant.firestoreRecipes)
+    let storage = Storage.storage()
     
     func addNewRecipe(_ recipe: Recipe, to document: DocumentReference) {
         do {
@@ -21,4 +23,19 @@ struct FirestoreManager {
         }
     }
     
+    func uploadPhoto(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
+            
+        let fileReference = storage.reference().child(UUID().uuidString + ".jpg")
+        if let data = image.jpegData(compressionQuality: 0.9) {
+            
+            fileReference.putData(data, metadata: nil) { result in
+                switch result {
+                case .success:
+                    fileReference.downloadURL(completion: completion)
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
 }
