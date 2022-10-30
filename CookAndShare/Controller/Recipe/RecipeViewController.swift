@@ -44,6 +44,7 @@ class RecipeViewController: UIViewController {
     
     func setUpCollectionView() {
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.collectionViewLayout = configureCollectionViewLayout()
         collectionView.registerCellWithNib(identifier: HotRecipeCell.identifier, bundle: nil)
         collectionView.registerCellWithNib(identifier: AllRecipeCell.identifier, bundle: nil)
@@ -133,6 +134,27 @@ extension RecipeViewController: UICollectionViewDataSource {
             default:
                 return UICollectionReusableView()
         }
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension RecipeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
+        guard let detailVC = storyboard.instantiateViewController(withIdentifier: String(describing: DetailRecipeViewController.self)) as? DetailRecipeViewController else { fatalError("Could not instantiate detailVC") }
+
+        switch indexPath.section {
+        case 0:
+            guard let hotRecipes = hotRecipes else { return }
+            detailVC.recipe = hotRecipes[indexPath.item]
+
+        default:
+            guard let allRecipes = allRecipes else { return }
+            detailVC.recipe = allRecipes[indexPath.item]
+        }
+
+        collectionView.deselectItem(at: indexPath, animated: false)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 

@@ -49,6 +49,13 @@
 		37E63624290E57BA00D516D4 /* RecipeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63623290E57BA00D516D4 /* RecipeHeaderView.swift */; };
 		37E63626290E598000D516D4 /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63625290E598000D516D4 /* UIImageView+Ext.swift */; };
 		37E63628290E5EAB00D516D4 /* DetailRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63627290E5EAB00D516D4 /* DetailRecipeViewController.swift */; };
+		37E6362D290E60D500D516D4 /* DetailBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6362B290E60D500D516D4 /* DetailBannerCell.swift */; };
+		37E6362E290E60D500D516D4 /* DetailBannerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E6362C290E60D500D516D4 /* DetailBannerCell.xib */; };
+		37E63631290E60E800D516D4 /* DetailIngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E6362F290E60E800D516D4 /* DetailIngredientCell.swift */; };
+		37E63632290E60E800D516D4 /* DetailIngredientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E63630290E60E800D516D4 /* DetailIngredientCell.xib */; };
+		37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63633290E60F700D516D4 /* DetailProcedureCell.swift */; };
+		37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E63634290E60F700D516D4 /* DetailProcedureCell.xib */; };
+		37E63638290E6EB900D516D4 /* DetailRecipeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63637290E6EB900D516D4 /* DetailRecipeHeaderView.swift */; };
 		3FCAABA4B3E38E622861E889 /* Pods_CookAndShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */; };
 /* End PBXBuildFile section */
 
@@ -98,6 +105,13 @@
 		37E63623290E57BA00D516D4 /* RecipeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeHeaderView.swift; sourceTree = "<group>"; };
 		37E63625290E598000D516D4 /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		37E63627290E5EAB00D516D4 /* DetailRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecipeViewController.swift; sourceTree = "<group>"; };
+		37E6362B290E60D500D516D4 /* DetailBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBannerCell.swift; sourceTree = "<group>"; };
+		37E6362C290E60D500D516D4 /* DetailBannerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailBannerCell.xib; sourceTree = "<group>"; };
+		37E6362F290E60E800D516D4 /* DetailIngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIngredientCell.swift; sourceTree = "<group>"; };
+		37E63630290E60E800D516D4 /* DetailIngredientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailIngredientCell.xib; sourceTree = "<group>"; };
+		37E63633290E60F700D516D4 /* DetailProcedureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProcedureCell.swift; sourceTree = "<group>"; };
+		37E63634290E60F700D516D4 /* DetailProcedureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailProcedureCell.xib; sourceTree = "<group>"; };
+		37E63637290E6EB900D516D4 /* DetailRecipeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecipeHeaderView.swift; sourceTree = "<group>"; };
 		517F2D7545434C37ABC19360 /* Pods-CookAndShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookAndShare.release.xcconfig"; path = "Target Support Files/Pods-CookAndShare/Pods-CookAndShare.release.xcconfig"; sourceTree = "<group>"; };
 		92C4A81AF54EA5965DB8EE93 /* Pods-CookAndShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookAndShare.debug.xcconfig"; path = "Target Support Files/Pods-CookAndShare/Pods-CookAndShare.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -308,6 +322,29 @@
 		37E63618290E492600D516D4 /* Recipe */ = {
 			isa = PBXGroup;
 			children = (
+				37E63629290E606C00D516D4 /* DetailRecipe */,
+				37E6362A290E608800D516D4 /* Lobby */,
+			);
+			path = Recipe;
+			sourceTree = "<group>";
+		};
+		37E63629290E606C00D516D4 /* DetailRecipe */ = {
+			isa = PBXGroup;
+			children = (
+				37E6362B290E60D500D516D4 /* DetailBannerCell.swift */,
+				37E6362C290E60D500D516D4 /* DetailBannerCell.xib */,
+				37E6362F290E60E800D516D4 /* DetailIngredientCell.swift */,
+				37E63630290E60E800D516D4 /* DetailIngredientCell.xib */,
+				37E63633290E60F700D516D4 /* DetailProcedureCell.swift */,
+				37E63634290E60F700D516D4 /* DetailProcedureCell.xib */,
+				37E63637290E6EB900D516D4 /* DetailRecipeHeaderView.swift */,
+			);
+			path = DetailRecipe;
+			sourceTree = "<group>";
+		};
+		37E6362A290E608800D516D4 /* Lobby */ = {
+			isa = PBXGroup;
+			children = (
 				37E63619290E496300D516D4 /* HotRecipeCell.swift */,
 				37E6361A290E496300D516D4 /* HotRecipeCell.xib */,
 				37E6361D290E497F00D516D4 /* AllRecipeCell.swift */,
@@ -315,7 +352,7 @@
 				37E63621290E4DD500D516D4 /* RecipeTypeCell.swift */,
 				37E63623290E57BA00D516D4 /* RecipeHeaderView.swift */,
 			);
-			path = Recipe;
+			path = Lobby;
 			sourceTree = "<group>";
 		};
 		5A573818B45E4AF89687A7D9 /* Pods */ = {
@@ -399,8 +436,11 @@
 				37D69CAD290CBE050034D8E1 /* NewRecipeDescriptionCell.xib in Resources */,
 				37D69C9A290C14670034D8E1 /* NewPostCell.xib in Resources */,
 				37D69C6D290BD46D0034D8E1 /* GoogleService-Info.plist in Resources */,
+				37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */,
 				37D69C62290BCF980034D8E1 /* Assets.xcassets in Resources */,
 				37E63620290E497F00D516D4 /* AllRecipeCell.xib in Resources */,
+				37E63632290E60E800D516D4 /* DetailIngredientCell.xib in Resources */,
+				37E6362E290E60D500D516D4 /* DetailBannerCell.xib in Resources */,
 				37D69CBC290CDD700034D8E1 /* NewPost.storyboard in Resources */,
 				37D69C60290BCF970034D8E1 /* Main.storyboard in Resources */,
 				37E63617290E48FB00D516D4 /* Recipe.storyboard in Resources */,
@@ -468,6 +508,7 @@
 				37D69C59290BCF970034D8E1 /* AppDelegate.swift in Sources */,
 				37D69C8C290C11C40034D8E1 /* Constant.swift in Sources */,
 				37D69C5B290BCF970034D8E1 /* SceneDelegate.swift in Sources */,
+				37E6362D290E60D500D516D4 /* DetailBannerCell.swift in Sources */,
 				37D69CBE290CE49B0034D8E1 /* NewRecipeHeaderView.swift in Sources */,
 				37D69C80290BDF880034D8E1 /* Conversation.swift in Sources */,
 				37E6361B290E496300D516D4 /* HotRecipeCell.swift in Sources */,
@@ -475,6 +516,7 @@
 				37D69CB7290CD9070034D8E1 /* NewRecipeViewController.swift in Sources */,
 				37D69CC2290D10AE0034D8E1 /* String+Ext.swift in Sources */,
 				37D69CB4290CBE310034D8E1 /* NewRecipeProcedureCell.swift in Sources */,
+				37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */,
 				37E63624290E57BA00D516D4 /* RecipeHeaderView.swift in Sources */,
 				37D69C89290C0D500034D8E1 /* NewPostViewController.swift in Sources */,
 				37D69C9F290C14880034D8E1 /* DraftCell.swift in Sources */,
@@ -484,9 +526,11 @@
 				37E63626290E598000D516D4 /* UIImageView+Ext.swift in Sources */,
 				37D69C79290BDD020034D8E1 /* User.swift in Sources */,
 				37D69CC0290CF3910034D8E1 /* NewRecipeFooterView.swift in Sources */,
+				37E63638290E6EB900D516D4 /* DetailRecipeHeaderView.swift in Sources */,
 				37E6361F290E497F00D516D4 /* AllRecipeCell.swift in Sources */,
 				37D69CA5290C15B30034D8E1 /* UICollectionView+Ext.swift in Sources */,
 				37D69C77290BDCEA0034D8E1 /* Recipe.swift in Sources */,
+				37E63631290E60E800D516D4 /* DetailIngredientCell.swift in Sources */,
 				37D69CA7290C1A0B0034D8E1 /* NewPostSupplementaryView.swift in Sources */,
 				37D69CAC290CBE050034D8E1 /* NewRecipeDescriptionCell.swift in Sources */,
 			);

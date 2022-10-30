@@ -60,7 +60,7 @@
         <!--Detail Recipe View Controller-->
         <scene sceneID="LfP-V8-fN8">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="7EN-Bi-SEi" customClass="DetailRecipeViewController" customModule="CookAndShare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailRecipeViewController" hidesBottomBarWhenPushed="YES" id="7EN-Bi-SEi" customClass="DetailRecipeViewController" customModule="CookAndShare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="igR-m5-Moi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -70,9 +70,12 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uyg-co-ZLC">
-                                <rect key="frame" x="16" y="60" width="45" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="chevron.backward.circle.fill" catalog="system"/>
+                                <rect key="frame" x="16" y="60" width="21" height="21"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="chevron.backward.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="backToLobby:" destination="7EN-Bi-SEi" eventType="touchUpInside" id="KYu-HB-d3j"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aIK-Mk-wOh"/>

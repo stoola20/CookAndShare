@@ -8,7 +8,13 @@
 import Foundation
 
 struct Constant {
+    // firestore
     static let firestoreRecipes = "recipes"
+    
+    // storyboard
+    static let newpost = "NewPost"
+    static let recipe = "Recipe"
+    static let share = "Share"
     
     static let newRecipe = "分享食譜"
     static let newShare = "分享食品/食材"
@@ -28,4 +34,7 @@ struct Constant {
     static let procedureStep1 = "將洋蔥及紅蘿蔔拌炒至熟透"
     static let procedureStep2 = "加入雞腿肉翻炒"
     static let procedureStep3 = "加水煮滾"
+    
+    static let addToShoppingList = "加入購買清單"
+    static let quantityByPerson = "人份的食材"
 }
