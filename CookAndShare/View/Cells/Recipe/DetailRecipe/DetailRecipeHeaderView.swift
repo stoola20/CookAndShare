@@ -7,12 +7,17 @@
 
 import UIKit
 
+protocol DetailRecipeHeaderViewDelegate: AnyObject {
+    func willAddIngredient()
+}
+
 class DetailRecipeHeaderView: UITableViewHeaderFooterView {
 
     static let reuseIdentifier: String = String(describing: DetailRecipeHeaderView.self)
     lazy var headerLabel = UILabel()
     lazy var quantityLabel = UILabel()
     lazy var addToListButton = UIButton()
+    weak var delegate: DetailRecipeHeaderViewDelegate!
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
@@ -32,6 +37,7 @@ class DetailRecipeHeaderView: UITableViewHeaderFooterView {
         addToListButton.setTitle(Constant.addToShoppingList, for: .normal)
         addToListButton.setImage(UIImage(systemName: "plus"), for: .normal)
         addToListButton.setTitleColor(.black, for: .normal)
+        addToListButton.addTarget(self, action: #selector(addToList), for: .touchUpInside)
         
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         quantityLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -62,5 +68,9 @@ class DetailRecipeHeaderView: UITableViewHeaderFooterView {
             quantityLabel.isHidden = true
             addToListButton.isHidden = true
         }
+    }
+    
+    @objc func addToList() {
+        delegate.willAddIngredient()
     }
 }

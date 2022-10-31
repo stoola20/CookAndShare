@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HBt-GM-vo1">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Profile View Controller-->
+        <scene sceneID="uFS-AV-I71">
+            <objects>
+                <viewController id="HBt-GM-vo1" customClass="ProfileViewController" customModule="CookAndShare" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Hrn-mI-f67">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FCx-aJ-SlV">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6S7-4d-ovR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="FCx-aJ-SlV" firstAttribute="leading" secondItem="6S7-4d-ovR" secondAttribute="leading" id="1Q2-j0-ehs"/>
+                            <constraint firstItem="FCx-aJ-SlV" firstAttribute="top" secondItem="Hrn-mI-f67" secondAttribute="top" id="3TC-KG-AiP"/>
+                            <constraint firstAttribute="bottom" secondItem="FCx-aJ-SlV" secondAttribute="bottom" id="5Ht-oD-RrX"/>
+                            <constraint firstItem="FCx-aJ-SlV" firstAttribute="trailing" secondItem="6S7-4d-ovR" secondAttribute="trailing" id="nCn-FR-Mct"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="zpm-k1-EYO"/>
+                    <connections>
+                        <outlet property="tableView" destination="FCx-aJ-SlV" id="cAx-12-BMD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L8Q-kE-s7v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1092.753623188406" y="1423.6607142857142"/>
+        </scene>
+        <!--Shopping List View Controller-->
+        <scene sceneID="o4t-gw-PTF">
+            <objects>
+                <viewController storyboardIdentifier="ShoppingListViewController" id="QtZ-N3-zkU" customClass="ShoppingListViewController" customModule="CookAndShare" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yxX-hG-bzg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QB4-9m-H11">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="T4I-3h-hcT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="QB4-9m-H11" firstAttribute="top" secondItem="T4I-3h-hcT" secondAttribute="top" id="0JY-2T-cmm"/>
+                            <constraint firstItem="T4I-3h-hcT" firstAttribute="trailing" secondItem="QB4-9m-H11" secondAttribute="trailing" id="8mh-OD-18K"/>
+                            <constraint firstItem="QB4-9m-H11" firstAttribute="leading" secondItem="T4I-3h-hcT" secondAttribute="leading" id="bfJ-MG-ndI"/>
+                            <constraint firstItem="T4I-3h-hcT" firstAttribute="bottom" secondItem="QB4-9m-H11" secondAttribute="bottom" id="klo-ZV-Onp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="QB4-9m-H11" id="cOJ-br-BE2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w6o-Vz-hXv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1923" y="1424"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -10,13 +10,13 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 struct Recipe: Codable {
-    var recipeId: String = String.empty
-    var authorId: String = String.empty
+    var recipeId = String.empty
+    var authorId = String.empty
     var cookDuration: Int = 0
-    var time: Timestamp = Timestamp()
-    var title: String = String.empty
-    var mainImageURL: String = String.empty
-    var description: String = String.empty
+    var time = Timestamp()
+    var title = String.empty
+    var mainImageURL = String.empty
+    var description = String.empty
     var quantity: Int = 0
     var ingredientNames: [String] = []
     var ingredients: [Ingredient] = []
@@ -25,12 +25,12 @@ struct Recipe: Codable {
 }
 
 struct Ingredient: Codable {
-    var name: String = String.empty
-    var quantity: String = String.empty
+    var name = String.empty
+    var quantity = String.empty
 }
 
 struct Procedure: Codable {
     var step: Int = 1
-    var description: String = String.empty
-    var imageURL: String = String.empty
+    var description = String.empty
+    var imageURL = String.empty
 }

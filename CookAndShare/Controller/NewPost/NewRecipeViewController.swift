@@ -108,6 +108,8 @@ extension NewRecipeViewController: UITableViewDataSource {
                 as? NewRecipeIngredientCell
             else { fatalError("Could not create ingredient cell") }
             cell.delegate = self
+            cell.nameTextField.text = nil
+            cell.quantityTextField.text = nil
             return cell
 
         default:

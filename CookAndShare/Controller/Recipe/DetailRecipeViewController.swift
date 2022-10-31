@@ -22,7 +22,7 @@ class DetailRecipeViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -54,7 +54,7 @@ extension DetailRecipeViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         DetailRecipeSection.allCases.count
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let recipe = recipe else { return 0 }
         switch section {
@@ -66,22 +66,23 @@ extension DetailRecipeViewController: UITableViewDataSource {
             return recipe.procedures.count
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let recipe = recipe else { return UITableViewCell() }
-        
+
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailBannerCell.identifier, for: indexPath) as? DetailBannerCell else { fatalError("Could not create banner cell") }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailBannerCell.identifier, for: indexPath) as? DetailBannerCell
+            else { fatalError("Could not create banner cell") }
             cell.layoutCell(with: recipe)
             return cell
-            
+
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailIngredientCell.identifier, for: indexPath) as? DetailIngredientCell
             else { fatalError("Could not create ingredient cell") }
             cell.layoutCell(with: recipe.ingredients[indexPath.row])
             return cell
-            
+
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailProcedureCell.identifier, for: indexPath) as? DetailProcedureCell
             else { fatalError("Could not create procedure cell") }
@@ -91,7 +92,7 @@ extension DetailRecipeViewController: UITableViewDataSource {
     }
 }
 
-// MARK: -
+// MARK: - UITableViewDelegate
 extension DetailRecipeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let recipe = recipe else { return nil }
@@ -101,7 +102,21 @@ extension DetailRecipeViewController: UITableViewDelegate {
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DetailRecipeHeaderView.reuseIdentifier) as? DetailRecipeHeaderView
             else { fatalError("Could not create header view") }
             headerView.layoutHeader(with: recipe, in: section)
+            headerView.delegate = self
             return headerView
         }
+    }
+}
+
+extension DetailRecipeViewController: DetailRecipeHeaderViewDelegate {
+    func willAddIngredient() {
+        let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
+        guard
+            let addToListVC = storyboard.instantiateViewController(withIdentifier: String(describing: AddToShoppingListVC.self))
+            as? AddToShoppingListVC,
+            let recipe = recipe
+        else { fatalError("Could not create AddToShoppingListVC") }
+        addToListVC.initialIngredients = recipe.ingredients
+        present(addToListVC, animated: true)
     }
 }

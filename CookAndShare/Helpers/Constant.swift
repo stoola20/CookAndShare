@@ -8,6 +8,10 @@
 import Foundation
 
 struct Constant {
+    // CoreData
+    static let modelName = "CookAndShare"
+    static let entityName = "ShoppingList"
+    
     // firestore
     static let firestoreRecipes = "recipes"
     
@@ -15,6 +19,8 @@ struct Constant {
     static let newpost = "NewPost"
     static let recipe = "Recipe"
     static let share = "Share"
+    static let profile = "Profile"
+    static let map = "Map"
     
     // new post
     static let newRecipe = "分享食譜"
@@ -35,7 +41,7 @@ struct Constant {
     static let procedureStep1 = "將洋蔥及紅蘿蔔拌炒至熟透"
     static let procedureStep2 = "加入雞腿肉翻炒"
     static let procedureStep3 = "加水煮滾"
-    
+
     // recipe
     static let addToShoppingList = "加入購買清單"
     static let quantityByPerson = "人份的食材"

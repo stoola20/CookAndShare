@@ -39,8 +39,6 @@ class NewRecipeIngredientCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        nameTextField.text = String.empty
-        quantityTextField.text = String.empty
         deleteButton.isHidden = true
     }
     
