@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AllRecipeCell" customModule="CookAndShare" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="281" height="392"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="281" height="392"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fx7-Pt-H2Q">
+                        <rect key="frame" x="0.0" y="75" width="281" height="317"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKD-ev-XLH">
+                                <rect key="frame" x="119.5" y="99" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRw-Iw-JIl">
+                                <rect key="frame" x="16" y="280" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jTd-jm-V63">
+                                <rect key="frame" x="247" y="279" width="18" height="22"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="bookmark" catalog="system"/>
+                                <connections>
+                                    <action selector="storeRecipe:" destination="gTV-IL-0wX" eventType="touchUpInside" id="P0h-vl-3yr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="jTd-jm-V63" secondAttribute="bottom" constant="16" id="86f-B2-I28"/>
+                            <constraint firstItem="gKD-ev-XLH" firstAttribute="centerX" secondItem="fx7-Pt-H2Q" secondAttribute="centerX" id="Tt0-DM-xYO"/>
+                            <constraint firstAttribute="bottom" secondItem="SRw-Iw-JIl" secondAttribute="bottom" constant="16" id="Tzv-nz-Hdn"/>
+                            <constraint firstAttribute="trailing" secondItem="jTd-jm-V63" secondAttribute="trailing" constant="16" id="wYC-jC-H1E"/>
+                            <constraint firstItem="SRw-Iw-JIl" firstAttribute="leading" secondItem="fx7-Pt-H2Q" secondAttribute="leading" constant="16" id="wfD-Rm-fWP"/>
+                        </constraints>
+                    </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0AK-FM-NGR">
+                        <rect key="frame" x="65.5" y="0.0" width="150" height="150"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="HFv-uJ-r1F"/>
+                            <constraint firstAttribute="width" secondItem="0AK-FM-NGR" secondAttribute="height" multiplier="1:1" id="rxT-X9-TSM"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="fx7-Pt-H2Q" secondAttribute="bottom" id="3sz-7G-SxE"/>
+                <constraint firstAttribute="trailing" secondItem="fx7-Pt-H2Q" secondAttribute="trailing" id="8Au-mQ-k6o"/>
+                <constraint firstItem="gKD-ev-XLH" firstAttribute="top" secondItem="0AK-FM-NGR" secondAttribute="bottom" constant="24" id="E9L-rs-FhE"/>
+                <constraint firstItem="0AK-FM-NGR" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Ybd-9f-e3t"/>
+                <constraint firstItem="fx7-Pt-H2Q" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="75" id="bt5-H0-Dg2"/>
+                <constraint firstItem="0AK-FM-NGR" firstAttribute="centerX" secondItem="fx7-Pt-H2Q" secondAttribute="centerX" id="kfF-Dl-Nvq"/>
+                <constraint firstItem="fx7-Pt-H2Q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="qhy-LU-Fhr"/>
+            </constraints>
+            <size key="customSize" width="281" height="392"/>
+            <connections>
+                <outlet property="durationLabel" destination="SRw-Iw-JIl" id="tDx-I5-tve"/>
+                <outlet property="imageView" destination="0AK-FM-NGR" id="Pdk-4U-8e1"/>
+                <outlet property="storeButton" destination="jTd-jm-V63" id="sbD-PM-F1B"/>
+                <outlet property="titleLabel" destination="gKD-ev-XLH" id="Usx-to-tbW"/>
+            </connections>
+            <point key="canvasLocation" x="76.08695652173914" y="79.017857142857139"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="bookmark" catalog="system" width="112" height="128"/>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
