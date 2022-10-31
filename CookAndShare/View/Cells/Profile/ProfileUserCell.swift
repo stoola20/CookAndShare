@@ -18,8 +18,8 @@ class ProfileUserCell: UITableViewCell {
     }
     
     func layoutCell(with user: User) {
+        userName.text = user.name
         guard let url = URL(string:user.imageURL) else { return }
         profileImageView.load(url: url)
-        userName.text = user.name
     }
 }

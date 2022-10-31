@@ -35,7 +35,7 @@ class ShoppingListViewController: UIViewController {
         tableView.allowsSelection = false
         tableView.registerCellWithNib(identifier: ShoppingListCell.identifier, bundle: nil)
     }
-    
+
     @objc func addItem() {
         let alert = UIAlertController(title: Constant.pleaseFillIn, message: nil, preferredStyle: .alert)
         alert.addTextField { textField in

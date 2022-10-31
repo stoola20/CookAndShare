@@ -8,9 +8,6 @@
 import UIKit
 
 class DetailBannerCell: UITableViewCell {
-
-    @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var storeButton: UIButton!
     @IBOutlet weak var mainImageVIew: UIImageView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -21,7 +18,7 @@ class DetailBannerCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        mainImageVIew.contentMode = .scaleAspectFill
     }
     
     func layoutCell(with recipe: Recipe) {

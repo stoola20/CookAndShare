@@ -23,6 +23,7 @@
 		37875388290F9A6C00F06F4C /* ShoppingListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37875386290F9A6C00F06F4C /* ShoppingListCell.xib */; };
 		3787538A290FA61C00F06F4C /* AddToShoppingListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875389290FA61C00F06F4C /* AddToShoppingListVC.swift */; };
 		3787538C290FC5DD00F06F4C /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787538B290FC5DD00F06F4C /* ShoppingListViewController.swift */; };
+		3787538E2910098D00F06F4C /* SavedRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */; };
 		37D69C59290BCF970034D8E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D69C58290BCF970034D8E1 /* AppDelegate.swift */; };
 		37D69C5B290BCF970034D8E1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */; };
 		37D69C60290BCF970034D8E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37D69C5E290BCF970034D8E1 /* Main.storyboard */; };
@@ -93,6 +94,7 @@
 		37875386290F9A6C00F06F4C /* ShoppingListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingListCell.xib; sourceTree = "<group>"; };
 		37875389290FA61C00F06F4C /* AddToShoppingListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToShoppingListVC.swift; sourceTree = "<group>"; };
 		3787538B290FC5DD00F06F4C /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
+		3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipeViewController.swift; sourceTree = "<group>"; };
 		37D69C55290BCF970034D8E1 /* CookAndShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookAndShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37D69C58290BCF970034D8E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 			children = (
 				37875377290F992200F06F4C /* ProfileViewController.swift */,
 				3787538B290FC5DD00F06F4C /* ShoppingListViewController.swift */,
+				3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				37E63628290E5EAB00D516D4 /* DetailRecipeViewController.swift in Sources */,
 				37E63626290E598000D516D4 /* UIImageView+Ext.swift in Sources */,
 				37D69C79290BDD020034D8E1 /* User.swift in Sources */,
+				3787538E2910098D00F06F4C /* SavedRecipeViewController.swift in Sources */,
 				3787538C290FC5DD00F06F4C /* ShoppingListViewController.swift in Sources */,
 				37D69CC0290CF3910034D8E1 /* NewRecipeFooterView.swift in Sources */,
 				37E63638290E6EB900D516D4 /* DetailRecipeHeaderView.swift in Sources */,

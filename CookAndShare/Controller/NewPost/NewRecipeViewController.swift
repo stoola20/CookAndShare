@@ -52,7 +52,7 @@ class NewRecipeViewController: UIViewController {
         numOfIngredients += 1
         tableView.insertRows(at: [IndexPath(row: numOfIngredients - 1, section: 1)], with: .automatic)
     }
-    
+
     @objc func addProcedure() {
         numOfProcedures += 1
         tableView.insertRows(at: [IndexPath(row: numOfProcedures - 1, section: 2)], with: .automatic)
@@ -61,7 +61,7 @@ class NewRecipeViewController: UIViewController {
     @IBAction func postRecipe(_ sender: UIButton) {
         let document = firestoreManager.recipesCollection.document()
         recipe.recipeId = document.documentID
-        recipe.authorId = "me" // TODO
+        recipe.authorId = Constant.userId // TODO
         recipe.time = Timestamp(date: Date())
         firestoreManager.addNewRecipe(recipe, to: document)
         navigationController?.popViewController(animated: true)
@@ -128,8 +128,9 @@ extension NewRecipeViewController: UITableViewDataSource {
 extension NewRecipeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 { return nil }
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeHeaderView.reuseIdentifier)
-                as? NewRecipeHeaderView
+        guard
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeHeaderView.reuseIdentifier)
+            as? NewRecipeHeaderView
         else { fatalError("Could not create header view.") }
         headerView.label.text = section == 1 ? Constant.ingredient : Constant.procedure
         return headerView
@@ -138,8 +139,9 @@ extension NewRecipeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 0 { return nil }
 
-        guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeFooterView.reuseIdentifier)
-                as? NewRecipeFooterView
+        guard
+            let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeFooterView.reuseIdentifier)
+            as? NewRecipeFooterView
         else { fatalError("Could not create footer view.") }
 
         if section == 1 {
@@ -174,7 +176,7 @@ extension NewRecipeViewController: NewRecipeIngredientDelegate {
         tableView.deleteRows(at: [indexPath], with: .left)
         self.recipe.ingredients.remove(at: indexPath.row)
         self.ingredientDict.removeValue(forKey: indexPath.row)
-        
+
         var newIngredientNames: [String] = []
         self.recipe.ingredients.forEach { ingredient in
             newIngredientNames.append(ingredient.name)
@@ -219,26 +221,26 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
         self.imageCell = cell as NewRecipeProcedureCell
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         self.indexPathForImage = indexPath
-        
+
         presentPHPicker()
     }
-    
+
     func didDelete(_ cell: NewRecipeProcedureCell) {
         numOfProcedures -= 1
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
         tableView.deleteRows(at: [indexPath], with: .left)
         self.procedureDict.removeValue(forKey: indexPath.row)
-        
+
         let sortedProcedure = procedureDict.sorted { $0.key < $1.key }
         var index = 0
         var newProcedures = [Procedure]()
-        var newProcedureDict = [Int : Procedure]()
+        var newProcedureDict = [Int: Procedure]()
         sortedProcedure.forEach { _, value in
             newProcedureDict[index] = value
             newProcedures.append(value)
             index += 1
         }
-        
+
         for index in 0..<newProcedures.count {
             var procedure = newProcedures[index]
             procedure.step = index
@@ -249,7 +251,7 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
         print(self.procedureDict)
         print(self.recipe.procedures)
     }
-    
+
     func didAddProcedure(_ cell: NewRecipeProcedureCell, description: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
 
@@ -257,7 +259,7 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
         print(self.procedureDict)
         var procedures = [Procedure]()
         let sortedDict = procedureDict.sorted { $0.key < $1.key }
-        sortedDict.forEach { key, value in
+        sortedDict.forEach { _, value in
             procedures.append(value)
         }
 
@@ -266,7 +268,7 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
             procedure.step = index
             procedures[index] = procedure
         }
-        
+
         self.recipe.procedures = procedures
         print(self.recipe.procedures)
     }
@@ -276,7 +278,7 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
 extension NewRecipeViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
-        
+
         if !results.isEmpty {
             let result = results.first!
             let itemProvider = result.itemProvider
@@ -287,7 +289,7 @@ extension NewRecipeViewController: PHPickerViewControllerDelegate {
                         let self = self,
                         let indexPath = self.indexPathForImage
                     else { return }
-                    
+
                     // Upload photo
                     self.firestoreManager.uploadPhoto(image: image) { result in
                         switch result {
@@ -303,15 +305,16 @@ extension NewRecipeViewController: PHPickerViewControllerDelegate {
                             print(error)
                         }
                     }
-                    
+
                     // update image
                     DispatchQueue.main.async {
-                    
                         if self.imageCell is NewRecipeDescriptionCell {
-                            guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeDescriptionCell else { fatalError("Wrong cell") }
+                            guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeDescriptionCell
+                            else { fatalError("Wrong cell") }
                             cell.mainImageView.image = image
                         } else if self.imageCell is NewRecipeProcedureCell {
-                            guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeProcedureCell else { fatalError("Wrong cell") }
+                            guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeProcedureCell
+                            else { fatalError("Wrong cell") }
                             cell.procedureImageView.image = image
                         }
                     }

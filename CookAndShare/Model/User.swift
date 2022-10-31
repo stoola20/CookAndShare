@@ -13,6 +13,7 @@ struct User: Codable {
     let email: String
     let imageURL: String
     let recipesId: [String]
+    let savedRecipesId: [String]
     let sharesId: [String]
     let conversationId: [String]
 }

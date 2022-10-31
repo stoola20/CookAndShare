@@ -66,7 +66,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="WqF-Fl-1hk">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uyg-co-ZLC">
@@ -77,19 +77,41 @@
                                     <action selector="backToLobby:" destination="7EN-Bi-SEi" eventType="touchUpInside" id="KYu-HB-d3j"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZB3-7t-De2">
+                                <rect key="frame" x="377" y="60" width="21" height="22"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="heart" catalog="system"/>
+                                <connections>
+                                    <action selector="likeRecipe:" destination="7EN-Bi-SEi" eventType="touchUpInside" id="TEJ-B0-p2Y"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUE-jO-iC9">
+                                <rect key="frame" x="343" y="60" width="18" height="22"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="bookmark" catalog="system"/>
+                                <connections>
+                                    <action selector="saveRecipe:" destination="7EN-Bi-SEi" eventType="touchUpInside" id="pFt-Al-9AO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aIK-Mk-wOh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="uyg-co-ZLC" firstAttribute="top" secondItem="aIK-Mk-wOh" secondAttribute="top" constant="16" id="4a1-ol-3YA"/>
-                            <constraint firstItem="aIK-Mk-wOh" firstAttribute="bottom" secondItem="WqF-Fl-1hk" secondAttribute="bottom" id="LXm-vv-eIP"/>
+                            <constraint firstItem="ZB3-7t-De2" firstAttribute="leading" secondItem="YUE-jO-iC9" secondAttribute="trailing" constant="16" id="H9X-2y-Q1p"/>
+                            <constraint firstAttribute="bottom" secondItem="WqF-Fl-1hk" secondAttribute="bottom" id="LXm-vv-eIP"/>
                             <constraint firstItem="uyg-co-ZLC" firstAttribute="leading" secondItem="aIK-Mk-wOh" secondAttribute="leading" constant="16" id="bP9-wZ-fbO"/>
                             <constraint firstItem="aIK-Mk-wOh" firstAttribute="trailing" secondItem="WqF-Fl-1hk" secondAttribute="trailing" id="f88-zo-Jl9"/>
-                            <constraint firstItem="WqF-Fl-1hk" firstAttribute="top" secondItem="aIK-Mk-wOh" secondAttribute="top" id="hkf-5C-kM2"/>
+                            <constraint firstItem="WqF-Fl-1hk" firstAttribute="top" secondItem="igR-m5-Moi" secondAttribute="top" id="hkf-5C-kM2"/>
+                            <constraint firstItem="ZB3-7t-De2" firstAttribute="top" secondItem="aIK-Mk-wOh" secondAttribute="top" constant="16" id="jMF-Th-uOY"/>
                             <constraint firstItem="WqF-Fl-1hk" firstAttribute="leading" secondItem="aIK-Mk-wOh" secondAttribute="leading" id="oCd-YH-Y7t"/>
+                            <constraint firstItem="aIK-Mk-wOh" firstAttribute="trailing" secondItem="ZB3-7t-De2" secondAttribute="trailing" constant="16" id="rU7-BP-fpE"/>
+                            <constraint firstItem="YUE-jO-iC9" firstAttribute="top" secondItem="aIK-Mk-wOh" secondAttribute="top" constant="16" id="t3x-qM-uxr"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="likeButton" destination="ZB3-7t-De2" id="DhZ-fP-9Xe"/>
+                        <outlet property="saveButton" destination="YUE-jO-iC9" id="GMR-tM-KaU"/>
                         <outlet property="tableView" destination="WqF-Fl-1hk" id="8tI-rT-9sj"/>
                     </connections>
                 </viewController>
@@ -273,7 +295,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="bookmark" catalog="system" width="112" height="128"/>
         <image name="chevron.backward.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="shake" width="128" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

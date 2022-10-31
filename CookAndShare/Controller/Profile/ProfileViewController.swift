@@ -16,10 +16,28 @@ enum ProfileCategory: String, CaseIterable {
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    var user: User? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    let firestoreManager = FirestoreManager.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        firestoreManager.fetchUserData(userId: Constant.userId) { result in
+            switch result {
+            case .success(let user):
+                self.user = user
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     func setUpTableView () {
@@ -43,9 +61,12 @@ extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileUserCell.identifier, for: indexPath)
-                as? ProfileUserCell
-            else { fatalError("Could not create user cell") }
+            guard
+                let cell = tableView.dequeueReusableCell(withIdentifier: ProfileUserCell.identifier, for: indexPath)
+                as? ProfileUserCell,
+                let user = user
+            else { return UITableViewCell() }
+            cell.layoutCell(with: user)
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileListCell.identifier, for: indexPath)
@@ -67,6 +88,16 @@ extension ProfileViewController: UITableViewDelegate {
                 as? ShoppingListViewController
             else { fatalError("Could not instantiate ShoppingListViewController") }
             navigationController?.pushViewController(shoppingListVC, animated: true)
+
+        } else if indexPath == IndexPath(row: 0, section: 1) {
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            guard
+                let savedRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: SavedRecipeViewController.self))
+                as? SavedRecipeViewController,
+                let user = user
+            else { fatalError("Could not instantiate ShoppingListViewController") }
+            savedRecipeVC.savedRecipsId = user.savedRecipesId
+            navigationController?.pushViewController(savedRecipeVC, animated: true)
         }
     }
 }

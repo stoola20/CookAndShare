@@ -21,7 +21,8 @@ struct Recipe: Codable {
     var ingredientNames: [String] = []
     var ingredients: [Ingredient] = []
     var procedures: [Procedure] = []
-    var likes: Int = 0
+    var likes: [String] = []
+    var saves: [String] = []
 }
 
 struct Ingredient: Codable {
