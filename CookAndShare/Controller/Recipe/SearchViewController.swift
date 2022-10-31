@@ -37,7 +37,7 @@ extension SearchViewController: UITextFieldDelegate {
         guard let resultVC = storyboard.instantiateViewController(withIdentifier: String(describing: ResultViewController.self)) as? ResultViewController,
               let searchString = textField.text
         else { fatalError("Could not instantiate result VC") }
-        resultVC.searchType = .text
+        resultVC.searchType = .title
         resultVC.searchString = searchString
         navigationController?.pushViewController(resultVC, animated: true)
         return true

@@ -15,13 +15,12 @@ enum SearchType {
 }
 
 class ResultViewController: UIViewController {
-    
     var recipes: [Recipe]?
     var searchType: SearchType?
-    var searchString: String = String.empty
+    var searchString = String.empty
     let firestoreManager = FirestoreManager()
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }

@@ -52,13 +52,21 @@ extension NewPostViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch indexPath.section {
             case 0, 2:
-                guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NewPostSupplementaryView.identifier, for: indexPath) as? NewPostSupplementaryView else { fatalError("Could not create new post header view") }
+                guard let headerView = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: UICollectionView.elementKindSectionHeader,
+                    withReuseIdentifier: NewPostSupplementaryView.identifier,
+                    for: indexPath) as? NewPostSupplementaryView
+                else { fatalError("Could not create new post header view") }
 
                 headerView.textLabel.text = indexPath.section == 0 ? Constant.newRecipe : Constant.newShare
                 return headerView
 
             default:
-                guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DraftSupplementaryView.identifier, for: indexPath) as? DraftSupplementaryView else { fatalError("Could not create draft header view") }
+                guard let headerView = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: UICollectionView.elementKindSectionHeader,
+                    withReuseIdentifier: DraftSupplementaryView.identifier,
+                    for: indexPath) as? DraftSupplementaryView
+                else { fatalError("Could not create draft header view") }
 
                 headerView.textLabel.text = Constant.draft
                 return headerView
@@ -70,7 +78,8 @@ extension NewPostViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath == IndexPath(item: 0, section: 1) {
             let storyboard = UIStoryboard(name: "NewPost", bundle: nil)
-            guard let newRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewRecipeViewController.self)) as? NewRecipeViewController else { fatalError("Could not instantiate newRecipeVC") }
+            guard let newRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewRecipeViewController.self)) as? NewRecipeViewController
+            else { fatalError("Could not instantiate newRecipeVC") }
             navigationController?.pushViewController(newRecipeVC, animated: true)
         }
     }

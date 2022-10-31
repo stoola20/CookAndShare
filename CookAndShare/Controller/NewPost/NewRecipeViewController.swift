@@ -19,8 +19,8 @@ class NewRecipeViewController: UIViewController {
     var indexPathForImage: IndexPath?
     var numOfIngredients = 1
     var numOfProcedures = 1
-    var ingredientDict: [Int : Ingredient] = [:]
-    var procedureDict: [Int : Procedure] = [:]
+    var ingredientDict: [Int: Ingredient] = [:]
+    var procedureDict: [Int: Procedure] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +90,8 @@ extension NewRecipeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeDescriptionCell.identifier, for: indexPath) as? NewRecipeDescriptionCell else { fatalError("Could not create description cell") }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeDescriptionCell.identifier, for: indexPath) as? NewRecipeDescriptionCell
+            else { fatalError("Could not create description cell") }
             cell.completion = { [weak self] data in
                 guard let self = self else { return }
                 self.recipe.title = data.name
@@ -102,12 +103,14 @@ extension NewRecipeViewController: UITableViewDataSource {
             return cell
 
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeIngredientCell.identifier, for: indexPath) as? NewRecipeIngredientCell else { fatalError("Could not create ingredient cell") }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeIngredientCell.identifier, for: indexPath) as? NewRecipeIngredientCell
+            else { fatalError("Could not create ingredient cell") }
             cell.delegate = self
             return cell
 
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeProcedureCell.identifier, for: indexPath) as? NewRecipeProcedureCell else { fatalError("Could not create procedure cell") }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeProcedureCell.identifier, for: indexPath) as? NewRecipeProcedureCell
+            else { fatalError("Could not create procedure cell") }
             cell.layoutCell(with: indexPath)
             cell.delegate = self
             return cell
@@ -119,15 +122,17 @@ extension NewRecipeViewController: UITableViewDataSource {
 extension NewRecipeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 { return nil }
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeHeaderView.reuseIdentifier) as? NewRecipeHeaderView else { fatalError("Could not create header view.") }
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeHeaderView.reuseIdentifier) as? NewRecipeHeaderView
+        else { fatalError("Could not create header view.") }
         headerView.label.text = section == 1 ? Constant.ingredient : Constant.procedure
         return headerView
     }
-    
+
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 0 { return nil }
 
-        guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeFooterView.reuseIdentifier) as? NewRecipeFooterView else { fatalError("Could not create footer view.") }
+        guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeFooterView.reuseIdentifier) as? NewRecipeFooterView
+        else { fatalError("Could not create footer view.") }
 
         if section == 1 {
             footerView.button.addTarget(self, action: #selector(addIngredient), for: .touchUpInside)

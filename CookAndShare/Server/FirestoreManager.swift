@@ -61,7 +61,4 @@ struct FirestoreManager {
         }
     }
     
-    func searchRecipe(type: SearchType, completion: @escaping (Result<[Recipe], Error> -> Void) {
-        
-    }
 }

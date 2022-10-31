@@ -77,12 +77,14 @@ extension DetailRecipeViewController: UITableViewDataSource {
             return cell
             
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailIngredientCell.identifier, for: indexPath) as? DetailIngredientCell else { fatalError("Could not create ingredient cell") }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailIngredientCell.identifier, for: indexPath) as? DetailIngredientCell
+            else { fatalError("Could not create ingredient cell") }
             cell.layoutCell(with: recipe.ingredients[indexPath.row])
             return cell
             
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailProcedureCell.identifier, for: indexPath) as? DetailProcedureCell else { fatalError("Could not create procedure cell") }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailProcedureCell.identifier, for: indexPath) as? DetailProcedureCell
+            else { fatalError("Could not create procedure cell") }
             cell.layoutCell(with: recipe.procedures[indexPath.row], at: indexPath)
             return cell
         }
@@ -96,7 +98,8 @@ extension DetailRecipeViewController: UITableViewDelegate {
         switch section {
         case 0: return nil
         default:
-            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DetailRecipeHeaderView.reuseIdentifier) as? DetailRecipeHeaderView else { fatalError("Could not create header view") }
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DetailRecipeHeaderView.reuseIdentifier) as? DetailRecipeHeaderView
+            else { fatalError("Could not create header view") }
             headerView.layoutHeader(with: recipe, in: section)
             return headerView
         }
