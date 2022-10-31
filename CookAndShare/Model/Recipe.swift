@@ -18,6 +18,7 @@ struct Recipe: Codable {
     var mainImageURL: String = String.empty
     var description: String = String.empty
     var quantity: Int = 0
+    var ingredientNames: [String] = []
     var ingredients: [Ingredient] = []
     var procedures: [Procedure] = []
     var likes: Int = 0

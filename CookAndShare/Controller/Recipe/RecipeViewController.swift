@@ -28,13 +28,18 @@ class RecipeViewController: UIViewController {
     var allRecipes: [Recipe]?
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCollectionView()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(searchRecipes))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "magnifyingglass"),
+            style: .plain,
+            target: self,
+            action: #selector(searchRecipes)
+        )
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         downloadRecipes()
@@ -42,11 +47,13 @@ class RecipeViewController: UIViewController {
     
     @objc func searchRecipes() {
         let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
-        guard let searchVC = storyboard.instantiateViewController(withIdentifier: String(describing: SearchViewController.self)) as? SearchViewController
+        guard let searchVC = storyboard.instantiateViewController(
+            withIdentifier: String(describing: SearchViewController.self))
+                as? SearchViewController
         else { fatalError("Could not create search VC") }
         navigationController?.pushViewController(searchVC, animated: true)
     }
-    
+
     func setUpCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -56,9 +63,9 @@ class RecipeViewController: UIViewController {
         collectionView.register(RecipeTypeCell.self, forCellWithReuseIdentifier: RecipeTypeCell.identifier)
         collectionView.register(RecipeHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: RecipeHeaderView.identifier)
     }
-    
+
     func downloadRecipes() {
-        firestoreManager.downloadRecipe { result in
+        firestoreManager.searchAllRecipes { result in
             switch result {
             case .success(let recipes):
                 self.hotRecipes = recipes
@@ -78,10 +85,11 @@ extension RecipeViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         RecipeSection.allCases.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let hotRecipes = hotRecipes,
-              let allRecipes = allRecipes
+        guard
+            let hotRecipes = hotRecipes,
+            let allRecipes = allRecipes
         else { return 0 }
 
         switch section {
@@ -93,37 +101,30 @@ extension RecipeViewController: UICollectionViewDataSource {
             return allRecipes.count
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let hotRecipes = hotRecipes,
               let allRecipes = allRecipes
-        else { fatalError() }
-        
+        else { fatalError("empty recipes") }
+
         switch indexPath.section {
         case 0:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotRecipeCell.identifier, for: indexPath) as? HotRecipeCell else {
-                fatalError("Could not create hot recipe cell")
-            }
-            cell.imageView.load(url: URL(string: hotRecipes[indexPath.item].mainImageURL)!)
-            cell.likesLabel.text = String(hotRecipes[indexPath.item].likes)
-            cell.titleLabel.text = hotRecipes[indexPath.item].title
-            cell.durationLabel.text = "⌛️ \(hotRecipes[indexPath.item].cookDuration) 分鐘"
+            guard
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotRecipeCell.identifier, for: indexPath) as? HotRecipeCell
+            else { fatalError("Could not create hot recipe cell") }
+            cell.layoutCell(with: hotRecipes[indexPath.item])
             return cell
-            
+
         case 1:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecipeTypeCell.identifier, for: indexPath) as? RecipeTypeCell else {
-                fatalError("Could not create hot recipe cell")
-            }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecipeTypeCell.identifier, for: indexPath) as? RecipeTypeCell
+            else { fatalError("Could not create hot recipe cell") }
             cell.typeButton.setTitle(RecipeType.allCases[indexPath.item].rawValue, for: .normal)
             return cell
-            
+
         default:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllRecipeCell.identifier, for: indexPath) as? AllRecipeCell else {
-                fatalError("Could not create hot recipe cell")
-            }
-            cell.imageView.load(url: URL(string: allRecipes[indexPath.item].mainImageURL)!)
-            cell.titleLabel.text = allRecipes[indexPath.item].title
-            cell.durationLabel.text = "⌛️ \(allRecipes[indexPath.item].cookDuration) 分鐘"
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllRecipeCell.identifier, for: indexPath) as? AllRecipeCell
+            else { fatalError("Could not create hot recipe cell") }
+            cell.layoutCell(with: allRecipes[indexPath.item])
             return cell
         }
     }
@@ -150,9 +151,11 @@ extension RecipeViewController: UICollectionViewDataSource {
 extension RecipeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
-        guard let detailVC = storyboard.instantiateViewController(withIdentifier: String(describing: DetailRecipeViewController.self)) as? DetailRecipeViewController
+        guard let detailVC = storyboard.instantiateViewController(
+            withIdentifier: String(describing: DetailRecipeViewController.self))
+                as? DetailRecipeViewController
         else { fatalError("Could not instantiate detailVC") }
-        
+
         switch indexPath.section {
         case 0:
             guard let hotRecipes = hotRecipes else { return }
@@ -171,7 +174,6 @@ extension RecipeViewController: UICollectionViewDelegate {
 extension RecipeViewController {
     func configureCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-
             switch sectionIndex {
             case 0:
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
@@ -180,7 +182,7 @@ extension RecipeViewController {
 
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.6), heightDimension: .fractionalHeight(0.4))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                
+
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
 
@@ -198,10 +200,10 @@ extension RecipeViewController {
 
                 let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .absolute(44))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                
+
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
-                
+
 
                 let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(44))
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)

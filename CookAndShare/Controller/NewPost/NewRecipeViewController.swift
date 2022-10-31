@@ -10,7 +10,6 @@ import PhotosUI
 import FirebaseFirestore
 
 class NewRecipeViewController: UIViewController {
-    
 // MARK: - Property
     @IBOutlet weak var tableView: UITableView!
     var firestoreManager = FirestoreManager.shared
@@ -21,10 +20,9 @@ class NewRecipeViewController: UIViewController {
     var numOfProcedures = 1
     var ingredientDict: [Int: Ingredient] = [:]
     var procedureDict: [Int: Procedure] = [:]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setUpTableView()
     }
     
@@ -40,7 +38,7 @@ class NewRecipeViewController: UIViewController {
         tableView.register(NewRecipeHeaderView.self, forHeaderFooterViewReuseIdentifier: NewRecipeHeaderView.reuseIdentifier)
         tableView.register(NewRecipeFooterView.self, forHeaderFooterViewReuseIdentifier: NewRecipeFooterView.reuseIdentifier)
     }
-    
+
     func presentPHPicker() {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
@@ -49,7 +47,7 @@ class NewRecipeViewController: UIViewController {
         controller.delegate = self
         present(controller, animated: true)
     }
-    
+
     @objc func addIngredient() {
         numOfIngredients += 1
         tableView.insertRows(at: [IndexPath(row: numOfIngredients - 1, section: 1)], with: .automatic)
@@ -75,7 +73,7 @@ extension NewRecipeViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         3
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -86,11 +84,13 @@ extension NewRecipeViewController: UITableViewDataSource {
             return numOfProcedures
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeDescriptionCell.identifier, for: indexPath) as? NewRecipeDescriptionCell
+            guard
+                let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeDescriptionCell.identifier, for: indexPath)
+                as? NewRecipeDescriptionCell
             else { fatalError("Could not create description cell") }
             cell.completion = { [weak self] data in
                 guard let self = self else { return }
@@ -103,13 +103,17 @@ extension NewRecipeViewController: UITableViewDataSource {
             return cell
 
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeIngredientCell.identifier, for: indexPath) as? NewRecipeIngredientCell
+            guard
+                let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeIngredientCell.identifier, for: indexPath)
+                as? NewRecipeIngredientCell
             else { fatalError("Could not create ingredient cell") }
             cell.delegate = self
             return cell
 
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeProcedureCell.identifier, for: indexPath) as? NewRecipeProcedureCell
+            guard
+                let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeProcedureCell.identifier, for: indexPath)
+                as? NewRecipeProcedureCell
             else { fatalError("Could not create procedure cell") }
             cell.layoutCell(with: indexPath)
             cell.delegate = self
@@ -122,7 +126,8 @@ extension NewRecipeViewController: UITableViewDataSource {
 extension NewRecipeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 { return nil }
-        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeHeaderView.reuseIdentifier) as? NewRecipeHeaderView
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeHeaderView.reuseIdentifier)
+                as? NewRecipeHeaderView
         else { fatalError("Could not create header view.") }
         headerView.label.text = section == 1 ? Constant.ingredient : Constant.procedure
         return headerView
@@ -131,7 +136,8 @@ extension NewRecipeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 0 { return nil }
 
-        guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeFooterView.reuseIdentifier) as? NewRecipeFooterView
+        guard let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeFooterView.reuseIdentifier)
+                as? NewRecipeFooterView
         else { fatalError("Could not create footer view.") }
 
         if section == 1 {
@@ -143,7 +149,6 @@ extension NewRecipeViewController: UITableViewDelegate {
             footerView.button.setTitle(Constant.procedure, for: .normal)
             return footerView
         }
-
     }
 }
 
@@ -153,7 +158,7 @@ extension NewRecipeViewController: NewRecipeDescriptionDelegate {
         self.imageCell = cell as NewRecipeDescriptionCell
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         self.indexPathForImage = indexPath
-        
+
         presentPHPicker()
     }
 }
@@ -167,28 +172,41 @@ extension NewRecipeViewController: NewRecipeIngredientDelegate {
         tableView.deleteRows(at: [indexPath], with: .left)
         self.recipe.ingredients.remove(at: indexPath.row)
         self.ingredientDict.removeValue(forKey: indexPath.row)
+        
+        var newIngredientNames: [String] = []
+        self.recipe.ingredients.forEach { ingredient in
+            newIngredientNames.append(ingredient.name)
+        }
 
         let sortedIngredient = ingredientDict.sorted { $0.key < $1.key }
         var index = 0
-        var newIngredientDict = [Int : Ingredient]()
+        var newIngredientDict = [Int: Ingredient]()
         sortedIngredient.forEach { _, value in
             newIngredientDict[index] = value
             index += 1
         }
+
+        self.recipe.ingredientNames = newIngredientNames
         self.ingredientDict = newIngredientDict
     }
-    
+
     func didAddIngredient(_ cell: NewRecipeIngredientCell, _ ingredient: Ingredient) {
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
 
         ingredientDict[indexPath.row] = ingredient
 
         var ingredients = [Ingredient]()
+        var newIngredientNames: [String] = []
         let sortedDict = ingredientDict.sorted { $0.key < $1.key }
-        sortedDict.forEach { key, value in
+
+        sortedDict.forEach { _, value in
             ingredients.append(value)
         }
 
+        ingredients.forEach { ingredient in
+            newIngredientNames.append(ingredient.name)
+        }
+        self.recipe.ingredientNames = newIngredientNames
         self.recipe.ingredients = ingredients
     }
 }

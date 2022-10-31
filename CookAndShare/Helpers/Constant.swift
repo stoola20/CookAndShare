@@ -39,6 +39,12 @@ struct Constant {
     // recipe
     static let addToShoppingList = "加入購買清單"
     static let quantityByPerson = "人份的食材"
+    
+    // search
+    static let title = "title"
+    static let ingredientNames = "ingredientNames"
+    static let typeInTitle = "請輸入食譜名"
+    static let typeInIngredient = "請輸入食材名"
     static let searchByText = "文字搜尋"
     static let searchByPhoto = """
         不知道食材的名稱？
