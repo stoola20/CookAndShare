@@ -25,9 +25,7 @@ enum RecipeType: String, CaseIterable {
 class RecipeViewController: UIViewController {
     
     let firestoreManager = FirestoreManager.shared
-    
     var hotRecipes: [Recipe]?
-    
     var allRecipes: [Recipe]?
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -35,11 +33,18 @@ class RecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCollectionView()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"), style: .plain, target: self, action: #selector(searchRecipes))
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         downloadRecipes()
+    }
+    
+    @objc func searchRecipes() {
+        let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
+        guard let searchVC = storyboard.instantiateViewController(withIdentifier: String(describing: SearchViewController.self)) as? SearchViewController else { fatalError("Could not create search VC") }
+        navigationController?.pushViewController(searchVC, animated: true)
     }
     
     func setUpCollectionView() {

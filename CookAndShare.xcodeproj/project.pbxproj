@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875369290ED37300F06F4C /* SearchViewController.swift */; };
+		3787536C290ED80900F06F4C /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787536B290ED80900F06F4C /* ResultViewController.swift */; };
 		37D69C59290BCF970034D8E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D69C58290BCF970034D8E1 /* AppDelegate.swift */; };
 		37D69C5B290BCF970034D8E1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */; };
 		37D69C60290BCF970034D8E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37D69C5E290BCF970034D8E1 /* Main.storyboard */; };
@@ -61,6 +63,8 @@
 
 /* Begin PBXFileReference section */
 		2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookAndShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		37875369290ED37300F06F4C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		3787536B290ED80900F06F4C /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		37D69C55290BCF970034D8E1 /* CookAndShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookAndShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37D69C58290BCF970034D8E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -212,6 +216,8 @@
 			children = (
 				37D69C81290BEBBA0034D8E1 /* RecipeViewController.swift */,
 				37E63627290E5EAB00D516D4 /* DetailRecipeViewController.swift */,
+				37875369290ED37300F06F4C /* SearchViewController.swift */,
+				3787536B290ED80900F06F4C /* ResultViewController.swift */,
 			);
 			path = Recipe;
 			sourceTree = "<group>";
@@ -520,6 +526,7 @@
 				37E63624290E57BA00D516D4 /* RecipeHeaderView.swift in Sources */,
 				37D69C89290C0D500034D8E1 /* NewPostViewController.swift in Sources */,
 				37D69C9F290C14880034D8E1 /* DraftCell.swift in Sources */,
+				3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */,
 				37D69CA3290C15990034D8E1 /* UITableView+Ext.swift in Sources */,
 				37D69CA9290C1A1E0034D8E1 /* DraftSupplementaryView.swift in Sources */,
 				37E63628290E5EAB00D516D4 /* DetailRecipeViewController.swift in Sources */,
@@ -529,6 +536,7 @@
 				37E63638290E6EB900D516D4 /* DetailRecipeHeaderView.swift in Sources */,
 				37E6361F290E497F00D516D4 /* AllRecipeCell.swift in Sources */,
 				37D69CA5290C15B30034D8E1 /* UICollectionView+Ext.swift in Sources */,
+				3787536C290ED80900F06F4C /* ResultViewController.swift in Sources */,
 				37D69C77290BDCEA0034D8E1 /* Recipe.swift in Sources */,
 				37E63631290E60E800D516D4 /* DetailIngredientCell.swift in Sources */,
 				37D69CA7290C1A0B0034D8E1 /* NewPostSupplementaryView.swift in Sources */,

@@ -16,6 +16,7 @@ struct Constant {
     static let recipe = "Recipe"
     static let share = "Share"
     
+    // new post
     static let newRecipe = "分享食譜"
     static let newShare = "分享食品/食材"
     static let draft = "草稿"
@@ -35,6 +36,17 @@ struct Constant {
     static let procedureStep2 = "加入雞腿肉翻炒"
     static let procedureStep3 = "加水煮滾"
     
+    // recipe
     static let addToShoppingList = "加入購買清單"
     static let quantityByPerson = "人份的食材"
+    static let searchByText = "文字搜尋"
+    static let searchByPhoto = """
+        不知道食材的名稱？
+        沒關係，讓我們幫你辨識！
+    """
+    static let searchRandomly = """
+        還是沒有想法嗎？
+        試著搖晃一下手機吧！
+    """
+    static let searchResult = "搜尋結果"
 }
