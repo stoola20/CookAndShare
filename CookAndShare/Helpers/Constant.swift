@@ -21,7 +21,7 @@ struct Constant {
     static let share = "Share"
     static let profile = "Profile"
     static let map = "Map"
-    
+
     // new post
     static let newRecipe = "分享食譜"
     static let newShare = "分享食品/食材"
@@ -61,4 +61,9 @@ struct Constant {
         試著搖晃一下手機吧！
     """
     static let searchResult = "搜尋結果"
+    
+    // shopping list
+    static let pleaseFillIn = "請輸入食材名稱及份量"
+    static let cancel = "取消"
+    static let confirm = "確認"
 }
