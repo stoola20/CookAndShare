@@ -28,6 +28,21 @@ class SearchViewController: UIViewController {
         ingredientTextField.placeholder = Constant.typeInIngredient
         ingredientTextField.delegate = self
     }
+    
+    override func becomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
+            guard
+                let resultVC = storyboard.instantiateViewController(withIdentifier: String(describing: ResultViewController.self)) as? ResultViewController
+            else { fatalError("Could not instantiate result VC") }
+            resultVC.searchType = .random
+            navigationController?.pushViewController(resultVC, animated: true)
+        }
+    }
 }
 
 extension SearchViewController: UITextFieldDelegate {
