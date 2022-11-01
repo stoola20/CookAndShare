@@ -15,6 +15,7 @@ struct Constant {
     // firestore
     static let firestoreRecipes = "recipes"
     static let firestoreUsers = "users"
+    static let firestoreShares = "shares"
     
     // storyboard
     static let newpost = "NewPost"
@@ -71,6 +72,8 @@ struct Constant {
     static let confirm = "確認"
     
     // user
-    static let savedRecipesId = "savedRecipesId"
     static let userId = "V4hMTRjOK5jOFfdB15KU"
+    static let recipesId = "recipesId"
+    static let savedRecipesId = "savedRecipesId"
+    static let sharesId = "sharesId"
 }

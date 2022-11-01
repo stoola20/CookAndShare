@@ -24,6 +24,8 @@
 		3787538A290FA61C00F06F4C /* AddToShoppingListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875389290FA61C00F06F4C /* AddToShoppingListVC.swift */; };
 		3787538C290FC5DD00F06F4C /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787538B290FC5DD00F06F4C /* ShoppingListViewController.swift */; };
 		3787538E2910098D00F06F4C /* SavedRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */; };
+		37CBEC822910AE2B00A62EF2 /* NewShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC812910AE2B00A62EF2 /* NewShareViewController.swift */; };
+		37CBEC852910B62000A62EF2 /* NewShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC842910B62000A62EF2 /* NewShareCell.swift */; };
 		37D69C59290BCF970034D8E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D69C58290BCF970034D8E1 /* AppDelegate.swift */; };
 		37D69C5B290BCF970034D8E1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */; };
 		37D69C60290BCF970034D8E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37D69C5E290BCF970034D8E1 /* Main.storyboard */; };
@@ -95,6 +97,8 @@
 		37875389290FA61C00F06F4C /* AddToShoppingListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToShoppingListVC.swift; sourceTree = "<group>"; };
 		3787538B290FC5DD00F06F4C /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
 		3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipeViewController.swift; sourceTree = "<group>"; };
+		37CBEC812910AE2B00A62EF2 /* NewShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewShareViewController.swift; sourceTree = "<group>"; };
+		37CBEC842910B62000A62EF2 /* NewShareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewShareCell.swift; sourceTree = "<group>"; };
 		37D69C55290BCF970034D8E1 /* CookAndShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookAndShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37D69C58290BCF970034D8E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -173,6 +177,14 @@
 				37875386290F9A6C00F06F4C /* ShoppingListCell.xib */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		37CBEC832910B60900A62EF2 /* NewShare */ = {
+			isa = PBXGroup;
+			children = (
+				37CBEC842910B62000A62EF2 /* NewShareCell.swift */,
+			);
+			path = NewShare;
 			sourceTree = "<group>";
 		};
 		37D69C4C290BCF970034D8E1 = {
@@ -283,6 +295,7 @@
 			children = (
 				37D69C88290C0D500034D8E1 /* NewPostViewController.swift */,
 				37D69CB6290CD9070034D8E1 /* NewRecipeViewController.swift */,
+				37CBEC812910AE2B00A62EF2 /* NewShareViewController.swift */,
 			);
 			path = NewPost;
 			sourceTree = "<group>";
@@ -325,6 +338,7 @@
 		37D69C8E290C12900034D8E1 /* NewPost */ = {
 			isa = PBXGroup;
 			children = (
+				37CBEC832910B60900A62EF2 /* NewShare */,
 				37D69CB8290CDB190034D8E1 /* NewRecipe */,
 				37D69CB9290CDB2E0034D8E1 /* NewPost */,
 			);
@@ -607,7 +621,9 @@
 				37D69C89290C0D500034D8E1 /* NewPostViewController.swift in Sources */,
 				37D69C9F290C14880034D8E1 /* DraftCell.swift in Sources */,
 				3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */,
+				37CBEC852910B62000A62EF2 /* NewShareCell.swift in Sources */,
 				37875378290F992200F06F4C /* ProfileViewController.swift in Sources */,
+				37CBEC822910AE2B00A62EF2 /* NewShareViewController.swift in Sources */,
 				37D69CA3290C15990034D8E1 /* UITableView+Ext.swift in Sources */,
 				37D69CA9290C1A1E0034D8E1 /* DraftSupplementaryView.swift in Sources */,
 				37E63628290E5EAB00D516D4 /* DetailRecipeViewController.swift in Sources */,

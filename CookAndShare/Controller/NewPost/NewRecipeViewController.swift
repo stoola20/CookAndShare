@@ -61,9 +61,10 @@ class NewRecipeViewController: UIViewController {
     @IBAction func postRecipe(_ sender: UIButton) {
         let document = firestoreManager.recipesCollection.document()
         recipe.recipeId = document.documentID
-        recipe.authorId = Constant.userId // TODO
+        recipe.authorId = Constant.userId
         recipe.time = Timestamp(date: Date())
         firestoreManager.addNewRecipe(recipe, to: document)
+        firestoreManager.updateUserRecipePost(recipeId: document.documentID, userId: Constant.userId)
         navigationController?.popViewController(animated: true)
     }
 }
