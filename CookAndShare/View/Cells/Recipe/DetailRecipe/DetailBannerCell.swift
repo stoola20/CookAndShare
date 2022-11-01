@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class DetailBannerCell: UITableViewCell {
+    let firestoreManager = FirestoreManager.shared
     @IBOutlet weak var mainImageVIew: UIImageView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -20,8 +22,17 @@ class DetailBannerCell: UITableViewCell {
         super.awakeFromNib()
         mainImageVIew.contentMode = .scaleAspectFill
     }
-    
+
     func layoutCell(with recipe: Recipe) {
+        firestoreManager.fetchUserData(userId: recipe.authorId) { result in
+            switch result {
+            case .success(let user):
+                self.profileImage.load(url: URL(string: user.imageURL)!)
+                self.authorLabel.text = user.name
+            case .failure(let error):
+                print(error)
+            }
+        }
         mainImageVIew.load(url: URL(string: recipe.mainImageURL)!)
         titleLabel.text = recipe.title
         durationLabel.text = "⌛️ \(recipe.cookDuration) 分鐘"

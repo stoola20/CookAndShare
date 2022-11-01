@@ -50,14 +50,19 @@ class NewShareCell: UITableViewCell {
         descriptionTextField.delegate = self
         meetTimeTextField.delegate = self
         meetPlaceTextField.delegate = self
+        
+        titleTextField.placeholder = Constant.shareTitle
+        descriptionTextField.placeholder = Constant.shareDesription
 
         let currentDate = Date()
         bestBeforePicker.minimumDate = currentDate
         dueDatePicker.minimumDate = currentDate
         dueDatePicker.setDate(Calendar.current.date(byAdding: .day, value: 5, to: currentDate) ?? currentDate, animated: false)
+        bestBeforePicker.addTarget(self, action: #selector(passData), for: .valueChanged)
+        dueDatePicker.addTarget(self, action: #selector(passData), for: .valueChanged)
     }
 
-    func passData() {
+    @objc func passData() {
         guard
             let title = titleTextField.text,
             let description = descriptionTextField.text,
@@ -70,7 +75,6 @@ class NewShareCell: UITableViewCell {
         data.meetPlace = meetPlace
         data.bestBeforeDate = Timestamp(date: bestBeforePicker.date)
         data.dueDate = Timestamp(date: dueDatePicker.date)
-        
         completion?(data)
     }
 }

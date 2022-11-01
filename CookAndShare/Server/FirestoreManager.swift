@@ -226,8 +226,40 @@ struct FirestoreManager {
             print("Error adding document: \(error)")
         }
     }
-    
-    func fetchSharePost(completion: @escaping (Result<Share, Error>) -> Void) {
 
+    func fetchSharePost(completion: @escaping (Result<[Share], Error>) -> Void) {
+        var shares: [Share] = []
+
+        sharesCollection.getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion(.failure(error))
+            } else {
+                guard let querySnapshot = querySnapshot else { return }
+                querySnapshot.documents.forEach { document in
+                    do {
+                        let recipe = try document.data(as: Share.self)
+                        if Double(recipe.dueDate.seconds) < Date().timeIntervalSince1970 {
+                            deleteSharePost(shareId: recipe.shareId)
+                        } else {
+                            shares.append(recipe)
+                        }
+                    } catch {
+                        completion(.failure(error))
+                    }
+                }
+                completion(.success(shares))
+            }
+        }
+    }
+
+    func deleteSharePost(shareId: String) {
+        sharesCollection.document(shareId).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
     }
 }

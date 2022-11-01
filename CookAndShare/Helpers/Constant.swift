@@ -43,6 +43,10 @@ struct Constant {
     static let procedureStep1 = "將洋蔥及紅蘿蔔拌炒至熟透"
     static let procedureStep2 = "加入雞腿肉翻炒"
     static let procedureStep3 = "加水煮滾"
+    
+    // share
+    static let shareTitle = "好市多蔬菜湯罐頭"
+    static let shareDesription = "兩罐蔬菜湯"
 
     // recipe
     static let addToShoppingList = "加入購買清單"

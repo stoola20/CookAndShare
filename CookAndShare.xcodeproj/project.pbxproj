@@ -26,6 +26,11 @@
 		3787538E2910098D00F06F4C /* SavedRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */; };
 		37CBEC822910AE2B00A62EF2 /* NewShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC812910AE2B00A62EF2 /* NewShareViewController.swift */; };
 		37CBEC852910B62000A62EF2 /* NewShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC842910B62000A62EF2 /* NewShareCell.swift */; };
+		37CBEC872910EF0300A62EF2 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC862910EF0300A62EF2 /* ShareViewController.swift */; };
+		37CBEC8A2910EF2300A62EF2 /* Share.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37CBEC882910EF2300A62EF2 /* Share.storyboard */; };
+		37CBEC902910EFF100A62EF2 /* ShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC8E2910EFF100A62EF2 /* ShareCell.swift */; };
+		37CBEC912910EFF100A62EF2 /* ShareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37CBEC8F2910EFF100A62EF2 /* ShareCell.xib */; };
+		37CBEC932910F26B00A62EF2 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC922910F26B00A62EF2 /* DateHelper.swift */; };
 		37D69C59290BCF970034D8E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D69C58290BCF970034D8E1 /* AppDelegate.swift */; };
 		37D69C5B290BCF970034D8E1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */; };
 		37D69C60290BCF970034D8E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37D69C5E290BCF970034D8E1 /* Main.storyboard */; };
@@ -99,6 +104,11 @@
 		3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipeViewController.swift; sourceTree = "<group>"; };
 		37CBEC812910AE2B00A62EF2 /* NewShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewShareViewController.swift; sourceTree = "<group>"; };
 		37CBEC842910B62000A62EF2 /* NewShareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewShareCell.swift; sourceTree = "<group>"; };
+		37CBEC862910EF0300A62EF2 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		37CBEC892910EF2300A62EF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Share.storyboard; sourceTree = "<group>"; };
+		37CBEC8E2910EFF100A62EF2 /* ShareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCell.swift; sourceTree = "<group>"; };
+		37CBEC8F2910EFF100A62EF2 /* ShareCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareCell.xib; sourceTree = "<group>"; };
+		37CBEC922910F26B00A62EF2 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		37D69C55290BCF970034D8E1 /* CookAndShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookAndShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37D69C58290BCF970034D8E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -187,6 +197,15 @@
 			path = NewShare;
 			sourceTree = "<group>";
 		};
+		37CBEC8B2910EFBA00A62EF2 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				37CBEC8E2910EFF100A62EF2 /* ShareCell.swift */,
+				37CBEC8F2910EFF100A62EF2 /* ShareCell.xib */,
+			);
+			path = Share;
+			sourceTree = "<group>";
+		};
 		37D69C4C290BCF970034D8E1 = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +261,7 @@
 		37D69C7A290BDE1C0034D8E1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				37CBEC882910EF2300A62EF2 /* Share.storyboard */,
 				3787537A290F999000F06F4C /* Profile.storyboard */,
 				37E63615290E48FB00D516D4 /* Recipe.storyboard */,
 				37D69CBA290CDD700034D8E1 /* NewPost.storyboard */,
@@ -286,6 +306,7 @@
 		37D69C84290C0D0C0034D8E1 /* Share */ = {
 			isa = PBXGroup;
 			children = (
+				37CBEC862910EF0300A62EF2 /* ShareViewController.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -321,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				37D69C8B290C11C40034D8E1 /* Constant.swift */,
+				37CBEC922910F26B00A62EF2 /* DateHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -328,6 +350,7 @@
 		37D69C8D290C128A0034D8E1 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				37CBEC8B2910EFBA00A62EF2 /* Share */,
 				37875379290F993100F06F4C /* Profile */,
 				37E63618290E492600D516D4 /* Recipe */,
 				37D69C8E290C12900034D8E1 /* NewPost */,
@@ -509,8 +532,10 @@
 				37D69C65290BCF980034D8E1 /* LaunchScreen.storyboard in Resources */,
 				37D69CAD290CBE050034D8E1 /* NewRecipeDescriptionCell.xib in Resources */,
 				37875380290F9A4000F06F4C /* ProfileUserCell.xib in Resources */,
+				37CBEC912910EFF100A62EF2 /* ShareCell.xib in Resources */,
 				37D69C9A290C14670034D8E1 /* NewPostCell.xib in Resources */,
 				37D69C6D290BD46D0034D8E1 /* GoogleService-Info.plist in Resources */,
+				37CBEC8A2910EF2300A62EF2 /* Share.storyboard in Resources */,
 				37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */,
 				37D69C62290BCF980034D8E1 /* Assets.xcassets in Resources */,
 				37E63620290E497F00D516D4 /* AllRecipeCell.xib in Resources */,
@@ -602,7 +627,9 @@
 				37D69C99290C14670034D8E1 /* NewPostCell.swift in Sources */,
 				37875374290F963100F06F4C /* ShoppingList+CoreDataProperties.swift in Sources */,
 				37D69CB0290CBE1C0034D8E1 /* NewRecipeIngredientCell.swift in Sources */,
+				37CBEC872910EF0300A62EF2 /* ShareViewController.swift in Sources */,
 				37D69C7E290BDF120034D8E1 /* Share.swift in Sources */,
+				37CBEC932910F26B00A62EF2 /* DateHelper.swift in Sources */,
 				37875383290F9A4F00F06F4C /* ProfileListCell.swift in Sources */,
 				37D69C59290BCF970034D8E1 /* AppDelegate.swift in Sources */,
 				37D69C8C290C11C40034D8E1 /* Constant.swift in Sources */,
@@ -623,6 +650,7 @@
 				3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */,
 				37CBEC852910B62000A62EF2 /* NewShareCell.swift in Sources */,
 				37875378290F992200F06F4C /* ProfileViewController.swift in Sources */,
+				37CBEC902910EFF100A62EF2 /* ShareCell.swift in Sources */,
 				37CBEC822910AE2B00A62EF2 /* NewShareViewController.swift in Sources */,
 				37D69CA3290C15990034D8E1 /* UITableView+Ext.swift in Sources */,
 				37D69CA9290C1A1E0034D8E1 /* DraftSupplementaryView.swift in Sources */,
@@ -655,6 +683,14 @@
 				3787537B290F999000F06F4C /* Base */,
 			);
 			name = Profile.storyboard;
+			sourceTree = "<group>";
+		};
+		37CBEC882910EF2300A62EF2 /* Share.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				37CBEC892910EF2300A62EF2 /* Base */,
+			);
+			name = Share.storyboard;
 			sourceTree = "<group>";
 		};
 		37D69C5E290BCF970034D8E1 /* Main.storyboard */ = {
