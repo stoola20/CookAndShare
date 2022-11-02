@@ -510,6 +510,7 @@
 				37D69C53290BCF970034D8E1 /* Resources */,
 				7D63C74869D0967C70A3BE98 /* [CP] Embed Pods Frameworks */,
 				3787536D290F5D4E00F06F4C /* ShellScript */,
+				3EA2BCA876A5DDCE9B09E1BC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -605,6 +606,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		3EA2BCA876A5DDCE9B09E1BC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookAndShare/Pods-CookAndShare-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookAndShare/Pods-CookAndShare-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CookAndShare/Pods-CookAndShare-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		7D63C74869D0967C70A3BE98 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
