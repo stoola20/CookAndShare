@@ -12,7 +12,6 @@ protocol DetailRecipeHeaderViewDelegate: AnyObject {
 }
 
 class DetailRecipeHeaderView: UITableViewHeaderFooterView {
-
     static let reuseIdentifier: String = String(describing: DetailRecipeHeaderView.self)
     lazy var headerLabel = UILabel()
     lazy var quantityLabel = UILabel()
@@ -23,11 +22,11 @@ class DetailRecipeHeaderView: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         configureHeader()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     private func configureHeader() {
         addSubview(headerLabel)
         addSubview(quantityLabel)
@@ -58,7 +57,7 @@ class DetailRecipeHeaderView: UITableViewHeaderFooterView {
             addToListButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -inset)
         ])
     }
-    
+
     func layoutHeader(with recipe: Recipe, in section: Int) {
         if section == 1 {
             headerLabel.text = Constant.ingredient
@@ -69,7 +68,7 @@ class DetailRecipeHeaderView: UITableViewHeaderFooterView {
             addToListButton.isHidden = true
         }
     }
-    
+
     @objc func addToList() {
         delegate.willAddIngredient()
     }

@@ -9,10 +9,10 @@ import UIKit
 import PhotosUI
 
 struct RecipeDescriptionInputModel {
-    var name: String = String.empty
-    var description: String = String.empty
-    var duration: String = String.empty
-    var quantity: String = String.empty
+    var name = String.empty
+    var description = String.empty
+    var duration = String.empty
+    var quantity = String.empty
 }
 
 protocol NewRecipeDescriptionDelegate: AnyObject {
@@ -20,12 +20,11 @@ protocol NewRecipeDescriptionDelegate: AnyObject {
 }
 
 class NewRecipeDescriptionCell: UITableViewCell {
-    
     private let duration: [Int] = [10, 20, 30, 45, 60, 90, 120, 180]
     private let quantity: [Int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     weak var delegate: NewRecipeDescriptionDelegate!
     var data = RecipeDescriptionInputModel()
-    var completion: ((RecipeDescriptionInputModel) -> (Void))?
+    var completion: ((RecipeDescriptionInputModel) -> Void)?
 
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -64,7 +63,7 @@ class NewRecipeDescriptionCell: UITableViewCell {
             quantityTextField.delegate = self
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         nameLabel.text = Constant.recipeName
@@ -74,25 +73,25 @@ class NewRecipeDescriptionCell: UITableViewCell {
         mainImageView.isUserInteractionEnabled = true
         mainImageView.addGestureRecognizer(setGestureRecognizer())
     }
-    
+
     func setGestureRecognizer() -> UITapGestureRecognizer {
-        
         var tapRecognizer = UITapGestureRecognizer()
-        tapRecognizer = UITapGestureRecognizer (target: self, action: #selector(pickImage))
+        tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(pickImage))
         return tapRecognizer
     }
-    
+
     @objc func pickImage() {
         delegate.willPickImage(self)
     }
-    
+
     func passData() {
-        guard let name = nameTextField.text,
-              let description = descriptionTextField.text,
-              let duration = durationTextField.text,
-              let quantity = quantityTextField.text
+        guard
+            let name = nameTextField.text,
+            let description = descriptionTextField.text,
+            let duration = durationTextField.text,
+            let quantity = quantityTextField.text
         else { return }
-        
+
         data.name = name
         data.description = description
         data.duration = duration
@@ -108,16 +107,17 @@ extension NewRecipeDescriptionCell: UIPickerViewDataSource, UIPickerViewDelegate
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         pickerView.tag == 1 ? duration.count : quantity.count
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         pickerView.tag == 1 ? "\(duration[row]) 分鐘" : "\(quantity[row]) 人份"
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
         if pickerView.tag == 1 {
             durationTextField.text = String(duration[row])
         } else {
@@ -132,7 +132,7 @@ extension NewRecipeDescriptionCell: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         passData()
     }

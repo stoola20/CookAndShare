@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         firestoreManager.fetchUserData(userId: Constant.userId) { result in
@@ -88,7 +88,6 @@ extension ProfileViewController: UITableViewDelegate {
                 as? ShoppingListViewController
             else { fatalError("Could not instantiate ShoppingListViewController") }
             navigationController?.pushViewController(shoppingListVC, animated: true)
-
         } else if indexPath == IndexPath(row: 0, section: 1) {
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
             guard

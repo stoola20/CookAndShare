@@ -121,6 +121,7 @@ extension DetailRecipeViewController: UITableViewDataSource {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailBannerCell.identifier, for: indexPath) as? DetailBannerCell
             else { fatalError("Could not create banner cell") }
+            cell.delegate = self
             cell.layoutCell(with: recipe)
             return cell
 
@@ -165,5 +166,17 @@ extension DetailRecipeViewController: DetailRecipeHeaderViewDelegate {
         else { fatalError("Could not create AddToShoppingListVC") }
         addToListVC.initialIngredients = recipe.ingredients
         present(addToListVC, animated: true)
+    }
+}
+
+extension DetailRecipeViewController: DetailBannerCellDelegate {
+    func goToProfile(_ userId: String) {
+        let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+        guard
+            let publicProfileVC = storyboard.instantiateViewController(withIdentifier: String(describing: PublicProfileViewController.self))
+            as? PublicProfileViewController
+        else { fatalError("Could not create publicProfileVC") }
+        publicProfileVC.userId = userId
+        navigationController?.pushViewController(publicProfileVC, animated: true)
     }
 }

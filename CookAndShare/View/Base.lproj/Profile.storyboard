@@ -10,6 +10,52 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Public Profile View Controller-->
+        <scene sceneID="rfa-CX-0un">
+            <objects>
+                <viewController storyboardIdentifier="PublicProfileViewController" id="kP5-eD-5Ks" customClass="PublicProfileViewController" customModule="CookAndShare" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VIO-E1-q0a">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="thi-m1-cr3">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GFa-BN-dgU">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="B1l-b0-2qH">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0mA-t3-Nmg">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="l41-X3-fvf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="l41-X3-fvf" firstAttribute="trailing" secondItem="thi-m1-cr3" secondAttribute="trailing" id="VPI-2x-Ece"/>
+                            <constraint firstItem="thi-m1-cr3" firstAttribute="leading" secondItem="l41-X3-fvf" secondAttribute="leading" id="ken-3P-yep"/>
+                            <constraint firstItem="thi-m1-cr3" firstAttribute="top" secondItem="l41-X3-fvf" secondAttribute="top" id="ljD-V5-vB2"/>
+                            <constraint firstItem="l41-X3-fvf" firstAttribute="bottom" secondItem="thi-m1-cr3" secondAttribute="bottom" id="sxk-WA-aIQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="recipeCollectionView" destination="thi-m1-cr3" id="CO0-5Q-CDL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fqS-G6-weq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1093" y="2195"/>
+        </scene>
         <!--Profile View Controller-->
         <scene sceneID="uFS-AV-I71">
             <objects>

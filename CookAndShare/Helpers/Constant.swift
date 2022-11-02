@@ -15,6 +15,7 @@ struct Constant {
     // firestore
     static let firestoreRecipes = "recipes"
     static let firestoreUsers = "users"
+    static let firestoreShares = "shares"
     
     // storyboard
     static let newpost = "NewPost"
@@ -42,6 +43,10 @@ struct Constant {
     static let procedureStep1 = "將洋蔥及紅蘿蔔拌炒至熟透"
     static let procedureStep2 = "加入雞腿肉翻炒"
     static let procedureStep3 = "加水煮滾"
+    
+    // share
+    static let shareTitle = "好市多蔬菜湯罐頭"
+    static let shareDesription = "兩罐蔬菜湯"
 
     // recipe
     static let addToShoppingList = "加入購買清單"
@@ -71,6 +76,8 @@ struct Constant {
     static let confirm = "確認"
     
     // user
-    static let savedRecipesId = "savedRecipesId"
     static let userId = "V4hMTRjOK5jOFfdB15KU"
+    static let recipesId = "recipesId"
+    static let savedRecipesId = "savedRecipesId"
+    static let sharesId = "sharesId"
 }

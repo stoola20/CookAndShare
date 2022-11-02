@@ -15,18 +15,10 @@ struct FirestoreManager {
     static let shared = FirestoreManager()
     let recipesCollection = Firestore.firestore().collection(Constant.firestoreRecipes)
     let usersCollection = Firestore.firestore().collection(Constant.firestoreUsers)
+    let sharesCollection = Firestore.firestore().collection(Constant.firestoreShares)
     let storage = Storage.storage()
 
-// MARK: - Recipe
-    func addNewRecipe(_ recipe: Recipe, to document: DocumentReference) {
-        do {
-            try document.setData(from: recipe)
-            print("Document added with ID: \(document.documentID)")
-        } catch let error {
-            print("Error adding document: \(error)")
-        }
-    }
-
+// MARK: - Upload Photo
     func uploadPhoto(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
         let fileReference = storage.reference().child(UUID().uuidString + ".jpg")
         if let data = image.jpegData(compressionQuality: 0.3) {
@@ -40,6 +32,17 @@ struct FirestoreManager {
             }
         }
     }
+
+// MARK: - Recipe
+    func addNewRecipe(_ recipe: Recipe, to document: DocumentReference) {
+        do {
+            try document.setData(from: recipe)
+            print("Document added with ID: \(document.documentID)")
+        } catch let error {
+            print("Error adding document: \(error)")
+        }
+    }
+
 
     func searchRecipe(type: SearchType, query: String, completion: @escaping RecipeResponse) {
         switch type {
@@ -73,7 +76,7 @@ struct FirestoreManager {
             }
         }
     }
-    
+
     func searchRecipesById(_ recipeId: String, completion: @escaping (Result<Recipe, Error>) -> Void) {
         recipesCollection.whereField("recipeId", isEqualTo: recipeId).getDocuments { querySnapshot, error in
             if let error = error {
@@ -84,7 +87,7 @@ struct FirestoreManager {
                     let querySnapshot = querySnapshot,
                     let document = querySnapshot.documents.first
                 else { return }
-                
+
                 do {
                     let recipe = try document.data(as: Recipe.self)
                     completion(.success(recipe))
@@ -94,7 +97,6 @@ struct FirestoreManager {
             }
         }
     }
-    
 
     func searchRecipeTitle(_ title: String, completion: @escaping RecipeResponse) {
         var recipes: [Recipe] = []
@@ -140,6 +142,27 @@ struct FirestoreManager {
             }
     }
 
+    func fetchRecipeBy(_ id: String, completion: @escaping (Result<Recipe, Error>) -> Void) {
+        recipesCollection.whereField("recipeId", isEqualTo: id).getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting users: \(error)")
+                completion(.failure(error))
+            } else {
+                guard
+                    let querySnapshot = querySnapshot,
+                    let document = querySnapshot.documents.first
+                else { return }
+
+                do {
+                    let recipe = try document.data(as: Recipe.self)
+                    completion(.success(recipe))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+
     func updateRecipeLikes(recipeId: String, userId: String, hasLiked: Bool) {
         let recipeRef = recipesCollection.document(recipeId)
         if hasLiked {
@@ -167,6 +190,13 @@ struct FirestoreManager {
     }
 
 // MARK: - User
+    func updateUserRecipePost(recipeId: String, userId: String) {
+        let userRef = usersCollection.document(userId)
+        userRef.updateData([
+            Constant.recipesId: FieldValue.arrayUnion([recipeId])
+        ])
+    }
+
     func updateUserSaves(recipeId: String, userId: String, hasSaved: Bool) {
         let userRef = usersCollection.document(userId)
         if hasSaved {
@@ -180,6 +210,13 @@ struct FirestoreManager {
         }
     }
 
+    func updateUserSharePost(shareId: String, userId: String) {
+        let userRef = usersCollection.document(userId)
+        userRef.updateData([
+            Constant.sharesId: FieldValue.arrayUnion([shareId])
+        ])
+    }
+
     func fetchUserData(userId: String, completion: @escaping (Result<User, Error>) -> Void) {
         usersCollection.whereField("id", isEqualTo: userId).getDocuments { querySnapshot, error in
             if let error = error {
@@ -190,13 +227,80 @@ struct FirestoreManager {
                     let querySnapshot = querySnapshot,
                     let document = querySnapshot.documents.first
                 else { return }
-                
+
                 do {
                     let user = try document.data(as: User.self)
                     completion(.success(user))
                 } catch {
                     print(error)
                 }
+            }
+        }
+    }
+
+// MARK: - Share
+    func addNewShare(_ share: Share, to document: DocumentReference) {
+        do {
+            try document.setData(from: share)
+            print("Document added with ID: \(document.documentID)")
+        } catch let error {
+            print("Error adding document: \(error)")
+        }
+    }
+
+    func fetchSharePost(completion: @escaping (Result<[Share], Error>) -> Void) {
+        var shares: [Share] = []
+
+        sharesCollection.getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion(.failure(error))
+            } else {
+                guard let querySnapshot = querySnapshot else { return }
+                querySnapshot.documents.forEach { document in
+                    do {
+                        let recipe = try document.data(as: Share.self)
+                        if Double(recipe.dueDate.seconds) < Date().timeIntervalSince1970 {
+                            deleteSharePost(shareId: recipe.shareId)
+                        } else {
+                            shares.append(recipe)
+                        }
+                    } catch {
+                        completion(.failure(error))
+                    }
+                }
+                completion(.success(shares))
+            }
+        }
+    }
+    
+    func fetchShareBy(_ id: String, completion: @escaping (Result<Share, Error>) -> Void) {
+        sharesCollection.whereField("shareId", isEqualTo: id).getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting users: \(error)")
+                completion(.failure(error))
+            } else {
+                guard
+                    let querySnapshot = querySnapshot,
+                    let document = querySnapshot.documents.first
+                else { return }
+
+                do {
+                    let share = try document.data(as: Share.self)
+                    completion(.success(share))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+
+    func deleteSharePost(shareId: String) {
+        sharesCollection.document(shareId).delete(){ err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
             }
         }
     }
