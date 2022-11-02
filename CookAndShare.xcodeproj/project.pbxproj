@@ -31,6 +31,13 @@
 		37CBEC902910EFF100A62EF2 /* ShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC8E2910EFF100A62EF2 /* ShareCell.swift */; };
 		37CBEC912910EFF100A62EF2 /* ShareCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37CBEC8F2910EFF100A62EF2 /* ShareCell.xib */; };
 		37CBEC932910F26B00A62EF2 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC922910F26B00A62EF2 /* DateHelper.swift */; };
+		37CBEC952911110900A62EF2 /* PublicProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC942911110900A62EF2 /* PublicProfileViewController.swift */; };
+		37CBEC9C291155F200A62EF2 /* PublicProfileHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC9A291155F200A62EF2 /* PublicProfileHeaderCell.swift */; };
+		37CBEC9D291155F200A62EF2 /* PublicProfileHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37CBEC9B291155F200A62EF2 /* PublicProfileHeaderCell.xib */; };
+		37CBECA12912025A00A62EF2 /* PublicPostHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC9F2912025A00A62EF2 /* PublicPostHeaderView.swift */; };
+		37CBECA22912025A00A62EF2 /* PublicPostHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37CBECA02912025A00A62EF2 /* PublicPostHeaderView.xib */; };
+		37CBECA729120DC000A62EF2 /* PublicPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBECA529120DC000A62EF2 /* PublicPostCell.swift */; };
+		37CBECA829120DC000A62EF2 /* PublicPostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37CBECA629120DC000A62EF2 /* PublicPostCell.xib */; };
 		37D69C59290BCF970034D8E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D69C58290BCF970034D8E1 /* AppDelegate.swift */; };
 		37D69C5B290BCF970034D8E1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */; };
 		37D69C60290BCF970034D8E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37D69C5E290BCF970034D8E1 /* Main.storyboard */; };
@@ -109,6 +116,13 @@
 		37CBEC8E2910EFF100A62EF2 /* ShareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCell.swift; sourceTree = "<group>"; };
 		37CBEC8F2910EFF100A62EF2 /* ShareCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareCell.xib; sourceTree = "<group>"; };
 		37CBEC922910F26B00A62EF2 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		37CBEC942911110900A62EF2 /* PublicProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicProfileViewController.swift; sourceTree = "<group>"; };
+		37CBEC9A291155F200A62EF2 /* PublicProfileHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicProfileHeaderCell.swift; sourceTree = "<group>"; };
+		37CBEC9B291155F200A62EF2 /* PublicProfileHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicProfileHeaderCell.xib; sourceTree = "<group>"; };
+		37CBEC9F2912025A00A62EF2 /* PublicPostHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicPostHeaderView.swift; sourceTree = "<group>"; };
+		37CBECA02912025A00A62EF2 /* PublicPostHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicPostHeaderView.xib; sourceTree = "<group>"; };
+		37CBECA529120DC000A62EF2 /* PublicPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicPostCell.swift; sourceTree = "<group>"; };
+		37CBECA629120DC000A62EF2 /* PublicPostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PublicPostCell.xib; sourceTree = "<group>"; };
 		37D69C55290BCF970034D8E1 /* CookAndShare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookAndShare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37D69C58290BCF970034D8E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -185,6 +199,7 @@
 				37875382290F9A4F00F06F4C /* ProfileListCell.xib */,
 				37875385290F9A6C00F06F4C /* ShoppingListCell.swift */,
 				37875386290F9A6C00F06F4C /* ShoppingListCell.xib */,
+				37CBEC9E2912022C00A62EF2 /* Public */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -204,6 +219,19 @@
 				37CBEC8F2910EFF100A62EF2 /* ShareCell.xib */,
 			);
 			path = Share;
+			sourceTree = "<group>";
+		};
+		37CBEC9E2912022C00A62EF2 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				37CBEC9A291155F200A62EF2 /* PublicProfileHeaderCell.swift */,
+				37CBEC9B291155F200A62EF2 /* PublicProfileHeaderCell.xib */,
+				37CBEC9F2912025A00A62EF2 /* PublicPostHeaderView.swift */,
+				37CBECA02912025A00A62EF2 /* PublicPostHeaderView.xib */,
+				37CBECA529120DC000A62EF2 /* PublicPostCell.swift */,
+				37CBECA629120DC000A62EF2 /* PublicPostCell.xib */,
+			);
+			path = Public;
 			sourceTree = "<group>";
 		};
 		37D69C4C290BCF970034D8E1 = {
@@ -331,8 +359,9 @@
 		37D69C87290C0D240034D8E1 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				37875377290F992200F06F4C /* ProfileViewController.swift */,
+				37CBEC942911110900A62EF2 /* PublicProfileViewController.swift */,
 				3787538B290FC5DD00F06F4C /* ShoppingListViewController.swift */,
+				37875377290F992200F06F4C /* ProfileViewController.swift */,
 				3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */,
 			);
 			path = Profile;
@@ -538,7 +567,9 @@
 				37CBEC8A2910EF2300A62EF2 /* Share.storyboard in Resources */,
 				37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */,
 				37D69C62290BCF980034D8E1 /* Assets.xcassets in Resources */,
+				37CBECA829120DC000A62EF2 /* PublicPostCell.xib in Resources */,
 				37E63620290E497F00D516D4 /* AllRecipeCell.xib in Resources */,
+				37CBECA22912025A00A62EF2 /* PublicPostHeaderView.xib in Resources */,
 				37E63632290E60E800D516D4 /* DetailIngredientCell.xib in Resources */,
 				37E6362E290E60D500D516D4 /* DetailBannerCell.xib in Resources */,
 				37D69CBC290CDD700034D8E1 /* NewPost.storyboard in Resources */,
@@ -550,6 +581,7 @@
 				3787537C290F999000F06F4C /* Profile.storyboard in Resources */,
 				37E6361C290E496300D516D4 /* HotRecipeCell.xib in Resources */,
 				37D69CB1290CBE1C0034D8E1 /* NewRecipeIngredientCell.xib in Resources */,
+				37CBEC9D291155F200A62EF2 /* PublicProfileHeaderCell.xib in Resources */,
 				37D69CB5290CBE310034D8E1 /* NewRecipeProcedureCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -633,6 +665,7 @@
 				37875383290F9A4F00F06F4C /* ProfileListCell.swift in Sources */,
 				37D69C59290BCF970034D8E1 /* AppDelegate.swift in Sources */,
 				37D69C8C290C11C40034D8E1 /* Constant.swift in Sources */,
+				37CBEC952911110900A62EF2 /* PublicProfileViewController.swift in Sources */,
 				37D69C5B290BCF970034D8E1 /* SceneDelegate.swift in Sources */,
 				37E6362D290E60D500D516D4 /* DetailBannerCell.swift in Sources */,
 				3787538A290FA61C00F06F4C /* AddToShoppingListVC.swift in Sources */,
@@ -640,9 +673,11 @@
 				37D69C80290BDF880034D8E1 /* Conversation.swift in Sources */,
 				37E6361B290E496300D516D4 /* HotRecipeCell.swift in Sources */,
 				37D69C82290BEBBA0034D8E1 /* RecipeViewController.swift in Sources */,
+				37CBECA12912025A00A62EF2 /* PublicPostHeaderView.swift in Sources */,
 				37D69CB7290CD9070034D8E1 /* NewRecipeViewController.swift in Sources */,
 				37D69CC2290D10AE0034D8E1 /* String+Ext.swift in Sources */,
 				37D69CB4290CBE310034D8E1 /* NewRecipeProcedureCell.swift in Sources */,
+				37CBECA729120DC000A62EF2 /* PublicPostCell.swift in Sources */,
 				37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */,
 				37E63624290E57BA00D516D4 /* RecipeHeaderView.swift in Sources */,
 				37D69C89290C0D500034D8E1 /* NewPostViewController.swift in Sources */,
@@ -660,6 +695,7 @@
 				3787538E2910098D00F06F4C /* SavedRecipeViewController.swift in Sources */,
 				3787538C290FC5DD00F06F4C /* ShoppingListViewController.swift in Sources */,
 				37D69CC0290CF3910034D8E1 /* NewRecipeFooterView.swift in Sources */,
+				37CBEC9C291155F200A62EF2 /* PublicProfileHeaderCell.swift in Sources */,
 				37E63638290E6EB900D516D4 /* DetailRecipeHeaderView.swift in Sources */,
 				37875373290F963100F06F4C /* ShoppingList+CoreDataClass.swift in Sources */,
 				37E6361F290E497F00D516D4 /* AllRecipeCell.swift in Sources */,

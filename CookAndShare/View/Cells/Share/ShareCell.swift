@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol ShareCellDelegate: AnyObject {
+    func goToProfile(_ userId: String)
+}
+
 class ShareCell: UITableViewCell {
     let firestoreManager = FirestoreManager.shared
-
+    var userId = String.empty
+    weak var delegate: ShareCellDelegate!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var postTimeLabel: UILabel!
@@ -24,9 +29,25 @@ class ShareCell: UITableViewCell {
         super.awakeFromNib()
         userImageView.contentMode = .scaleAspectFill
         foodImageView.contentMode = .scaleAspectFill
+        print(#function)
+        userNameLabel.isUserInteractionEnabled = true
+        userNameLabel.addGestureRecognizer(setGestureRecognizer())
+        userImageView.isUserInteractionEnabled = true
+        userImageView.addGestureRecognizer(setGestureRecognizer())
+    }
+
+    func setGestureRecognizer() -> UITapGestureRecognizer {
+        var tapRecognizer = UITapGestureRecognizer()
+        tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToProfile))
+        return tapRecognizer
+    }
+    
+    @objc func goToProfile() {
+        delegate.goToProfile(userId)
     }
     
     func layoutCell(with share: Share) {
+        userId = share.authorId
         firestoreManager.fetchUserData(userId: share.authorId) { result in
             switch result {
             case .success(let user):

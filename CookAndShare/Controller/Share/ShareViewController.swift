@@ -49,7 +49,20 @@ extension ShareViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: ShareCell.identifier, for: indexPath)
             as? ShareCell
         else { fatalError("Could not create share cell") }
+        cell.delegate = self
         cell.layoutCell(with: shares[indexPath.row])
         return cell
+    }
+}
+
+extension ShareViewController: ShareCellDelegate {
+    func goToProfile(_ userId: String) {
+        let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+        guard
+            let publicProfileVC = storyboard.instantiateViewController(withIdentifier: String(describing: PublicProfileViewController.self))
+            as? PublicProfileViewController
+        else { fatalError("Could not create publicProfileVC") }
+        publicProfileVC.userId = userId
+        navigationController?.pushViewController(publicProfileVC, animated: true)
     }
 }

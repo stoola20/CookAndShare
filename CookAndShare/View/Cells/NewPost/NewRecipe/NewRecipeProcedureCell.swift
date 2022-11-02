@@ -14,7 +14,6 @@ protocol NewRecipeProcedureDelegate: AnyObject {
 }
 
 class NewRecipeProcedureCell: UITableViewCell {
-    
     weak var delegate: NewRecipeProcedureDelegate!
 
     @IBOutlet weak var stepImageView: UIImageView!
@@ -31,15 +30,15 @@ class NewRecipeProcedureCell: UITableViewCell {
         
         procedureImageView.addGestureRecognizer(setGestureRecognizer())
     }
-    
+
     func setGestureRecognizer() -> UITapGestureRecognizer {
-        
         var tapRecognizer = UITapGestureRecognizer()
-        tapRecognizer = UITapGestureRecognizer (target: self, action: #selector(pickImage))
+        tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(pickImage))
         return tapRecognizer
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         procedureTextField.text = String.empty
     }
     
@@ -66,7 +65,7 @@ class NewRecipeProcedureCell: UITableViewCell {
     @objc func pickImage() {
         delegate.willPickImage(self)
     }
-    
+
     func passData() {
         guard let description = procedureTextField.text else { return }
         delegate.didAddProcedure(self, description: description)
@@ -79,7 +78,7 @@ extension NewRecipeProcedureCell: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         passData()
     }

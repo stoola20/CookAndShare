@@ -142,6 +142,27 @@ struct FirestoreManager {
             }
     }
 
+    func fetchRecipeBy(_ id: String, completion: @escaping (Result<Recipe, Error>) -> Void) {
+        recipesCollection.whereField("recipeId", isEqualTo: id).getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting users: \(error)")
+                completion(.failure(error))
+            } else {
+                guard
+                    let querySnapshot = querySnapshot,
+                    let document = querySnapshot.documents.first
+                else { return }
+
+                do {
+                    let recipe = try document.data(as: Recipe.self)
+                    completion(.success(recipe))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+
     func updateRecipeLikes(recipeId: String, userId: String, hasLiked: Bool) {
         let recipeRef = recipesCollection.document(recipeId)
         if hasLiked {
@@ -252,9 +273,30 @@ struct FirestoreManager {
             }
         }
     }
+    
+    func fetchShareBy(_ id: String, completion: @escaping (Result<Share, Error>) -> Void) {
+        sharesCollection.whereField("shareId", isEqualTo: id).getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting users: \(error)")
+                completion(.failure(error))
+            } else {
+                guard
+                    let querySnapshot = querySnapshot,
+                    let document = querySnapshot.documents.first
+                else { return }
+
+                do {
+                    let share = try document.data(as: Share.self)
+                    completion(.success(share))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
 
     func deleteSharePost(shareId: String) {
-        sharesCollection.document(shareId).delete() { err in
+        sharesCollection.document(shareId).delete(){ err in
             if let err = err {
                 print("Error removing document: \(err)")
             } else {

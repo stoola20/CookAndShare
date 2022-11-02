@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-struct Recipe: Codable {
+struct Recipe: Codable, Hashable {
     var recipeId = String.empty
     var authorId = String.empty
     var cookDuration: Int = 0
@@ -23,6 +23,14 @@ struct Recipe: Codable {
     var procedures: [Procedure] = []
     var likes: [String] = []
     var saves: [String] = []
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(recipeId)
+    }
+
+    static func == (lhs: Recipe, rhs: Recipe) -> Bool {
+        return lhs.recipeId == rhs.recipeId
+    }
 }
 
 struct Ingredient: Codable {
