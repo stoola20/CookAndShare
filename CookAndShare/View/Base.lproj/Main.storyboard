@@ -4,8 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -64,22 +62,6 @@
             </objects>
             <point key="canvasLocation" x="-1610" y="688"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="ZZD-Zy-A91">
-            <objects>
-                <viewController id="T37-kk-0RF" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="i5C-fh-p62">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="Qoy-3s-6GT"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="2Dw-0s-178"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VmP-sg-etM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="183" y="1424"/>
-        </scene>
         <!--NewPost-->
         <scene sceneID="CzN-Sj-0QX">
             <objects>
@@ -107,7 +89,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="T37-kk-0RF" kind="relationship" relationship="rootViewController" id="y2Z-HA-l0x"/>
+                        <segue destination="0xK-0w-ffT" kind="relationship" relationship="rootViewController" id="kMd-IF-pQU"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fc6-BQ-1nn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -171,10 +153,15 @@
             </objects>
             <point key="canvasLocation" x="-1610" y="1424"/>
         </scene>
+        <!--Map-->
+        <scene sceneID="gyu-Nw-eQM">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Map" id="0xK-0w-ffT" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="eB3-PS-pGR"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z39-qC-KDT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="185" y="1437"/>
+        </scene>
     </scenes>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

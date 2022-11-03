@@ -19,6 +19,7 @@ class ShareViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "食物分享"
         tableView.dataSource = self
         tableView.allowsSelection = false
         tableView.separatorStyle = .none

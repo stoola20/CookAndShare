@@ -10,15 +10,14 @@ import FirebaseCore
 import GoogleMaps
 import GooglePlaces
 
+let googleApiKey = "AIzaSyB4LrzugEyDxMK5sAi73aRh4-MQgZyeHGw"
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
-        GMSServices.provideAPIKey("AIzaSyAtEHj6prnEWXDZEDdqy4STsiPAAGhBYJg")
-        GMSPlacesClient.provideAPIKey("AIzaSyAtEHj6prnEWXDZEDdqy4STsiPAAGhBYJg")
+        GMSServices.provideAPIKey(googleApiKey)
+        GMSPlacesClient.provideAPIKey(googleApiKey)
         return true
     }
 
