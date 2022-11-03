@@ -13,4 +13,5 @@ target 'CookAndShare' do
   pod 'SwiftLint'
   pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod 'IQKeyboardManager'
 end
