@@ -117,7 +117,6 @@ extension NewRecipeDescriptionCell: UIPickerViewDataSource, UIPickerViewDelegate
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
         if pickerView.tag == 1 {
             durationTextField.text = String(duration[row])
         } else {

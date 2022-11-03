@@ -11,4 +11,6 @@ target 'CookAndShare' do
   pod 'FirebaseFirestoreSwift'
   pod 'FirebaseStorage'
   pod 'SwiftLint'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
 end

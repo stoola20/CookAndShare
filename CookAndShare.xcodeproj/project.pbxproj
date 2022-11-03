@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		371AE11029138F6D003B16BB /* InfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371AE10F29138F6D003B16BB /* InfoWindowView.swift */; };
+		371AE11429139061003B16BB /* InfoWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 371AE11329139061003B16BB /* InfoWindowView.xib */; };
 		3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875369290ED37300F06F4C /* SearchViewController.swift */; };
 		3787536C290ED80900F06F4C /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787536B290ED80900F06F4C /* ResultViewController.swift */; };
 		37875370290F824400F06F4C /* CookAndShare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3787536E290F824400F06F4C /* CookAndShare.xcdatamodeld */; };
@@ -71,6 +73,11 @@
 		37D69CC0290CF3910034D8E1 /* NewRecipeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D69CBF290CF3910034D8E1 /* NewRecipeFooterView.swift */; };
 		37D69CC2290D10AE0034D8E1 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D69CC1290D10AE0034D8E1 /* String+Ext.swift */; };
 		37D69CC5290D48790034D8E1 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D69CC4290D48790034D8E1 /* FirestoreManager.swift */; };
+		37D7C19629127F13005B8781 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D7C19529127F13005B8781 /* MapViewController.swift */; };
+		37D7C19929128E6D005B8781 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37D7C19729128E6D005B8781 /* Map.storyboard */; };
+		37D7C1A129134F2E005B8781 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D7C1A029134F2E005B8781 /* Map.swift */; };
+		37D7C1A329135215005B8781 /* GoogleMapDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D7C1A229135215005B8781 /* GoogleMapDataProvider.swift */; };
+		37D7C1A72913579D005B8781 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D7C1A62913579D005B8781 /* APIKey.swift */; };
 		37E63617290E48FB00D516D4 /* Recipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37E63615290E48FB00D516D4 /* Recipe.storyboard */; };
 		37E6361B290E496300D516D4 /* HotRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63619290E496300D516D4 /* HotRecipeCell.swift */; };
 		37E6361C290E496300D516D4 /* HotRecipeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E6361A290E496300D516D4 /* HotRecipeCell.xib */; };
@@ -92,6 +99,8 @@
 
 /* Begin PBXFileReference section */
 		2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookAndShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		371AE10F29138F6D003B16BB /* InfoWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWindowView.swift; sourceTree = "<group>"; };
+		371AE11329139061003B16BB /* InfoWindowView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoWindowView.xib; sourceTree = "<group>"; };
 		37875369290ED37300F06F4C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3787536B290ED80900F06F4C /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		3787536F290F824400F06F4C /* CookAndShare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CookAndShare.xcdatamodel; sourceTree = "<group>"; };
@@ -158,6 +167,11 @@
 		37D69CBF290CF3910034D8E1 /* NewRecipeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecipeFooterView.swift; sourceTree = "<group>"; };
 		37D69CC1290D10AE0034D8E1 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		37D69CC4290D48790034D8E1 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		37D7C19529127F13005B8781 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		37D7C19829128E6D005B8781 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Map.storyboard; sourceTree = "<group>"; };
+		37D7C1A029134F2E005B8781 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		37D7C1A229135215005B8781 /* GoogleMapDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapDataProvider.swift; sourceTree = "<group>"; };
+		37D7C1A62913579D005B8781 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		37E63616290E48FB00D516D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Recipe.storyboard; sourceTree = "<group>"; };
 		37E63619290E496300D516D4 /* HotRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotRecipeCell.swift; sourceTree = "<group>"; };
 		37E6361A290E496300D516D4 /* HotRecipeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotRecipeCell.xib; sourceTree = "<group>"; };
@@ -190,6 +204,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		371AE10E29138F47003B16BB /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				37D7C19729128E6D005B8781 /* Map.storyboard */,
+				371AE10F29138F6D003B16BB /* InfoWindowView.swift */,
+				371AE11329139061003B16BB /* InfoWindowView.xib */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		37875379290F993100F06F4C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -267,6 +291,7 @@
 				37D69C61290BCF980034D8E1 /* Assets.xcassets */,
 				37D69C66290BCF980034D8E1 /* Info.plist */,
 				37D69C6C290BD46D0034D8E1 /* GoogleService-Info.plist */,
+				37D7C1A62913579D005B8781 /* APIKey.swift */,
 			);
 			path = CookAndShare;
 			sourceTree = "<group>";
@@ -282,6 +307,8 @@
 				37D69C7F290BDF880034D8E1 /* Conversation.swift */,
 				3787536E290F824400F06F4C /* CookAndShare.xcdatamodeld */,
 				37875375290F96E600F06F4C /* CoreDataManager.swift */,
+				37D7C1A029134F2E005B8781 /* Map.swift */,
+				37D7C1A229135215005B8781 /* GoogleMapDataProvider.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -289,6 +316,7 @@
 		37D69C7A290BDE1C0034D8E1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				371AE10E29138F47003B16BB /* Map */,
 				37CBEC882910EF2300A62EF2 /* Share.storyboard */,
 				3787537A290F999000F06F4C /* Profile.storyboard */,
 				37E63615290E48FB00D516D4 /* Recipe.storyboard */,
@@ -352,6 +380,7 @@
 		37D69C86290C0D1F0034D8E1 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				37D7C19529127F13005B8781 /* MapViewController.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -510,6 +539,7 @@
 				37D69C53290BCF970034D8E1 /* Resources */,
 				7D63C74869D0967C70A3BE98 /* [CP] Embed Pods Frameworks */,
 				3787536D290F5D4E00F06F4C /* ShellScript */,
+				3EA2BCA876A5DDCE9B09E1BC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -568,6 +598,7 @@
 				37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */,
 				37D69C62290BCF980034D8E1 /* Assets.xcassets in Resources */,
 				37CBECA829120DC000A62EF2 /* PublicPostCell.xib in Resources */,
+				371AE11429139061003B16BB /* InfoWindowView.xib in Resources */,
 				37E63620290E497F00D516D4 /* AllRecipeCell.xib in Resources */,
 				37CBECA22912025A00A62EF2 /* PublicPostHeaderView.xib in Resources */,
 				37E63632290E60E800D516D4 /* DetailIngredientCell.xib in Resources */,
@@ -578,6 +609,7 @@
 				37875388290F9A6C00F06F4C /* ShoppingListCell.xib in Resources */,
 				37E63617290E48FB00D516D4 /* Recipe.storyboard in Resources */,
 				37D69CA0290C14880034D8E1 /* DraftCell.xib in Resources */,
+				37D7C19929128E6D005B8781 /* Map.storyboard in Resources */,
 				3787537C290F999000F06F4C /* Profile.storyboard in Resources */,
 				37E6361C290E496300D516D4 /* HotRecipeCell.xib in Resources */,
 				37D69CB1290CBE1C0034D8E1 /* NewRecipeIngredientCell.xib in Resources */,
@@ -605,6 +637,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		3EA2BCA876A5DDCE9B09E1BC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookAndShare/Pods-CookAndShare-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CookAndShare/Pods-CookAndShare-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CookAndShare/Pods-CookAndShare-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		7D63C74869D0967C70A3BE98 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -668,11 +717,13 @@
 				37CBEC952911110900A62EF2 /* PublicProfileViewController.swift in Sources */,
 				37D69C5B290BCF970034D8E1 /* SceneDelegate.swift in Sources */,
 				37E6362D290E60D500D516D4 /* DetailBannerCell.swift in Sources */,
+				37D7C1A329135215005B8781 /* GoogleMapDataProvider.swift in Sources */,
 				3787538A290FA61C00F06F4C /* AddToShoppingListVC.swift in Sources */,
 				37D69CBE290CE49B0034D8E1 /* NewRecipeHeaderView.swift in Sources */,
 				37D69C80290BDF880034D8E1 /* Conversation.swift in Sources */,
 				37E6361B290E496300D516D4 /* HotRecipeCell.swift in Sources */,
 				37D69C82290BEBBA0034D8E1 /* RecipeViewController.swift in Sources */,
+				371AE11029138F6D003B16BB /* InfoWindowView.swift in Sources */,
 				37CBECA12912025A00A62EF2 /* PublicPostHeaderView.swift in Sources */,
 				37D69CB7290CD9070034D8E1 /* NewRecipeViewController.swift in Sources */,
 				37D69CC2290D10AE0034D8E1 /* String+Ext.swift in Sources */,
@@ -680,6 +731,7 @@
 				37CBECA729120DC000A62EF2 /* PublicPostCell.swift in Sources */,
 				37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */,
 				37E63624290E57BA00D516D4 /* RecipeHeaderView.swift in Sources */,
+				37D7C1A129134F2E005B8781 /* Map.swift in Sources */,
 				37D69C89290C0D500034D8E1 /* NewPostViewController.swift in Sources */,
 				37D69C9F290C14880034D8E1 /* DraftCell.swift in Sources */,
 				3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */,
@@ -703,10 +755,12 @@
 				3787536C290ED80900F06F4C /* ResultViewController.swift in Sources */,
 				37875376290F96E600F06F4C /* CoreDataManager.swift in Sources */,
 				37D69C77290BDCEA0034D8E1 /* Recipe.swift in Sources */,
+				37D7C1A72913579D005B8781 /* APIKey.swift in Sources */,
 				37E63631290E60E800D516D4 /* DetailIngredientCell.swift in Sources */,
 				37D69CA7290C1A0B0034D8E1 /* NewPostSupplementaryView.swift in Sources */,
 				37D69CAC290CBE050034D8E1 /* NewRecipeDescriptionCell.swift in Sources */,
 				37875370290F824400F06F4C /* CookAndShare.xcdatamodeld in Sources */,
+				37D7C19629127F13005B8781 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -751,6 +805,14 @@
 				37D69CBB290CDD700034D8E1 /* Base */,
 			);
 			name = NewPost.storyboard;
+			sourceTree = "<group>";
+		};
+		37D7C19729128E6D005B8781 /* Map.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				37D7C19829128E6D005B8781 /* Base */,
+			);
+			name = Map.storyboard;
 			sourceTree = "<group>";
 		};
 		37E63615290E48FB00D516D4 /* Recipe.storyboard */ = {
@@ -889,6 +951,7 @@
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CookAndShare/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "藉由提供您的地點，好享煮飯可以找到您附近的超市、市場及食物銀行";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -918,6 +981,7 @@
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CookAndShare/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "藉由提供您的地點，好享煮飯可以找到您附近的超市、市場及食物銀行";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

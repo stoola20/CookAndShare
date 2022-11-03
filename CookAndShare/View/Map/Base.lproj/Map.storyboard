@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="t36-Gx-R1Q">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Map View Controller-->
+        <scene sceneID="dNW-Lm-U7j">
+            <objects>
+                <viewController id="t36-Gx-R1Q" customClass="MapViewController" customModule="CookAndShare" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pvM-XA-ygd">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="MFX-mv-kX3">
+                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1O-hY-Ulj">
+                                        <rect key="frame" x="0.0" y="0.0" width="207" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="超市及市場"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6f7-AP-dTf">
+                                        <rect key="frame" x="207" y="0.0" width="207" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="食物銀行"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="dBq-tD-vtE"/>
+                                </constraints>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pv8-BD-yYG" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="94" width="414" height="768"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="G8Z-gB-717"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="G8Z-gB-717" firstAttribute="trailing" secondItem="Pv8-BD-yYG" secondAttribute="trailing" id="6pK-3Y-oE5"/>
+                            <constraint firstItem="MFX-mv-kX3" firstAttribute="leading" secondItem="G8Z-gB-717" secondAttribute="leading" id="9NU-En-ow5"/>
+                            <constraint firstItem="MFX-mv-kX3" firstAttribute="top" secondItem="G8Z-gB-717" secondAttribute="top" id="LDI-Mh-N2y"/>
+                            <constraint firstItem="Pv8-BD-yYG" firstAttribute="leading" secondItem="G8Z-gB-717" secondAttribute="leading" id="MzN-Ez-EFB"/>
+                            <constraint firstItem="G8Z-gB-717" firstAttribute="trailing" secondItem="MFX-mv-kX3" secondAttribute="trailing" id="fo4-ZQ-buC"/>
+                            <constraint firstItem="G8Z-gB-717" firstAttribute="bottom" secondItem="Pv8-BD-yYG" secondAttribute="bottom" id="pwJ-kE-gMs"/>
+                            <constraint firstItem="Pv8-BD-yYG" firstAttribute="top" secondItem="MFX-mv-kX3" secondAttribute="bottom" id="vtx-dc-xdj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="soV-pa-7wi"/>
+                    <connections>
+                        <outlet property="foodBankButton" destination="6f7-AP-dTf" id="Y5s-af-ZPD"/>
+                        <outlet property="mapView" destination="Pv8-BD-yYG" id="egm-e2-SGE"/>
+                        <outlet property="marketButton" destination="j1O-hY-Ulj" id="p3v-x3-XYp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WER-aI-dsx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="185" y="1437"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

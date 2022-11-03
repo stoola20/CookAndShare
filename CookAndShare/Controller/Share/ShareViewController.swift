@@ -19,10 +19,12 @@ class ShareViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "食物分享"
         tableView.dataSource = self
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         tableView.registerCellWithNib(identifier: ShareCell.identifier, bundle: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "message"), style: .plain, target: self, action: #selector(showMessage))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +38,10 @@ class ShareViewController: UIViewController {
                 print(error)
             }
         }
+    }
+
+    @objc func showMessage() {
+        
     }
 }
 
