@@ -12,13 +12,12 @@ import GooglePlaces
 class MapViewController: UIViewController {
     private let dataProvider = GoogleMapDataProvider.shared
     private let locationManager = CLLocationManager()
-    private let placesClient = GMSPlacesClient.shared()
     private var location = CLLocation()
     private var keyword = "超市|市場"
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var marketButton: UIButton!
     @IBOutlet weak var foodBankButton: UIButton!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "地圖"
@@ -26,9 +25,10 @@ class MapViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 50
         locationManager.delegate = self
+        mapView.delegate = self
         marketButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
         foodBankButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
-
+        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
             mapView.isMyLocationEnabled = true
@@ -37,7 +37,7 @@ class MapViewController: UIViewController {
             locationManager.requestWhenInUseAuthorization()
         }
     }
-
+    
     func fetchNearbyPlace(keyword: String) {
         let locationString = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
         dataProvider.fetchNearbySearch(location: locationString, keyword: keyword) { listResponse in
@@ -53,13 +53,14 @@ class MapViewController: UIViewController {
                         longitude: placeResult.geometry.location.lng
                     )
                     marker.icon = GMSMarker.markerImage(with: .systemOrange)
+                    marker.accessibilityLabel = placeResult.name
+                    marker.accessibilityValue = placeResult.address
                     marker.map = self.mapView
-
                 }
             }
         }
     }
-
+    
     @objc func changeCategory(_ sender: UIButton) {
         self.mapView.clear()
         keyword = sender == marketButton ? "超市|市場" : "食物銀行"
@@ -92,7 +93,13 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        
-        return UIView()
+        guard
+            let nibView = Bundle.main.loadNibNamed(String(describing: InfoWindowView.self), owner: self, options: nil),
+            let view = nibView[0] as? InfoWindowView,
+            let accessibilityLabel = marker.accessibilityLabel,
+            let accessibilityValue = marker.accessibilityValue
+        else { return UIView() }
+        view.layoutView(name: accessibilityLabel, address: accessibilityValue)
+        return view
     }
 }
