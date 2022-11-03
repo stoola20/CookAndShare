@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		371AE11029138F6D003B16BB /* InfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371AE10F29138F6D003B16BB /* InfoWindowView.swift */; };
 		371AE11429139061003B16BB /* InfoWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 371AE11329139061003B16BB /* InfoWindowView.xib */; };
+		372E3A8E2913DCA200250DAA /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A8D2913DCA200250DAA /* ChatListViewController.swift */; };
+		372E3A902913DCAE00250DAA /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */; };
+		372E3A922913E0E200250DAA /* ChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A912913E0E200250DAA /* ChatListCell.swift */; };
+		372E3A952913E27100250DAA /* MineMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A932913E27100250DAA /* MineMessageCell.swift */; };
+		372E3A962913E27100250DAA /* MineMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3A942913E27100250DAA /* MineMessageCell.xib */; };
+		372E3A992913E28100250DAA /* OthersMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A972913E28100250DAA /* OthersMessageCell.swift */; };
+		372E3A9A2913E28100250DAA /* OthersMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3A982913E28100250DAA /* OthersMessageCell.xib */; };
 		3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875369290ED37300F06F4C /* SearchViewController.swift */; };
 		3787536C290ED80900F06F4C /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787536B290ED80900F06F4C /* ResultViewController.swift */; };
 		37875370290F824400F06F4C /* CookAndShare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3787536E290F824400F06F4C /* CookAndShare.xcdatamodeld */; };
@@ -101,6 +108,13 @@
 		2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookAndShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		371AE10F29138F6D003B16BB /* InfoWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWindowView.swift; sourceTree = "<group>"; };
 		371AE11329139061003B16BB /* InfoWindowView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoWindowView.xib; sourceTree = "<group>"; };
+		372E3A8D2913DCA200250DAA /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
+		372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
+		372E3A912913E0E200250DAA /* ChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCell.swift; sourceTree = "<group>"; };
+		372E3A932913E27100250DAA /* MineMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineMessageCell.swift; sourceTree = "<group>"; };
+		372E3A942913E27100250DAA /* MineMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineMessageCell.xib; sourceTree = "<group>"; };
+		372E3A972913E28100250DAA /* OthersMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersMessageCell.swift; sourceTree = "<group>"; };
+		372E3A982913E28100250DAA /* OthersMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OthersMessageCell.xib; sourceTree = "<group>"; };
 		37875369290ED37300F06F4C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3787536B290ED80900F06F4C /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		3787536F290F824400F06F4C /* CookAndShare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CookAndShare.xcdatamodel; sourceTree = "<group>"; };
@@ -241,6 +255,11 @@
 			children = (
 				37CBEC8E2910EFF100A62EF2 /* ShareCell.swift */,
 				37CBEC8F2910EFF100A62EF2 /* ShareCell.xib */,
+				372E3A912913E0E200250DAA /* ChatListCell.swift */,
+				372E3A932913E27100250DAA /* MineMessageCell.swift */,
+				372E3A942913E27100250DAA /* MineMessageCell.xib */,
+				372E3A972913E28100250DAA /* OthersMessageCell.swift */,
+				372E3A982913E28100250DAA /* OthersMessageCell.xib */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -363,6 +382,8 @@
 			isa = PBXGroup;
 			children = (
 				37CBEC862910EF0300A62EF2 /* ShareViewController.swift */,
+				372E3A8D2913DCA200250DAA /* ChatListViewController.swift */,
+				372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -596,6 +617,7 @@
 				37D69C6D290BD46D0034D8E1 /* GoogleService-Info.plist in Resources */,
 				37CBEC8A2910EF2300A62EF2 /* Share.storyboard in Resources */,
 				37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */,
+				372E3A9A2913E28100250DAA /* OthersMessageCell.xib in Resources */,
 				37D69C62290BCF980034D8E1 /* Assets.xcassets in Resources */,
 				37CBECA829120DC000A62EF2 /* PublicPostCell.xib in Resources */,
 				371AE11429139061003B16BB /* InfoWindowView.xib in Resources */,
@@ -606,6 +628,7 @@
 				37D69CBC290CDD700034D8E1 /* NewPost.storyboard in Resources */,
 				37875384290F9A4F00F06F4C /* ProfileListCell.xib in Resources */,
 				37D69C60290BCF970034D8E1 /* Main.storyboard in Resources */,
+				372E3A962913E27100250DAA /* MineMessageCell.xib in Resources */,
 				37875388290F9A6C00F06F4C /* ShoppingListCell.xib in Resources */,
 				37E63617290E48FB00D516D4 /* Recipe.storyboard in Resources */,
 				37D69CA0290C14880034D8E1 /* DraftCell.xib in Resources */,
@@ -704,9 +727,11 @@
 				37D69CC5290D48790034D8E1 /* FirestoreManager.swift in Sources */,
 				37E63622290E4DD500D516D4 /* RecipeTypeCell.swift in Sources */,
 				3787537F290F9A4000F06F4C /* ProfileUserCell.swift in Sources */,
+				372E3A922913E0E200250DAA /* ChatListCell.swift in Sources */,
 				37875387290F9A6C00F06F4C /* ShoppingListCell.swift in Sources */,
 				37D69C99290C14670034D8E1 /* NewPostCell.swift in Sources */,
 				37875374290F963100F06F4C /* ShoppingList+CoreDataProperties.swift in Sources */,
+				372E3A8E2913DCA200250DAA /* ChatListViewController.swift in Sources */,
 				37D69CB0290CBE1C0034D8E1 /* NewRecipeIngredientCell.swift in Sources */,
 				37CBEC872910EF0300A62EF2 /* ShareViewController.swift in Sources */,
 				37D69C7E290BDF120034D8E1 /* Share.swift in Sources */,
@@ -727,6 +752,7 @@
 				37CBECA12912025A00A62EF2 /* PublicPostHeaderView.swift in Sources */,
 				37D69CB7290CD9070034D8E1 /* NewRecipeViewController.swift in Sources */,
 				37D69CC2290D10AE0034D8E1 /* String+Ext.swift in Sources */,
+				372E3A992913E28100250DAA /* OthersMessageCell.swift in Sources */,
 				37D69CB4290CBE310034D8E1 /* NewRecipeProcedureCell.swift in Sources */,
 				37CBECA729120DC000A62EF2 /* PublicPostCell.swift in Sources */,
 				37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */,
@@ -751,6 +777,7 @@
 				37E63638290E6EB900D516D4 /* DetailRecipeHeaderView.swift in Sources */,
 				37875373290F963100F06F4C /* ShoppingList+CoreDataClass.swift in Sources */,
 				37E6361F290E497F00D516D4 /* AllRecipeCell.swift in Sources */,
+				372E3A902913DCAE00250DAA /* ChatRoomViewController.swift in Sources */,
 				37D69CA5290C15B30034D8E1 /* UICollectionView+Ext.swift in Sources */,
 				3787536C290ED80900F06F4C /* ResultViewController.swift in Sources */,
 				37875376290F96E600F06F4C /* CoreDataManager.swift in Sources */,
@@ -760,6 +787,7 @@
 				37D69CA7290C1A0B0034D8E1 /* NewPostSupplementaryView.swift in Sources */,
 				37D69CAC290CBE050034D8E1 /* NewRecipeDescriptionCell.swift in Sources */,
 				37875370290F824400F06F4C /* CookAndShare.xcdatamodeld in Sources */,
+				372E3A952913E27100250DAA /* MineMessageCell.swift in Sources */,
 				37D7C19629127F13005B8781 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

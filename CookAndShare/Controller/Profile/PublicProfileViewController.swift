@@ -104,6 +104,7 @@ extension PublicProfileViewController: UICollectionViewDataSource {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PublicProfileHeaderCell.identifier, for: indexPath)
                 as? PublicProfileHeaderCell
             else { fatalError("Could not create PublicProfileHeaderCell") }
+            cell.delegate = self
             cell.layoutCell(with: user)
             return cell
         } else {
@@ -171,5 +172,19 @@ extension PublicProfileViewController: PublicPostHeaderViewDelegate {
     func headerView(didChange: Bool) {
         self.toRecipe = didChange
         self.recipeCollectionView.reloadData()
+    }
+}
+
+extension PublicProfileViewController: PublicProfileHeaderCellDelegate {
+    func presentChatRoom() {
+        let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
+        guard
+            let chatRoomVC = storyboard.instantiateViewController(withIdentifier: String(describing: ChatRoomViewController.self))
+                as? ChatRoomViewController,
+            let user = user
+        else { fatalError("Could not instantiate chatRoomVC") }
+        chatRoomVC.title = user.name
+        chatRoomVC.friend = user
+        navigationController?.pushViewController(chatRoomVC, animated: true)
     }
 }
