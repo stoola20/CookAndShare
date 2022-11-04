@@ -73,6 +73,9 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="mappin.and.ellipse" catalog="system"/>
+                                        <connections>
+                                            <action selector="sendLocation:" destination="8hq-km-LIe" eventType="touchUpInside" id="MIX-pf-0BA"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CkD-rh-Zcw">
                                         <rect key="frame" x="46" y="18" width="22" height="22"/>

@@ -318,7 +318,6 @@ struct FirestoreManager {
                 do {
                     let conversation = try document.data(as: Conversation.self)
                     completion(.success(conversation))
-                    print(conversation)
                 } catch {
                     completion(.failure(error))
                 }

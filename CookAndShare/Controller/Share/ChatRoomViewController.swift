@@ -8,6 +8,7 @@
 import UIKit
 import PhotosUI
 import FirebaseFirestore
+import GoogleMaps
 
 class ChatRoomViewController: UIViewController {
     var friend: User?
@@ -18,7 +19,9 @@ class ChatRoomViewController: UIViewController {
             tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
     }
-    let firestoreManager = FirestoreManager.shared
+    private let firestoreManager = FirestoreManager.shared
+    private let locationManager = CLLocationManager()
+    private var location = CLLocation()
 
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
@@ -26,6 +29,7 @@ class ChatRoomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
+        locationManager.delegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -113,6 +117,24 @@ class ChatRoomViewController: UIViewController {
         controller.delegate = self
         present(controller, animated: true)
     }
+
+    @IBAction func sendLocation(_ sender: UIButton) {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestLocation()
+            locationManager.startUpdatingLocation()
+            let alert = UIAlertController(title: "是否傳送目前位置？", message: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: Constant.confirm, style: .default, handler: { action in
+                let locationString = "\(self.location.coordinate.latitude),\(self.location.coordinate.longitude)"
+                self.uploadMessage(contentType: .location, content: locationString)
+            })
+            let cancelAction = UIAlertAction(title: Constant.cancel, style: .cancel, handler: nil)
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            present(alert, animated: true, completion: nil)
+        } else {
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
 }
 
 extension ChatRoomViewController: UITableViewDataSource {
@@ -171,5 +193,26 @@ extension ChatRoomViewController: PHPickerViewControllerDelegate {
                 }
             }
         }
+    }
+}
+
+extension ChatRoomViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        guard status == .authorizedWhenInUse else {
+            return
+        }
+        locationManager.requestLocation()
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else {
+            return
+        }
+        self.location = location
+        manager.stopUpdatingLocation()
+    }
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
 }
