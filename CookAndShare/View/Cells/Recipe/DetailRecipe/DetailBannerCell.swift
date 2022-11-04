@@ -27,7 +27,6 @@ class DetailBannerCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         mainImageVIew.contentMode = .scaleAspectFill
-        print(#function)
         profileImage.isUserInteractionEnabled = true
         authorLabel.isUserInteractionEnabled = true
         profileImage.addGestureRecognizer(setGestureRecognizer())

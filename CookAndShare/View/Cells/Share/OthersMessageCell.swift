@@ -19,7 +19,8 @@ class OthersMessageCell: UITableViewCell {
         // Initialization code
     }
 
-    func layoutCell(with message: Message) {
+    func layoutCell(with message: Message, friendImageURL: String) {
+        friendImageView.load(url: URL(string: friendImageURL)!)
         switch message.contentType {
         case "text":
             messageLabel.text = message.content

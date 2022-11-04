@@ -32,8 +32,8 @@ extension ChatListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatListCell.identifier, for: indexPath) as? ChatListCell
         else { fatalError("Could not create ChatListCell") }
         let conversation = conversations[indexPath.row]
-        if let myIdIndex = conversation.friendId.firstIndex(of: Constant.userId) {
-            let friendId = myIdIndex == 0 ? conversation.friendId[1] : conversation.friendId[0]
+        if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.userId) {
+            let friendId = myIdIndex == 0 ? conversation.friendIds[1] : conversation.friendIds[0]
             firestoreManager.fetchUserData(userId: friendId) { result in
                 switch result {
                 case .success(let user):
