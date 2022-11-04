@@ -14,7 +14,6 @@ protocol NewRecipeIngredientDelegate: AnyObject {
 }
 
 class NewRecipeIngredientCell: UITableViewCell {
-    
     weak var delegate: NewRecipeIngredientDelegate!
 
     @IBOutlet weak var deleteButton: UIButton!
@@ -48,7 +47,7 @@ class NewRecipeIngredientCell: UITableViewCell {
         else { return }
         delegate.didDelete(self, Ingredient(name: ingredientName, quantity: ingredientQuantity))
     }
-    
+
     func passData() {
         guard let ingredientName = nameTextField.text,
               let ingredientQuantity = quantityTextField.text
@@ -76,7 +75,7 @@ extension NewRecipeIngredientCell: UITextFieldDelegate {
         }
         return true
     }
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField != quantityTextField { return }
         passData()

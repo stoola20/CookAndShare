@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 import FirebaseFirestore
 
 class ChatRoomViewController: UIViewController {
@@ -13,6 +14,8 @@ class ChatRoomViewController: UIViewController {
     var conversation: Conversation? {
         didSet {
             tableView.reloadData()
+            let indexPath = IndexPath(row: conversation!.messages.count - 1, section: 0)
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
     }
     let firestoreManager = FirestoreManager.shared
@@ -57,17 +60,17 @@ class ChatRoomViewController: UIViewController {
     }
 
     @IBAction func sendMessage(_ sender: UIButton) {
-        guard
-            let friend = friend,
-            let text = inputTextField.text
-        else {
-            return
-        }
+        guard let text = inputTextField.text else { return }
         // 如果沒有文字，就不上傳訊息
         if text.isEmpty { return }
         // 把輸入欄位清空
         inputTextField.text = nil
 
+        uploadMessage(contentType: .text, content: text)
+    }
+
+    func uploadMessage(contentType: ContentType, content: String) {
+        guard let friend = friend else { return }
         guard let conversation = conversation else {
             let document = firestoreManager.conversationsCollection.document()
             var newConversation = Conversation()
@@ -75,8 +78,8 @@ class ChatRoomViewController: UIViewController {
             newConversation.friendIds = [friend.id, Constant.userId]
             let message = Message(
                 senderId: Constant.userId,
-                contentType: "text",
-                content: text,
+                contentType: contentType.rawValue,
+                content: content,
                 time: Timestamp(date: Date())
             )
             newConversation.messages = [message]
@@ -95,11 +98,20 @@ class ChatRoomViewController: UIViewController {
 
         let message: [String: Any] = [
             "senderId": Constant.userId,
-            "content": text,
-            "contentType": "text",
+            "content": content,
+            "contentType": contentType.rawValue,
             "time": Timestamp(date: Date())
         ]
         firestoreManager.updateConversation(channelId: conversation.channelId, message: message)
+    }
+
+    @IBAction func presentPHPicker(_ sender: UIButton) {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 1
+        let controller = PHPickerViewController(configuration: configuration)
+        controller.delegate = self
+        present(controller, animated: true)
     }
 }
 
@@ -127,6 +139,37 @@ extension ChatRoomViewController: UITableViewDataSource {
             else { fatalError("could not craete OthersMessageCell") }
             cell.layoutCell(with: message, friendImageURL: friend.imageURL)
             return cell
+        }
+    }
+}
+
+// MARK: - PHPickerViewControllerDelegate
+extension ChatRoomViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+
+        if !results.isEmpty {
+            let result = results.first!
+            let itemProvider = result.itemProvider
+            if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                    guard
+                        let image = image as? UIImage,
+                        let self = self
+                    else { return }
+
+                    // Upload photo
+                    self.firestoreManager.uploadPhoto(image: image) { result in
+                        switch result {
+                        case .success(let url):
+                            print(url)
+                            self.uploadMessage(contentType: .image, content: url.absoluteString)
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+            }
         }
     }
 }

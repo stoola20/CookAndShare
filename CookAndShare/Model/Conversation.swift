@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import SwiftUI
 
 struct Conversation: Codable {
     var channelId = String.empty
@@ -21,4 +22,11 @@ struct Message: Codable {
     var content: String
     var time: Timestamp
 //    let status: Bool
+}
+
+enum ContentType: String {
+    case text
+    case image
+    case voice
+    case location
 }
