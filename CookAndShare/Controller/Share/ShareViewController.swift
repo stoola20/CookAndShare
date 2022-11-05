@@ -9,12 +9,8 @@ import UIKit
 
 class ShareViewController: UIViewController {
     let firestoreManager = FirestoreManager.shared
-    var shares: [Share] = [] {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-
+    var shares: [Share] = []
+    var fromPublicVC = false
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
@@ -24,16 +20,24 @@ class ShareViewController: UIViewController {
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         tableView.registerCellWithNib(identifier: ShareCell.identifier, bundle: nil)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "message"), style: .plain, target: self, action: #selector(showMessage))
+        if fromPublicVC { return }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "message"),
+            style: .plain,
+            target: self,
+            action: #selector(showMessage)
+        )
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if fromPublicVC { return }
         firestoreManager.fetchSharePost { result in
             switch result {
             case .success(let shares):
                 self.shares = shares
                 self.shares.sort { $0.postTime.seconds > $1.postTime.seconds }
+                self.tableView.reloadData()
             case .failure(let error):
                 print(error)
             }
@@ -41,7 +45,12 @@ class ShareViewController: UIViewController {
     }
 
     @objc func showMessage() {
-        
+        let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
+        guard
+            let chatListVC = storyboard.instantiateViewController(withIdentifier: String(describing: ChatListViewController.self))
+            as? ChatListViewController
+        else { fatalError("Could not create ChatListViewController") }
+        navigationController?.pushViewController(chatListVC, animated: true)
     }
 }
 
@@ -49,7 +58,7 @@ extension ShareViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         shares.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
             let cell = tableView.dequeueReusableCell(withIdentifier: ShareCell.identifier, for: indexPath)

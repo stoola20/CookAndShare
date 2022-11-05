@@ -23,6 +23,9 @@ class ChatRoomViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private var location = CLLocation()
 
+
+    @IBOutlet weak var wrapperView: UIView!
+    @IBOutlet weak var wrapperViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
 
@@ -30,6 +33,11 @@ class ChatRoomViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
         locationManager.delegate = self
+        inputTextField.delegate = self
+        let tap = UITapGestureRecognizer(target: self, action: #selector(hideAudioRecordView))
+        view.addGestureRecognizer(tap)
+        guard let friend = friend else { return }
+        title = friend.name
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -65,11 +73,8 @@ class ChatRoomViewController: UIViewController {
 
     @IBAction func sendMessage(_ sender: UIButton) {
         guard let text = inputTextField.text else { return }
-        // 如果沒有文字，就不上傳訊息
         if text.isEmpty { return }
-        // 把輸入欄位清空
         inputTextField.text = nil
-
         uploadMessage(contentType: .text, content: text)
     }
 
@@ -87,8 +92,9 @@ class ChatRoomViewController: UIViewController {
                 time: Timestamp(date: Date())
             )
             newConversation.messages = [message]
-            firestoreManager.createNewConversation(newConversation, to: document)
             self.conversation = newConversation
+            firestoreManager.createNewConversation(newConversation, to: document)
+            firestoreManager.updateUserConversation(userId: Constant.userId, friendId: friend.id, channelId: document.documentID)
             firestoreManager.addListener(channelId: document.documentID) { result in
                 switch result {
                 case .success(let conversation):
@@ -110,6 +116,7 @@ class ChatRoomViewController: UIViewController {
     }
 
     @IBAction func presentPHPicker(_ sender: UIButton) {
+        hideAudioRecordView()
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
         configuration.selectionLimit = 1
@@ -119,6 +126,7 @@ class ChatRoomViewController: UIViewController {
     }
 
     @IBAction func sendLocation(_ sender: UIButton) {
+        hideAudioRecordView()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
             locationManager.startUpdatingLocation()
@@ -134,6 +142,32 @@ class ChatRoomViewController: UIViewController {
         } else {
             locationManager.requestWhenInUseAuthorization()
         }
+    }
+
+    @IBAction func showRecordView(_ sender: UIButton) {
+        wrapperViewBottomConstraint.isActive = false
+        wrapperViewBottomConstraint = wrapperView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150)
+        wrapperViewBottomConstraint.isActive = true
+
+        UIView.animate(
+            withDuration: 0.3,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: { self.view.layoutIfNeeded() }
+        )
+    }
+
+    @objc func hideAudioRecordView() {
+        wrapperViewBottomConstraint.isActive = false
+        wrapperViewBottomConstraint = wrapperView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        wrapperViewBottomConstraint.isActive = true
+
+        UIView.animate(
+            withDuration: 0.3,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: { self.view.layoutIfNeeded() }
+        )
     }
 }
 
@@ -214,5 +248,12 @@ extension ChatRoomViewController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
+    }
+}
+
+extension ChatRoomViewController: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        hideAudioRecordView()
+        return true
     }
 }

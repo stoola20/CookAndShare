@@ -211,11 +211,17 @@ struct FirestoreManager {
         }
     }
 
-    func updateUserSharePost(shareId: String, userId: String) {
+    func updateUserSharePost(shareId: String, userId: String, isNewPost: Bool) {
         let userRef = usersCollection.document(userId)
-        userRef.updateData([
-            Constant.sharesId: FieldValue.arrayUnion([shareId])
-        ])
+        if isNewPost {
+            userRef.updateData([
+                Constant.sharesId: FieldValue.arrayUnion([shareId])
+            ])
+        } else {
+            userRef.updateData([
+                Constant.sharesId: FieldValue.arrayRemove([shareId])
+            ])
+        }
     }
 
     func fetchUserData(userId: String, completion: @escaping (Result<User, Error>) -> Void) {
@@ -239,6 +245,15 @@ struct FirestoreManager {
         }
     }
 
+    func updateUserConversation(userId: String, friendId: String, channelId: String) {
+        usersCollection.document(userId).updateData([
+            Constant.conversationId: FieldValue.arrayUnion([channelId])
+        ])
+        usersCollection.document(friendId).updateData([
+            Constant.conversationId: FieldValue.arrayUnion([channelId])
+        ])
+    }
+
 // MARK: - Share
     func addNewShare(_ share: Share, to document: DocumentReference) {
         do {
@@ -260,11 +275,12 @@ struct FirestoreManager {
                 guard let querySnapshot = querySnapshot else { return }
                 querySnapshot.documents.forEach { document in
                     do {
-                        let recipe = try document.data(as: Share.self)
-                        if Double(recipe.dueDate.seconds) < Date().timeIntervalSince1970 {
-                            deleteSharePost(shareId: recipe.shareId)
+                        let share = try document.data(as: Share.self)
+                        if Double(share.dueDate.seconds) < Date().timeIntervalSince1970 {
+                            deleteSharePost(shareId: share.shareId)
+                            updateUserSharePost(shareId: share.shareId, userId: share.authorId, isNewPost: false)
                         } else {
-                            shares.append(recipe)
+                            shares.append(share)
                         }
                     } catch {
                         completion(.failure(error))
@@ -314,6 +330,27 @@ struct FirestoreManager {
                 print("conversation not found!")
             } else {
                 guard let document = querySnapshot.documents.first else { fatalError("no document") }
+
+                do {
+                    let conversation = try document.data(as: Conversation.self)
+                    completion(.success(conversation))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+
+    func fetchConversationBy(_ id: String, completion: @escaping (Result<Conversation, Error>) -> Void) {
+        conversationsCollection.whereField("channelId", isEqualTo: id).getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting users: \(error)")
+                completion(.failure(error))
+            } else {
+                guard
+                    let querySnapshot = querySnapshot,
+                    let document = querySnapshot.documents.first
+                else { return }
 
                 do {
                     let conversation = try document.data(as: Conversation.self)

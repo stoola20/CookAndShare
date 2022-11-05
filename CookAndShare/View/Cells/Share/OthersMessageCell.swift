@@ -45,11 +45,15 @@ class OthersMessageCell: UITableViewCell {
         switch message.contentType {
         case "text":
             messageLabel.text = message.content
+            timeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
+
             messageLabel.isHidden = false
             timeLabel.isHidden = false
             chatBubble.isHidden = false
         case "image":
             largeImageView.load(url: URL(string: message.content)!)
+            imageTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
+
             imageTimeLabel.isHidden = false
             largeImageView.isHidden = false
         case "voice":
@@ -62,6 +66,7 @@ class OthersMessageCell: UITableViewCell {
         default:
             mapView.isHidden = false
             mapTimeLabel.isHidden = false
+            mapTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
 
             let subString = message.content.split(separator: ",")
             guard

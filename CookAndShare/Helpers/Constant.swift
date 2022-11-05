@@ -81,4 +81,11 @@ struct Constant {
     static let recipesId = "recipesId"
     static let savedRecipesId = "savedRecipesId"
     static let sharesId = "sharesId"
+    static let conversationId = "conversationId"
+
+    // conversation
+    static let text = "text"
+    static let image = "image"
+    static let voice = "voice"
+    static let location = "location"
 }

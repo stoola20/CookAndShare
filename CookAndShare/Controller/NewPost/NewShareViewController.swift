@@ -31,7 +31,7 @@ class NewShareViewController: UIViewController {
         share.shareId = document.documentID
         share.authorId = Constant.userId
         firestoreManager.addNewShare(share, to: document)
-        firestoreManager.updateUserSharePost(shareId: document.documentID, userId: Constant.userId)
+        firestoreManager.updateUserSharePost(shareId: document.documentID, userId: Constant.userId, isNewPost: true)
         navigationController?.popViewController(animated: true)
     }
 }

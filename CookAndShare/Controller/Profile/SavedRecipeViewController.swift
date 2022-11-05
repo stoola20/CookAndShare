@@ -10,7 +10,7 @@ import UIKit
 class SavedRecipeViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     let firestoreManager = FirestoreManager.shared
-    var savedRecipes: [Int: Recipe] = [:] {
+    var savedRecipes: [Recipe] = [] {
         didSet {
             collectionView.reloadData()
         }
@@ -18,12 +18,11 @@ class SavedRecipeViewController: UIViewController {
 
     var savedRecipsId: [String] = [] {
         didSet {
-            for index in 0..<savedRecipsId.count {
-                let recipeId = savedRecipsId[index]
-                firestoreManager.searchRecipesById(recipeId) { result in
+            for id in savedRecipsId {
+                firestoreManager.searchRecipesById(id) { result in
                     switch result {
                     case .success(let recipe):
-                        self.savedRecipes[index] = recipe
+                        self.savedRecipes.append(recipe)
                     case .failure(let error):
                         print(error)
                     }
@@ -36,7 +35,7 @@ class SavedRecipeViewController: UIViewController {
         super.viewDidLoad()
         setUpCollectionView()
     }
-    
+
     func setUpCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -67,9 +66,9 @@ extension SavedRecipeViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotRecipeCell.identifier, for: indexPath) as? HotRecipeCell,
-            let recipe = savedRecipes[indexPath.item]
-        else { return UICollectionViewCell() }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotRecipeCell.identifier, for: indexPath) as? HotRecipeCell
+        else { fatalError("Could not create cell") }
+        let recipe = savedRecipes[indexPath.item]
         cell.layoutCell(with: recipe)
         return cell
     }
@@ -80,9 +79,9 @@ extension SavedRecipeViewController: UICollectionViewDelegate {
         let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
         guard
             let detailVC = storyboard.instantiateViewController(withIdentifier: String(describing: DetailRecipeViewController.self))
-            as? DetailRecipeViewController,
-            let recipe = savedRecipes[indexPath.item]
+            as? DetailRecipeViewController
         else { fatalError("Could not instantiate detailVC") }
+        let recipe = savedRecipes[indexPath.item]
         detailVC.recipe = recipe
         collectionView.deselectItem(at: indexPath, animated: false)
         navigationController?.pushViewController(detailVC, animated: true)

@@ -12,7 +12,7 @@
         <!--Share View Controller-->
         <scene sceneID="Ez0-6h-fvm">
             <objects>
-                <viewController id="lZx-zG-ubk" customClass="ShareViewController" customModule="CookAndShare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShareViewController" id="lZx-zG-ubk" customClass="ShareViewController" customModule="CookAndShare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mJu-aP-QAh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -95,6 +95,9 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="mic" catalog="system"/>
+                                        <connections>
+                                            <action selector="showRecordView:" destination="8hq-km-LIe" eventType="touchUpInside" id="eWe-Kh-97w"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="請輸入訊息" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ntN-GX-90i">
                                         <rect key="frame" x="106" y="12" width="262" height="34"/>
@@ -134,6 +137,8 @@
                     <connections>
                         <outlet property="inputTextField" destination="ntN-GX-90i" id="kJI-O1-xFC"/>
                         <outlet property="tableView" destination="2c7-rY-Tjo" id="q00-Gz-R4B"/>
+                        <outlet property="wrapperView" destination="N3w-26-Zp7" id="Vsj-el-yEx"/>
+                        <outlet property="wrapperViewBottomConstraint" destination="mZg-c7-k08" id="ul8-h6-hA4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KDn-Qb-Oqa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -175,13 +180,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="PC4-9U-1kk">
                                                     <rect key="frame" x="108" y="17" width="220.5" height="43"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tps-JQ-PQJ">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tps-JQ-PQJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="220.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdh-Tx-H09">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdh-Tx-H09">
                                                             <rect key="frame" x="0.0" y="22.5" width="220.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>

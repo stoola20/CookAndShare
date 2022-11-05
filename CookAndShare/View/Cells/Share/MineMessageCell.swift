@@ -42,11 +42,13 @@ class MineMessageCell: UITableViewCell {
         switch message.contentType {
         case "text":
             messageLabel.text = message.content
+            timeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
             messageLabel.isHidden = false
             chatBubble.isHidden = false
             timeLabel.isHidden = false
         case "image":
             largeImageView.load(url: URL(string: message.content)!)
+            imageTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
             largeImageView.isHidden = false
             imageTimeLabel.isHidden = false
         case "voice":
@@ -59,7 +61,7 @@ class MineMessageCell: UITableViewCell {
         default:
             mapView.isHidden = false
             mapTimeLabel.isHidden = false
-
+            mapTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
             let subString = message.content.split(separator: ",")
             guard
                 let lat = Double(subString[0]),

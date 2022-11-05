@@ -21,6 +21,13 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "地圖"
+        locationManager.startUpdatingLocation()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 50
+        locationManager.delegate = self
+        mapView.delegate = self
+        marketButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
+        foodBankButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
 
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
@@ -29,14 +36,6 @@ class MapViewController: UIViewController {
         } else {
             locationManager.requestWhenInUseAuthorization()
         }
-
-        locationManager.startUpdatingLocation()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 50
-        locationManager.delegate = self
-        mapView.delegate = self
-        marketButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
-        foodBankButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
     }
     
     func fetchNearbyPlace(keyword: String) {
