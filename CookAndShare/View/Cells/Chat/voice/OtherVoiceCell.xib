@@ -25,22 +25,25 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHt-UX-NzP">
-                        <rect key="frame" x="204" y="43" width="42" height="21"/>
+                        <rect key="frame" x="208" y="43" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0wX-Ha-2qt">
-                        <rect key="frame" x="64" y="8" width="132" height="56"/>
+                        <rect key="frame" x="64" y="8" width="136" height="56"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5qK-wG-yBt">
                                 <rect key="frame" x="10" y="10" width="15" height="36"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="play.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="playAndStop:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="h34-Jb-jnL"/>
+                                </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsn-x3-OJ1">
-                                <rect key="frame" x="80" y="10" width="42" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsn-x3-OJ1">
+                                <rect key="frame" x="80" y="10" width="46" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -63,6 +66,7 @@
                             <constraint firstItem="5qK-wG-yBt" firstAttribute="leading" secondItem="0wX-Ha-2qt" secondAttribute="leading" constant="10" id="Kq5-0M-Ps4"/>
                             <constraint firstItem="vsn-x3-OJ1" firstAttribute="top" secondItem="0wX-Ha-2qt" secondAttribute="top" constant="10" id="NPi-2X-zVf"/>
                             <constraint firstItem="3OC-bu-nkh" firstAttribute="leading" secondItem="5qK-wG-yBt" secondAttribute="trailing" constant="5" id="PgR-Yo-h9p"/>
+                            <constraint firstAttribute="height" constant="56" id="d6U-JI-1Iu"/>
                             <constraint firstAttribute="bottom" secondItem="5qK-wG-yBt" secondAttribute="bottom" constant="10" id="eru-ZD-1Rn"/>
                             <constraint firstItem="3OC-bu-nkh" firstAttribute="centerY" secondItem="0wX-Ha-2qt" secondAttribute="centerY" id="pi2-3A-ssf"/>
                             <constraint firstItem="5qK-wG-yBt" firstAttribute="centerY" secondItem="0wX-Ha-2qt" secondAttribute="centerY" id="tZl-Mb-Ylm"/>

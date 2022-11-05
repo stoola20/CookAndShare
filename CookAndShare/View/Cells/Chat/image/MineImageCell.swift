@@ -15,6 +15,7 @@ class MineImageCell: UITableViewCell {
         super.awakeFromNib()
         largeImageView.layer.cornerRadius = 20
         largeImageView.clipsToBounds = true
+        largeImageView.contentMode = .scaleAspectFill
     }
 
     func layoutCell(with message: Message) {

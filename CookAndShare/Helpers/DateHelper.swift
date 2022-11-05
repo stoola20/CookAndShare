@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AVKit
 
 extension Date {
     static var dateFormatter: DateFormatter {
@@ -38,11 +39,7 @@ extension Date {
                 hour -= 12
             }
 
-            if minute < 10 {
-                minutesString = "0\(minute)"
-            } else {
-                minutesString = "\(minute)"
-            }
+            minutesString = minute < 10 ? "0\(minute)" : "\(minute)"
 
             return "\(zone) \(hour):\(minutesString)"
 
@@ -81,4 +78,13 @@ extension TimeInterval {
     func asWeeks() -> Int { return Int(self / (60.0 * 60.0 * 24.0 * 7.0)) }
     func asMonths() -> Int { return Int(self / (60.0 * 60.0 * 24.0 * 30.4369)) }
     func asYears() -> Int { return Int(self / (60.0 * 60.0 * 24.0 * 365.2422)) }
+
+    func audioDurationString() -> String {
+        let sec = Int(self.truncatingRemainder(dividingBy: 60.0))
+        let minute = Int(self / 60.0)
+        let secString = sec < 10 ? "0\(sec)" : "\(sec)"
+        let minuteString = minute < 10 ? "0\(minute)" : "\(minute)"
+
+        return "\(minuteString):\(secString)"
+    }
 }

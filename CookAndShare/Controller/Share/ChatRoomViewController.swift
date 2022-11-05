@@ -12,6 +12,7 @@ import GoogleMaps
 import AVFoundation
 
 class ChatRoomViewController: UIViewController {
+    var timer: Timer?
     var recordingSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
@@ -179,9 +180,13 @@ class ChatRoomViewController: UIViewController {
             options: .curveEaseOut,
             animations: { self.view.layoutIfNeeded() }
         )
+        let indexPath = IndexPath(row: conversation!.messages.count - 1, section: 0)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 
     @objc func hideAudioRecordView() {
+        playAndSendButton.isHidden = true
+        sendVoiceButton.isHidden = true
         wrapperViewBottomConstraint.isActive = false
         wrapperViewBottomConstraint = wrapperView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         wrapperViewBottomConstraint.isActive = true
@@ -230,26 +235,37 @@ class ChatRoomViewController: UIViewController {
     }
 
     @IBAction func playOrSendRecord(_ sender: UIButton) {
+        let recordFilePath = getDirectoryPath().appendingPathComponent("\(numOfRecorder).m4a")
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: recordFilePath)
+            audioPlayer.volume = 1
+        } catch {
+            print("Play error:", error.localizedDescription)
+        }
+
         if !playingRecord {
-            let recordFilePath = getDirectoryPath().appendingPathComponent("\(numOfRecorder).m4a")
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: recordFilePath)
-                audioPlayer.volume = 2.0
-                audioPlayer.play()
-            } catch {
-                print("Play error:", error.localizedDescription)
-            }
+            audioPlayer.play()
+            timer = Timer.scheduledTimer(timeInterval: 1,
+                                         target: self,
+                                         selector: #selector(updatePlayingButton),
+                                         userInfo: nil,
+                                         repeats: true)
+            playAndSendButton.setTitle("停止", for: .normal)
             playingRecord = true
-            playAndSendButton.setTitle("暫停", for: .normal)
         } else {
+            timer?.invalidate()
+            timer = nil
             audioPlayer.stop()
-            playingRecord = false
+            audioPlayer.currentTime = 0
             playAndSendButton.setTitle("播放", for: .normal)
+            playingRecord = false
         }
     }
 
     @IBAction func sendVoiceMessage(_ sender: UIButton) {
         sendVoiceButton.isHidden = true
+        playAndSendButton.isHidden = true
+        playAndSendButton.setTitle("播放", for: .normal)
         firestoreManager.handleAudioSendWith(url: getDirectoryPath().appendingPathComponent("\(numOfRecorder).m4a")) { result in
             switch result {
             case .success(let url):
@@ -257,6 +273,16 @@ class ChatRoomViewController: UIViewController {
             case .failure(let error):
                 print(error)
             }
+        }
+    }
+
+    @objc func updatePlayingButton() {
+        if audioPlayer.isPlaying {
+            playAndSendButton.setTitle("停止", for: .normal)
+        } else {
+            playAndSendButton.setTitle("播放", for: .normal)
+            timer?.invalidate()
+            timer = nil
         }
     }
 
