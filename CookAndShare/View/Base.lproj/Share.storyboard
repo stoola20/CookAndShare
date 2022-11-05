@@ -121,21 +121,67 @@
                                     <constraint firstAttribute="height" constant="80" id="uvU-2G-FsQ"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arc-79-KGJ">
+                                <rect key="frame" x="0.0" y="896" width="414" height="150"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="8FN-5F-GgA">
+                                        <rect key="frame" x="69" y="59.5" width="276.5" height="31"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Yg-to-1w6">
+                                                <rect key="frame" x="0.0" y="0.0" width="81.5" height="31"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="開始錄音"/>
+                                                <connections>
+                                                    <action selector="recordButtonAction:" destination="8hq-km-LIe" eventType="touchUpInside" id="LKV-H9-rgg"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="swf-rz-QNr">
+                                                <rect key="frame" x="97.5" y="0.0" width="81.5" height="31"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="播放"/>
+                                                <connections>
+                                                    <action selector="playOrSendRecord:" destination="8hq-km-LIe" eventType="touchUpInside" id="gDt-Xn-hEb"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9F-bZ-S90">
+                                                <rect key="frame" x="195" y="0.0" width="81.5" height="31"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="傳送語音"/>
+                                                <connections>
+                                                    <action selector="sendVoiceMessage:" destination="8hq-km-LIe" eventType="touchUpInside" id="LFp-bt-EFy"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="8FN-5F-GgA" firstAttribute="centerX" secondItem="arc-79-KGJ" secondAttribute="centerX" id="erm-1C-BfW"/>
+                                    <constraint firstItem="8FN-5F-GgA" firstAttribute="centerY" secondItem="arc-79-KGJ" secondAttribute="centerY" id="iuw-r2-bQR"/>
+                                    <constraint firstAttribute="height" constant="150" id="rvl-as-2MC"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="to7-Rn-Lu4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="N3w-26-Zp7" firstAttribute="leading" secondItem="to7-Rn-Lu4" secondAttribute="leading" id="6Vy-Ey-ICM"/>
+                            <constraint firstItem="arc-79-KGJ" firstAttribute="top" secondItem="N3w-26-Zp7" secondAttribute="bottom" id="GPR-fY-RDt"/>
+                            <constraint firstItem="arc-79-KGJ" firstAttribute="leading" secondItem="to7-Rn-Lu4" secondAttribute="leading" id="MRy-Vx-e54"/>
                             <constraint firstItem="to7-Rn-Lu4" firstAttribute="trailing" secondItem="N3w-26-Zp7" secondAttribute="trailing" id="VmI-hA-EBe"/>
                             <constraint firstItem="to7-Rn-Lu4" firstAttribute="trailing" secondItem="2c7-rY-Tjo" secondAttribute="trailing" id="cBp-DX-8QS"/>
                             <constraint firstItem="2c7-rY-Tjo" firstAttribute="leading" secondItem="to7-Rn-Lu4" secondAttribute="leading" id="gVS-5j-HyC"/>
                             <constraint firstItem="2c7-rY-Tjo" firstAttribute="top" secondItem="to7-Rn-Lu4" secondAttribute="top" id="gZa-d4-8Kx"/>
                             <constraint firstItem="N3w-26-Zp7" firstAttribute="top" secondItem="2c7-rY-Tjo" secondAttribute="bottom" id="ihg-M2-ce4"/>
                             <constraint firstAttribute="bottom" secondItem="N3w-26-Zp7" secondAttribute="bottom" id="mZg-c7-k08"/>
+                            <constraint firstItem="to7-Rn-Lu4" firstAttribute="trailing" secondItem="arc-79-KGJ" secondAttribute="trailing" id="zBV-nb-hcx"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="inputTextField" destination="ntN-GX-90i" id="kJI-O1-xFC"/>
+                        <outlet property="playAndSendButton" destination="swf-rz-QNr" id="Xgh-kK-e6b"/>
+                        <outlet property="recordButton" destination="2Yg-to-1w6" id="KSW-RA-1RS"/>
+                        <outlet property="sendVoiceButton" destination="g9F-bZ-S90" id="Bhe-Jb-vuk"/>
                         <outlet property="tableView" destination="2c7-rY-Tjo" id="q00-Gz-R4B"/>
                         <outlet property="wrapperView" destination="N3w-26-Zp7" id="Vsj-el-yEx"/>
                         <outlet property="wrapperViewBottomConstraint" destination="mZg-c7-k08" id="ul8-h6-hA4"/>

@@ -9,8 +9,14 @@ import UIKit
 import PhotosUI
 import FirebaseFirestore
 import GoogleMaps
+import AVFoundation
 
 class ChatRoomViewController: UIViewController {
+    var recordingSession: AVAudioSession!
+    var audioRecorder: AVAudioRecorder!
+    var audioPlayer: AVAudioPlayer!
+    var numOfRecorder: Int = 0
+    var playingRecord = false
     var friend: User?
     var conversation: Conversation? {
         didSet {
@@ -23,7 +29,9 @@ class ChatRoomViewController: UIViewController {
     private let locationManager = CLLocationManager()
     private var location = CLLocation()
 
-
+    @IBOutlet weak var sendVoiceButton: UIButton!
+    @IBOutlet weak var playAndSendButton: UIButton!
+    @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var wrapperView: UIView!
     @IBOutlet weak var wrapperViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputTextField: UITextField!
@@ -38,6 +46,12 @@ class ChatRoomViewController: UIViewController {
         view.addGestureRecognizer(tap)
         guard let friend = friend else { return }
         title = friend.name
+        
+        if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int {
+          numOfRecorder = number
+        }
+        sendVoiceButton.isHidden = true
+        configRecordSession()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -115,6 +129,7 @@ class ChatRoomViewController: UIViewController {
         firestoreManager.updateConversation(channelId: conversation.channelId, message: message)
     }
 
+    // MARK: - Image Message
     @IBAction func presentPHPicker(_ sender: UIButton) {
         hideAudioRecordView()
         var configuration = PHPickerConfiguration()
@@ -125,6 +140,7 @@ class ChatRoomViewController: UIViewController {
         present(controller, animated: true)
     }
 
+    // MARK: - Location Message
     @IBAction func sendLocation(_ sender: UIButton) {
         hideAudioRecordView()
         if CLLocationManager.locationServicesEnabled() {
@@ -144,7 +160,9 @@ class ChatRoomViewController: UIViewController {
         }
     }
 
+    // MARK: - Audio Message
     @IBAction func showRecordView(_ sender: UIButton) {
+        playAndSendButton.isHidden = true
         wrapperViewBottomConstraint.isActive = false
         wrapperViewBottomConstraint = wrapperView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150)
         wrapperViewBottomConstraint.isActive = true
@@ -168,6 +186,97 @@ class ChatRoomViewController: UIViewController {
             options: .curveEaseOut,
             animations: { self.view.layoutIfNeeded() }
         )
+    }
+
+    @IBAction func recordButtonAction(_ sender: UIButton) {
+        if audioRecorder == nil {
+            playAndSendButton.isHidden = true
+            numOfRecorder += 1
+
+            let destinationUrl = getDirectoryPath().appendingPathComponent("\(numOfRecorder).m4a")
+
+            let settings = [
+                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                AVSampleRateKey: 44100,
+                AVNumberOfChannelsKey: 2,
+                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            ]
+
+            do {
+                audioRecorder = try AVAudioRecorder(url: destinationUrl, settings: settings)
+                audioRecorder.record()
+
+                recordButton.setTitle("停止錄音", for: .normal)
+            } catch {
+                print("Record error:", error.localizedDescription)
+            }
+        } else {
+            audioRecorder.stop()
+            audioRecorder = nil
+
+            // save file name of record data in tableview
+            UserDefaults.standard.set(numOfRecorder, forKey: "myNumber")
+            playAndSendButton.isHidden = false
+            playAndSendButton.setTitle("播放", for: .normal)
+            recordButton.setTitle("開始錄音", for: .normal)
+            sendVoiceButton.isHidden = false
+        }
+    }
+
+    @IBAction func playOrSendRecord(_ sender: UIButton) {
+        if !playingRecord {
+            let recordFilePath = getDirectoryPath().appendingPathComponent("\(numOfRecorder).m4a")
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: recordFilePath)
+                audioPlayer.volume = 2.0
+                audioPlayer.play()
+                print("===play")
+            } catch {
+                print("Play error:", error.localizedDescription)
+            }
+            playingRecord = true
+            playAndSendButton.setTitle("暫停", for: .normal)
+        } else {
+            audioPlayer.stop()
+            print("===stop")
+            playingRecord = false
+            playAndSendButton.setTitle("播放", for: .normal)
+        }
+    }
+
+    @IBAction func sendVoiceMessage(_ sender: UIButton) {
+        sendVoiceButton.isHidden = true
+        firestoreManager.handleAudioSendWith(url: getDirectoryPath().appendingPathComponent("\(numOfRecorder).m4a")) { result in
+            switch result {
+            case .success(let url):
+                self.uploadMessage(contentType: .voice, content: url.absoluteString)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+
+    func getDirectoryPath() -> URL {
+        // create document folder url
+        let fileDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return fileDirectoryURL
+    }
+
+    func configRecordSession() {
+        recordingSession = AVAudioSession.sharedInstance()
+        do {
+            try recordingSession.setCategory(AVAudioSession.Category.playAndRecord)
+            try recordingSession.setActive(true)
+            recordingSession.requestRecordPermission() { permissionAllowed in
+                if permissionAllowed {
+
+                } else {
+                    // failed to record!
+                }
+            }
+        } catch {
+            print("Session error:", error.localizedDescription)
+        }
     }
 }
 
