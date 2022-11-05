@@ -16,6 +16,18 @@
 		372E3A962913E27100250DAA /* MineMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3A942913E27100250DAA /* MineMessageCell.xib */; };
 		372E3A992913E28100250DAA /* OthersMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A972913E28100250DAA /* OthersMessageCell.swift */; };
 		372E3A9A2913E28100250DAA /* OthersMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3A982913E28100250DAA /* OthersMessageCell.xib */; };
+		372E3AA42916550D00250DAA /* MineLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3AA22916550D00250DAA /* MineLocationCell.swift */; };
+		372E3AA52916550D00250DAA /* MineLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3AA32916550D00250DAA /* MineLocationCell.xib */; };
+		372E3AA82916551C00250DAA /* OtherLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3AA62916551C00250DAA /* OtherLocationCell.swift */; };
+		372E3AA92916551C00250DAA /* OtherLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3AA72916551C00250DAA /* OtherLocationCell.xib */; };
+		372E3AAC291655D400250DAA /* MineImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3AAA291655D400250DAA /* MineImageCell.swift */; };
+		372E3AAD291655D400250DAA /* MineImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3AAB291655D400250DAA /* MineImageCell.xib */; };
+		372E3AB0291655E200250DAA /* OtherImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3AAE291655E200250DAA /* OtherImageCell.swift */; };
+		372E3AB1291655E200250DAA /* OtherImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3AAF291655E200250DAA /* OtherImageCell.xib */; };
+		372E3AB4291655F600250DAA /* MineVoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3AB2291655F600250DAA /* MineVoiceCell.swift */; };
+		372E3AB5291655F600250DAA /* MineVoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3AB3291655F600250DAA /* MineVoiceCell.xib */; };
+		372E3AB82916560600250DAA /* OtherVoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3AB62916560600250DAA /* OtherVoiceCell.swift */; };
+		372E3AB92916560600250DAA /* OtherVoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3AB72916560600250DAA /* OtherVoiceCell.xib */; };
 		3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875369290ED37300F06F4C /* SearchViewController.swift */; };
 		3787536C290ED80900F06F4C /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787536B290ED80900F06F4C /* ResultViewController.swift */; };
 		37875370290F824400F06F4C /* CookAndShare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3787536E290F824400F06F4C /* CookAndShare.xcdatamodeld */; };
@@ -115,6 +127,18 @@
 		372E3A942913E27100250DAA /* MineMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineMessageCell.xib; sourceTree = "<group>"; };
 		372E3A972913E28100250DAA /* OthersMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersMessageCell.swift; sourceTree = "<group>"; };
 		372E3A982913E28100250DAA /* OthersMessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OthersMessageCell.xib; sourceTree = "<group>"; };
+		372E3AA22916550D00250DAA /* MineLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineLocationCell.swift; sourceTree = "<group>"; };
+		372E3AA32916550D00250DAA /* MineLocationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineLocationCell.xib; sourceTree = "<group>"; };
+		372E3AA62916551C00250DAA /* OtherLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherLocationCell.swift; sourceTree = "<group>"; };
+		372E3AA72916551C00250DAA /* OtherLocationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherLocationCell.xib; sourceTree = "<group>"; };
+		372E3AAA291655D400250DAA /* MineImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineImageCell.swift; sourceTree = "<group>"; };
+		372E3AAB291655D400250DAA /* MineImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineImageCell.xib; sourceTree = "<group>"; };
+		372E3AAE291655E200250DAA /* OtherImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherImageCell.swift; sourceTree = "<group>"; };
+		372E3AAF291655E200250DAA /* OtherImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherImageCell.xib; sourceTree = "<group>"; };
+		372E3AB2291655F600250DAA /* MineVoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineVoiceCell.swift; sourceTree = "<group>"; };
+		372E3AB3291655F600250DAA /* MineVoiceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineVoiceCell.xib; sourceTree = "<group>"; };
+		372E3AB62916560600250DAA /* OtherVoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherVoiceCell.swift; sourceTree = "<group>"; };
+		372E3AB72916560600250DAA /* OtherVoiceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherVoiceCell.xib; sourceTree = "<group>"; };
 		37875369290ED37300F06F4C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3787536B290ED80900F06F4C /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		3787536F290F824400F06F4C /* CookAndShare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CookAndShare.xcdatamodel; sourceTree = "<group>"; };
@@ -232,10 +256,10 @@
 			isa = PBXGroup;
 			children = (
 				372E3A912913E0E200250DAA /* ChatListCell.swift */,
-				372E3A932913E27100250DAA /* MineMessageCell.swift */,
-				372E3A942913E27100250DAA /* MineMessageCell.xib */,
-				372E3A972913E28100250DAA /* OthersMessageCell.swift */,
-				372E3A982913E28100250DAA /* OthersMessageCell.xib */,
+				372E3AA12916544F00250DAA /* voice */,
+				372E3AA02916544900250DAA /* location */,
+				372E3A9E2916543000250DAA /* image */,
+				372E3A9D2916542700250DAA /* text */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -249,6 +273,50 @@
 				3787536E290F824400F06F4C /* CookAndShare.xcdatamodeld */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		372E3A9D2916542700250DAA /* text */ = {
+			isa = PBXGroup;
+			children = (
+				372E3A932913E27100250DAA /* MineMessageCell.swift */,
+				372E3A942913E27100250DAA /* MineMessageCell.xib */,
+				372E3A972913E28100250DAA /* OthersMessageCell.swift */,
+				372E3A982913E28100250DAA /* OthersMessageCell.xib */,
+			);
+			path = text;
+			sourceTree = "<group>";
+		};
+		372E3A9E2916543000250DAA /* image */ = {
+			isa = PBXGroup;
+			children = (
+				372E3AAA291655D400250DAA /* MineImageCell.swift */,
+				372E3AAB291655D400250DAA /* MineImageCell.xib */,
+				372E3AAE291655E200250DAA /* OtherImageCell.swift */,
+				372E3AAF291655E200250DAA /* OtherImageCell.xib */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
+		372E3AA02916544900250DAA /* location */ = {
+			isa = PBXGroup;
+			children = (
+				372E3AA22916550D00250DAA /* MineLocationCell.swift */,
+				372E3AA32916550D00250DAA /* MineLocationCell.xib */,
+				372E3AA62916551C00250DAA /* OtherLocationCell.swift */,
+				372E3AA72916551C00250DAA /* OtherLocationCell.xib */,
+			);
+			path = location;
+			sourceTree = "<group>";
+		};
+		372E3AA12916544F00250DAA /* voice */ = {
+			isa = PBXGroup;
+			children = (
+				372E3AB2291655F600250DAA /* MineVoiceCell.swift */,
+				372E3AB3291655F600250DAA /* MineVoiceCell.xib */,
+				372E3AB62916560600250DAA /* OtherVoiceCell.swift */,
+				372E3AB72916560600250DAA /* OtherVoiceCell.xib */,
+			);
+			path = voice;
 			sourceTree = "<group>";
 		};
 		37875379290F993100F06F4C /* Profile */ = {
@@ -626,6 +694,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37D69C65290BCF980034D8E1 /* LaunchScreen.storyboard in Resources */,
+				372E3AB92916560600250DAA /* OtherVoiceCell.xib in Resources */,
 				37D69CAD290CBE050034D8E1 /* NewRecipeDescriptionCell.xib in Resources */,
 				37875380290F9A4000F06F4C /* ProfileUserCell.xib in Resources */,
 				37CBEC912910EFF100A62EF2 /* ShareCell.xib in Resources */,
@@ -636,19 +705,24 @@
 				372E3A9A2913E28100250DAA /* OthersMessageCell.xib in Resources */,
 				37D69C62290BCF980034D8E1 /* Assets.xcassets in Resources */,
 				37CBECA829120DC000A62EF2 /* PublicPostCell.xib in Resources */,
+				372E3AB1291655E200250DAA /* OtherImageCell.xib in Resources */,
 				371AE11429139061003B16BB /* InfoWindowView.xib in Resources */,
 				37E63620290E497F00D516D4 /* AllRecipeCell.xib in Resources */,
 				37CBECA22912025A00A62EF2 /* PublicPostHeaderView.xib in Resources */,
+				372E3AAD291655D400250DAA /* MineImageCell.xib in Resources */,
 				37E63632290E60E800D516D4 /* DetailIngredientCell.xib in Resources */,
+				372E3AA52916550D00250DAA /* MineLocationCell.xib in Resources */,
 				37E6362E290E60D500D516D4 /* DetailBannerCell.xib in Resources */,
 				37D69CBC290CDD700034D8E1 /* NewPost.storyboard in Resources */,
 				37875384290F9A4F00F06F4C /* ProfileListCell.xib in Resources */,
+				372E3AB5291655F600250DAA /* MineVoiceCell.xib in Resources */,
 				37D69C60290BCF970034D8E1 /* Main.storyboard in Resources */,
 				372E3A962913E27100250DAA /* MineMessageCell.xib in Resources */,
 				37875388290F9A6C00F06F4C /* ShoppingListCell.xib in Resources */,
 				37E63617290E48FB00D516D4 /* Recipe.storyboard in Resources */,
 				37D69CA0290C14880034D8E1 /* DraftCell.xib in Resources */,
 				37D7C19929128E6D005B8781 /* Map.storyboard in Resources */,
+				372E3AA92916551C00250DAA /* OtherLocationCell.xib in Resources */,
 				3787537C290F999000F06F4C /* Profile.storyboard in Resources */,
 				37E6361C290E496300D516D4 /* HotRecipeCell.xib in Resources */,
 				37D69CB1290CBE1C0034D8E1 /* NewRecipeIngredientCell.xib in Resources */,
@@ -743,8 +817,10 @@
 				37D69CC5290D48790034D8E1 /* FirestoreManager.swift in Sources */,
 				37E63622290E4DD500D516D4 /* RecipeTypeCell.swift in Sources */,
 				3787537F290F9A4000F06F4C /* ProfileUserCell.swift in Sources */,
+				372E3AB4291655F600250DAA /* MineVoiceCell.swift in Sources */,
 				372E3A922913E0E200250DAA /* ChatListCell.swift in Sources */,
 				37875387290F9A6C00F06F4C /* ShoppingListCell.swift in Sources */,
+				372E3AA42916550D00250DAA /* MineLocationCell.swift in Sources */,
 				37D69C99290C14670034D8E1 /* NewPostCell.swift in Sources */,
 				37875374290F963100F06F4C /* ShoppingList+CoreDataProperties.swift in Sources */,
 				372E3A8E2913DCA200250DAA /* ChatListViewController.swift in Sources */,
@@ -765,8 +841,10 @@
 				37E6361B290E496300D516D4 /* HotRecipeCell.swift in Sources */,
 				37D69C82290BEBBA0034D8E1 /* RecipeViewController.swift in Sources */,
 				371AE11029138F6D003B16BB /* InfoWindowView.swift in Sources */,
+				372E3AAC291655D400250DAA /* MineImageCell.swift in Sources */,
 				37CBECA12912025A00A62EF2 /* PublicPostHeaderView.swift in Sources */,
 				37D69CB7290CD9070034D8E1 /* NewRecipeViewController.swift in Sources */,
+				372E3AA82916551C00250DAA /* OtherLocationCell.swift in Sources */,
 				37D69CC2290D10AE0034D8E1 /* String+Ext.swift in Sources */,
 				372E3A992913E28100250DAA /* OthersMessageCell.swift in Sources */,
 				37D69CB4290CBE310034D8E1 /* NewRecipeProcedureCell.swift in Sources */,
@@ -774,6 +852,7 @@
 				37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */,
 				37E63624290E57BA00D516D4 /* RecipeHeaderView.swift in Sources */,
 				37D7C1A129134F2E005B8781 /* Map.swift in Sources */,
+				372E3AB82916560600250DAA /* OtherVoiceCell.swift in Sources */,
 				37D69C89290C0D500034D8E1 /* NewPostViewController.swift in Sources */,
 				37D69C9F290C14880034D8E1 /* DraftCell.swift in Sources */,
 				3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */,
@@ -784,6 +863,7 @@
 				37D69CA3290C15990034D8E1 /* UITableView+Ext.swift in Sources */,
 				37D69CA9290C1A1E0034D8E1 /* DraftSupplementaryView.swift in Sources */,
 				37E63628290E5EAB00D516D4 /* DetailRecipeViewController.swift in Sources */,
+				372E3AB0291655E200250DAA /* OtherImageCell.swift in Sources */,
 				37E63626290E598000D516D4 /* UIImageView+Ext.swift in Sources */,
 				37D69C79290BDD020034D8E1 /* User.swift in Sources */,
 				3787538E2910098D00F06F4C /* SavedRecipeViewController.swift in Sources */,

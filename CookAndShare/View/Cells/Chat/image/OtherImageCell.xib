@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="221" id="KGk-i7-Jjw" customClass="OtherImageCell" customModule="CookAndShare" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="411" height="221"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="411" height="221"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qsy-cy-w4D">
+                        <rect key="frame" x="16" y="8" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="9me-LZ-ERq"/>
+                            <constraint firstAttribute="width" constant="40" id="ZAF-d9-MfP"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uHj-bt-s7A">
+                        <rect key="frame" x="64" y="8" width="200" height="200"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="200" id="B1u-Xq-EKe"/>
+                            <constraint firstAttribute="width" constant="200" id="gdv-Zg-FEs"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UMG-rc-TIq">
+                        <rect key="frame" x="272" y="187" width="41.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="UMG-rc-TIq" firstAttribute="bottom" secondItem="uHj-bt-s7A" secondAttribute="bottom" id="CfJ-cN-72r"/>
+                    <constraint firstAttribute="bottom" secondItem="uHj-bt-s7A" secondAttribute="bottom" constant="8" id="Eid-FI-0fl"/>
+                    <constraint firstItem="uHj-bt-s7A" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="TtY-an-Npi"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="UMG-rc-TIq" secondAttribute="trailing" constant="16" id="VQU-2h-Wk7"/>
+                    <constraint firstItem="UMG-rc-TIq" firstAttribute="leading" secondItem="uHj-bt-s7A" secondAttribute="trailing" constant="8" id="hXt-TX-bc6"/>
+                    <constraint firstItem="uHj-bt-s7A" firstAttribute="leading" secondItem="qsy-cy-w4D" secondAttribute="trailing" constant="8" id="jTt-wk-gx2"/>
+                    <constraint firstItem="qsy-cy-w4D" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="oPy-FG-pj0"/>
+                    <constraint firstItem="qsy-cy-w4D" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="tcu-63-NJq"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="friendImageView" destination="qsy-cy-w4D" id="mA8-Ot-X37"/>
+                <outlet property="imageTimeLabel" destination="UMG-rc-TIq" id="3sZ-zE-z1d"/>
+                <outlet property="largeImageView" destination="uHj-bt-s7A" id="XOq-Tz-hnq"/>
+            </connections>
+            <point key="canvasLocation" x="203.62318840579712" y="207.92410714285714"/>
+        </tableViewCell>
+    </objects>
+</document>

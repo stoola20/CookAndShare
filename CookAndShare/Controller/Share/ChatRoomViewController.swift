@@ -46,9 +46,9 @@ class ChatRoomViewController: UIViewController {
         view.addGestureRecognizer(tap)
         guard let friend = friend else { return }
         title = friend.name
-        
+
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int {
-          numOfRecorder = number
+            numOfRecorder = number
         }
         sendVoiceButton.isHidden = true
         configRecordSession()
@@ -82,7 +82,13 @@ class ChatRoomViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.registerCellWithNib(identifier: MineMessageCell.identifier, bundle: nil)
+        tableView.registerCellWithNib(identifier: MineImageCell.identifier, bundle: nil)
+        tableView.registerCellWithNib(identifier: MineLocationCell.identifier, bundle: nil)
+        tableView.registerCellWithNib(identifier: MineVoiceCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: OthersMessageCell.identifier, bundle: nil)
+        tableView.registerCellWithNib(identifier: OtherImageCell.identifier, bundle: nil)
+        tableView.registerCellWithNib(identifier: OtherLocationCell.identifier, bundle: nil)
+        tableView.registerCellWithNib(identifier: OtherVoiceCell.identifier, bundle: nil)
     }
 
     @IBAction func sendMessage(_ sender: UIButton) {
@@ -230,7 +236,6 @@ class ChatRoomViewController: UIViewController {
                 audioPlayer = try AVAudioPlayer(contentsOf: recordFilePath)
                 audioPlayer.volume = 2.0
                 audioPlayer.play()
-                print("===play")
             } catch {
                 print("Play error:", error.localizedDescription)
             }
@@ -238,7 +243,6 @@ class ChatRoomViewController: UIViewController {
             playAndSendButton.setTitle("暫停", for: .normal)
         } else {
             audioPlayer.stop()
-            print("===stop")
             playingRecord = false
             playAndSendButton.setTitle("播放", for: .normal)
         }
@@ -269,7 +273,7 @@ class ChatRoomViewController: UIViewController {
             try recordingSession.setActive(true)
             recordingSession.requestRecordPermission() { permissionAllowed in
                 if permissionAllowed {
-
+                    // do nothing
                 } else {
                     // failed to record!
                 }
@@ -290,20 +294,69 @@ extension ChatRoomViewController: UITableViewDataSource {
         guard let conversation = conversation else { return UITableViewCell() }
         let message = conversation.messages[indexPath.row]
         if message.senderId == Constant.userId {
-            guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: MineMessageCell.identifier, for: indexPath)
-                as? MineMessageCell
-            else { fatalError("could not craete MineMessageCell") }
-            cell.layoutCell(with: message)
-            return cell
+            switch message.contentType {
+            case Constant.text:
+                guard
+                    let cell = tableView.dequeueReusableCell(withIdentifier: MineMessageCell.identifier, for: indexPath)
+                    as? MineMessageCell
+                else { fatalError("could not craete MineMessageCell") }
+                cell.layoutCell(with: message)
+                return cell
+            case Constant.image:
+                guard
+                    let cell = tableView.dequeueReusableCell(withIdentifier: MineImageCell.identifier, for: indexPath)
+                    as? MineImageCell
+                else { fatalError("could not craete MineMessageCell") }
+                cell.layoutCell(with: message)
+                return cell
+            case Constant.location:
+                guard
+                    let cell = tableView.dequeueReusableCell(withIdentifier: MineLocationCell.identifier, for: indexPath)
+                    as? MineLocationCell
+                else { fatalError("could not craete MineMessageCell") }
+                cell.layoutCell(with: message)
+                return cell
+            default:
+                guard
+                    let cell = tableView.dequeueReusableCell(withIdentifier: MineVoiceCell.identifier, for: indexPath)
+                    as? MineVoiceCell
+                else { fatalError("could not craete MineMessageCell") }
+                cell.layoutCell(with: message)
+                return cell
+            }
+
         } else {
-            guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: OthersMessageCell.identifier, for: indexPath)
-                as? OthersMessageCell,
-                let friend = friend
-            else { fatalError("could not craete OthersMessageCell") }
-            cell.layoutCell(with: message, friendImageURL: friend.imageURL)
-            return cell
+            guard let friend = friend else { fatalError("Empty friend") }
+            switch message.contentType {
+            case Constant.text:
+                guard
+                    let cell = tableView.dequeueReusableCell(withIdentifier: OthersMessageCell.identifier, for: indexPath)
+                    as? OthersMessageCell
+                else { fatalError("could not craete MineMessageCell") }
+                cell.layoutCell(with: message, friendImageURL: friend.imageURL)
+                return cell
+            case Constant.image:
+                guard
+                    let cell = tableView.dequeueReusableCell(withIdentifier: OtherImageCell.identifier, for: indexPath)
+                    as? OtherImageCell
+                else { fatalError("could not craete MineMessageCell") }
+                cell.layoutCell(with: message, friendImageURL: friend.imageURL)
+                return cell
+            case Constant.location:
+                guard
+                    let cell = tableView.dequeueReusableCell(withIdentifier: OtherLocationCell.identifier, for: indexPath)
+                    as? OtherLocationCell
+                else { fatalError("could not craete MineMessageCell") }
+                cell.layoutCell(with: message, friendImageURL: friend.imageURL)
+                return cell
+            default:
+                guard
+                    let cell = tableView.dequeueReusableCell(withIdentifier: OtherVoiceCell.identifier, for: indexPath)
+                    as? OtherVoiceCell
+                else { fatalError("could not craete MineMessageCell") }
+                cell.layoutCell(with: message, friendImageURL: friend.imageURL)
+                return cell
+            }
         }
     }
 }
