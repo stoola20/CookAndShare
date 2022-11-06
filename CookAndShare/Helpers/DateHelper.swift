@@ -25,6 +25,38 @@ extension Date {
         let timeInterval = Date() - messageTime
         let dayComponent = calendar.component(.day, from: messageTime)
 
+        var hour = calendar.component(.hour, from: messageTime)
+        let minute = calendar.component(.minute, from: messageTime)
+        let zone: String
+        let minutesString: String
+        
+        if hour < 12 {
+            zone = "上午"
+        } else {
+            zone = "下午"
+            hour -= 12
+        }
+        
+        minutesString = minute < 10 ? "0\(minute)" : "\(minute)"
+        // 同一天的話顯示上午、下午
+        if dayComponent == calendar.component(.day, from: Date()) {
+
+            return "\(zone) \(hour):\(minutesString)"
+
+        // 七天內顯示星期幾
+        } else {
+            return """
+            \(calendar.component(.month, from: messageTime))/\(calendar.component(.day, from: messageTime))
+            \(zone) \(hour):\(minutesString)
+            """
+        }
+    }
+
+    static func getChatRoomTimeString(from messageTime: Date) -> String {
+        let calendar = Calendar.current
+        let timeInterval = Date() - messageTime
+        let dayComponent = calendar.component(.day, from: messageTime)
+
         // 同一天的話顯示上午、下午
         if dayComponent == calendar.component(.day, from: Date()) {
             var hour = calendar.component(.hour, from: messageTime)
@@ -44,8 +76,18 @@ extension Date {
             return "\(zone) \(hour):\(minutesString)"
 
         // 七天內顯示星期幾
-        } else if timeInterval < 60.0 * 60.0 * 24.0 * 7.0  {
-            return "\(calendar.component(.weekday, from: messageTime))"
+        } else if timeInterval < 60.0 * 60.0 * 24.0 * 7.0 {
+            var weekday: String
+            switch calendar.component(.weekday, from: messageTime) {
+            case 1: weekday = "星期日"
+            case 2: weekday = "星期一"
+            case 3: weekday = "星期二"
+            case 4: weekday = "星期三"
+            case 5: weekday = "星期四"
+            case 6: weekday = "星期五"
+            default: weekday = "星期六"
+            }
+            return "\(weekday)"
         // 其餘顯示幾月幾號
         } else {
             return "\(calendar.component(.month, from: messageTime))/\(calendar.component(.day, from: messageTime))"

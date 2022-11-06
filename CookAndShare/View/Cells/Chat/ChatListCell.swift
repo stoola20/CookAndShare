@@ -32,6 +32,6 @@ class ChatListCell: UITableViewCell {
         default:
             lastMessageLabel.text = lastMessage.senderId == Constant.userId ? "您傳送了一則語音" : "\(friendName)向您傳送了一則語音"
         }
-        lastTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(lastMessage.time.seconds)))
+        lastTimeLabel.text = Date.getChatRoomTimeString(from: Date(timeIntervalSince1970: Double(lastMessage.time.seconds)))
     }
 }
