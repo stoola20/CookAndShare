@@ -29,7 +29,6 @@ class ShareCell: UITableViewCell {
         super.awakeFromNib()
         userImageView.contentMode = .scaleAspectFill
         foodImageView.contentMode = .scaleAspectFill
-        print(#function)
         userNameLabel.isUserInteractionEnabled = true
         userNameLabel.addGestureRecognizer(setGestureRecognizer())
         userImageView.isUserInteractionEnabled = true

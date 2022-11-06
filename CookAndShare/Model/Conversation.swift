@@ -7,19 +7,26 @@
 
 import Foundation
 import FirebaseFirestore
+import SwiftUI
 
 struct Conversation: Codable {
-    let channelId: String
-    let friendId: [String]
-    let messages: [Message]
+    var channelId = String.empty
+    var friendIds: [String] = []
+    var messages: [Message] = []
 //    let lastReadTime: Timestamp
 }
 
 struct Message: Codable {
-    let messageId: String
-    let senderId: String
-    let contentType: String
-    let content: String
-    let time: Timestamp
+    var senderId: String
+    var contentType: String
+    var content: String
+    var time: Timestamp
 //    let status: Bool
+}
+
+enum ContentType: String {
+    case text
+    case image
+    case voice
+    case location
 }

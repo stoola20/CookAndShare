@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var marketButton: UIButton!
     @IBOutlet weak var foodBankButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "地圖"
@@ -28,7 +28,7 @@ class MapViewController: UIViewController {
         mapView.delegate = self
         marketButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
         foodBankButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
-        
+
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
             mapView.isMyLocationEnabled = true

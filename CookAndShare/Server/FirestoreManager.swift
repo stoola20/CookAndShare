@@ -16,6 +16,7 @@ struct FirestoreManager {
     let recipesCollection = Firestore.firestore().collection(Constant.firestoreRecipes)
     let usersCollection = Firestore.firestore().collection(Constant.firestoreUsers)
     let sharesCollection = Firestore.firestore().collection(Constant.firestoreShares)
+    let conversationsCollection = Firestore.firestore().collection(Constant.firestoreConversations)
     let storage = Storage.storage()
 
 // MARK: - Upload Photo
@@ -32,6 +33,18 @@ struct FirestoreManager {
             }
         }
     }
+    
+    func handleAudioSendWith(url: URL, completion: @escaping (Result<URL, Error>) -> Void) {
+        let fileReference = storage.reference().child(UUID().uuidString + ".m4a")
+        fileReference.putFile(from: url, metadata: nil, completion: { metadata, error in
+            if error != nil {
+                print(error)
+            } else {
+                fileReference.downloadURL(completion: completion)   
+            }
+        })
+    }
+
 
 // MARK: - Recipe
     func addNewRecipe(_ recipe: Recipe, to document: DocumentReference) {
@@ -210,11 +223,17 @@ struct FirestoreManager {
         }
     }
 
-    func updateUserSharePost(shareId: String, userId: String) {
+    func updateUserSharePost(shareId: String, userId: String, isNewPost: Bool) {
         let userRef = usersCollection.document(userId)
-        userRef.updateData([
-            Constant.sharesId: FieldValue.arrayUnion([shareId])
-        ])
+        if isNewPost {
+            userRef.updateData([
+                Constant.sharesId: FieldValue.arrayUnion([shareId])
+            ])
+        } else {
+            userRef.updateData([
+                Constant.sharesId: FieldValue.arrayRemove([shareId])
+            ])
+        }
     }
 
     func fetchUserData(userId: String, completion: @escaping (Result<User, Error>) -> Void) {
@@ -238,6 +257,15 @@ struct FirestoreManager {
         }
     }
 
+    func updateUserConversation(userId: String, friendId: String, channelId: String) {
+        usersCollection.document(userId).updateData([
+            Constant.conversationId: FieldValue.arrayUnion([channelId])
+        ])
+        usersCollection.document(friendId).updateData([
+            Constant.conversationId: FieldValue.arrayUnion([channelId])
+        ])
+    }
+
 // MARK: - Share
     func addNewShare(_ share: Share, to document: DocumentReference) {
         do {
@@ -259,11 +287,12 @@ struct FirestoreManager {
                 guard let querySnapshot = querySnapshot else { return }
                 querySnapshot.documents.forEach { document in
                     do {
-                        let recipe = try document.data(as: Share.self)
-                        if Double(recipe.dueDate.seconds) < Date().timeIntervalSince1970 {
-                            deleteSharePost(shareId: recipe.shareId)
+                        let share = try document.data(as: Share.self)
+                        if Double(share.dueDate.seconds) < Date().timeIntervalSince1970 {
+                            deleteSharePost(shareId: share.shareId)
+                            updateUserSharePost(shareId: share.shareId, userId: share.authorId, isNewPost: false)
                         } else {
-                            shares.append(recipe)
+                            shares.append(share)
                         }
                     } catch {
                         completion(.failure(error))
@@ -273,7 +302,7 @@ struct FirestoreManager {
             }
         }
     }
-    
+
     func fetchShareBy(_ id: String, completion: @escaping (Result<Share, Error>) -> Void) {
         sharesCollection.whereField("shareId", isEqualTo: id).getDocuments { querySnapshot, error in
             if let error = error {
@@ -296,12 +325,86 @@ struct FirestoreManager {
     }
 
     func deleteSharePost(shareId: String) {
-        sharesCollection.document(shareId).delete(){ err in
+        sharesCollection.document(shareId).delete() { err in
             if let err = err {
                 print("Error removing document: \(err)")
             } else {
                 print("Document successfully removed!")
             }
+        }
+    }
+
+// MARK: - Chat
+    func fetchConversation(with friendId: String, completion: @escaping (Result<Conversation, Error>) -> Void) {
+        conversationsCollection.whereField("friendIds", arrayContainsAny: [Constant.userId, friendId]).getDocuments { (querySnapshot, err) in
+            guard let querySnapshot = querySnapshot else { return }
+            if querySnapshot.isEmpty {
+                print("conversation not found!")
+            } else {
+                guard let document = querySnapshot.documents.first else { fatalError("no document") }
+
+                do {
+                    let conversation = try document.data(as: Conversation.self)
+                    completion(.success(conversation))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+
+    func fetchConversationBy(_ id: String, completion: @escaping (Result<Conversation, Error>) -> Void) {
+        conversationsCollection.whereField("channelId", isEqualTo: id).getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting users: \(error)")
+                completion(.failure(error))
+            } else {
+                guard
+                    let querySnapshot = querySnapshot,
+                    let document = querySnapshot.documents.first
+                else { return }
+
+                do {
+                    let conversation = try document.data(as: Conversation.self)
+                    completion(.success(conversation))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+    }
+
+    func createNewConversation(_ conversation: Conversation, to document: DocumentReference) {
+        do {
+            try document.setData(from: conversation)
+            print("Document added with ID: \(document.documentID)")
+        } catch let error {
+            print("Error adding document: \(error)")
+        }
+    }
+
+    func updateConversation(channelId: String, message: [String: Any]) {
+        let conversationRef = conversationsCollection.document(channelId)
+        conversationRef.updateData([
+            "messages": FieldValue.arrayUnion([message])
+        ])
+    }
+
+    func addListener(channelId: String, completion: @escaping (Result<Conversation, Error>) -> Void) {
+        let conversationRef = conversationsCollection.document(channelId)
+
+        conversationRef.addSnapshotListener { documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+
+            guard let newConversation = try? document.data(as: Conversation.self) else {
+                print("Document data was empty.")
+                return
+            }
+
+            completion(.success(newConversation))
         }
     }
 }

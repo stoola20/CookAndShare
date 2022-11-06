@@ -15,7 +15,7 @@ class PublicProfileViewController: UIViewController {
     var toRecipe = true
     let firestoreManager = FirestoreManager.shared
     @IBOutlet weak var recipeCollectionView: UICollectionView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCollectionView()
@@ -40,6 +40,8 @@ class PublicProfileViewController: UIViewController {
     }
 
     func fetchData() {
+        var tempRecipes: [Recipe] = []
+        var tempShares: [Share] = []
         let group = DispatchGroup()
         group.enter()
         firestoreManager.fetchUserData(userId: userId) { result in
@@ -51,10 +53,11 @@ class PublicProfileViewController: UIViewController {
                     self.firestoreManager.fetchRecipeBy(recipeId) { result in
                         switch result {
                         case .success(let recipe):
-                            self.recipes.append(recipe)
+                            tempRecipes.append(recipe)
                             group.leave()
                         case .failure(let error):
                             print(error)
+                            group.leave()
                         }
                     }
                 }
@@ -63,21 +66,25 @@ class PublicProfileViewController: UIViewController {
                     self.firestoreManager.fetchShareBy(shareId) { result in
                         switch result {
                         case .success(let share):
-                            self.shares.append(share)
+                            tempShares.append(share)
                             group.leave()
                         case .failure(let error):
                             print(error)
+                            group.leave()
                         }
                     }
                 }
                 group.leave()
             case .failure(let error):
                 print(error)
+                group.leave()
             }
         }
 
         group.notify(queue: DispatchQueue.main) { [weak self] in
             guard let self = self else { return }
+            self.recipes = tempRecipes
+            self.shares = tempShares
             self.recipeCollectionView.reloadData()
         }
     }
@@ -104,6 +111,7 @@ extension PublicProfileViewController: UICollectionViewDataSource {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PublicProfileHeaderCell.identifier, for: indexPath)
                 as? PublicProfileHeaderCell
             else { fatalError("Could not create PublicProfileHeaderCell") }
+            cell.delegate = self
             cell.layoutCell(with: user)
             return cell
         } else {
@@ -118,6 +126,39 @@ extension PublicProfileViewController: UICollectionViewDataSource {
             }
             return cell
         }
+    }
+}
+
+extension PublicProfileViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if toRecipe {
+            let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
+            guard
+                let detailRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: DetailRecipeViewController.self))
+                as? DetailRecipeViewController
+            else { fatalError("Could not create detailVC") }
+            detailRecipeVC.recipe = recipes[indexPath.item]
+            navigationController?.pushViewController(detailRecipeVC, animated: true)
+        } else {
+            let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
+            guard
+                let shareVC = storyboard.instantiateViewController(withIdentifier: String(describing: ShareViewController.self))
+                as? ShareViewController
+            else { fatalError("Could not create detailVC") }
+            shareVC.shares = [shares[indexPath.item]]
+            shareVC.fromPublicVC = true
+            navigationController?.pushViewController(shareVC, animated: true)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let headerView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: PublicPostHeaderView.identifier,
+            for: indexPath) as? PublicPostHeaderView
+        else { fatalError("Could not create new post header view") }
+        headerView.delegate = self
+        return headerView
     }
 }
 
@@ -155,21 +196,23 @@ extension PublicProfileViewController {
     }
 }
 
-extension PublicProfileViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerView = collectionView.dequeueReusableSupplementaryView(
-            ofKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: PublicPostHeaderView.identifier,
-            for: indexPath) as? PublicPostHeaderView
-        else { fatalError("Could not create new post header view") }
-        headerView.delegate = self
-        return headerView
-    }
-}
-
 extension PublicProfileViewController: PublicPostHeaderViewDelegate {
     func headerView(didChange: Bool) {
         self.toRecipe = didChange
         self.recipeCollectionView.reloadData()
+    }
+}
+
+extension PublicProfileViewController: PublicProfileHeaderCellDelegate {
+    func presentChatRoom() {
+        let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
+        guard
+            let chatRoomVC = storyboard.instantiateViewController(withIdentifier: String(describing: ChatRoomViewController.self))
+                as? ChatRoomViewController,
+            let user = user
+        else { fatalError("Could not instantiate chatRoomVC") }
+        chatRoomVC.title = user.name
+        chatRoomVC.friend = user
+        navigationController?.pushViewController(chatRoomVC, animated: true)
     }
 }
