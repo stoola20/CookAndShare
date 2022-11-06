@@ -1076,6 +1076,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CookAndShare/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "藉由提供您的地點，好享煮飯可以找到您附近的超市、市場及食物銀行";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "開啟錄音權限就能傳送語音訊息";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1085,7 +1086,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1106,6 +1107,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CookAndShare/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "藉由提供您的地點，好享煮飯可以找到您附近的超市、市場及食物銀行";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "開啟錄音權限就能傳送語音訊息";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1115,7 +1117,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
