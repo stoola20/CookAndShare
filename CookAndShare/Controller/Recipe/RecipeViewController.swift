@@ -19,14 +19,18 @@ enum RecipeType: String, CaseIterable {
     case pork = "豬肉"
     case chicken = "雞肉"
     case vegetarian = "蔬食"
-    case other = "其他"
 }
 
 class RecipeViewController: UIViewController {
     let firestoreManager = FirestoreManager.shared
     var hotRecipes: [Recipe]?
     var allRecipes: [Recipe]?
-    
+    var filterdRecipes: [Recipe]? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+
     @IBOutlet weak var collectionView: UICollectionView!
 
     override func viewDidLoad() {
@@ -44,7 +48,7 @@ class RecipeViewController: UIViewController {
         super.viewWillAppear(animated)
         downloadRecipes()
     }
-    
+
     @objc func searchRecipes() {
         let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
         guard let searchVC = storyboard.instantiateViewController(
@@ -61,7 +65,11 @@ class RecipeViewController: UIViewController {
         collectionView.registerCellWithNib(identifier: HotRecipeCell.identifier, bundle: nil)
         collectionView.registerCellWithNib(identifier: AllRecipeCell.identifier, bundle: nil)
         collectionView.register(RecipeTypeCell.self, forCellWithReuseIdentifier: RecipeTypeCell.identifier)
-        collectionView.register(RecipeHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: RecipeHeaderView.identifier)
+        collectionView.register(
+            RecipeHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: RecipeHeaderView.identifier
+        )
     }
 
     func downloadRecipes() {
@@ -69,13 +77,64 @@ class RecipeViewController: UIViewController {
             switch result {
             case .success(let recipes):
                 self.hotRecipes = recipes
-                self.allRecipes = recipes
+                self.hotRecipes?.sort { $0.likes.count > $1.likes.count }
+
+                self.allRecipes = recipes.sorted { $0.time.seconds > $1.time.seconds }
+                self.filterdRecipes = self.allRecipes
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }
             case .failure(let error):
                 print(error)
             }
+        }
+    }
+
+    func recipeFilter(by meat: String) {
+        filterdRecipes = allRecipes?.filter { recipe in
+            var isMach = false
+            recipe.ingredientNames.forEach { name in
+                let nameIsMatch = name.localizedCaseInsensitiveContains(meat)
+                if nameIsMatch != true { return }
+                isMach = nameIsMatch
+            }
+            return isMach
+        }
+    }
+
+    func recipeFilterByVegetable() {
+        filterdRecipes = allRecipes?.filter { recipe in
+            var isMach = true
+            recipe.ingredientNames.forEach { name in
+                let containsChicken = name.localizedCaseInsensitiveContains("雞")
+                let containsBeef = name.localizedCaseInsensitiveContains("牛")
+                let containsPork = name.localizedCaseInsensitiveContains("豬")
+                let containsShrimp = name.localizedCaseInsensitiveContains("蝦")
+                let containsFish = name.localizedCaseInsensitiveContains("魚")
+                let containsMeat = name.localizedCaseInsensitiveContains("肉")
+
+                let notVegan = containsChicken || containsPork || containsBeef || containsFish || containsShrimp || containsMeat
+                if !notVegan { return }
+                isMach = !notVegan
+            }
+            return isMach
+        }
+    }
+}
+
+extension RecipeViewController: RecipeTypeCellDelegate {
+    func didSelectedButton(tag: Int) {
+        switch tag {
+        case 0:
+            filterdRecipes = allRecipes
+        case 1:
+            recipeFilter(by: "牛")
+        case 2:
+            recipeFilter(by: "豬")
+        case 3:
+            recipeFilter(by: "雞")
+        default:
+            recipeFilterByVegetable()
         }
     }
 }
@@ -89,7 +148,7 @@ extension RecipeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard
             let hotRecipes = hotRecipes,
-            let allRecipes = allRecipes
+            let filterdRecipes = filterdRecipes
         else { return 0 }
 
         switch section {
@@ -98,13 +157,14 @@ extension RecipeViewController: UICollectionViewDataSource {
         case 1:
             return RecipeType.allCases.count
         default:
-            return allRecipes.count
+            return filterdRecipes.count
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let hotRecipes = hotRecipes,
-              let allRecipes = allRecipes
+        guard
+            let hotRecipes = hotRecipes,
+            let filterdRecipes = filterdRecipes
         else { fatalError("empty recipes") }
 
         switch indexPath.section {
@@ -118,13 +178,15 @@ extension RecipeViewController: UICollectionViewDataSource {
         case 1:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecipeTypeCell.identifier, for: indexPath) as? RecipeTypeCell
             else { fatalError("Could not create hot recipe cell") }
+            cell.delegate = self
+            cell.typeButton.tag = indexPath.item
             cell.typeButton.setTitle(RecipeType.allCases[indexPath.item].rawValue, for: .normal)
             return cell
 
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllRecipeCell.identifier, for: indexPath) as? AllRecipeCell
             else { fatalError("Could not create hot recipe cell") }
-            cell.layoutCell(with: allRecipes[indexPath.item])
+            cell.layoutCell(with: filterdRecipes[indexPath.item])
             return cell
         }
     }
@@ -150,6 +212,8 @@ extension RecipeViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension RecipeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: false)
+
         let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
         guard let detailVC = storyboard.instantiateViewController(
             withIdentifier: String(describing: DetailRecipeViewController.self))
@@ -160,14 +224,14 @@ extension RecipeViewController: UICollectionViewDelegate {
         case 0:
             guard let hotRecipes = hotRecipes else { return }
             detailVC.recipe = hotRecipes[indexPath.item]
-
+            navigationController?.pushViewController(detailVC, animated: true)
+        case 1:
+            return
         default:
-            guard let allRecipes = allRecipes else { return }
-            detailVC.recipe = allRecipes[indexPath.item]
+            guard let filterdRecipes = filterdRecipes else { return }
+            detailVC.recipe = filterdRecipes[indexPath.item]
+            navigationController?.pushViewController(detailVC, animated: true)
         }
-
-        collectionView.deselectItem(at: indexPath, animated: false)
-        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
@@ -198,7 +262,7 @@ extension RecipeViewController {
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
 
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .absolute(44))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.2), heightDimension: .absolute(65))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
                 let section = NSCollectionLayoutSection(group: group)
