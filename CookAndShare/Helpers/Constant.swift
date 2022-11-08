@@ -54,6 +54,7 @@ struct Constant {
     static let quantityByPerson = "人份的食材"
     static let likes = "likes"
     static let saves = "saves"
+    static let foodRecognition = "食物辨識"
 
     // search
     static let title = "title"

@@ -28,11 +28,11 @@ class SearchViewController: UIViewController {
         ingredientTextField.placeholder = Constant.typeInIngredient
         ingredientTextField.delegate = self
     }
-    
+
     override func becomeFirstResponder() -> Bool {
         return true
     }
-    
+
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
@@ -42,6 +42,16 @@ class SearchViewController: UIViewController {
             resultVC.searchType = .random
             navigationController?.pushViewController(resultVC, animated: true)
         }
+    }
+
+    @IBAction func showFoodRecognition(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
+        guard
+            let foodRecognitionVC = storyboard.instantiateViewController(withIdentifier: String(describing: FoodRecognitionViewController.self))
+            as? FoodRecognitionViewController
+        else { fatalError("Could not create foodRecognitionVC") }
+        foodRecognitionVC.title = Constant.foodRecognition
+        navigationController?.pushViewController(foodRecognitionVC, animated: true)
     }
 }
 
