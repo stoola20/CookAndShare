@@ -264,7 +264,7 @@
                                     <constraint firstAttribute="width" secondItem="ddP-cC-GVS" secondAttribute="height" multiplier="1:1" id="WSy-su-p5C"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUH-Es-wnH">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="點選上方框框即可選取照片來源" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUH-Es-wnH">
                                 <rect key="frame" x="16" y="671" width="382" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -277,9 +277,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="175" height="31"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="重新拍攝相片"/>
-                                        <connections>
-                                            <action selector="retakePhoto:" destination="MFn-8d-C49" eventType="touchUpInside" id="hj3-ue-aBe"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sUw-ON-iTe">
                                         <rect key="frame" x="191" y="0.0" width="175" height="31"/>

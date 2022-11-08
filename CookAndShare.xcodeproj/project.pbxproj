@@ -46,6 +46,7 @@
 		3787538C290FC5DD00F06F4C /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787538B290FC5DD00F06F4C /* ShoppingListViewController.swift */; };
 		3787538E2910098D00F06F4C /* SavedRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */; };
 		37C622E72919FB4600A84263 /* FoodRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */; };
+		37C622E9291A09E500A84263 /* SeeFood.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E8291A09E400A84263 /* SeeFood.mlmodel */; };
 		37CBEC822910AE2B00A62EF2 /* NewShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC812910AE2B00A62EF2 /* NewShareViewController.swift */; };
 		37CBEC852910B62000A62EF2 /* NewShareCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC842910B62000A62EF2 /* NewShareCell.swift */; };
 		37CBEC872910EF0300A62EF2 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC862910EF0300A62EF2 /* ShareViewController.swift */; };
@@ -158,6 +159,7 @@
 		3787538B290FC5DD00F06F4C /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
 		3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipeViewController.swift; sourceTree = "<group>"; };
 		37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRecognitionViewController.swift; sourceTree = "<group>"; };
+		37C622E8291A09E400A84263 /* SeeFood.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SeeFood.mlmodel; sourceTree = "<group>"; };
 		37CBEC812910AE2B00A62EF2 /* NewShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewShareViewController.swift; sourceTree = "<group>"; };
 		37CBEC842910B62000A62EF2 /* NewShareCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewShareCell.swift; sourceTree = "<group>"; };
 		37CBEC862910EF0300A62EF2 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				37D69C58290BCF970034D8E1 /* AppDelegate.swift */,
 				37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */,
 				37D69C61290BCF980034D8E1 /* Assets.xcassets */,
+				37C622E8291A09E400A84263 /* SeeFood.mlmodel */,
 				37D69C66290BCF980034D8E1 /* Info.plist */,
 				37D69C6C290BD46D0034D8E1 /* GoogleService-Info.plist */,
 				37D7C1A62913579D005B8781 /* APIKey.swift */,
@@ -823,6 +826,7 @@
 				372E3AB4291655F600250DAA /* MineVoiceCell.swift in Sources */,
 				372E3A922913E0E200250DAA /* ChatListCell.swift in Sources */,
 				37875387290F9A6C00F06F4C /* ShoppingListCell.swift in Sources */,
+				37C622E9291A09E500A84263 /* SeeFood.mlmodel in Sources */,
 				372E3AA42916550D00250DAA /* MineLocationCell.swift in Sources */,
 				37D69C99290C14670034D8E1 /* NewPostCell.swift in Sources */,
 				37875374290F963100F06F4C /* ShoppingList+CoreDataProperties.swift in Sources */,
