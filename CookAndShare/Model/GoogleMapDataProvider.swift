@@ -11,7 +11,7 @@ class GoogleMapDataProvider {
     static var shared = GoogleMapDataProvider()
 
     func fetchNearbySearch(location: String, keyword: String, completion: @escaping (ListResponse?) -> Void) {
-        if let url = URL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(location)&radius=3000&key=\(APIKey.mapKey)&keyword=\(keyword)&language=zh-TW".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
+        if let url = URL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(location)&radius=3000&key=\(APIKey.apiKey)&keyword=\(keyword)&language=zh-TW".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if
                     let data = data,
@@ -35,7 +35,7 @@ class GoogleMapDataProvider {
     }
 
     func fetchPlaceDetail(placeId: String, completion: @escaping (DetailResponse?) -> Void) {
-        if let url = URL(string: "https://maps.googleapis.com/maps/api/place/details/json?place_id=\(placeId)&language=zh-TW&key=\(APIKey.mapKey)") {
+        if let url = URL(string: "https://maps.googleapis.com/maps/api/place/details/json?place_id=\(placeId)&language=zh-TW&key=\(APIKey.apiKey)") {
             URLSession.shared.dataTask(with: url) { data, response, error in
                 if  let data = data,
                     let response = response as? HTTPURLResponse,

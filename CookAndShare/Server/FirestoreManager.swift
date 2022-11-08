@@ -33,7 +33,7 @@ struct FirestoreManager {
             }
         }
     }
-    
+
     func handleAudioSendWith(url: URL, completion: @escaping (Result<URL, Error>) -> Void) {
         let fileReference = storage.reference().child(UUID().uuidString + ".m4a")
         fileReference.putFile(from: url, metadata: nil, completion: { metadata, error in

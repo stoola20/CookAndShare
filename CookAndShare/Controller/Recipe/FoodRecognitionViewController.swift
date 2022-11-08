@@ -61,13 +61,19 @@ class FoodRecognitionViewController: UIViewController {
             guard let results = request.results as? [VNClassificationObservation]
             else { fatalError("Model failed to process image") }
             if let firstResult = results.first {
-                print("=== identifier \(firstResult.identifier)")
-                print("=== confidence \(firstResult.confidence)")
                 if firstResult.confidence > 0.5 {
-                    self.resultLabel.text = """
-                    辨識結果：
-                    \(firstResult.identifier)
-                    """
+                    TranslationManager.shared.textToTranslate = firstResult.identifier
+                    TranslationManager.shared.translate { translation in
+                        guard let translation = translation else {
+                            return
+                        }
+                        DispatchQueue.main.async { [unowned self] in
+                            self.resultLabel.text = """
+                            辨識結果：
+                            \(translation)
+                            """
+                        }
+                    }
                     self.searchButton.isHidden = false
                 } else {
                     self.resultLabel.text = "照片無法被辨識，請嘗試重新拍攝"
