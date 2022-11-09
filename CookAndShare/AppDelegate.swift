@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey(APIKey.apiKey)
         GMSPlacesClient.provideAPIKey(APIKey.apiKey)
         IQKeyboardManager.shared().isEnabled = true
-
+        IQKeyboardManager.shared().toolbarDoneBarButtonItemText = "完成"
         return true
     }
 

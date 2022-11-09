@@ -18,6 +18,7 @@ class FoodRecognitionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpUI()
         foodImageView.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseSourceType))
         foodImageView.addGestureRecognizer(tap)
@@ -28,6 +29,21 @@ class FoodRecognitionViewController: UIViewController {
         retakeButton.isHidden = true
         retakeButton.addTarget(self, action: #selector(chooseSourceType), for: .touchUpInside)
         searchButton.isHidden = true
+    }
+
+    func setUpUI() {
+        resultLabel.textColor = UIColor.darkBrown
+        resultLabel.font = UIFont.boldSystemFont(ofSize: 20)
+
+        retakeButton.layer.cornerRadius = 25
+        retakeButton.backgroundColor = UIColor.darkBrown
+        retakeButton.setTitleColor(UIColor.backGround, for: .normal)
+        retakeButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+
+        searchButton.layer.cornerRadius = 25
+        searchButton.backgroundColor = UIColor.darkBrown
+        searchButton.setTitleColor(UIColor.backGround, for: .normal)
+        searchButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
     }
 
     @objc func chooseSourceType() {
@@ -68,10 +84,7 @@ class FoodRecognitionViewController: UIViewController {
                             return
                         }
                         DispatchQueue.main.async { [unowned self] in
-                            self.resultLabel.text = """
-                            辨識結果：
-                            \(translation)
-                            """
+                            self.resultLabel.text = "辨識結果：\(translation)"
                         }
                     }
                     self.searchButton.isHidden = false

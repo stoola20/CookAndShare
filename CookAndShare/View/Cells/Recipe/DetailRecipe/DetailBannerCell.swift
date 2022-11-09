@@ -26,11 +26,23 @@ class DetailBannerCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        mainImageVIew.contentMode = .scaleAspectFill
+        setUpUI()
         profileImage.isUserInteractionEnabled = true
         authorLabel.isUserInteractionEnabled = true
         profileImage.addGestureRecognizer(setGestureRecognizer())
         authorLabel.addGestureRecognizer(setGestureRecognizer())
+    }
+
+    func setUpUI() {
+        mainImageVIew.contentMode = .scaleAspectFill
+        profileImage.layer.cornerRadius = 20
+        profileImage.contentMode = .scaleAspectFill
+        containerView.layer.cornerRadius = 35
+        titleLabel.textColor = UIColor.darkBrown
+        durationLabel.textColor = UIColor.darkBrown
+        authorLabel.textColor = UIColor.darkBrown
+        storyLabel.textColor = UIColor.darkBrown
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
     }
 
     func setGestureRecognizer() -> UITapGestureRecognizer {
@@ -38,7 +50,7 @@ class DetailBannerCell: UITableViewCell {
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToProfile))
         return tapRecognizer
     }
-    
+
     @objc func goToProfile() {
         delegate.goToProfile(userId)
     }

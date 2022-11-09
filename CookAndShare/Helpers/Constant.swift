@@ -59,6 +59,7 @@ struct Constant {
     // search
     static let title = "title"
     static let ingredientNames = "ingredientNames"
+    static let search = "搜尋"
     static let typeInTitle = "請輸入食譜名"
     static let typeInIngredient = "請輸入食材名"
     static let searchByText = "文字搜尋"

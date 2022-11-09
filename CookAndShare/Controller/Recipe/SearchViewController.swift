@@ -13,20 +13,40 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var randomLabel: UILabel!
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var ingredientTextField: UITextField!
-
+    @IBOutlet weak var foodRecognitionButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        title = Constant.search
     }
 
     func setUpView() {
         textLabel.text = Constant.searchByText
         cameraLabel.text = Constant.searchByPhoto
         randomLabel.text = Constant.searchRandomly
+
         titleTextField.placeholder = Constant.typeInTitle
         titleTextField.delegate = self
+        titleTextField.backgroundColor = UIColor.lightOrange
+        titleTextField.textColor = UIColor.darkBrown
+        titleTextField.font = UIFont.systemFont(ofSize: 18)
+        titleTextField.returnKeyType = .search
+
         ingredientTextField.placeholder = Constant.typeInIngredient
         ingredientTextField.delegate = self
+        ingredientTextField.backgroundColor = UIColor.lightOrange
+        ingredientTextField.textColor = UIColor.darkBrown
+        ingredientTextField.font = UIFont.systemFont(ofSize: 18)
+        ingredientTextField.returnKeyType = .search
+
+        textLabel.textColor = UIColor.darkBrown
+        cameraLabel.textColor = UIColor.darkBrown
+        randomLabel.textColor = UIColor.darkBrown
+
+        foodRecognitionButton.backgroundColor = UIColor.darkBrown
+        foodRecognitionButton.setTitleColor(UIColor.backGround, for: .normal)
+        foodRecognitionButton.layer.cornerRadius = 25
     }
 
     override func becomeFirstResponder() -> Bool {

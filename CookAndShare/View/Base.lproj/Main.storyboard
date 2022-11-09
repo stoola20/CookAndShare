@@ -164,4 +164,10 @@
             <point key="canvasLocation" x="185" y="1437"/>
         </scene>
     </scenes>
+    <color key="tintColor" name="DarkBrown"/>
+    <resources>
+        <namedColor name="DarkBrown">
+            <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

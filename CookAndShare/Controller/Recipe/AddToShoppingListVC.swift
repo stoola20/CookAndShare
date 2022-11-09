@@ -18,10 +18,14 @@ class AddToShoppingListVC: UIViewController {
     }
     var selectedIndex: [Int] = []
 
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var addToListButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
+        setUpUI()
     }
 
     func setUpTableView() {
@@ -29,6 +33,18 @@ class AddToShoppingListVC: UIViewController {
         tableView.allowsSelection = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         tableView.registerCellWithNib(identifier: ShoppingListCell.identifier, bundle: nil)
+    }
+
+    func setUpUI() {
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        titleLabel.textColor = UIColor.darkBrown
+        titleLabel.layer.shadowColor = UIColor.darkBrown?.cgColor
+        titleLabel.layer.shadowRadius = 2
+        titleLabel.layer.shadowOffset = CGSize(width: 2, height: 2)
+
+        addToListButton.backgroundColor = UIColor.darkBrown
+        addToListButton.layer.cornerRadius = 25
+        addToListButton.setTitleColor(UIColor.backGround, for: .normal)
     }
 
     @IBAction func addToShoppingList(_ sender: UIButton) {

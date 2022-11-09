@@ -27,8 +27,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2zC-xF-vQb">
                         <rect key="frame" x="0.0" y="250" width="341" height="167.5"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n8p-26-vu8">
-                                <rect key="frame" x="16" y="30" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n8p-26-vu8">
+                                <rect key="frame" x="16" y="30" width="251" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -63,6 +63,7 @@
                         <constraints>
                             <constraint firstItem="FXW-PQ-q9k" firstAttribute="leading" secondItem="2zC-xF-vQb" secondAttribute="leading" constant="16" id="13H-EQ-xai"/>
                             <constraint firstItem="n8p-26-vu8" firstAttribute="leading" secondItem="2zC-xF-vQb" secondAttribute="leading" constant="16" id="1GC-ju-T9J"/>
+                            <constraint firstItem="B1s-kb-O6f" firstAttribute="leading" secondItem="n8p-26-vu8" secondAttribute="trailing" constant="16" id="3z9-aO-BfF"/>
                             <constraint firstItem="5hX-dl-evf" firstAttribute="leading" secondItem="GUR-Uq-Omq" secondAttribute="trailing" constant="16" id="A0c-ih-WSI"/>
                             <constraint firstItem="GUR-Uq-Omq" firstAttribute="leading" secondItem="2zC-xF-vQb" secondAttribute="leading" constant="16" id="Aek-QZ-N1i"/>
                             <constraint firstItem="GUR-Uq-Omq" firstAttribute="top" secondItem="n8p-26-vu8" secondAttribute="bottom" constant="24" id="CHh-6g-SpA"/>
