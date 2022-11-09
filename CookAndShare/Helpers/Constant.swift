@@ -72,6 +72,9 @@ struct Constant {
         試著搖晃一下手機吧！
     """
     static let searchResult = "搜尋結果"
+    static let notFound = "找不到食譜嗎？"
+    static let beTheFirstOne = "成為第一個分享食譜的人吧！"
+    static let addNewRecipe = "新增食譜"
 
     // shopping list
     static let pleaseFillIn = "請輸入食材名稱及份量"

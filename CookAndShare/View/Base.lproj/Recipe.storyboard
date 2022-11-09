@@ -389,18 +389,58 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="r47-kR-NTb">
+                                <rect key="frame" x="24" y="319.5" width="366" height="257"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty-bowl" translatesAutoresizingMaskIntoConstraints="NO" id="IE3-HZ-rOg">
+                                        <rect key="frame" x="119" y="0.0" width="128" height="128"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="lv2-nC-Yaj"/>
+                                            <constraint firstAttribute="width" constant="128" id="nG1-jo-3UW"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctw-Dj-2na">
+                                        <rect key="frame" x="162.5" y="144" width="41.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMM-be-Ecj">
+                                        <rect key="frame" x="162.5" y="180.5" width="41.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rrn-dD-m5t">
+                                        <rect key="frame" x="108" y="217" width="150" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="1mM-J5-00K"/>
+                                            <constraint firstAttribute="height" constant="40" id="mM6-nk-UoG"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zC2-aT-DZE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="3OP-a9-WMx" firstAttribute="leading" secondItem="zC2-aT-DZE" secondAttribute="leading" id="0bt-CM-eDr"/>
                             <constraint firstItem="zC2-aT-DZE" firstAttribute="trailing" secondItem="3OP-a9-WMx" secondAttribute="trailing" id="3BZ-PS-OVz"/>
+                            <constraint firstItem="zC2-aT-DZE" firstAttribute="trailing" secondItem="r47-kR-NTb" secondAttribute="trailing" constant="24" id="3Mu-sV-11s"/>
                             <constraint firstItem="3OP-a9-WMx" firstAttribute="top" secondItem="zC2-aT-DZE" secondAttribute="top" id="KDO-2m-ril"/>
+                            <constraint firstItem="r47-kR-NTb" firstAttribute="leading" secondItem="zC2-aT-DZE" secondAttribute="leading" constant="24" id="M9o-xi-kWJ"/>
                             <constraint firstItem="zC2-aT-DZE" firstAttribute="bottom" secondItem="3OP-a9-WMx" secondAttribute="bottom" id="bei-0P-Yo9"/>
+                            <constraint firstItem="r47-kR-NTb" firstAttribute="centerY" secondItem="bSM-yf-umS" secondAttribute="centerY" id="xnn-gW-eid"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addRecipeButton" destination="Rrn-dD-m5t" id="bUl-UL-3rU"/>
+                        <outlet property="alertMessageLabel" destination="dMM-be-Ecj" id="gH1-GL-3UA"/>
+                        <outlet property="alertTitleLabel" destination="ctw-Dj-2na" id="Gcb-MU-PBg"/>
                         <outlet property="collectionView" destination="3OP-a9-WMx" id="WDT-mE-hTd"/>
+                        <outlet property="stackView" destination="r47-kR-NTb" id="KKB-P2-z0v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EaP-De-TyZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -412,6 +452,7 @@
     <resources>
         <image name="bookmark" catalog="system" width="112" height="128"/>
         <image name="chevron.backward.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="empty-bowl" width="256" height="256"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="photo.artframe" catalog="system" width="128" height="93"/>
         <image name="shake" width="128" height="128"/>

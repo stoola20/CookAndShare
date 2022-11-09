@@ -20,16 +20,38 @@ class ResultViewController: UIViewController {
     var searchString = String.empty
     let firestoreManager = FirestoreManager()
     @IBOutlet weak var collectionView: UICollectionView!
-
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var alertTitleLabel: UILabel!
+    @IBOutlet weak var alertMessageLabel: UILabel!
+    @IBOutlet weak var addRecipeButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCollectionView()
         title = Constant.searchResult
+        setUpUI()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         searchRecipes()
+    }
+
+    func setUpUI() {
+        alertTitleLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        alertTitleLabel.textColor = UIColor.darkBrown
+        alertTitleLabel.text = Constant.notFound
+
+        alertMessageLabel.font = UIFont.systemFont(ofSize: 18)
+        alertMessageLabel.textColor = UIColor.darkBrown
+        alertMessageLabel.text = Constant.beTheFirstOne
+
+        addRecipeButton.backgroundColor = UIColor.darkBrown
+        addRecipeButton.tintColor = UIColor.backGround
+        addRecipeButton.setTitle(Constant.addNewRecipe, for: .normal)
+        addRecipeButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        addRecipeButton.layer.cornerRadius = 20
+        addRecipeButton.addTarget(self, action: #selector(presentNewRecipeVC), for: .touchUpInside)
     }
 
     func setUpCollectionView() {
@@ -40,6 +62,7 @@ class ResultViewController: UIViewController {
     }
 
     func searchRecipes() {
+        stackView.isHidden = true
         firestoreManager.searchRecipe(type: searchType, query: searchString) { result in
             switch result {
             case .success(let recipes):
@@ -50,11 +73,22 @@ class ResultViewController: UIViewController {
                 }
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
+                    guard let recipes = self.recipes else { return }
+                    self.stackView.isHidden = recipes.isEmpty ? false : true
                 }
             case .failure(let error):
                 print(error)
             }
         }
+    }
+
+    @objc func presentNewRecipeVC() {
+        let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
+        guard
+            let newRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewRecipeViewController.self))
+            as? NewRecipeViewController
+        else { fatalError("Could not create new recipe VC") }
+        present(newRecipeVC, animated: true)
     }
 }
 
