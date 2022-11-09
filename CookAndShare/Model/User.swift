@@ -12,6 +12,7 @@ struct User: Codable, Hashable {
     let name: String
     let email: String
     let imageURL: String
+    let fcmToken: String
     let recipesId: [String]
     let savedRecipesId: [String]
     let sharesId: [String]

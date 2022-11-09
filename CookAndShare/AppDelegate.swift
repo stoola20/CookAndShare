@@ -6,19 +6,39 @@
 //
 
 import UIKit
+import FirebaseMessaging
 import FirebaseCore
 import GoogleMaps
 import GooglePlaces
 import IQKeyboardManager
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        let pushManager = PushNotificationManager(userID: Constant.userId)
+        pushManager.registerForPushNotifications()
+
         GMSServices.provideAPIKey(APIKey.apiKey)
         GMSPlacesClient.provideAPIKey(APIKey.apiKey)
         IQKeyboardManager.shared().isEnabled = true
+
         return true
+    }
+
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let deviceTokenString = deviceToken.reduce("") {
+            return $0 + String(format: "%02x", $1)
+        }
+        print("deviceTokenString: \(deviceTokenString)")
+        Messaging.messaging().apnsToken = deviceToken
+        let pushManager = PushNotificationManager(userID: Constant.userId)
+        pushManager.updateFirestorePushTokenIfNeeded()
+    }
+
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("error: \(error)")
     }
 
     // MARK: UISceneSession Lifecycle
@@ -34,7 +54,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
 }
 
+//extension AppDelegate: UNUserNotificationCenterDelegate {
+//    // 使用者點選推播時觸發
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+//        print(#function)
+//        let content = response.notification.request.content
+//        print(content.userInfo)
+//        completionHandler()
+//    }
+//
+    // 讓 App 在前景也能顯示推播
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner])
+    }

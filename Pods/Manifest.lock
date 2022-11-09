@@ -638,6 +638,20 @@ PODS:
     - nanopb (< 2.30910.0, >= 2.30908.0)
   - FirebaseFirestoreSwift (9.6.0):
     - FirebaseFirestore (~> 9.0)
+  - FirebaseInstallations (9.6.0):
+    - FirebaseCore (~> 9.0)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/UserDefaults (~> 7.7)
+    - PromisesObjC (~> 2.1)
+  - FirebaseMessaging (9.6.0):
+    - FirebaseCore (~> 9.0)
+    - FirebaseInstallations (~> 9.0)
+    - GoogleDataTransport (< 10.0.0, >= 9.1.4)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Reachability (~> 7.7)
+    - GoogleUtilities/UserDefaults (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
   - FirebaseStorage (9.6.0):
     - FirebaseAppCheckInterop (~> 9.0)
     - FirebaseAuthInterop (~> 9.0)
@@ -671,6 +685,8 @@ PODS:
     - GoogleUtilities/Reachability
   - "GoogleUtilities/NSData+zlib (7.8.0)"
   - GoogleUtilities/Reachability (7.8.0):
+    - GoogleUtilities/Logger
+  - GoogleUtilities/UserDefaults (7.8.0):
     - GoogleUtilities/Logger
   - "gRPC-C++ (1.44.0)":
     - "gRPC-C++/Implementation (= 1.44.0)"
@@ -744,6 +760,7 @@ DEPENDENCIES:
   - FirebaseAuth
   - FirebaseFirestore
   - FirebaseFirestoreSwift
+  - FirebaseMessaging
   - FirebaseStorage
   - GoogleMaps
   - GooglePlaces
@@ -763,6 +780,8 @@ SPEC REPOS:
     - FirebaseCoreInternal
     - FirebaseFirestore
     - FirebaseFirestoreSwift
+    - FirebaseInstallations
+    - FirebaseMessaging
     - FirebaseStorage
     - FirebaseStorageInternal
     - GoogleDataTransport
@@ -791,6 +810,8 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: bca76517fe1ed381e989f5e7d8abb0da8d85bed3
   FirebaseFirestore: c09ce6d050745a45fb75ebd901005ed3279c3caf
   FirebaseFirestoreSwift: d86a0fef1225c6c1ddfae15b3250700867d63013
+  FirebaseInstallations: 0a115432c4e223c5ab20b0dbbe4cbefa793a0e8e
+  FirebaseMessaging: a4d7910e4af663c9cbfc1071c5bef34651690949
   FirebaseStorage: 1fead543a1f441c3b434c1c9f12560dd82f8b568
   FirebaseStorageInternal: 81d8a597324ccd06c41a43c5700bc1185a2fc328
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
@@ -807,6 +828,6 @@ SPEC CHECKSUMS:
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: 2e1f3fbfd37f196e101331c595f46cedd55af554
+PODFILE CHECKSUM: 91624e135ec848c7b369138a9b6bede24bb332d8
 
 COCOAPODS: 1.11.3

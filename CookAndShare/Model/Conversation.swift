@@ -29,4 +29,17 @@ enum ContentType: String {
     case image
     case voice
     case location
+
+    func getMessageBody() -> String {
+        switch self {
+        case .text:
+            return "向您傳送了文字訊息"
+        case .image:
+            return "向您傳送了照片"
+        case .voice:
+            return "向您傳送了語音訊息"
+        case .location:
+            return "向您傳送了位置訊息"
+        }
+    }
 }
