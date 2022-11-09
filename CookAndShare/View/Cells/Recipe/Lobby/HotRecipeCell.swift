@@ -14,6 +14,7 @@ class HotRecipeCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var storeButton: UIButton!
+    @IBOutlet weak var heartImageView: UIImageView!
     var hasSaved = false
     var recipeId = String.empty
     let firestoreManager = FirestoreManager.shared
@@ -21,6 +22,20 @@ class HotRecipeCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         imageView.contentMode = .scaleAspectFill
+        setUpUI()
+    }
+
+    func setUpUI() {
+        storeButton.tintColor = UIColor.backGround
+        heartImageView.tintColor = UIColor.backGround
+        likesLabel.textColor = UIColor.backGround
+        likesLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        titleLabel.textColor = UIColor.darkBrown
+        durationLabel.textColor = UIColor.darkBrown
+        imageView.layer.cornerRadius = 10
+        imageView.layer.shadowColor = UIColor.gray.cgColor
+        imageView.layer.shadowOpacity = 0.5
+        imageView.layer.shadowOffset = CGSize(width: 1, height: 3)
     }
 
     func layoutCell(with recipe: Recipe) {
@@ -33,7 +48,7 @@ class HotRecipeCell: UICollectionViewCell {
         recipeId = recipe.recipeId
         updateButton()
     }
-    
+
     func updateButton() {
         let buttonImage = hasSaved
         ? UIImage(systemName: "bookmark.fill")

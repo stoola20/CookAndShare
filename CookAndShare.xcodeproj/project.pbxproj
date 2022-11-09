@@ -120,6 +120,7 @@
 		37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63633290E60F700D516D4 /* DetailProcedureCell.swift */; };
 		37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E63634290E60F700D516D4 /* DetailProcedureCell.xib */; };
 		37E63638290E6EB900D516D4 /* DetailRecipeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63637290E6EB900D516D4 /* DetailRecipeHeaderView.swift */; };
+		37FE7987291B935D005A3E3E /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE7986291B935D005A3E3E /* UIColor+Ext.swift */; };
 		3FCAABA4B3E38E622861E889 /* Pods_CookAndShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */; };
 /* End PBXBuildFile section */
 
@@ -242,6 +243,7 @@
 		37E63633290E60F700D516D4 /* DetailProcedureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProcedureCell.swift; sourceTree = "<group>"; };
 		37E63634290E60F700D516D4 /* DetailProcedureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailProcedureCell.xib; sourceTree = "<group>"; };
 		37E63637290E6EB900D516D4 /* DetailRecipeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecipeHeaderView.swift; sourceTree = "<group>"; };
+		37FE7986291B935D005A3E3E /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		517F2D7545434C37ABC19360 /* Pods-CookAndShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookAndShare.release.xcconfig"; path = "Target Support Files/Pods-CookAndShare/Pods-CookAndShare.release.xcconfig"; sourceTree = "<group>"; };
 		92C4A81AF54EA5965DB8EE93 /* Pods-CookAndShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookAndShare.debug.xcconfig"; path = "Target Support Files/Pods-CookAndShare/Pods-CookAndShare.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -559,6 +561,7 @@
 				37D69CA4290C15B30034D8E1 /* UICollectionView+Ext.swift */,
 				37D69CC1290D10AE0034D8E1 /* String+Ext.swift */,
 				37E63625290E598000D516D4 /* UIImageView+Ext.swift */,
+				37FE7986291B935D005A3E3E /* UIColor+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -885,6 +888,7 @@
 				37D69C9F290C14880034D8E1 /* DraftCell.swift in Sources */,
 				3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */,
 				37CBEC852910B62000A62EF2 /* NewShareCell.swift in Sources */,
+				37FE7987291B935D005A3E3E /* UIColor+Ext.swift in Sources */,
 				37875378290F992200F06F4C /* ProfileViewController.swift in Sources */,
 				370B1FFA291A27E50092F502 /* TranslationAPI.swift in Sources */,
 				37CBEC902910EFF100A62EF2 /* ShareCell.swift in Sources */,

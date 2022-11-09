@@ -13,14 +13,25 @@ class AllRecipeCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var storeButton: UIButton!
+    @IBOutlet weak var yellowBackground: UIView!
+    
     let firestoreManager = FirestoreManager.shared
     var hasSaved = false
     var recipeId = String.empty
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        setUpUI()
     }
-    
+
+    func setUpUI() {
+        imageView.contentMode = .scaleAspectFill
+        titleLabel.textColor = UIColor.darkBrown
+        durationLabel.textColor = UIColor.darkBrown
+        yellowBackground.layer.cornerRadius = 20
+        storeButton.tintColor = UIColor.darkBrown
+        imageView.layer.cornerRadius = 50
+    }
+
     func layoutCell(with recipe: Recipe) {
         guard let url = URL(string: recipe.mainImageURL) else { return }
         imageView.load(url: url)
@@ -30,7 +41,7 @@ class AllRecipeCell: UICollectionViewCell {
         recipeId = recipe.recipeId
         updateButton()
     }
-    
+
     func updateButton() {
         let buttonImage = hasSaved
         ? UIImage(systemName: "bookmark.fill")

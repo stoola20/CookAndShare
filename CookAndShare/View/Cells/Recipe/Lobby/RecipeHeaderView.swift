@@ -22,7 +22,8 @@ class RecipeHeaderView: UICollectionReusableView {
     
     private func configureHeader() {
         addSubview(textLabel)
-        textLabel.font = UIFont.preferredFont(forTextStyle: .title2)
+        textLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        textLabel.textColor = UIColor.darkBrown
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let inset: CGFloat = 10
