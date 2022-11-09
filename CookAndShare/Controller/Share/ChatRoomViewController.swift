@@ -134,6 +134,11 @@ class ChatRoomViewController: UIViewController {
             "time": Timestamp(date: Date())
         ]
         firestoreManager.updateConversation(channelId: conversation.channelId, message: message)
+
+        let sender = PushNotificationSender()
+        sender.sendPushNotification(to: friend.fcmToken,
+                                    title: friend.name,
+                                    body: "\(friend.name)\(contentType.getMessageBody())")
     }
 
     // MARK: - Image Message

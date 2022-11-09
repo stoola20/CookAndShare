@@ -10,6 +10,8 @@
 		370B1FFA291A27E50092F502 /* TranslationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370B1FF9291A27E50092F502 /* TranslationAPI.swift */; };
 		370B1FFC291A291E0092F502 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370B1FFB291A291E0092F502 /* TranslationManager.swift */; };
 		370B2000291A5C5B0092F502 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 370B1FFF291A5C5B0092F502 /* Entitlements.plist */; };
+		370B2002291AB6560092F502 /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370B2001291AB6560092F502 /* PushNotificationManager.swift */; };
+		370B2004291ABAD40092F502 /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370B2003291ABAD40092F502 /* PushNotificationSender.swift */; };
 		371AE11029138F6D003B16BB /* InfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371AE10F29138F6D003B16BB /* InfoWindowView.swift */; };
 		371AE11429139061003B16BB /* InfoWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 371AE11329139061003B16BB /* InfoWindowView.xib */; };
 		372E3A8E2913DCA200250DAA /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A8D2913DCA200250DAA /* ChatListViewController.swift */; };
@@ -128,6 +130,8 @@
 		370B1FFD291A48810092F502 /* CookAndShareRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CookAndShareRelease.entitlements; sourceTree = "<group>"; };
 		370B1FFE291A48B70092F502 /* CookAndShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CookAndShare.entitlements; sourceTree = "<group>"; };
 		370B1FFF291A5C5B0092F502 /* Entitlements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		370B2001291AB6560092F502 /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
+		370B2003291ABAD40092F502 /* PushNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
 		371AE10F29138F6D003B16BB /* InfoWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWindowView.swift; sourceTree = "<group>"; };
 		371AE11329139061003B16BB /* InfoWindowView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoWindowView.xib; sourceTree = "<group>"; };
 		372E3A8D2913DCA200250DAA /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
@@ -593,6 +597,8 @@
 				37D69CC4290D48790034D8E1 /* FirestoreManager.swift */,
 				370B1FF9291A27E50092F502 /* TranslationAPI.swift */,
 				370B1FFB291A291E0092F502 /* TranslationManager.swift */,
+				370B2001291AB6560092F502 /* PushNotificationManager.swift */,
+				370B2003291ABAD40092F502 /* PushNotificationSender.swift */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -891,6 +897,7 @@
 				37E63626290E598000D516D4 /* UIImageView+Ext.swift in Sources */,
 				37D69C79290BDD020034D8E1 /* User.swift in Sources */,
 				3787538E2910098D00F06F4C /* SavedRecipeViewController.swift in Sources */,
+				370B2004291ABAD40092F502 /* PushNotificationSender.swift in Sources */,
 				3787538C290FC5DD00F06F4C /* ShoppingListViewController.swift in Sources */,
 				37D69CC0290CF3910034D8E1 /* NewRecipeFooterView.swift in Sources */,
 				37CBEC9C291155F200A62EF2 /* PublicProfileHeaderCell.swift in Sources */,
@@ -904,6 +911,7 @@
 				37D69C77290BDCEA0034D8E1 /* Recipe.swift in Sources */,
 				37D7C1A72913579D005B8781 /* APIKey.swift in Sources */,
 				37E63631290E60E800D516D4 /* DetailIngredientCell.swift in Sources */,
+				370B2002291AB6560092F502 /* PushNotificationManager.swift in Sources */,
 				37D69CA7290C1A0B0034D8E1 /* NewPostSupplementaryView.swift in Sources */,
 				37D69CAC290CBE050034D8E1 /* NewRecipeDescriptionCell.swift in Sources */,
 				37875370290F824400F06F4C /* CookAndShare.xcdatamodeld in Sources */,

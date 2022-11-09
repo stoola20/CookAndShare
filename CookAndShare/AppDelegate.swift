@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseMessaging
 import FirebaseCore
 import GoogleMaps
 import GooglePlaces
@@ -16,16 +17,13 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        let pushManager = PushNotificationManager(userID: Constant.userId)
+        pushManager.registerForPushNotifications()
+
         GMSServices.provideAPIKey(APIKey.apiKey)
         GMSPlacesClient.provideAPIKey(APIKey.apiKey)
         IQKeyboardManager.shared().isEnabled = true
 
-        UNUserNotificationCenter.current().delegate = self
-        // 在程式一啟動即詢問使用者是否接受圖文(alert)、聲音(sound)、數字(badge)三種類型的通知
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-        }
-        // 註冊遠程通知
-        UIApplication.shared.registerForRemoteNotifications()
         return true
     }
 
@@ -34,6 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return $0 + String(format: "%02x", $1)
         }
         print("deviceTokenString: \(deviceTokenString)")
+        Messaging.messaging().apnsToken = deviceToken
+        let pushManager = PushNotificationManager(userID: Constant.userId)
+        pushManager.updateFirestorePushTokenIfNeeded()
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -55,17 +56,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-extension AppDelegate: UNUserNotificationCenterDelegate {
-    // 使用者點選推播時觸發
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print(#function)
-        let content = response.notification.request.content
-        print(content.userInfo)
-        completionHandler()
-    }
-
+//extension AppDelegate: UNUserNotificationCenterDelegate {
+//    // 使用者點選推播時觸發
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+//        print(#function)
+//        let content = response.notification.request.content
+//        print(content.userInfo)
+//        completionHandler()
+//    }
+//
     // 讓 App 在前景也能顯示推播
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner])
     }
-}
