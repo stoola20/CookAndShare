@@ -24,10 +24,12 @@ class NewRecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "發布", style: .plain, target: self, action: #selector(postRecipe(_:)))
     }
-    
+
 // MARK: - Action
     func setUpTableView() {
+        tableView.contentInsetAdjustmentBehavior = .never
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         tableView.dataSource = self
@@ -36,7 +38,6 @@ class NewRecipeViewController: UIViewController {
         tableView.registerCellWithNib(identifier: NewRecipeIngredientCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: NewRecipeProcedureCell.identifier, bundle: nil)
         tableView.register(NewRecipeHeaderView.self, forHeaderFooterViewReuseIdentifier: NewRecipeHeaderView.reuseIdentifier)
-        tableView.register(NewRecipeFooterView.self, forHeaderFooterViewReuseIdentifier: NewRecipeFooterView.reuseIdentifier)
     }
 
     func presentPHPicker() {
@@ -128,32 +129,19 @@ extension NewRecipeViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension NewRecipeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 { return nil }
         guard
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeHeaderView.reuseIdentifier)
             as? NewRecipeHeaderView
         else { fatalError("Could not create header view.") }
-        headerView.label.text = section == 1 ? Constant.ingredient : Constant.procedure
-        return headerView
-    }
-
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 0 { return nil }
-
-        guard
-            let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeFooterView.reuseIdentifier)
-            as? NewRecipeFooterView
-        else { fatalError("Could not create footer view.") }
-
-        if section == 1 {
-            footerView.button.addTarget(self, action: #selector(addIngredient), for: .touchUpInside)
-            footerView.button.setTitle(Constant.ingredient, for: .normal)
-            return footerView
-        } else {
-            footerView.button.addTarget(self, action: #selector(addProcedure), for: .touchUpInside)
-            footerView.button.setTitle(Constant.procedure, for: .normal)
-            return footerView
+        switch section {
+        case 0:
+            headerView.label.text = "簡介"
+        case 1:
+            headerView.label.text = Constant.ingredient
+        default:
+            headerView.label.text = Constant.procedure
         }
+        return headerView
     }
 }
 
@@ -258,7 +246,7 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
 
         procedureDict[indexPath.row] = Procedure(step: 0, description: description, imageURL: "")
         print(self.procedureDict)
-        var procedures = [Procedure]()
+        var procedures: [Procedure] = []
         let sortedDict = procedureDict.sorted { $0.key < $1.key }
         sortedDict.forEach { _, value in
             procedures.append(value)
@@ -313,10 +301,12 @@ extension NewRecipeViewController: PHPickerViewControllerDelegate {
                             guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeDescriptionCell
                             else { fatalError("Wrong cell") }
                             cell.mainImageView.image = image
+                            cell.mainImageView.contentMode = .scaleAspectFill
                         } else if self.imageCell is NewRecipeProcedureCell {
                             guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeProcedureCell
                             else { fatalError("Wrong cell") }
                             cell.procedureImageView.image = image
+                            cell.procedureImageView.contentMode = .scaleAspectFill
                         }
                     }
                 }

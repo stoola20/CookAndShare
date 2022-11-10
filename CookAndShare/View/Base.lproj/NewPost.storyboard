@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -66,30 +67,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QM0-RQ-rcy">
-                                <rect key="frame" x="0.0" y="44" width="414" height="750"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fcy-Rt-VY9">
-                                <rect key="frame" x="24" y="802" width="366" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="95u-2b-2e1"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="發布"/>
-                                <connections>
-                                    <action selector="postRecipe:" destination="oVq-ML-fzt" eventType="touchUpInside" id="zUE-k8-cbi"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fry-pP-RiR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Fcy-Rt-VY9" firstAttribute="top" secondItem="QM0-RQ-rcy" secondAttribute="bottom" constant="8" symbolic="YES" id="3dn-d4-50U"/>
-                            <constraint firstItem="Fcy-Rt-VY9" firstAttribute="leading" secondItem="fry-pP-RiR" secondAttribute="leading" constant="24" id="GO4-gX-6aB"/>
-                            <constraint firstItem="fry-pP-RiR" firstAttribute="trailing" secondItem="Fcy-Rt-VY9" secondAttribute="trailing" constant="24" id="PBV-iK-9ZV"/>
+                            <constraint firstItem="fry-pP-RiR" firstAttribute="bottom" secondItem="QM0-RQ-rcy" secondAttribute="bottom" id="9mS-0O-J3P"/>
                             <constraint firstItem="QM0-RQ-rcy" firstAttribute="leading" secondItem="fry-pP-RiR" secondAttribute="leading" id="Wea-EP-CCY"/>
                             <constraint firstItem="fry-pP-RiR" firstAttribute="trailing" secondItem="QM0-RQ-rcy" secondAttribute="trailing" id="XVX-s1-B0o"/>
-                            <constraint firstItem="fry-pP-RiR" firstAttribute="bottom" secondItem="Fcy-Rt-VY9" secondAttribute="bottom" id="XyS-Xe-qh6"/>
                             <constraint firstItem="QM0-RQ-rcy" firstAttribute="top" secondItem="fry-pP-RiR" secondAttribute="top" id="pOR-i2-r6y"/>
                         </constraints>
                     </view>
@@ -110,34 +97,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Gmd-g7-I7g">
-                                <rect key="frame" x="0.0" y="44" width="414" height="750"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewShareCell" id="GDv-1i-O1Y" customClass="NewShareCell" customModule="CookAndShare" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="761"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="779"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GDv-1i-O1Y" id="IXP-bv-y8u">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="761"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="779"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-TN-g9K">
-                                                    <rect key="frame" x="20" y="20.5" width="128" height="126"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="takePhoto" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-TN-g9K">
+                                                    <rect key="frame" x="20" y="20" width="128" height="128"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="128" id="ELt-WD-MIw"/>
                                                         <constraint firstAttribute="height" constant="128" id="Pz6-Ns-9wk"/>
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7BO-Sn-eix">
-                                                    <rect key="frame" x="172" y="53" width="218" height="62.5"/>
+                                                    <rect key="frame" x="172" y="50" width="218" height="68.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="分享物" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHn-bP-hMu">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享物" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHn-bP-hMu">
                                                             <rect key="frame" x="0.0" y="0.0" width="218" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" name="DarkBrown"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="45M-1b-oDa">
-                                                            <rect key="frame" x="0.0" y="28.5" width="218" height="34"/>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="45M-1b-oDa" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="28.5" width="218" height="40"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="xO6-kU-BaX"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
@@ -149,66 +139,71 @@
                                                         <constraint firstAttribute="trailing" secondItem="45M-1b-oDa" secondAttribute="trailing" id="yo9-BR-79M"/>
                                                     </constraints>
                                                 </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="描述" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNm-nN-kFs">
-                                                    <rect key="frame" x="24" y="156" width="35" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="描述" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNm-nN-kFs">
+                                                    <rect key="frame" x="24" y="156" width="35" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="DarkBrown"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M63-qJ-DOG">
-                                                    <rect key="frame" x="24" y="184.5" width="366" height="34"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M63-qJ-DOG" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="164" width="366" height="18.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="34" id="aTE-O9-Emx"/>
+                                                        <constraint firstAttribute="height" constant="40" id="uhF-xu-LEV"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="食品有效期限" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hof-1p-5AW">
-                                                    <rect key="frame" x="24" y="242.5" width="104" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="食品有效期限" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hof-1p-5AW">
+                                                    <rect key="frame" x="24" y="206.5" width="104" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="DarkBrown"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="面交時間" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDl-SP-sDw">
-                                                    <rect key="frame" x="24" y="415" width="69.5" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="面交時間" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDl-SP-sDw">
+                                                    <rect key="frame" x="24" y="358.5" width="69.5" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="DarkBrown"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="面交地點" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Vd-ca-teC">
-                                                    <rect key="frame" x="24" y="501.5" width="69.5" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="面交地點" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Vd-ca-teC">
+                                                    <rect key="frame" x="24" y="409" width="69.5" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="DarkBrown"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="貼文下架日期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLG-mh-R02">
-                                                    <rect key="frame" x="24" y="588.5" width="104" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="貼文下架日期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLG-mh-R02">
+                                                    <rect key="frame" x="24" y="-108" width="104" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" name="DarkBrown"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GdU-ol-DtO">
-                                                    <rect key="frame" x="24" y="443.5" width="366" height="34"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GdU-ol-DtO" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="366.5" width="366" height="18.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="34" id="wCr-VX-vTg"/>
+                                                        <constraint firstAttribute="height" constant="40" id="Kc2-oL-VlJ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="npx-8w-BIt">
-                                                    <rect key="frame" x="24" y="530" width="366" height="34.5"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="npx-8w-BIt" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="417" width="366" height="18.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="Cu2-0A-xD1"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="qYj-dK-e6t">
-                                                    <rect key="frame" x="16" y="271" width="382" height="120"/>
+                                                <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="qYj-dK-e6t">
+                                                    <rect key="frame" x="16" y="214.5" width="382" height="120"/>
+                                                    <color key="tintColor" name="DarkBrown"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="120" id="Qzu-U9-QhX"/>
                                                     </constraints>
                                                     <locale key="locale" localeIdentifier="zh_TW"/>
                                                 </datePicker>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="Fj8-cR-zMC">
-                                                    <rect key="frame" x="16" y="617" width="382" height="120"/>
+                                                    <rect key="frame" x="16" y="635" width="382" height="120"/>
+                                                    <color key="tintColor" name="DarkBrown"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="120" id="Zjh-6J-Crx"/>
                                                     </constraints>
@@ -261,28 +256,14 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Qn-uq-JZN">
-                                <rect key="frame" x="24" y="802" width="366" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="7ER-5n-dPy"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="發布"/>
-                                <connections>
-                                    <action selector="post:" destination="IgO-P1-pIx" eventType="touchUpInside" id="iiu-yL-KZm"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="D94-zW-FJH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="D94-zW-FJH" firstAttribute="bottom" secondItem="Gmd-g7-I7g" secondAttribute="bottom" id="0d6-h9-ban"/>
                             <constraint firstItem="Gmd-g7-I7g" firstAttribute="top" secondItem="D94-zW-FJH" secondAttribute="top" id="3JN-gr-v7Z"/>
                             <constraint firstItem="Gmd-g7-I7g" firstAttribute="leading" secondItem="D94-zW-FJH" secondAttribute="leading" id="3Rb-WD-qUv"/>
-                            <constraint firstItem="1Qn-uq-JZN" firstAttribute="top" secondItem="Gmd-g7-I7g" secondAttribute="bottom" constant="8" symbolic="YES" id="IP6-cf-gEm"/>
-                            <constraint firstItem="1Qn-uq-JZN" firstAttribute="leading" secondItem="D94-zW-FJH" secondAttribute="leading" constant="24" id="POm-D7-pC9"/>
                             <constraint firstItem="D94-zW-FJH" firstAttribute="trailing" secondItem="Gmd-g7-I7g" secondAttribute="trailing" id="Ydu-jM-Zmn"/>
-                            <constraint firstItem="D94-zW-FJH" firstAttribute="trailing" secondItem="1Qn-uq-JZN" secondAttribute="trailing" constant="24" id="gxN-ew-jDO"/>
-                            <constraint firstItem="D94-zW-FJH" firstAttribute="bottom" secondItem="1Qn-uq-JZN" secondAttribute="bottom" id="nnP-SR-Rtg"/>
                         </constraints>
                     </view>
                     <connections>
@@ -294,8 +275,12 @@
             <point key="canvasLocation" x="1018.840579710145" y="1423.6607142857142"/>
         </scene>
     </scenes>
+    <color key="tintColor" name="DarkBrown"/>
     <resources>
-        <image name="camera" catalog="system" width="128" height="94"/>
+        <image name="takePhoto" width="512" height="512"/>
+        <namedColor name="DarkBrown">
+            <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

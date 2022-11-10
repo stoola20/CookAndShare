@@ -35,12 +35,14 @@ class NewRecipeIngredientCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         deleteButton.isHidden = true
+        deleteButton.tintColor = UIColor.darkBrown
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         deleteButton.isHidden = true
     }
-    
+
     @IBAction func deleteIngredient(_ sender: UIButton) {
         guard let ingredientName = nameTextField.text,
               let ingredientQuantity = quantityTextField.text

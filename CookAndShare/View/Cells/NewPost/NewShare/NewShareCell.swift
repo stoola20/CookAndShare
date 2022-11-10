@@ -33,7 +33,7 @@ class NewShareCell: UITableViewCell {
     var completion: ((NewShareModel) -> Void)?
     var data = NewShareModel()
     weak var delegate: NewShareCellDelegate!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -41,7 +41,7 @@ class NewShareCell: UITableViewCell {
     @objc func pickImage() {
         delegate.willPickImage()
     }
-    
+
     func setUpView() {
         foodImage.isUserInteractionEnabled = true
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pickImage))
@@ -60,6 +60,8 @@ class NewShareCell: UITableViewCell {
         dueDatePicker.setDate(Calendar.current.date(byAdding: .day, value: 5, to: currentDate) ?? currentDate, animated: false)
         bestBeforePicker.addTarget(self, action: #selector(passData), for: .valueChanged)
         dueDatePicker.addTarget(self, action: #selector(passData), for: .valueChanged)
+        bestBeforePicker.textColor = UIColor.darkBrown
+        dueDatePicker.textColor = UIColor.darkBrown
     }
 
     @objc func passData() {

@@ -13,7 +13,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="123" id="KGk-i7-Jjw" customClass="NewRecipeProcedureCell" customModule="CookAndShare" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="390" height="123"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="390" height="123"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -32,13 +32,16 @@
                             <constraint firstAttribute="height" constant="24" id="uXD-en-Uz6"/>
                         </constraints>
                     </imageView>
-                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="79y-8P-yq8">
-                        <rect key="frame" x="48" y="16" width="298" height="29"/>
+                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="79y-8P-yq8" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
+                        <rect key="frame" x="48" y="16" width="298" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="Zgf-x4-Rho"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nO3-bN-KfO">
-                        <rect key="frame" x="48" y="53.5" width="65" height="48"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="takePhoto" translatesAutoresizingMaskIntoConstraints="NO" id="nO3-bN-KfO">
+                        <rect key="frame" x="48" y="64" width="65" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="5Cn-a5-zmW"/>
                             <constraint firstAttribute="width" constant="65" id="BDH-ob-215"/>
@@ -60,6 +63,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="deleteButton" destination="Kkg-xo-3Ih" id="6ox-aL-F5b"/>
                 <outlet property="procedureImageView" destination="nO3-bN-KfO" id="Npe-Pu-UWx"/>
                 <outlet property="procedureTextField" destination="79y-8P-yq8" id="DXg-wC-NoU"/>
                 <outlet property="stepImageView" destination="Uap-yA-NI7" id="z4I-Bm-m3C"/>
@@ -69,7 +73,7 @@
     </objects>
     <resources>
         <image name="1.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="camera" catalog="system" width="128" height="94"/>
+        <image name="takePhoto" width="512" height="512"/>
         <image name="trash" catalog="system" width="121" height="128"/>
     </resources>
 </document>
