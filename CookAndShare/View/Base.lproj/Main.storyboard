@@ -19,7 +19,6 @@
                     <connections>
                         <segue destination="K1O-ai-H0G" kind="relationship" relationship="viewControllers" id="J9p-K4-yCh"/>
                         <segue destination="AR1-nb-5wd" kind="relationship" relationship="viewControllers" id="4Dj-XB-4l6"/>
-                        <segue destination="CUp-7A-FPw" kind="relationship" relationship="viewControllers" id="1bk-Th-4EY"/>
                         <segue destination="ih3-T5-v55" kind="relationship" relationship="viewControllers" id="DAl-Xc-jTD"/>
                         <segue destination="e6D-Ad-NXJ" kind="relationship" relationship="viewControllers" id="Spf-1J-uGr"/>
                     </connections>
@@ -43,7 +42,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CiS-be-FRY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2503" y="700"/>
+            <point key="canvasLocation" x="-2506" y="688"/>
         </scene>
         <!--ShareFood-->
         <scene sceneID="mTL-ms-LcI">
@@ -61,23 +60,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Kz-3i-TgC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1610" y="688"/>
-        </scene>
-        <!--NewPost-->
-        <scene sceneID="CzN-Sj-0QX">
-            <objects>
-                <navigationController id="CUp-7A-FPw" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="NewPost" id="5eo-Tt-dOx"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pab-DB-dpj">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="6gT-nn-fQ7" kind="relationship" relationship="rootViewController" id="Xty-8K-L6N"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bB6-GN-wY8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-713" y="688"/>
         </scene>
         <!--Map-->
         <scene sceneID="64L-YX-1KD">
@@ -121,7 +103,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kmZ-7b-o8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-713" y="1424"/>
+            <point key="canvasLocation" x="-1610" y="1651"/>
         </scene>
         <!--Recipe-->
         <scene sceneID="TbE-so-ASL">

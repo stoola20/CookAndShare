@@ -35,13 +35,22 @@ class RecipeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "食譜"
         setUpCollectionView()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "magnifyingglass"),
-            style: .plain,
-            target: self,
-            action: #selector(searchRecipes)
-        )
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(
+                image: UIImage(systemName: "magnifyingglass.circle"),
+                style: .plain,
+                target: self,
+                action: #selector(searchRecipes)
+            ),
+            UIBarButtonItem(
+                image: UIImage(systemName: "plus.circle"),
+                style: .plain,
+                target: self,
+                action: #selector(addRecipe)
+            )
+        ]
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -56,6 +65,15 @@ class RecipeViewController: UIViewController {
                 as? SearchViewController
         else { fatalError("Could not create search VC") }
         navigationController?.pushViewController(searchVC, animated: true)
+    }
+
+    @objc func addRecipe() {
+        let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
+        guard let newpostVC = storyboard.instantiateViewController(
+            withIdentifier: String(describing: NewRecipeViewController.self))
+                as? NewRecipeViewController
+        else { fatalError("Could not create newpostVC") }
+        navigationController?.pushViewController(newpostVC, animated: true)
     }
 
     func setUpCollectionView() {

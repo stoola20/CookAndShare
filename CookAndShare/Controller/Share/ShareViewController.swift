@@ -16,18 +16,22 @@ class ShareViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "食物分享"
-        tableView.dataSource = self
-        tableView.allowsSelection = false
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        tableView.separatorColor = UIColor.lightOrange
-        tableView.registerCellWithNib(identifier: ShareCell.identifier, bundle: nil)
-        if fromPublicVC { return }
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "message"),
-            style: .plain,
-            target: self,
-            action: #selector(showMessage)
-        )
+        setUpTableView()
+        
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(
+                image: UIImage(systemName: "message"),
+                style: .plain,
+                target: self,
+                action: #selector(showMessage)
+            ),
+            UIBarButtonItem(
+                image: UIImage(systemName: "plus.circle"),
+                style: .plain,
+                target: self,
+                action: #selector(addShare)
+            )
+        ]
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +47,23 @@ class ShareViewController: UIViewController {
                 print(error)
             }
         }
+    }
+
+    func setUpTableView() {
+        tableView.dataSource = self
+        tableView.allowsSelection = false
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.separatorColor = UIColor.lightOrange
+        tableView.registerCellWithNib(identifier: ShareCell.identifier, bundle: nil)
+    }
+
+    @objc func addShare() {
+        let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
+        guard
+            let newShareVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewShareViewController.self))
+            as? NewShareViewController
+        else { fatalError("Could not create newShareVC") }
+        navigationController?.pushViewController(newShareVC, animated: true)
     }
 
     @objc func showMessage() {
