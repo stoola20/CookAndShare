@@ -21,7 +21,7 @@ class ShoppingListViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
         let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addItem))
-        navigationItem.rightBarButtonItems = [editButtonItem, addButton]
+        navigationItem.rightBarButtonItem = addButton
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -32,7 +32,10 @@ class ShoppingListViewController: UIViewController {
 
     func setUpTableView() {
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.allowsSelection = false
+        tableView.separatorColor = UIColor.lightOrange
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         tableView.registerCellWithNib(identifier: ShoppingListCell.identifier, bundle: nil)
     }
 
@@ -44,11 +47,13 @@ class ShoppingListViewController: UIViewController {
         alert.addTextField { textField in
             textField.placeholder = Constant.ingredientQuantity
         }
-        
+
         let okAction = UIAlertAction(title: Constant.confirm, style: .default, handler: { action in
             guard
                 let name = alert.textFields?[0].text,
-                let quantity = alert.textFields?[1].text
+                let quantity = alert.textFields?[1].text,
+                !name.isEmpty,
+                !quantity.isEmpty
             else { return }
             self.coreDataManager.addItem(name: name, quantity: quantity)
             guard let items = self.coreDataManager.fetchItem() else { return }
@@ -77,6 +82,10 @@ extension ShoppingListViewController: UITableViewDataSource {
 }
 
 extension ShoppingListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        80
+    }
+
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }

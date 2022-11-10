@@ -32,7 +32,9 @@ class ShoppingListCell: UITableViewCell {
 
     func setUpUI() {
         nameLabel.textColor = UIColor.darkBrown
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        quantityLabel.textColor = UIColor.darkBrown
+        quantityLabel.font = UIFont.systemFont(ofSize: 20)
         checkButton.tintColor = UIColor.myGreen
     }
 

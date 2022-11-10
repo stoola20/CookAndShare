@@ -30,7 +30,9 @@ class AddToShoppingListVC: UIViewController {
 
     func setUpTableView() {
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.allowsSelection = false
+        tableView.separatorColor = UIColor.lightOrange
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         tableView.registerCellWithNib(identifier: ShoppingListCell.identifier, bundle: nil)
     }
@@ -56,7 +58,7 @@ class AddToShoppingListVC: UIViewController {
     }
 }
 
-extension AddToShoppingListVC: UITableViewDataSource {
+extension AddToShoppingListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         initialIngredients.count
     }
@@ -85,5 +87,9 @@ extension AddToShoppingListVC: UITableViewDataSource {
         }
         cell.layoutCell(with: initialIngredients[indexPath.row])
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        80
     }
 }

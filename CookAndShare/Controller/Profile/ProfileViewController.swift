@@ -26,6 +26,8 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
+        title = "個人"
+        view.backgroundColor = UIColor.background
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -44,6 +46,7 @@ class ProfileViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        tableView.separatorColor = UIColor.lightOrange
         tableView.registerCellWithNib(identifier: ProfileUserCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: ProfileListCell.identifier, bundle: nil)
     }

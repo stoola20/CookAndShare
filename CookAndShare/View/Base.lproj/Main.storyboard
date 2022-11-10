@@ -27,11 +27,11 @@
             </objects>
             <point key="canvasLocation" x="-713" y="-161"/>
         </scene>
-        <!--Recipe-->
+        <!--食譜-->
         <scene sceneID="1jl-HN-9og">
             <objects>
                 <navigationController id="K1O-ai-H0G" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recipe" id="XyG-lz-HNN"/>
+                    <tabBarItem key="tabBarItem" title="食譜" id="XyG-lz-HNN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UJP-hi-60u">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -44,11 +44,11 @@
             </objects>
             <point key="canvasLocation" x="-2058" y="688"/>
         </scene>
-        <!--ShareFood-->
+        <!--食物分享-->
         <scene sceneID="mTL-ms-LcI">
             <objects>
                 <navigationController id="AR1-nb-5wd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="ShareFood" id="5N9-vW-uos"/>
+                    <tabBarItem key="tabBarItem" title="食物分享" id="5N9-vW-uos"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vcR-f8-fjY">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -61,11 +61,11 @@
             </objects>
             <point key="canvasLocation" x="-1125" y="688"/>
         </scene>
-        <!--Map-->
+        <!--地圖-->
         <scene sceneID="64L-YX-1KD">
             <objects>
                 <navigationController id="ih3-T5-v55" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" id="3B5-ky-KYt"/>
+                    <tabBarItem key="tabBarItem" title="地圖" id="3B5-ky-KYt"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mVc-Lr-0EF">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -78,11 +78,11 @@
             </objects>
             <point key="canvasLocation" x="-75" y="688"/>
         </scene>
-        <!--Profile-->
+        <!--個人-->
         <scene sceneID="yCW-Tx-evE">
             <objects>
                 <navigationController id="e6D-Ad-NXJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="wLN-DD-e8s"/>
+                    <tabBarItem key="tabBarItem" title="個人" id="wLN-DD-e8s"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fDw-IN-d0Y">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
