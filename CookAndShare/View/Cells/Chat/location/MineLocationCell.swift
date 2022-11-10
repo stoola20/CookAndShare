@@ -16,7 +16,13 @@ class MineLocationCell: UITableViewCell {
         super.awakeFromNib()
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
+        setUpUI()
+    }
+
+    func setUpUI() {
         mapView.layer.cornerRadius = 20
+        mapTimeLabel.textColor = UIColor.systemBrown
+        mapTimeLabel.font = UIFont.systemFont(ofSize: 13)
     }
 
     func layoutCell(with message: Message) {

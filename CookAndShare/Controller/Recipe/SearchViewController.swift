@@ -45,7 +45,7 @@ class SearchViewController: UIViewController {
         randomLabel.textColor = UIColor.darkBrown
 
         foodRecognitionButton.backgroundColor = UIColor.darkBrown
-        foodRecognitionButton.setTitleColor(UIColor.backGround, for: .normal)
+        foodRecognitionButton.setTitleColor(UIColor.background, for: .normal)
         foodRecognitionButton.layer.cornerRadius = 25
     }
 

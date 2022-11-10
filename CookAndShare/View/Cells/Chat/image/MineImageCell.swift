@@ -13,9 +13,14 @@ class MineImageCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        setUpUI()
+    }
+
+    func setUpUI() {
         largeImageView.layer.cornerRadius = 20
-        largeImageView.clipsToBounds = true
         largeImageView.contentMode = .scaleAspectFill
+        imageTimeLabel.textColor = UIColor.systemBrown
+        imageTimeLabel.font = UIFont.systemFont(ofSize: 13)
     }
 
     func layoutCell(with message: Message) {

@@ -8,11 +8,7 @@
 import UIKit
 
 class ChatListViewController: UIViewController {
-    var conversations: [Conversation] = [] {
-        didSet {
-            self.tableView.reloadData()
-        }
-    }
+    var conversations: [Conversation] = []
     let firestoreManager = FirestoreManager.shared
     @IBOutlet weak var tableView: UITableView!
     
@@ -24,7 +20,7 @@ class ChatListViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        var tempConversations: [Conversation] = []
+        conversations = []
         let group = DispatchGroup()
         group.enter()
         firestoreManager.fetchUserData(userId: Constant.userId) { result in
@@ -32,10 +28,11 @@ class ChatListViewController: UIViewController {
             case .success(let user):
                 user.conversationId.forEach { conversationId in
                     group.enter()
+
                     self.firestoreManager.fetchConversationBy(conversationId) { result in
                         switch result {
                         case .success(let conversation):
-                            tempConversations.append(conversation)
+                            self.conversations.append(conversation)
                             group.leave()
                         case .failure(let error):
                             print(error)
@@ -49,10 +46,9 @@ class ChatListViewController: UIViewController {
                 group.leave()
             }
         }
-        
+
         group.notify(queue: DispatchQueue.main) { [weak self] in
             guard let self = self else { return }
-            self.conversations = tempConversations
             self.conversations.sort { conversation1, conversation2 in
                 guard
                     let lastMessage1 = conversation1.messages.last,

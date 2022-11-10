@@ -44,7 +44,7 @@ class AddToShoppingListVC: UIViewController {
 
         addToListButton.backgroundColor = UIColor.darkBrown
         addToListButton.layer.cornerRadius = 25
-        addToListButton.setTitleColor(UIColor.backGround, for: .normal)
+        addToListButton.setTitleColor(UIColor.background, for: .normal)
     }
 
     @IBAction func addToShoppingList(_ sender: UIButton) {

@@ -20,7 +20,7 @@ extension UIColor {
     static let darkBrown = myColor(.DarkBrown)
     static let myOrange = myColor(.MyOrange)
     static let lightOrange = myColor(.LightOrange)
-    static let backGround = myColor(.BackGround)
+    static let background = myColor(.BackGround)
     static let myGreen = myColor(.MyGreen)
 
     private static func myColor(_ color: MyColor) -> UIColor? {

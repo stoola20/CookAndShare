@@ -15,7 +15,17 @@ class ChatListCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        setUpUI()
+    }
+
+    func setUpUI() {
+        friendImageView.layer.cornerRadius = 30
+        friendImageView.contentMode = .scaleAspectFill
+        friendNameLabel.textColor = UIColor.darkBrown
+        lastMessageLabel.textColor = UIColor.systemBrown
+        lastTimeLabel.textColor = UIColor.systemBrown
+        friendNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        lastTimeLabel.font = UIFont.systemFont(ofSize: 15)
     }
 
     func layoutCell(with friendName: String, imageURL: String, lastMessage: Message) {

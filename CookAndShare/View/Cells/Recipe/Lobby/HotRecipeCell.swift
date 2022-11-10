@@ -26,9 +26,9 @@ class HotRecipeCell: UICollectionViewCell {
     }
 
     func setUpUI() {
-        storeButton.tintColor = UIColor.backGround
-        heartImageView.tintColor = UIColor.backGround
-        likesLabel.textColor = UIColor.backGround
+        storeButton.tintColor = UIColor.background
+        heartImageView.tintColor = UIColor.background
+        likesLabel.textColor = UIColor.background
         likesLabel.font = UIFont.boldSystemFont(ofSize: 17)
         titleLabel.textColor = UIColor.darkBrown
         durationLabel.textColor = UIColor.darkBrown

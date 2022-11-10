@@ -14,12 +14,16 @@ class OtherImageCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        setUpUI()
+    }
+
+    func setUpUI() {
         largeImageView.layer.cornerRadius = 20
         friendImageView.layer.cornerRadius = 20
         largeImageView.contentMode = .scaleAspectFill
         friendImageView.contentMode = .scaleAspectFill
-        largeImageView.clipsToBounds = true
-        friendImageView.clipsToBounds = true
+        imageTimeLabel.textColor = UIColor.systemBrown
+        imageTimeLabel.font = UIFont.systemFont(ofSize: 13)
     }
 
     func layoutCell(with message: Message, friendImageURL: String) {

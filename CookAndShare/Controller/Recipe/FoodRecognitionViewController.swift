@@ -37,12 +37,12 @@ class FoodRecognitionViewController: UIViewController {
 
         retakeButton.layer.cornerRadius = 25
         retakeButton.backgroundColor = UIColor.darkBrown
-        retakeButton.setTitleColor(UIColor.backGround, for: .normal)
+        retakeButton.setTitleColor(UIColor.background, for: .normal)
         retakeButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
 
         searchButton.layer.cornerRadius = 25
         searchButton.backgroundColor = UIColor.darkBrown
-        searchButton.setTitleColor(UIColor.backGround, for: .normal)
+        searchButton.setTitleColor(UIColor.background, for: .normal)
         searchButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
     }
 

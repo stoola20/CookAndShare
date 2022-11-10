@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -56,56 +57,64 @@
                                 <rect key="frame" x="0.0" y="816" width="414" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" horizontalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uP5-Ll-y6l">
-                                        <rect key="frame" x="376" y="18" width="22" height="22"/>
+                                        <rect key="frame" x="373" y="17.5" width="25" height="23.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="22" id="vQU-C2-CZa"/>
+                                            <constraint firstAttribute="width" constant="25" id="vQU-C2-CZa"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="paperplane.fill" catalog="system"/>
+                                        <state key="normal" image="paperplane.fill" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                        </state>
                                         <connections>
                                             <action selector="sendMessage:" destination="8hq-km-LIe" eventType="touchUpInside" id="djN-QE-tix"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b41-gQ-yOn">
-                                        <rect key="frame" x="16" y="18" width="22" height="22"/>
+                                        <rect key="frame" x="16" y="17" width="25" height="24.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="22" id="ubz-Am-WwD"/>
+                                            <constraint firstAttribute="width" constant="25" id="ubz-Am-WwD"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="mappin.and.ellipse" catalog="system"/>
+                                        <state key="normal" image="mappin.and.ellipse" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                        </state>
                                         <connections>
                                             <action selector="sendLocation:" destination="8hq-km-LIe" eventType="touchUpInside" id="MIX-pf-0BA"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CkD-rh-Zcw">
-                                        <rect key="frame" x="46" y="18" width="22" height="22"/>
+                                        <rect key="frame" x="49" y="18" width="25" height="22.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="22" id="MFg-Ax-B8F"/>
+                                            <constraint firstAttribute="width" constant="25" id="MFg-Ax-B8F"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="photo" catalog="system"/>
+                                        <state key="normal" image="photo" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                        </state>
                                         <connections>
                                             <action selector="presentPHPicker:" destination="8hq-km-LIe" eventType="touchUpInside" id="N80-Im-bdA"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3F-lm-DID">
-                                        <rect key="frame" x="76" y="18" width="22" height="22"/>
+                                        <rect key="frame" x="82" y="17" width="25" height="24.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="22" id="xsC-lT-r4J"/>
+                                            <constraint firstAttribute="width" constant="25" id="xsC-lT-r4J"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="mic" catalog="system"/>
+                                        <state key="normal" image="mic" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                        </state>
                                         <connections>
                                             <action selector="showRecordView:" destination="8hq-km-LIe" eventType="touchUpInside" id="eWe-Kh-97w"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="請輸入訊息" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ntN-GX-90i">
-                                        <rect key="frame" x="106" y="12" width="262" height="34"/>
+                                        <rect key="frame" x="115" y="12" width="250" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                <color key="backgroundColor" name="MyOrange"/>
                                 <constraints>
                                     <constraint firstItem="ntN-GX-90i" firstAttribute="leading" secondItem="c3F-lm-DID" secondAttribute="trailing" constant="8" id="5Jw-TM-wCO"/>
                                     <constraint firstItem="uP5-Ll-y6l" firstAttribute="centerY" secondItem="b41-gQ-yOn" secondAttribute="centerY" id="9A1-YK-5cV"/>
@@ -125,28 +134,40 @@
                                 <rect key="frame" x="0.0" y="896" width="414" height="150"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="8FN-5F-GgA">
-                                        <rect key="frame" x="69" y="59.5" width="276.5" height="31"/>
+                                        <rect key="frame" x="76" y="50" width="262" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Yg-to-1w6">
-                                                <rect key="frame" x="0.0" y="0.0" width="81.5" height="31"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="開始錄音"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="3Ps-l4-bqN"/>
+                                                    <constraint firstAttribute="height" constant="50" id="mIZ-nw-fTl"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <connections>
                                                     <action selector="recordButtonAction:" destination="8hq-km-LIe" eventType="touchUpInside" id="LKV-H9-rgg"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="swf-rz-QNr">
-                                                <rect key="frame" x="97.5" y="0.0" width="81.5" height="31"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="播放"/>
+                                                <rect key="frame" x="66" y="0.0" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="6q1-Fk-nTR"/>
+                                                    <constraint firstAttribute="height" constant="50" id="IN6-bz-jVM"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <connections>
                                                     <action selector="playOrSendRecord:" destination="8hq-km-LIe" eventType="touchUpInside" id="gDt-Xn-hEb"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9F-bZ-S90">
-                                                <rect key="frame" x="195" y="0.0" width="81.5" height="31"/>
+                                                <rect key="frame" x="132" y="0.0" width="130" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="130" id="blC-qf-z81"/>
+                                                    <constraint firstAttribute="height" constant="50" id="swO-vn-ZKA"/>
+                                                </constraints>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="傳送語音"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="傳送語音">
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="17"/>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <action selector="sendVoiceMessage:" destination="8hq-km-LIe" eventType="touchUpInside" id="LFp-bt-EFy"/>
                                                 </connections>
@@ -179,7 +200,7 @@
                     </view>
                     <connections>
                         <outlet property="inputTextField" destination="ntN-GX-90i" id="kJI-O1-xFC"/>
-                        <outlet property="playAndSendButton" destination="swf-rz-QNr" id="Xgh-kK-e6b"/>
+                        <outlet property="playAndPauseButton" destination="swf-rz-QNr" id="Xgh-kK-e6b"/>
                         <outlet property="recordButton" destination="2Yg-to-1w6" id="KSW-RA-1RS"/>
                         <outlet property="sendVoiceButton" destination="g9F-bZ-S90" id="Bhe-Jb-vuk"/>
                         <outlet property="tableView" destination="2c7-rY-Tjo" id="q00-Gz-R4B"/>
@@ -211,7 +232,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkD-rY-nI8">
-                                                    <rect key="frame" x="336.5" y="19" width="41.5" height="20.5"/>
+                                                    <rect key="frame" x="336.5" y="8" width="41.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -226,13 +247,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="PC4-9U-1kk">
                                                     <rect key="frame" x="108" y="17" width="220.5" height="43"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tps-JQ-PQJ">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tps-JQ-PQJ">
                                                             <rect key="frame" x="0.0" y="0.0" width="220.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdh-Tx-H09">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdh-Tx-H09">
                                                             <rect key="frame" x="0.0" y="22.5" width="220.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
@@ -242,7 +263,7 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="KkD-rY-nI8" firstAttribute="top" secondItem="uMb-Q2-574" secondAttribute="topMargin" constant="8" id="LV9-qf-4A9"/>
+                                                <constraint firstItem="KkD-rY-nI8" firstAttribute="top" secondItem="rK8-bW-dkP" secondAttribute="top" id="8Z2-26-kYk"/>
                                                 <constraint firstItem="PC4-9U-1kk" firstAttribute="centerY" secondItem="rK8-bW-dkP" secondAttribute="centerY" id="N8e-gE-Jx1"/>
                                                 <constraint firstItem="rK8-bW-dkP" firstAttribute="leading" secondItem="uMb-Q2-574" secondAttribute="leading" constant="24" id="OFw-vM-zdK"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="KkD-rY-nI8" secondAttribute="trailing" constant="16" id="dfo-TR-38A"/>
@@ -277,7 +298,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GXB-Vw-XtQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-697" y="1424"/>
+            <point key="canvasLocation" x="-533" y="1418"/>
         </scene>
     </scenes>
     <color key="tintColor" name="DarkBrown"/>
@@ -289,11 +310,11 @@
         <namedColor name="DarkBrown">
             <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="MyOrange">
+            <color red="0.90196078431372551" green="0.67843137254901964" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -41,6 +41,7 @@ class DetailBannerCell: UITableViewCell {
         titleLabel.textColor = UIColor.darkBrown
         durationLabel.textColor = UIColor.darkBrown
         authorLabel.textColor = UIColor.darkBrown
+        authorLabel.font = UIFont.boldSystemFont(ofSize: 18)
         storyLabel.textColor = UIColor.darkBrown
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
     }

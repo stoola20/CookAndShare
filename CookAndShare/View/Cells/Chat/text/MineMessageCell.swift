@@ -15,7 +15,15 @@ class MineMessageCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        setUpUI()
+    }
+
+    func setUpUI() {
         chatBubble.layer.cornerRadius = 15
+        chatBubble.backgroundColor = UIColor.lightOrange
+        messageLabel.textColor = UIColor.darkBrown
+        timeLabel.textColor = UIColor.systemBrown
+        timeLabel.font = UIFont.systemFont(ofSize: 13)
     }
 
     func layoutCell(with message: Message) {

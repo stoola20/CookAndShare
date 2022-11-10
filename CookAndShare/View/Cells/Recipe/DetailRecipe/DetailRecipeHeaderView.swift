@@ -41,10 +41,10 @@ class DetailRecipeHeaderView: UITableViewHeaderFooterView {
         separator.backgroundColor = UIColor.lightOrange
 
         addToListButton.setTitle(Constant.addToShoppingList, for: .normal)
-        addToListButton.setTitleColor(UIColor.backGround, for: .normal)
+        addToListButton.setTitleColor(UIColor.background, for: .normal)
         addToListButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         addToListButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        addToListButton.tintColor = UIColor.backGround
+        addToListButton.tintColor = UIColor.background
         addToListButton.addTarget(self, action: #selector(addToList), for: .touchUpInside)
         addToListButton.backgroundColor = UIColor.darkBrown
         addToListButton.layer.cornerRadius = 15

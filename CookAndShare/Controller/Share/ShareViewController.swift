@@ -18,7 +18,8 @@ class ShareViewController: UIViewController {
         title = "食物分享"
         tableView.dataSource = self
         tableView.allowsSelection = false
-        tableView.separatorStyle = .none
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.separatorColor = UIColor.lightOrange
         tableView.registerCellWithNib(identifier: ShareCell.identifier, bundle: nil)
         if fromPublicVC { return }
         navigationItem.rightBarButtonItem = UIBarButtonItem(

@@ -16,10 +16,20 @@ class MineVoiceCell: UITableViewCell {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var chatBubble: UIView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
+        setUpUI()
+    }
+
+    func setUpUI() {
         chatBubble.layer.cornerRadius = 15
+        chatBubble.backgroundColor = UIColor.lightOrange
+        playButton.tintColor = UIColor.darkBrown
+        timeLabel.textColor = UIColor.systemBrown
+        timeLabel.font = UIFont.systemFont(ofSize: 13)
+        durationLabel.textColor = UIColor.darkBrown
+        durationLabel.font = UIFont.systemFont(ofSize: 15)
     }
 
     func layoutCell(with message: Message) {

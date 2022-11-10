@@ -31,7 +31,7 @@ class ChatRoomViewController: UIViewController {
     private var location = CLLocation()
 
     @IBOutlet weak var sendVoiceButton: UIButton!
-    @IBOutlet weak var playAndSendButton: UIButton!
+    @IBOutlet weak var playAndPauseButton: UIButton!
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var wrapperView: UIView!
     @IBOutlet weak var wrapperViewBottomConstraint: NSLayoutConstraint!
@@ -41,6 +41,7 @@ class ChatRoomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
+        setUpUI()
         locationManager.delegate = self
         inputTextField.delegate = self
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideAudioRecordView))
@@ -48,6 +49,7 @@ class ChatRoomViewController: UIViewController {
         guard let friend = friend else { return }
         title = friend.name
 
+        // voice
         if let number: Int = UserDefaults.standard.object(forKey: "myNumber") as? Int {
             numOfRecorder = number
         }
@@ -90,6 +92,28 @@ class ChatRoomViewController: UIViewController {
         tableView.registerCellWithNib(identifier: OtherImageCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: OtherLocationCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: OtherVoiceCell.identifier, bundle: nil)
+    }
+
+    func setUpUI() {
+        view.backgroundColor = UIColor.background
+        inputTextField.backgroundColor = UIColor.background
+        inputTextField.textColor = UIColor.darkBrown
+
+        recordButton.layer.borderColor = UIColor.myOrange?.cgColor
+        recordButton.layer.borderWidth = 2
+        recordButton.layer.cornerRadius = 25
+        recordButton.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+        recordButton.tintColor = UIColor.systemRed
+
+        playAndPauseButton.layer.borderColor = UIColor.myOrange?.cgColor
+        playAndPauseButton.layer.borderWidth = 2
+        playAndPauseButton.layer.cornerRadius = 25
+        playAndPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        playAndPauseButton.tintColor = UIColor.darkBrown
+
+        sendVoiceButton.backgroundColor = UIColor.darkBrown
+        sendVoiceButton.layer.cornerRadius = 25
+        sendVoiceButton.tintColor = UIColor.background
     }
 
     @IBAction func sendMessage(_ sender: UIButton) {
@@ -174,7 +198,7 @@ class ChatRoomViewController: UIViewController {
 
     // MARK: - Audio Message
     @IBAction func showRecordView(_ sender: UIButton) {
-        playAndSendButton.isHidden = true
+        playAndPauseButton.isHidden = true
         wrapperViewBottomConstraint.isActive = false
         wrapperViewBottomConstraint = wrapperView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150)
         wrapperViewBottomConstraint.isActive = true
@@ -190,7 +214,7 @@ class ChatRoomViewController: UIViewController {
     }
 
     @objc func hideAudioRecordView() {
-        playAndSendButton.isHidden = true
+        playAndPauseButton.isHidden = true
         sendVoiceButton.isHidden = true
         wrapperViewBottomConstraint.isActive = false
         wrapperViewBottomConstraint = wrapperView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -206,7 +230,7 @@ class ChatRoomViewController: UIViewController {
 
     @IBAction func recordButtonAction(_ sender: UIButton) {
         if audioRecorder == nil {
-            playAndSendButton.isHidden = true
+            playAndPauseButton.isHidden = true
             numOfRecorder += 1
 
             let destinationUrl = getDirectoryPath().appendingPathComponent("\(numOfRecorder).m4a")
@@ -219,10 +243,9 @@ class ChatRoomViewController: UIViewController {
             ]
 
             do {
+                recordButton.setImage(UIImage(systemName: "square.fill"), for: .normal)
                 audioRecorder = try AVAudioRecorder(url: destinationUrl, settings: settings)
                 audioRecorder.record()
-
-                recordButton.setTitle("停止錄音", for: .normal)
             } catch {
                 print("Record error:", error.localizedDescription)
             }
@@ -232,9 +255,10 @@ class ChatRoomViewController: UIViewController {
 
             // save file name of record data in tableview
             UserDefaults.standard.set(numOfRecorder, forKey: "myNumber")
-            playAndSendButton.isHidden = false
-            playAndSendButton.setTitle("播放", for: .normal)
-            recordButton.setTitle("開始錄音", for: .normal)
+            playAndPauseButton.isHidden = false
+            playAndPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+
+            recordButton.setImage(UIImage(systemName: "circle.fill"), for: .normal)
             sendVoiceButton.isHidden = false
         }
     }
@@ -255,22 +279,25 @@ class ChatRoomViewController: UIViewController {
                                          selector: #selector(updatePlayingButton),
                                          userInfo: nil,
                                          repeats: true)
-            playAndSendButton.setTitle("停止", for: .normal)
+            playAndPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+
             playingRecord = true
         } else {
             timer?.invalidate()
             timer = nil
             audioPlayer.stop()
             audioPlayer.currentTime = 0
-            playAndSendButton.setTitle("播放", for: .normal)
+            playAndPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+
             playingRecord = false
         }
     }
 
     @IBAction func sendVoiceMessage(_ sender: UIButton) {
         sendVoiceButton.isHidden = true
-        playAndSendButton.isHidden = true
-        playAndSendButton.setTitle("播放", for: .normal)
+        playAndPauseButton.isHidden = true
+        playAndPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+
         firestoreManager.handleAudioSendWith(url: getDirectoryPath().appendingPathComponent("\(numOfRecorder).m4a")) { result in
             switch result {
             case .success(let url):
@@ -283,9 +310,10 @@ class ChatRoomViewController: UIViewController {
 
     @objc func updatePlayingButton() {
         if audioPlayer.isPlaying {
-            playAndSendButton.setTitle("停止", for: .normal)
+            playAndPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
         } else {
-            playAndSendButton.setTitle("播放", for: .normal)
+            playAndPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+
             timer?.invalidate()
             timer = nil
         }

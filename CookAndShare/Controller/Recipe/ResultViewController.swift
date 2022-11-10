@@ -47,7 +47,7 @@ class ResultViewController: UIViewController {
         alertMessageLabel.text = Constant.beTheFirstOne
 
         addRecipeButton.backgroundColor = UIColor.darkBrown
-        addRecipeButton.tintColor = UIColor.backGround
+        addRecipeButton.tintColor = UIColor.background
         addRecipeButton.setTitle(Constant.addNewRecipe, for: .normal)
         addRecipeButton.setImage(UIImage(systemName: "plus"), for: .normal)
         addRecipeButton.layer.cornerRadius = 20
