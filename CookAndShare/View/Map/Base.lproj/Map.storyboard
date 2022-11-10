@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,16 +18,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="MFX-mv-kX3">
-                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZW9-OQ-7Is">
+                                <rect key="frame" x="44" y="49" width="140" height="40"/>
+                                <color key="backgroundColor" name="MyOrange"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="MFX-mv-kX3">
+                                <rect key="frame" x="36" y="44" width="342" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1O-hY-Ulj">
-                                        <rect key="frame" x="0.0" y="0.0" width="207" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="156" height="50"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="超市及市場"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6f7-AP-dTf">
-                                        <rect key="frame" x="207" y="0.0" width="207" height="50"/>
+                                        <rect key="frame" x="186" y="0.0" width="156" height="50"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="食物銀行"/>
                                     </button>
@@ -44,27 +49,39 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="G8Z-gB-717" firstAttribute="trailing" secondItem="Pv8-BD-yYG" secondAttribute="trailing" id="6pK-3Y-oE5"/>
-                            <constraint firstItem="MFX-mv-kX3" firstAttribute="leading" secondItem="G8Z-gB-717" secondAttribute="leading" id="9NU-En-ow5"/>
+                            <constraint firstItem="MFX-mv-kX3" firstAttribute="leading" secondItem="G8Z-gB-717" secondAttribute="leading" constant="36" id="9NU-En-ow5"/>
+                            <constraint firstItem="ZW9-OQ-7Is" firstAttribute="width" secondItem="j1O-hY-Ulj" secondAttribute="width" multiplier="0.9" id="JmU-Ro-Bt9"/>
                             <constraint firstItem="MFX-mv-kX3" firstAttribute="top" secondItem="G8Z-gB-717" secondAttribute="top" id="LDI-Mh-N2y"/>
                             <constraint firstItem="Pv8-BD-yYG" firstAttribute="leading" secondItem="G8Z-gB-717" secondAttribute="leading" id="MzN-Ez-EFB"/>
-                            <constraint firstItem="G8Z-gB-717" firstAttribute="trailing" secondItem="MFX-mv-kX3" secondAttribute="trailing" id="fo4-ZQ-buC"/>
+                            <constraint firstItem="ZW9-OQ-7Is" firstAttribute="height" secondItem="j1O-hY-Ulj" secondAttribute="height" multiplier="0.8" id="c50-zU-AGm"/>
+                            <constraint firstItem="ZW9-OQ-7Is" firstAttribute="centerX" secondItem="j1O-hY-Ulj" secondAttribute="centerX" id="d32-OX-Pty"/>
+                            <constraint firstItem="G8Z-gB-717" firstAttribute="trailing" secondItem="MFX-mv-kX3" secondAttribute="trailing" constant="36" id="fo4-ZQ-buC"/>
+                            <constraint firstItem="ZW9-OQ-7Is" firstAttribute="centerY" secondItem="j1O-hY-Ulj" secondAttribute="centerY" id="hzM-I1-Qjb"/>
                             <constraint firstItem="G8Z-gB-717" firstAttribute="bottom" secondItem="Pv8-BD-yYG" secondAttribute="bottom" id="pwJ-kE-gMs"/>
                             <constraint firstItem="Pv8-BD-yYG" firstAttribute="top" secondItem="MFX-mv-kX3" secondAttribute="bottom" id="vtx-dc-xdj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="soV-pa-7wi"/>
                     <connections>
+                        <outlet property="backgroundCenter" destination="d32-OX-Pty" id="aAx-ke-fRJ"/>
+                        <outlet property="backgroundWidth" destination="JmU-Ro-Bt9" id="aEu-sR-2Za"/>
+                        <outlet property="buttonBackground" destination="ZW9-OQ-7Is" id="Noo-YF-vpm"/>
                         <outlet property="foodBankButton" destination="6f7-AP-dTf" id="Y5s-af-ZPD"/>
                         <outlet property="mapView" destination="Pv8-BD-yYG" id="egm-e2-SGE"/>
                         <outlet property="marketButton" destination="j1O-hY-Ulj" id="p3v-x3-XYp"/>
+                        <outletCollection property="buttons" destination="6f7-AP-dTf" collectionClass="NSMutableArray" id="2Gm-Ob-xnz"/>
+                        <outletCollection property="buttons" destination="j1O-hY-Ulj" collectionClass="NSMutableArray" id="XpG-NZ-fqw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WER-aI-dsx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="185" y="1437"/>
+            <point key="canvasLocation" x="41" y="1434"/>
         </scene>
     </scenes>
     <resources>
+        <namedColor name="MyOrange">
+            <color red="0.90196078431372551" green="0.67843137254901964" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

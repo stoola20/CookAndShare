@@ -17,6 +17,10 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var marketButton: UIButton!
     @IBOutlet weak var foodBankButton: UIButton!
+    @IBOutlet weak var buttonBackground: UIView!
+    @IBOutlet weak var backgroundCenter: NSLayoutConstraint!
+    @IBOutlet weak var backgroundWidth: NSLayoutConstraint!
+    @IBOutlet var buttons: [UIButton]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +30,10 @@ class MapViewController: UIViewController {
         locationManager.distanceFilter = 50
         locationManager.delegate = self
         mapView.delegate = self
+
         marketButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
         foodBankButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
+        setUpUI()
 
         if CLLocationManager.locationServicesEnabled() {
             locationManager.requestLocation()
@@ -37,7 +43,18 @@ class MapViewController: UIViewController {
             locationManager.requestWhenInUseAuthorization()
         }
     }
-    
+
+    func setUpUI() {
+        marketButton.isSelected = true
+        marketButton.setTitleColor(UIColor.background, for: .selected)
+        marketButton.setTitleColor(UIColor.myOrange, for: .normal)
+        marketButton.tintColor = .clear
+        foodBankButton.setTitleColor(UIColor.background, for: .selected)
+        foodBankButton.setTitleColor(UIColor.myOrange, for: .normal)
+        foodBankButton.tintColor = .clear
+        buttonBackground.layer.cornerRadius = 10
+    }
+
     func fetchNearbyPlace(keyword: String) {
         let locationString = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
         dataProvider.fetchNearbySearch(location: locationString, keyword: keyword) { listResponse in
@@ -60,11 +77,26 @@ class MapViewController: UIViewController {
             }
         }
     }
-    
+
     @objc func changeCategory(_ sender: UIButton) {
         self.mapView.clear()
+        buttons.forEach { button in
+            button.isSelected = false
+        }
         keyword = sender == marketButton ? "超市|市場" : "食物銀行"
         fetchNearbyPlace(keyword: keyword)
+        sender.isSelected = true
+        backgroundCenter.isActive = false
+        backgroundCenter = buttonBackground.centerXAnchor.constraint(equalTo: sender.centerXAnchor)
+        backgroundCenter.isActive = true
+
+        backgroundWidth.isActive = false
+        backgroundWidth = buttonBackground.widthAnchor.constraint(equalTo: sender.widthAnchor, multiplier: 0.9)
+        backgroundWidth.isActive = true
+
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut) {
+            self.view.layoutIfNeeded()
+        }
     }
 }
 
