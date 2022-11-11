@@ -31,7 +31,7 @@
         <scene sceneID="1jl-HN-9og">
             <objects>
                 <navigationController id="K1O-ai-H0G" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="食譜" id="XyG-lz-HNN"/>
+                    <tabBarItem key="tabBarItem" title="食譜" image="fork.knife.circle" catalog="system" id="XyG-lz-HNN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UJP-hi-60u">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -48,7 +48,7 @@
         <scene sceneID="mTL-ms-LcI">
             <objects>
                 <navigationController id="AR1-nb-5wd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="食物分享" id="5N9-vW-uos"/>
+                    <tabBarItem key="tabBarItem" title="食物分享" image="person.2.fill" catalog="system" id="5N9-vW-uos"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vcR-f8-fjY">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -65,7 +65,7 @@
         <scene sceneID="64L-YX-1KD">
             <objects>
                 <navigationController id="ih3-T5-v55" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="地圖" id="3B5-ky-KYt"/>
+                    <tabBarItem key="tabBarItem" title="地圖" image="mappin.and.ellipse" catalog="system" id="3B5-ky-KYt"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mVc-Lr-0EF">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -82,7 +82,7 @@
         <scene sceneID="yCW-Tx-evE">
             <objects>
                 <navigationController id="e6D-Ad-NXJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="個人" id="wLN-DD-e8s"/>
+                    <tabBarItem key="tabBarItem" title="個人" image="person.circle" catalog="system" id="wLN-DD-e8s"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fDw-IN-d0Y">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -148,6 +148,10 @@
     </scenes>
     <color key="tintColor" name="DarkBrown"/>
     <resources>
+        <image name="fork.knife.circle" catalog="system" width="128" height="121"/>
+        <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
+        <image name="person.2.fill" catalog="system" width="128" height="80"/>
+        <image name="person.circle" catalog="system" width="128" height="121"/>
         <namedColor name="DarkBrown">
             <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

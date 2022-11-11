@@ -15,6 +15,7 @@ class HotRecipeCell: UICollectionViewCell {
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var storeButton: UIButton!
     @IBOutlet weak var heartImageView: UIImageView!
+    @IBOutlet weak var containerView: UIView!
     var hasSaved = false
     var recipeId = String.empty
     let firestoreManager = FirestoreManager.shared
@@ -32,10 +33,9 @@ class HotRecipeCell: UICollectionViewCell {
         likesLabel.font = UIFont.boldSystemFont(ofSize: 17)
         titleLabel.textColor = UIColor.darkBrown
         durationLabel.textColor = UIColor.darkBrown
+
         imageView.layer.cornerRadius = 10
-        imageView.layer.shadowColor = UIColor.gray.cgColor
-        imageView.layer.shadowOpacity = 0.5
-        imageView.layer.shadowOffset = CGSize(width: 1, height: 3)
+        imageView.clipsToBounds = true
     }
 
     func layoutCell(with recipe: Recipe) {

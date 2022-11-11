@@ -90,6 +90,6 @@ extension AddToShoppingListVC: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        80
+        70
     }
 }

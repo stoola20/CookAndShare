@@ -30,6 +30,8 @@ class AllRecipeCell: UICollectionViewCell {
         yellowBackground.layer.cornerRadius = 20
         storeButton.tintColor = UIColor.darkBrown
         imageView.layer.cornerRadius = 50
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.borderWidth = 2
     }
 
     func layoutCell(with recipe: Recipe) {

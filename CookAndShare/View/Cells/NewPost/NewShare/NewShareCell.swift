@@ -46,6 +46,8 @@ class NewShareCell: UITableViewCell {
         foodImage.isUserInteractionEnabled = true
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(pickImage))
         foodImage.addGestureRecognizer(gestureRecognizer)
+        foodImage.contentMode = .scaleAspectFill
+        foodImage.layer.cornerRadius = 10
         titleTextField.delegate = self
         descriptionTextField.delegate = self
         meetTimeTextField.delegate = self

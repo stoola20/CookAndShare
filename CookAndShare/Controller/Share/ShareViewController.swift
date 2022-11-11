@@ -32,6 +32,18 @@ class ShareViewController: UIViewController {
                 action: #selector(addShare)
             )
         ]
+
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithTransparentBackground()
+        barAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.darkBrown,
+            .font: UIFont.boldSystemFont(ofSize: 28)
+        ]
+        barAppearance.titlePositionAdjustment = UIOffset(horizontal: -200, vertical: 0)
+        barAppearance.shadowColor = nil
+
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.standardAppearance = barAppearance
     }
 
     override func viewWillAppear(_ animated: Bool) {

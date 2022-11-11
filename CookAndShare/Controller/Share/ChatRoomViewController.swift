@@ -40,6 +40,17 @@ class ChatRoomViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // navigation bar
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.darkBrown
+        ]
+//        barAppearance.titlePositionAdjustment = UIOffset(horizontal: -200, vertical: 0)
+        barAppearance.shadowColor = nil
+        barAppearance.backgroundColor = UIColor.lightOrange
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.standardAppearance = barAppearance
+
         setUpTableView()
         setUpUI()
         locationManager.delegate = self

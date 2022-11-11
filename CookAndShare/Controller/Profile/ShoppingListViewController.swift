@@ -83,7 +83,7 @@ extension ShoppingListViewController: UITableViewDataSource {
 
 extension ShoppingListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        80
+        70
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

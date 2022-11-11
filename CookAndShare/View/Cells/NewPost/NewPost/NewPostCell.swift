@@ -13,5 +13,4 @@ class NewPostCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
 }

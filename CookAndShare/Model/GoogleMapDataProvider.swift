@@ -18,11 +18,13 @@ class GoogleMapDataProvider {
                     let response = response as? HTTPURLResponse,
                     response.statusCode == 200,
                     error == nil {
-                    do {
-                        let response = try JSONDecoder().decode(ListResponse.self, from: data)
-                        completion(response)
-                    } catch {
-                        completion(nil)
+                    DispatchQueue.main.async {
+                        do {
+                            let response = try JSONDecoder().decode(ListResponse.self, from: data)
+                            completion(response)
+                        } catch {
+                            completion(nil)
+                        }
                     }
                 } else {
                     print("錯誤：\(String(describing: error))")
@@ -41,13 +43,15 @@ class GoogleMapDataProvider {
                     let response = response as? HTTPURLResponse,
                     response.statusCode == 200,
                     error == nil {
-                    do {
-                        let decoder = JSONDecoder()
-                        decoder.dateDecodingStrategy = .secondsSince1970 // 時間
-                        completion(try decoder.decode(DetailResponse.self, from: data))
-                    } catch {
-                        print(error)
-                        completion(nil)
+                    DispatchQueue.main.async {
+                        do {
+                            let decoder = JSONDecoder()
+                            decoder.dateDecodingStrategy = .secondsSince1970 // 時間
+                            completion(try decoder.decode(DetailResponse.self, from: data))
+                        } catch {
+                            print(error)
+                            completion(nil)
+                        }
                     }
                 } else {
                     print(error)
@@ -64,7 +68,9 @@ class GoogleMapDataProvider {
                     let response = response as? HTTPURLResponse,
                     response.statusCode == 200,
                     error == nil {
-                    completion(UIImage(data: data))
+                    DispatchQueue.main.async {
+                        completion(UIImage(data: data))
+                    }
                 } else {
                     print(error)
                 }

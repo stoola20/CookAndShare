@@ -19,6 +19,14 @@ class PublicProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCollectionView()
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.shadowColor = nil
+        barAppearance.backgroundColor = UIColor.lightOrange
+        // 向上捲動的樣式
+        navigationItem.standardAppearance = barAppearance
+        // 沒有滑動 table view 的樣式
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.backButtonTitle = ""
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -170,7 +178,7 @@ extension PublicProfileViewController {
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/4))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(180))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
                 return NSCollectionLayoutSection(group: group)
@@ -180,7 +188,7 @@ extension PublicProfileViewController {
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 item.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
 
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1/3))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1 / 3))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
                 let section = NSCollectionLayoutSection(group: group)

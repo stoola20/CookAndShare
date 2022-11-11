@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,21 +15,32 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEM-Np-Mny">
+                    <rect key="frame" x="0.0" y="49" width="207" height="1"/>
+                    <color key="backgroundColor" name="MyGreen"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="HsV-rC-KxP"/>
+                    </constraints>
+                </view>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Mc7-rw-L1S">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wQE-th-usi">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wQE-th-usi">
                             <rect key="frame" x="0.0" y="0.0" width="207" height="50"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="食譜"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="fork.knife.circle" catalog="system">
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
+                            </state>
                             <connections>
                                 <action selector="changeToRecipe:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="WIC-5a-Pfu"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4mT-H6-gad">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4mT-H6-gad">
                             <rect key="frame" x="207" y="0.0" width="207" height="50"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="食物共享"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="person.2.fill" catalog="system">
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="22"/>
+                            </state>
                             <connections>
                                 <action selector="changeToShare:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="Lzi-6h-0Dc"/>
                             </connections>
@@ -38,16 +50,28 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
             <constraints>
+                <constraint firstItem="gEM-Np-Mny" firstAttribute="width" secondItem="wQE-th-usi" secondAttribute="width" id="LCs-YP-HI1"/>
                 <constraint firstItem="Mc7-rw-L1S" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="NYf-3m-Zyf"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="Mc7-rw-L1S" secondAttribute="bottom" id="WtP-zl-vhK"/>
                 <constraint firstAttribute="trailing" secondItem="Mc7-rw-L1S" secondAttribute="trailing" id="avf-km-rlY"/>
+                <constraint firstItem="gEM-Np-Mny" firstAttribute="bottom" secondItem="VXr-Tz-HHm" secondAttribute="bottom" id="hb2-IL-D94"/>
+                <constraint firstItem="gEM-Np-Mny" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="jdY-gD-uAT"/>
                 <constraint firstItem="Mc7-rw-L1S" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="x0S-k9-QR7"/>
             </constraints>
             <connections>
                 <outlet property="recipeButton" destination="wQE-th-usi" id="R2d-fJ-oXX"/>
                 <outlet property="shareButton" destination="4mT-H6-gad" id="p1T-an-m8d"/>
+                <outlet property="underline" destination="gEM-Np-Mny" id="ARD-yH-yQP"/>
+                <outlet property="underlineLeading" destination="jdY-gD-uAT" id="C01-1Q-AeC"/>
             </connections>
             <point key="canvasLocation" x="205.79710144927537" y="119.86607142857142"/>
         </collectionReusableView>
     </objects>
+    <resources>
+        <image name="fork.knife.circle" catalog="system" width="128" height="121"/>
+        <image name="person.2.fill" catalog="system" width="128" height="80"/>
+        <namedColor name="MyGreen">
+            <color red="0.22745098039215686" green="0.47450980392156861" blue="0.3843137254901961" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

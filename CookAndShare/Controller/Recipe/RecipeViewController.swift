@@ -51,6 +51,18 @@ class RecipeViewController: UIViewController {
                 action: #selector(addRecipe)
             )
         ]
+
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithTransparentBackground()
+        barAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.darkBrown,
+            .font: UIFont.boldSystemFont(ofSize: 28)
+        ]
+        barAppearance.titlePositionAdjustment = UIOffset(horizontal: -200, vertical: 0)
+        barAppearance.shadowColor = nil
+//        barAppearance.backgroundColor = UIColor.lightOrange
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.standardAppearance = barAppearance
     }
 
     override func viewWillAppear(_ animated: Bool) {

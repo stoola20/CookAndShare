@@ -57,7 +57,7 @@
                                 <rect key="frame" x="0.0" y="816" width="414" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" horizontalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uP5-Ll-y6l">
-                                        <rect key="frame" x="373" y="17.5" width="25" height="23.5"/>
+                                        <rect key="frame" x="373" y="28.5" width="25" height="23.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="vQU-C2-CZa"/>
                                         </constraints>
@@ -70,7 +70,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b41-gQ-yOn">
-                                        <rect key="frame" x="16" y="17" width="25" height="24.5"/>
+                                        <rect key="frame" x="16" y="28" width="25" height="24.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="ubz-Am-WwD"/>
                                         </constraints>
@@ -83,7 +83,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CkD-rh-Zcw">
-                                        <rect key="frame" x="49" y="18" width="25" height="22.5"/>
+                                        <rect key="frame" x="49" y="29" width="25" height="22.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="MFg-Ax-B8F"/>
                                         </constraints>
@@ -96,7 +96,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3F-lm-DID">
-                                        <rect key="frame" x="82" y="17" width="25" height="24.5"/>
+                                        <rect key="frame" x="82" y="28" width="25" height="24.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="xsC-lT-r4J"/>
                                         </constraints>
@@ -109,7 +109,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="請輸入訊息" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ntN-GX-90i">
-                                        <rect key="frame" x="115" y="12" width="250" height="34"/>
+                                        <rect key="frame" x="115" y="23" width="250" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -125,7 +125,7 @@
                                     <constraint firstItem="ntN-GX-90i" firstAttribute="centerY" secondItem="c3F-lm-DID" secondAttribute="centerY" id="TOi-1j-KuW"/>
                                     <constraint firstItem="CkD-rh-Zcw" firstAttribute="leading" secondItem="b41-gQ-yOn" secondAttribute="trailing" constant="8" id="eDA-H9-qn9"/>
                                     <constraint firstItem="ntN-GX-90i" firstAttribute="centerY" secondItem="b41-gQ-yOn" secondAttribute="centerY" id="f9W-qq-zrr"/>
-                                    <constraint firstItem="ntN-GX-90i" firstAttribute="top" secondItem="N3w-26-Zp7" secondAttribute="top" constant="12" id="r3q-j3-j9S"/>
+                                    <constraint firstItem="ntN-GX-90i" firstAttribute="centerY" secondItem="N3w-26-Zp7" secondAttribute="centerY" id="hZU-Hb-W1c"/>
                                     <constraint firstItem="uP5-Ll-y6l" firstAttribute="leading" secondItem="ntN-GX-90i" secondAttribute="trailing" constant="8" id="tO8-PF-gyc"/>
                                     <constraint firstAttribute="height" constant="80" id="uvU-2G-FsQ"/>
                                 </constraints>
