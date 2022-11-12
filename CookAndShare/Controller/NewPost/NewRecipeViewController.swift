@@ -20,11 +20,20 @@ class NewRecipeViewController: UIViewController {
     var numOfProcedures = 1
     var ingredientDict: [Int: Ingredient] = [:]
     var procedureDict: [Int: Procedure] = [:]
+    let imagePicker = UIImagePickerController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "發布", style: .plain, target: self, action: #selector(postRecipe(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "發布",
+            style: .plain,
+            target: self,
+            action: #selector(postRecipe(_:))
+        )
+
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
     }
 
 // MARK: - Action
@@ -41,12 +50,27 @@ class NewRecipeViewController: UIViewController {
     }
 
     func presentPHPicker() {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-        configuration.selectionLimit = 1
-        let controller = PHPickerViewController(configuration: configuration)
-        controller.delegate = self
-        present(controller, animated: true)
+//        var configuration = PHPickerConfiguration()
+//        configuration.filter = .images
+//        configuration.selectionLimit = 1
+//        let controller = PHPickerViewController(configuration: configuration)
+//        controller.delegate = self
+//        present(controller, animated: true)
+        let controller = UIAlertController(title: "請選擇照片來源", message: nil, preferredStyle: .actionSheet)
+
+        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true)
+        }
+        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default) { _ in
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cameraAction)
+        controller.addAction(photoLibraryAction)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
     }
 
     @objc func addIngredient() {
@@ -91,7 +115,10 @@ extension NewRecipeViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeDescriptionCell.identifier, for: indexPath)
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: NewRecipeDescriptionCell.identifier,
+                    for: indexPath
+                )
                 as? NewRecipeDescriptionCell
             else { fatalError("Could not create description cell") }
             cell.completion = { [weak self] data in
@@ -106,7 +133,10 @@ extension NewRecipeViewController: UITableViewDataSource {
 
         case 1:
             guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeIngredientCell.identifier, for: indexPath)
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: NewRecipeIngredientCell.identifier,
+                    for: indexPath
+                )
                 as? NewRecipeIngredientCell
             else { fatalError("Could not create ingredient cell") }
             cell.delegate = self
@@ -116,7 +146,10 @@ extension NewRecipeViewController: UITableViewDataSource {
 
         default:
             guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeProcedureCell.identifier, for: indexPath)
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: NewRecipeProcedureCell.identifier,
+                    for: indexPath
+                )
                 as? NewRecipeProcedureCell
             else { fatalError("Could not create procedure cell") }
             cell.layoutCell(with: indexPath)
@@ -130,7 +163,9 @@ extension NewRecipeViewController: UITableViewDataSource {
 extension NewRecipeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeHeaderView.reuseIdentifier)
+            let headerView = tableView.dequeueReusableHeaderFooterView(
+                withIdentifier: NewRecipeHeaderView.reuseIdentifier
+            )
             as? NewRecipeHeaderView
         else { fatalError("Could not create header view.") }
         switch section {
@@ -223,7 +258,7 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
         let sortedProcedure = procedureDict.sorted { $0.key < $1.key }
         var index = 0
         var newProcedures = [Procedure]()
-        var newProcedureDict = [Int: Procedure]()
+        var newProcedureDict: [Int: Procedure] = [:]
         sortedProcedure.forEach { _, value in
             newProcedureDict[index] = value
             newProcedures.append(value)
@@ -312,5 +347,46 @@ extension NewRecipeViewController: PHPickerViewControllerDelegate {
                 }
             }
         }
+    }
+}
+
+extension NewRecipeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        guard
+            let userPickedImage = info[.editedImage] as? UIImage,
+            let indexPath = self.indexPathForImage
+        else { fatalError("Wrong cell") }
+
+        // Upload photo
+        self.firestoreManager.uploadPhoto(image: userPickedImage) { result in
+            switch result {
+            case .success(let url):
+                print(url)
+                if self.imageCell is NewRecipeDescriptionCell {
+                    self.recipe.mainImageURL = url.absoluteString
+                } else if self.imageCell is NewRecipeProcedureCell {
+                    self.recipe.procedures[indexPath.row].imageURL = url.absoluteString
+                    print("===\(self.recipe.procedures)")
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+
+        // update image
+        DispatchQueue.main.async {
+            if self.imageCell is NewRecipeDescriptionCell {
+                guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeDescriptionCell
+                else { fatalError("Wrong cell") }
+                cell.mainImageView.image = userPickedImage
+                cell.mainImageView.contentMode = .scaleAspectFill
+            } else if self.imageCell is NewRecipeProcedureCell {
+                guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeProcedureCell
+                else { fatalError("Wrong cell") }
+                cell.procedureImageView.image = userPickedImage
+                cell.procedureImageView.contentMode = .scaleAspectFill
+            }
+        }
+        dismiss(animated: true)
     }
 }

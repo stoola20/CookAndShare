@@ -14,6 +14,7 @@ class ShoppingListCell: UITableViewCell {
     var itemIsSelected = true
     var isInShoppingList = false {
         didSet {
+            itemIsSelected = isInShoppingList ? false : true
             if isInShoppingList {
                 checkButton.setImage(UIImage(systemName: "circle"), for: .normal)
             } else {
@@ -26,7 +27,6 @@ class ShoppingListCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        itemIsSelected = isInShoppingList ? false : true
         setUpUI()
     }
 

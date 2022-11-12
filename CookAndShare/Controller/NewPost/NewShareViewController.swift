@@ -13,11 +13,20 @@ class NewShareViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     let firestoreManager = FirestoreManager.shared
     var share = Share()
+    let imagePicker = UIImagePickerController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "發布", style: .plain, target: self, action: #selector(post(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "發布",
+            style: .plain,
+            target: self,
+            action: #selector(post(_:))
+        )
+
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
     }
 
     func setUpTableView() {
@@ -65,49 +74,46 @@ extension NewShareViewController: UITableViewDataSource {
 // MARK: - NewShareCellDelegate
 extension NewShareViewController: NewShareCellDelegate {
     func willPickImage() {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-        configuration.selectionLimit = 1
-        let controller = PHPickerViewController(configuration: configuration)
-        controller.delegate = self
-        present(controller, animated: true)
+        let controller = UIAlertController(title: "請選擇照片來源", message: nil, preferredStyle: .actionSheet)
+
+        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true)
+        }
+        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default) { _ in
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cameraAction)
+        controller.addAction(photoLibraryAction)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
     }
 }
 
-// MARK: - PHPickerViewControllerDelegate
-extension NewShareViewController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true)
+extension NewShareViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        guard
+            let userPickedImage = info[.editedImage] as? UIImage,
+            let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? NewShareCell
+        else { fatalError("Wrong cell") }
 
-        if !results.isEmpty {
-            let result = results.first!
-            let itemProvider = result.itemProvider
-            if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                    guard
-                        let image = image as? UIImage,
-                        let self = self
-                    else { return }
-
-                    // Upload photo
-                    self.firestoreManager.uploadPhoto(image: image) { result in
-                        switch result {
-                        case .success(let url):
-                            print(url)
-                            self.share.imageURL = url.absoluteString
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-
-                    // update image
-                    DispatchQueue.main.async {
-                        guard let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? NewShareCell
-                        else { fatalError("Wrong cell") }
-                        cell.foodImage.image = image
-                    }
-                }
+        // Upload photo
+        self.firestoreManager.uploadPhoto(image: userPickedImage) { result in
+            switch result {
+            case .success(let url):
+                print(url)
+                self.share.imageURL = url.absoluteString
+            case .failure(let error):
+                print(error)
             }
         }
+
+        // update image
+        DispatchQueue.main.async {
+            cell.foodImage.image = userPickedImage
+        }
+        dismiss(animated: true)
     }
 }
