@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SPAlert
 
 class AddToShoppingListVC: UIViewController {
     let coreDataManager = CoreDataManager.shared
@@ -50,6 +51,8 @@ class AddToShoppingListVC: UIViewController {
     }
 
     @IBAction func addToShoppingList(_ sender: UIButton) {
+        SPAlert.present(title: "成功加入", preset: .done)
+
         for index in selectedIndex {
             let ingredient = initialIngredients[index]
             coreDataManager.addItem(name: ingredient.name, quantity: ingredient.quantity)

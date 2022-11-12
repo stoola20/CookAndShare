@@ -17,4 +17,5 @@ target 'CookAndShare' do
   pod 'FirebaseMessaging'
   pod 'Kingfisher'
   pod 'lottie-ios'
+  pod 'SPAlert'
 end

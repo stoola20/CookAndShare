@@ -50,6 +50,7 @@
 		3787538A290FA61C00F06F4C /* AddToShoppingListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875389290FA61C00F06F4C /* AddToShoppingListVC.swift */; };
 		3787538C290FC5DD00F06F4C /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787538B290FC5DD00F06F4C /* ShoppingListViewController.swift */; };
 		3787538E2910098D00F06F4C /* SavedRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */; };
+		378C1C2D291F895A00CF8D38 /* successGold.json in Resources */ = {isa = PBXBuildFile; fileRef = 378C1C2C291F895A00CF8D38 /* successGold.json */; };
 		378EA508291CD033004200F9 /* UserInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378EA507291CD033004200F9 /* UserInputTextField.swift */; };
 		378EA50A291CEAF8004200F9 /* UIDatePicker+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */; };
 		37C622E72919FB4600A84263 /* FoodRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */; };
@@ -173,6 +174,7 @@
 		37875389290FA61C00F06F4C /* AddToShoppingListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToShoppingListVC.swift; sourceTree = "<group>"; };
 		3787538B290FC5DD00F06F4C /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
 		3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipeViewController.swift; sourceTree = "<group>"; };
+		378C1C2C291F895A00CF8D38 /* successGold.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successGold.json; sourceTree = "<group>"; };
 		378EA507291CD033004200F9 /* UserInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputTextField.swift; sourceTree = "<group>"; };
 		378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Ext.swift"; sourceTree = "<group>"; };
 		37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRecognitionViewController.swift; sourceTree = "<group>"; };
@@ -355,6 +357,23 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		378C1C27291F833300CF8D38 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				378C1C2B291F837900CF8D38 /* Lottie */,
+				37D69C61290BCF980034D8E1 /* Assets.xcassets */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		378C1C2B291F837900CF8D38 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				378C1C2C291F895A00CF8D38 /* successGold.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		37CBEC832910B60900A62EF2 /* NewShare */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,9 +434,9 @@
 				37D69C7A290BDE1C0034D8E1 /* View */,
 				37D69C75290BDCDF0034D8E1 /* Model */,
 				37D69C7B290BDE250034D8E1 /* ViewModel */,
+				378C1C27291F833300CF8D38 /* Source */,
 				37D69C58290BCF970034D8E1 /* AppDelegate.swift */,
 				37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */,
-				37D69C61290BCF980034D8E1 /* Assets.xcassets */,
 				37C622E8291A09E400A84263 /* SeeFood.mlmodel */,
 				37D69C66290BCF980034D8E1 /* Info.plist */,
 				370B1FFF291A5C5B0092F502 /* Entitlements.plist */,
@@ -744,6 +763,7 @@
 				371AE11429139061003B16BB /* InfoWindowView.xib in Resources */,
 				37E63620290E497F00D516D4 /* AllRecipeCell.xib in Resources */,
 				37CBECA22912025A00A62EF2 /* PublicPostHeaderView.xib in Resources */,
+				378C1C2D291F895A00CF8D38 /* successGold.json in Resources */,
 				372E3AAD291655D400250DAA /* MineImageCell.xib in Resources */,
 				37E63632290E60E800D516D4 /* DetailIngredientCell.xib in Resources */,
 				372E3AA52916550D00250DAA /* MineLocationCell.xib in Resources */,

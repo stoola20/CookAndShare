@@ -22,7 +22,7 @@ class FoodRecognitionViewController: UIViewController {
 
         let barAppearance = UINavigationBarAppearance()
         barAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.darkBrown
+            .foregroundColor: UIColor.darkBrown as Any
         ]
         barAppearance.shadowColor = nil
         barAppearance.backgroundColor = UIColor.lightOrange

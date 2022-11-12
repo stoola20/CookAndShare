@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Lottie
 
 enum DetailRecipeSection: CaseIterable {
     case banner

@@ -214,7 +214,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shake" translatesAutoresizingMaskIntoConstraints="NO" id="akt-NB-hkM">
-                                <rect key="frame" x="143" y="460" width="128" height="128"/>
+                                <rect key="frame" x="175" y="460" width="64" height="64"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ywm-U1-7C5">
                                 <rect key="frame" x="107" y="306" width="200" height="50"/>
@@ -454,8 +454,8 @@
         <image name="chevron.backward.circle.fill" catalog="system" width="128" height="121"/>
         <image name="empty-bowl" width="256" height="256"/>
         <image name="heart" catalog="system" width="128" height="109"/>
-        <image name="shake" width="128" height="128"/>
-        <image name="takePhoto" width="512" height="512"/>
+        <image name="shake" width="64" height="64"/>
+        <image name="takePhoto" width="256" height="256"/>
         <namedColor name="DarkBrown">
             <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
