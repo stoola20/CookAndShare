@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 extension UIImageView {
     func load(url: URL) {
@@ -29,5 +30,19 @@ extension UIImageView {
         containerView.layer.shadowPath = UIBezierPath(roundedRect: containerView.bounds, cornerRadius: cornerRadious).cgPath
         self.clipsToBounds = true
         self.layer.cornerRadius = cornerRadious
+    }
+
+    func loadImage(_ urlString: String?, placeHolder: UIImage? = nil) {
+        guard urlString != nil else { return }
+        let url = URL(string: urlString!)
+        self.kf.indicatorType = .activity
+        self.kf.setImage(
+            with: url,
+            placeholder: placeHolder,
+            options: [
+                .transition(.fade(1)),
+                .cacheOriginalImage
+            ]
+        )
     }
 }
