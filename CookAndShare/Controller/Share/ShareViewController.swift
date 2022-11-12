@@ -17,7 +17,7 @@ class ShareViewController: UIViewController {
         super.viewDidLoad()
         title = "食物分享"
         setUpTableView()
-        
+
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(
                 image: UIImage(systemName: "message"),
@@ -35,7 +35,7 @@ class ShareViewController: UIViewController {
 
         let barAppearance = UINavigationBarAppearance()
         barAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.darkBrown,
+            .foregroundColor: UIColor.darkBrown as Any,
             .font: UIFont.boldSystemFont(ofSize: 28)
         ]
         barAppearance.titlePositionAdjustment = UIOffset(horizontal: -200, vertical: 0)
@@ -71,7 +71,9 @@ class ShareViewController: UIViewController {
     @objc func addShare() {
         let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
         guard
-            let newShareVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewShareViewController.self))
+            let newShareVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: NewShareViewController.self)
+            )
             as? NewShareViewController
         else { fatalError("Could not create newShareVC") }
         navigationController?.pushViewController(newShareVC, animated: true)
@@ -80,7 +82,9 @@ class ShareViewController: UIViewController {
     @objc func showMessage() {
         let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
         guard
-            let chatListVC = storyboard.instantiateViewController(withIdentifier: String(describing: ChatListViewController.self))
+            let chatListVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: ChatListViewController.self)
+            )
             as? ChatListViewController
         else { fatalError("Could not create ChatListViewController") }
         navigationController?.pushViewController(chatListVC, animated: true)
@@ -107,7 +111,9 @@ extension ShareViewController: ShareCellDelegate {
     func goToProfile(_ userId: String) {
         let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
         guard
-            let publicProfileVC = storyboard.instantiateViewController(withIdentifier: String(describing: PublicProfileViewController.self))
+            let publicProfileVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: PublicProfileViewController.self)
+            )
             as? PublicProfileViewController
         else { fatalError("Could not create publicProfileVC") }
         publicProfileVC.userId = userId

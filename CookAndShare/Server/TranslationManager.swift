@@ -15,19 +15,19 @@ class TranslationManager: NSObject {
     override init() {
         super.init()
     }
-    
+
     private func makeRequest(usingTranslationAPI api: TranslationAPI, urlParams: [String: String], completion: @escaping (_ results: [String: Any]?) -> Void) {
         if var components = URLComponents(string: api.getURL()) {
             components.queryItems = [URLQueryItem]()
-            
+
             for (key, value) in urlParams {
                 components.queryItems?.append(URLQueryItem(name: key, value: value))
             }
-            
+
             if let url = components.url {
                 var request = URLRequest(url: url)
                 request.httpMethod = api.getHTTPMethod()
-                
+
                 let session = URLSession(configuration: .default)
                 let task = session.dataTask(with: request) { results, response, error in
                     if let error = error {
@@ -50,7 +50,6 @@ class TranslationManager: NSObject {
                         }
                     }
                 }
-                
                 task.resume()
             }
         }

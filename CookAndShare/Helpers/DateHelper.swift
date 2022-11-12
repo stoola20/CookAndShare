@@ -22,7 +22,6 @@ extension Date {
 
     static func getMessageTimeString(from messageTime: Date) -> String {
         let calendar = Calendar.current
-        let timeInterval = Date() - messageTime
         let dayComponent = calendar.component(.day, from: messageTime)
 
         var hour = calendar.component(.hour, from: messageTime)

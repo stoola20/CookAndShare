@@ -19,7 +19,7 @@ class ChatListViewController: UIViewController {
 
         let barAppearance = UINavigationBarAppearance()
         barAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.darkBrown
+            .foregroundColor: UIColor.darkBrown as Any
         ]
         barAppearance.shadowColor = nil
         barAppearance.backgroundColor = UIColor.lightOrange
@@ -82,15 +82,18 @@ extension ChatListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatListCell.identifier, for: indexPath) as? ChatListCell
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: ChatListCell.identifier, for: indexPath)
+                as? ChatListCell
         else { fatalError("Could not create ChatListCell") }
         let conversation = conversations[indexPath.row]
-        if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.userId) {
+        if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.userId),
+            let lastMessage = conversation.messages.last {
             let friendId = myIdIndex == 0 ? conversation.friendIds[1] : conversation.friendIds[0]
             firestoreManager.fetchUserData(userId: friendId) { result in
                 switch result {
                 case .success(let user):
-                    cell.layoutCell(with: user.name, imageURL: user.imageURL, lastMessage: conversation.messages.last!)
+                    cell.layoutCell(with: user.name, imageURL: user.imageURL, lastMessage: lastMessage)
                 case .failure(let error):
                     print(error)
                 }
@@ -105,8 +108,10 @@ extension ChatListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
         guard
-            let chatRoomVC = storyboard.instantiateViewController(withIdentifier: String(describing: ChatRoomViewController.self))
-            as? ChatRoomViewController
+            let chatRoomVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: ChatRoomViewController.self)
+            )
+                as? ChatRoomViewController
         else { return }
 
         let conversation = conversations[indexPath.row]

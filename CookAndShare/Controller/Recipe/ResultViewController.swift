@@ -94,7 +94,9 @@ class ResultViewController: UIViewController {
     @objc func presentNewRecipeVC() {
         let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
         guard
-            let newRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewRecipeViewController.self))
+            let newRecipeVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: NewRecipeViewController.self)
+            )
             as? NewRecipeViewController
         else { fatalError("Could not create new recipe VC") }
         present(newRecipeVC, animated: true)

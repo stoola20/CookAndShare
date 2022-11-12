@@ -116,7 +116,7 @@ class FoodRecognitionViewController: UIViewController {
 }
 
 extension FoodRecognitionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let userPickedImage = info[.editedImage] as? UIImage else { return }
         foodImageView.image = userPickedImage
         guard let ciimage = CIImage(image: userPickedImage) else {

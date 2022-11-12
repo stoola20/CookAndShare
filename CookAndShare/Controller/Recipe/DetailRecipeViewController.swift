@@ -82,7 +82,10 @@ class DetailRecipeViewController: UIViewController {
         tableView.registerCellWithNib(identifier: DetailBannerCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: DetailIngredientCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: DetailProcedureCell.identifier, bundle: nil)
-        tableView.register(DetailRecipeHeaderView.self, forHeaderFooterViewReuseIdentifier: DetailRecipeHeaderView.reuseIdentifier)
+        tableView.register(
+            DetailRecipeHeaderView.self,
+            forHeaderFooterViewReuseIdentifier: DetailRecipeHeaderView.reuseIdentifier
+        )
     }
 
     @IBAction func saveRecipe(_ sender: UIButton) {

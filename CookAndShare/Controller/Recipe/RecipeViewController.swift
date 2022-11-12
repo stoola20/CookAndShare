@@ -55,7 +55,7 @@ class RecipeViewController: UIViewController {
         let barAppearance = UINavigationBarAppearance()
         barAppearance.configureWithTransparentBackground()
         barAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.darkBrown,
+            .foregroundColor: UIColor.darkBrown as Any,
             .font: UIFont.boldSystemFont(ofSize: 28)
         ]
         barAppearance.titlePositionAdjustment = UIOffset(horizontal: -200, vertical: 0)

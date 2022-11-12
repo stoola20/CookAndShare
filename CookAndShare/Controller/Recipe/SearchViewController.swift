@@ -14,7 +14,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var ingredientTextField: UITextField!
     @IBOutlet weak var foodRecognitionButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
@@ -22,7 +22,7 @@ class SearchViewController: UIViewController {
 
         let barAppearance = UINavigationBarAppearance()
         barAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.darkBrown
+            .foregroundColor: UIColor.darkBrown as Any
         ]
         barAppearance.shadowColor = nil
         barAppearance.backgroundColor = UIColor.lightOrange
@@ -66,7 +66,10 @@ class SearchViewController: UIViewController {
         if motion == .motionShake {
             let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
             guard
-                let resultVC = storyboard.instantiateViewController(withIdentifier: String(describing: ResultViewController.self)) as? ResultViewController
+                let resultVC = storyboard.instantiateViewController(
+                    withIdentifier: String(describing: ResultViewController.self)
+                )
+            as? ResultViewController
             else { fatalError("Could not instantiate result VC") }
             resultVC.searchType = .random
             navigationController?.pushViewController(resultVC, animated: true)
