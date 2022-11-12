@@ -9,6 +9,7 @@ import UIKit
 
 class ProfileUserCell: UITableViewCell {
 
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var editNameButton: UIButton!
@@ -20,7 +21,7 @@ class ProfileUserCell: UITableViewCell {
     }
 
     func setUpUI() {
-        profileImageView.layer.cornerRadius = profileImageView.bounds.width / 2
+        profileImageView.applyshadowWithCorner(containerView: containerView, cornerRadious: profileImageView.bounds.width / 2)
         profileImageView.contentMode = .scaleAspectFill
         userName.textColor = UIColor.darkBrown
         userName.font = UIFont.boldSystemFont(ofSize: 20)

@@ -26,6 +26,8 @@ class MineLocationCell: UITableViewCell {
     }
 
     func layoutCell(with message: Message) {
+        mapView.clear()
+
         mapTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
         let subString = message.content.split(separator: ",")
         guard

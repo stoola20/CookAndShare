@@ -46,7 +46,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="G8Z-gB-717"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="LightOrange"/>
                         <constraints>
                             <constraint firstItem="G8Z-gB-717" firstAttribute="trailing" secondItem="Pv8-BD-yYG" secondAttribute="trailing" id="6pK-3Y-oE5"/>
                             <constraint firstItem="MFX-mv-kX3" firstAttribute="leading" secondItem="G8Z-gB-717" secondAttribute="leading" constant="36" id="9NU-En-ow5"/>
@@ -79,6 +79,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="LightOrange">
+            <color red="0.98039215686274506" green="0.87058823529411766" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="MyOrange">
             <color red="0.90196078431372551" green="0.67843137254901964" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

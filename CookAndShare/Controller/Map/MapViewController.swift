@@ -25,6 +25,13 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "地圖"
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.titleTextAttributes = [.foregroundColor: UIColor.darkBrown]
+        barAppearance.shadowColor = nil
+        barAppearance.backgroundColor = UIColor.lightOrange
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.standardAppearance = barAppearance
+
         locationManager.startUpdatingLocation()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 50

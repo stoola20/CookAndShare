@@ -34,8 +34,15 @@ class HotRecipeCell: UICollectionViewCell {
         titleLabel.textColor = UIColor.darkBrown
         durationLabel.textColor = UIColor.darkBrown
 
-        imageView.layer.cornerRadius = 10
+        containerView.layer.masksToBounds = false
+        containerView.layer.shadowColor = UIColor.gray.cgColor
+        containerView.layer.shadowOpacity = 1
+        containerView.layer.shadowOffset = CGSize(width: 1, height: 3)
+        containerView.layer.shadowRadius = 2
+        containerView.layer.cornerRadius = 10
+
         imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
     }
 
     func layoutCell(with recipe: Recipe) {

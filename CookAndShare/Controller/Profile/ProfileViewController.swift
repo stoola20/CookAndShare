@@ -27,7 +27,13 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
         title = "個人"
-        view.backgroundColor = UIColor.background
+
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.titleTextAttributes = [.foregroundColor: UIColor.darkBrown]
+        barAppearance.shadowColor = nil
+        barAppearance.backgroundColor = UIColor.lightOrange
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.standardAppearance = barAppearance
     }
 
     override func viewWillAppear(_ animated: Bool) {

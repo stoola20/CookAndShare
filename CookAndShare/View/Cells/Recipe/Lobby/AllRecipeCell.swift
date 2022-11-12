@@ -9,6 +9,7 @@ import UIKit
 
 class AllRecipeCell: UICollectionViewCell {
 
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
@@ -29,9 +30,7 @@ class AllRecipeCell: UICollectionViewCell {
         durationLabel.textColor = UIColor.darkBrown
         yellowBackground.layer.cornerRadius = 20
         storeButton.tintColor = UIColor.darkBrown
-        imageView.layer.cornerRadius = 50
-        imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.layer.borderWidth = 2
+        imageView.applyshadowWithCorner(containerView: containerView, cornerRadious: 50)
     }
 
     func layoutCell(with recipe: Recipe) {

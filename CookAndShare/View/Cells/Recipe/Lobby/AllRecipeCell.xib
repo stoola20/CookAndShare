@@ -49,33 +49,48 @@
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="jTd-jm-V63" secondAttribute="bottom" constant="16" id="86f-B2-I28"/>
+                            <constraint firstItem="gKD-ev-XLH" firstAttribute="top" secondItem="fx7-Pt-H2Q" secondAttribute="top" constant="62" id="KI3-Kf-KNI"/>
                             <constraint firstItem="gKD-ev-XLH" firstAttribute="centerX" secondItem="fx7-Pt-H2Q" secondAttribute="centerX" id="Tt0-DM-xYO"/>
                             <constraint firstAttribute="bottom" secondItem="SRw-Iw-JIl" secondAttribute="bottom" constant="16" id="Tzv-nz-Hdn"/>
                             <constraint firstAttribute="trailing" secondItem="jTd-jm-V63" secondAttribute="trailing" constant="16" id="wYC-jC-H1E"/>
                             <constraint firstItem="SRw-Iw-JIl" firstAttribute="leading" secondItem="fx7-Pt-H2Q" secondAttribute="leading" constant="16" id="wfD-Rm-fWP"/>
                         </constraints>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0AK-FM-NGR">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TCe-Ym-Xw9">
                         <rect key="frame" x="90.5" y="0.0" width="100" height="100"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0AK-FM-NGR">
+                                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="H6V-2Z-kn4"/>
+                                    <constraint firstAttribute="width" secondItem="0AK-FM-NGR" secondAttribute="height" multiplier="1:1" id="rxT-X9-TSM"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="100" id="H6V-2Z-kn4"/>
-                            <constraint firstAttribute="width" secondItem="0AK-FM-NGR" secondAttribute="height" multiplier="1:1" id="rxT-X9-TSM"/>
+                            <constraint firstAttribute="trailing" secondItem="0AK-FM-NGR" secondAttribute="trailing" id="4WV-vV-Tet"/>
+                            <constraint firstItem="0AK-FM-NGR" firstAttribute="top" secondItem="TCe-Ym-Xw9" secondAttribute="top" id="5zK-WF-zM2"/>
+                            <constraint firstAttribute="width" secondItem="TCe-Ym-Xw9" secondAttribute="height" multiplier="1:1" id="7dP-p6-AG2"/>
+                            <constraint firstAttribute="height" constant="100" id="HVp-1H-i8q"/>
+                            <constraint firstAttribute="bottom" secondItem="0AK-FM-NGR" secondAttribute="bottom" id="LXP-K3-uZa"/>
+                            <constraint firstItem="0AK-FM-NGR" firstAttribute="leading" secondItem="TCe-Ym-Xw9" secondAttribute="leading" id="tBN-MZ-AWz"/>
                         </constraints>
-                    </imageView>
+                    </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="fx7-Pt-H2Q" secondAttribute="bottom" id="3sz-7G-SxE"/>
                 <constraint firstAttribute="trailing" secondItem="fx7-Pt-H2Q" secondAttribute="trailing" id="8Au-mQ-k6o"/>
-                <constraint firstItem="gKD-ev-XLH" firstAttribute="top" secondItem="0AK-FM-NGR" secondAttribute="bottom" constant="12" id="E9L-rs-FhE"/>
-                <constraint firstItem="0AK-FM-NGR" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Ybd-9f-e3t"/>
+                <constraint firstItem="TCe-Ym-Xw9" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="H48-q1-ieE"/>
                 <constraint firstItem="fx7-Pt-H2Q" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="50" id="bt5-H0-Dg2"/>
-                <constraint firstItem="0AK-FM-NGR" firstAttribute="centerX" secondItem="fx7-Pt-H2Q" secondAttribute="centerX" id="kfF-Dl-Nvq"/>
+                <constraint firstItem="TCe-Ym-Xw9" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="kQm-mS-4aZ"/>
                 <constraint firstItem="fx7-Pt-H2Q" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="qhy-LU-Fhr"/>
             </constraints>
             <size key="customSize" width="281" height="392"/>
             <connections>
+                <outlet property="containerView" destination="TCe-Ym-Xw9" id="hvC-zN-DIW"/>
                 <outlet property="durationLabel" destination="SRw-Iw-JIl" id="tDx-I5-tve"/>
                 <outlet property="imageView" destination="0AK-FM-NGR" id="Pdk-4U-8e1"/>
                 <outlet property="storeButton" destination="jTd-jm-V63" id="sbD-PM-F1B"/>
@@ -87,6 +102,9 @@
     </objects>
     <resources>
         <image name="bookmark" catalog="system" width="112" height="128"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

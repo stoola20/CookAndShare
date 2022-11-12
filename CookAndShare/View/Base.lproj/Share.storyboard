@@ -50,14 +50,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2c7-rY-Tjo">
-                                <rect key="frame" x="0.0" y="44" width="414" height="772"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="786"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N3w-26-Zp7">
-                                <rect key="frame" x="0.0" y="816" width="414" height="80"/>
+                                <rect key="frame" x="0.0" y="830" width="414" height="66"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" horizontalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uP5-Ll-y6l">
-                                        <rect key="frame" x="373" y="28.5" width="25" height="23.5"/>
+                                        <rect key="frame" x="373" y="21.5" width="25" height="23.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="vQU-C2-CZa"/>
                                         </constraints>
@@ -70,7 +70,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b41-gQ-yOn">
-                                        <rect key="frame" x="16" y="28" width="25" height="24.5"/>
+                                        <rect key="frame" x="16" y="21" width="25" height="24.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="ubz-Am-WwD"/>
                                         </constraints>
@@ -83,7 +83,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CkD-rh-Zcw">
-                                        <rect key="frame" x="49" y="29" width="25" height="22.5"/>
+                                        <rect key="frame" x="49" y="22" width="25" height="22.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="MFg-Ax-B8F"/>
                                         </constraints>
@@ -96,7 +96,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3F-lm-DID">
-                                        <rect key="frame" x="82" y="28" width="25" height="24.5"/>
+                                        <rect key="frame" x="82" y="21" width="25" height="24.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="xsC-lT-r4J"/>
                                         </constraints>
@@ -109,7 +109,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="請輸入訊息" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ntN-GX-90i">
-                                        <rect key="frame" x="115" y="23" width="250" height="34"/>
+                                        <rect key="frame" x="115" y="16" width="250" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -117,6 +117,7 @@
                                 <color key="backgroundColor" name="MyOrange"/>
                                 <constraints>
                                     <constraint firstItem="ntN-GX-90i" firstAttribute="leading" secondItem="c3F-lm-DID" secondAttribute="trailing" constant="8" id="5Jw-TM-wCO"/>
+                                    <constraint firstAttribute="bottom" secondItem="ntN-GX-90i" secondAttribute="bottom" constant="16" id="7sS-cZ-hc4"/>
                                     <constraint firstItem="uP5-Ll-y6l" firstAttribute="centerY" secondItem="b41-gQ-yOn" secondAttribute="centerY" id="9A1-YK-5cV"/>
                                     <constraint firstItem="c3F-lm-DID" firstAttribute="leading" secondItem="CkD-rh-Zcw" secondAttribute="trailing" constant="8" id="Cng-qh-gfP"/>
                                     <constraint firstItem="CkD-rh-Zcw" firstAttribute="centerY" secondItem="b41-gQ-yOn" secondAttribute="centerY" id="Ema-uG-gJ6"/>
@@ -125,9 +126,8 @@
                                     <constraint firstItem="ntN-GX-90i" firstAttribute="centerY" secondItem="c3F-lm-DID" secondAttribute="centerY" id="TOi-1j-KuW"/>
                                     <constraint firstItem="CkD-rh-Zcw" firstAttribute="leading" secondItem="b41-gQ-yOn" secondAttribute="trailing" constant="8" id="eDA-H9-qn9"/>
                                     <constraint firstItem="ntN-GX-90i" firstAttribute="centerY" secondItem="b41-gQ-yOn" secondAttribute="centerY" id="f9W-qq-zrr"/>
-                                    <constraint firstItem="ntN-GX-90i" firstAttribute="centerY" secondItem="N3w-26-Zp7" secondAttribute="centerY" id="hZU-Hb-W1c"/>
                                     <constraint firstItem="uP5-Ll-y6l" firstAttribute="leading" secondItem="ntN-GX-90i" secondAttribute="trailing" constant="8" id="tO8-PF-gyc"/>
-                                    <constraint firstAttribute="height" constant="80" id="uvU-2G-FsQ"/>
+                                    <constraint firstItem="ntN-GX-90i" firstAttribute="top" secondItem="N3w-26-Zp7" secondAttribute="top" constant="16" id="xFV-og-ukC"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="arc-79-KGJ">
@@ -202,6 +202,8 @@
                         <outlet property="inputTextField" destination="ntN-GX-90i" id="kJI-O1-xFC"/>
                         <outlet property="playAndPauseButton" destination="swf-rz-QNr" id="Xgh-kK-e6b"/>
                         <outlet property="recordButton" destination="2Yg-to-1w6" id="KSW-RA-1RS"/>
+                        <outlet property="recordView" destination="arc-79-KGJ" id="WRn-9L-6Ti"/>
+                        <outlet property="recordViewTopConstraint" destination="GPR-fY-RDt" id="dgi-9U-wzC"/>
                         <outlet property="sendVoiceButton" destination="g9F-bZ-S90" id="Bhe-Jb-vuk"/>
                         <outlet property="tableView" destination="2c7-rY-Tjo" id="q00-Gz-R4B"/>
                         <outlet property="wrapperView" destination="N3w-26-Zp7" id="Vsj-el-yEx"/>

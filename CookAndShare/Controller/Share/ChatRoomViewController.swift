@@ -35,6 +35,8 @@ class ChatRoomViewController: UIViewController {
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var wrapperView: UIView!
     @IBOutlet weak var wrapperViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var recordView: UIView!
+    @IBOutlet weak var recordViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
 
@@ -171,9 +173,11 @@ class ChatRoomViewController: UIViewController {
         firestoreManager.updateConversation(channelId: conversation.channelId, message: message)
 
         let sender = PushNotificationSender()
-        sender.sendPushNotification(to: friend.fcmToken,
-                                    title: friend.name,
-                                    body: "\(friend.name)\(contentType.getMessageBody())")
+        sender.sendPushNotification(
+            to: friend.fcmToken,
+            title: friend.name,
+            body: "\(friend.name)\(contentType.getMessageBody())"
+        )
     }
 
     // MARK: - Image Message
@@ -194,10 +198,10 @@ class ChatRoomViewController: UIViewController {
             locationManager.requestLocation()
             locationManager.startUpdatingLocation()
             let alert = UIAlertController(title: "是否傳送目前位置？", message: nil, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: Constant.confirm, style: .default, handler: { action in
+            let okAction = UIAlertAction(title: Constant.confirm, style: .default) { _ in
                 let locationString = "\(self.location.coordinate.latitude),\(self.location.coordinate.longitude)"
                 self.uploadMessage(contentType: .location, content: locationString)
-            })
+            }
             let cancelAction = UIAlertAction(title: Constant.cancel, style: .cancel, handler: nil)
             alert.addAction(okAction)
             alert.addAction(cancelAction)
@@ -214,12 +218,7 @@ class ChatRoomViewController: UIViewController {
         wrapperViewBottomConstraint = wrapperView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -150)
         wrapperViewBottomConstraint.isActive = true
 
-        UIView.animate(
-            withDuration: 0.3,
-            delay: 0,
-            options: .curveEaseOut,
-            animations: { self.view.layoutIfNeeded() }
-        )
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) { self.view.layoutIfNeeded() }
         let indexPath = IndexPath(row: conversation!.messages.count - 1, section: 0)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
@@ -231,12 +230,7 @@ class ChatRoomViewController: UIViewController {
         wrapperViewBottomConstraint = wrapperView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         wrapperViewBottomConstraint.isActive = true
 
-        UIView.animate(
-            withDuration: 0.3,
-            delay: 0,
-            options: .curveEaseOut,
-            animations: { self.view.layoutIfNeeded() }
-        )
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) { self.view.layoutIfNeeded() }
     }
 
     @IBAction func recordButtonAction(_ sender: UIButton) {
@@ -285,11 +279,13 @@ class ChatRoomViewController: UIViewController {
 
         if !playingRecord {
             audioPlayer.play()
-            timer = Timer.scheduledTimer(timeInterval: 1,
-                                         target: self,
-                                         selector: #selector(updatePlayingButton),
-                                         userInfo: nil,
-                                         repeats: true)
+            timer = Timer.scheduledTimer(
+                timeInterval: 1,
+                target: self,
+                selector: #selector(updatePlayingButton),
+                userInfo: nil,
+                repeats: true
+            )
             playAndPauseButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
 
             playingRecord = true
