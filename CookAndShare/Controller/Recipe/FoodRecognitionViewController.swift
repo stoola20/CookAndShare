@@ -18,6 +18,17 @@ class FoodRecognitionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpUI()
+
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.darkBrown as Any
+        ]
+        barAppearance.shadowColor = nil
+        barAppearance.backgroundColor = UIColor.lightOrange
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.standardAppearance = barAppearance
+
         foodImageView.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseSourceType))
         foodImageView.addGestureRecognizer(tap)
@@ -28,6 +39,21 @@ class FoodRecognitionViewController: UIViewController {
         retakeButton.isHidden = true
         retakeButton.addTarget(self, action: #selector(chooseSourceType), for: .touchUpInside)
         searchButton.isHidden = true
+    }
+
+    func setUpUI() {
+        resultLabel.textColor = UIColor.darkBrown
+        resultLabel.font = UIFont.boldSystemFont(ofSize: 20)
+
+        retakeButton.layer.cornerRadius = 25
+        retakeButton.backgroundColor = UIColor.darkBrown
+        retakeButton.setTitleColor(UIColor.background, for: .normal)
+        retakeButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+
+        searchButton.layer.cornerRadius = 25
+        searchButton.backgroundColor = UIColor.darkBrown
+        searchButton.setTitleColor(UIColor.background, for: .normal)
+        searchButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
     }
 
     @objc func chooseSourceType() {
@@ -68,10 +94,7 @@ class FoodRecognitionViewController: UIViewController {
                             return
                         }
                         DispatchQueue.main.async { [unowned self] in
-                            self.resultLabel.text = """
-                            辨識結果：
-                            \(translation)
-                            """
+                            self.resultLabel.text = "辨識結果：\(translation)"
                         }
                     }
                     self.searchButton.isHidden = false
@@ -93,7 +116,7 @@ class FoodRecognitionViewController: UIViewController {
 }
 
 extension FoodRecognitionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let userPickedImage = info[.editedImage] as? UIImage else { return }
         foodImageView.image = userPickedImage
         guard let ciimage = CIImage(image: userPickedImage) else {

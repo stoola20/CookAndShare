@@ -59,6 +59,7 @@ struct Constant {
     // search
     static let title = "title"
     static let ingredientNames = "ingredientNames"
+    static let search = "搜尋"
     static let typeInTitle = "請輸入食譜名"
     static let typeInIngredient = "請輸入食材名"
     static let searchByText = "文字搜尋"
@@ -71,6 +72,9 @@ struct Constant {
         試著搖晃一下手機吧！
     """
     static let searchResult = "搜尋結果"
+    static let notFound = "找不到食譜嗎？"
+    static let beTheFirstOne = "成為第一個分享食譜的人吧！"
+    static let addNewRecipe = "新增食譜"
 
     // shopping list
     static let pleaseFillIn = "請輸入食材名稱及份量"
@@ -78,7 +82,7 @@ struct Constant {
     static let confirm = "確認"
 
     // user
-    static let userId = "cCV8vxF2v9DlUyfgfRwg"
+    static let userId = "V4hMTRjOK5jOFfdB15KU"
     static let recipesId = "recipesId"
     static let savedRecipesId = "savedRecipesId"
     static let sharesId = "sharesId"
@@ -89,4 +93,8 @@ struct Constant {
     static let image = "image"
     static let voice = "voice"
     static let location = "location"
+
+    static let breakfast = "breakfast"
+    static let chefMan = "chefMan"
+    static let friedRice = "friedRice"
 }

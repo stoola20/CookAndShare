@@ -16,17 +16,33 @@ class ShareViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "食物分享"
-        tableView.dataSource = self
-        tableView.allowsSelection = false
-        tableView.separatorStyle = .none
-        tableView.registerCellWithNib(identifier: ShareCell.identifier, bundle: nil)
-        if fromPublicVC { return }
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "message"),
-            style: .plain,
-            target: self,
-            action: #selector(showMessage)
-        )
+        setUpTableView()
+
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(
+                image: UIImage(systemName: "message"),
+                style: .plain,
+                target: self,
+                action: #selector(showMessage)
+            ),
+            UIBarButtonItem(
+                image: UIImage(systemName: "plus.circle"),
+                style: .plain,
+                target: self,
+                action: #selector(addShare)
+            )
+        ]
+
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.darkBrown as Any,
+            .font: UIFont.boldSystemFont(ofSize: 28)
+        ]
+        barAppearance.titlePositionAdjustment = UIOffset(horizontal: -200, vertical: 0)
+        barAppearance.shadowColor = nil
+        barAppearance.backgroundColor = UIColor.lightOrange
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.standardAppearance = barAppearance
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -44,10 +60,31 @@ class ShareViewController: UIViewController {
         }
     }
 
+    func setUpTableView() {
+        tableView.dataSource = self
+        tableView.allowsSelection = false
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.separatorColor = UIColor.lightOrange
+        tableView.registerCellWithNib(identifier: ShareCell.identifier, bundle: nil)
+    }
+
+    @objc func addShare() {
+        let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
+        guard
+            let newShareVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: NewShareViewController.self)
+            )
+            as? NewShareViewController
+        else { fatalError("Could not create newShareVC") }
+        navigationController?.pushViewController(newShareVC, animated: true)
+    }
+
     @objc func showMessage() {
         let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
         guard
-            let chatListVC = storyboard.instantiateViewController(withIdentifier: String(describing: ChatListViewController.self))
+            let chatListVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: ChatListViewController.self)
+            )
             as? ChatListViewController
         else { fatalError("Could not create ChatListViewController") }
         navigationController?.pushViewController(chatListVC, animated: true)
@@ -74,7 +111,9 @@ extension ShareViewController: ShareCellDelegate {
     func goToProfile(_ userId: String) {
         let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
         guard
-            let publicProfileVC = storyboard.instantiateViewController(withIdentifier: String(describing: PublicProfileViewController.self))
+            let publicProfileVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: PublicProfileViewController.self)
+            )
             as? PublicProfileViewController
         else { fatalError("Could not create publicProfileVC") }
         publicProfileVC.userId = userId

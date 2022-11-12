@@ -8,11 +8,7 @@
 import UIKit
 
 class ChatListViewController: UIViewController {
-    var conversations: [Conversation] = [] {
-        didSet {
-            self.tableView.reloadData()
-        }
-    }
+    var conversations: [Conversation] = []
     let firestoreManager = FirestoreManager.shared
     @IBOutlet weak var tableView: UITableView!
     
@@ -20,11 +16,20 @@ class ChatListViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
         title = "訊息"
+
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.darkBrown as Any
+        ]
+        barAppearance.shadowColor = nil
+        barAppearance.backgroundColor = UIColor.lightOrange
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.standardAppearance = barAppearance
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        var tempConversations: [Conversation] = []
+        conversations = []
         let group = DispatchGroup()
         group.enter()
         firestoreManager.fetchUserData(userId: Constant.userId) { result in
@@ -32,10 +37,11 @@ class ChatListViewController: UIViewController {
             case .success(let user):
                 user.conversationId.forEach { conversationId in
                     group.enter()
+
                     self.firestoreManager.fetchConversationBy(conversationId) { result in
                         switch result {
                         case .success(let conversation):
-                            tempConversations.append(conversation)
+                            self.conversations.append(conversation)
                             group.leave()
                         case .failure(let error):
                             print(error)
@@ -49,10 +55,9 @@ class ChatListViewController: UIViewController {
                 group.leave()
             }
         }
-        
+
         group.notify(queue: DispatchQueue.main) { [weak self] in
             guard let self = self else { return }
-            self.conversations = tempConversations
             self.conversations.sort { conversation1, conversation2 in
                 guard
                     let lastMessage1 = conversation1.messages.last,
@@ -77,15 +82,18 @@ extension ChatListViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatListCell.identifier, for: indexPath) as? ChatListCell
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: ChatListCell.identifier, for: indexPath)
+                as? ChatListCell
         else { fatalError("Could not create ChatListCell") }
         let conversation = conversations[indexPath.row]
-        if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.userId) {
+        if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.userId),
+            let lastMessage = conversation.messages.last {
             let friendId = myIdIndex == 0 ? conversation.friendIds[1] : conversation.friendIds[0]
             firestoreManager.fetchUserData(userId: friendId) { result in
                 switch result {
                 case .success(let user):
-                    cell.layoutCell(with: user.name, imageURL: user.imageURL, lastMessage: conversation.messages.last!)
+                    cell.layoutCell(with: user.name, imageURL: user.imageURL, lastMessage: lastMessage)
                 case .failure(let error):
                     print(error)
                 }
@@ -100,8 +108,10 @@ extension ChatListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
         guard
-            let chatRoomVC = storyboard.instantiateViewController(withIdentifier: String(describing: ChatRoomViewController.self))
-            as? ChatRoomViewController
+            let chatRoomVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: ChatRoomViewController.self)
+            )
+                as? ChatRoomViewController
         else { return }
 
         let conversation = conversations[indexPath.row]

@@ -13,13 +13,18 @@ class MineImageCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        setUpUI()
+    }
+
+    func setUpUI() {
         largeImageView.layer.cornerRadius = 20
-        largeImageView.clipsToBounds = true
         largeImageView.contentMode = .scaleAspectFill
+        imageTimeLabel.textColor = UIColor.systemBrown
+        imageTimeLabel.font = UIFont.systemFont(ofSize: 13)
     }
 
     func layoutCell(with message: Message) {
-        largeImageView.load(url: URL(string: message.content)!)
+        largeImageView.loadImage(message.content, placeHolder: UIImage(named: Constant.friedRice))
         imageTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
     }
 }

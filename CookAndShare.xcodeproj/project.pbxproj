@@ -50,6 +50,9 @@
 		3787538A290FA61C00F06F4C /* AddToShoppingListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875389290FA61C00F06F4C /* AddToShoppingListVC.swift */; };
 		3787538C290FC5DD00F06F4C /* ShoppingListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787538B290FC5DD00F06F4C /* ShoppingListViewController.swift */; };
 		3787538E2910098D00F06F4C /* SavedRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */; };
+		378C1C2D291F895A00CF8D38 /* successGold.json in Resources */ = {isa = PBXBuildFile; fileRef = 378C1C2C291F895A00CF8D38 /* successGold.json */; };
+		378EA508291CD033004200F9 /* UserInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378EA507291CD033004200F9 /* UserInputTextField.swift */; };
+		378EA50A291CEAF8004200F9 /* UIDatePicker+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */; };
 		37C622E72919FB4600A84263 /* FoodRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */; };
 		37C622E9291A09E500A84263 /* SeeFood.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E8291A09E400A84263 /* SeeFood.mlmodel */; };
 		37CBEC822910AE2B00A62EF2 /* NewShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC812910AE2B00A62EF2 /* NewShareViewController.swift */; };
@@ -120,6 +123,7 @@
 		37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63633290E60F700D516D4 /* DetailProcedureCell.swift */; };
 		37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E63634290E60F700D516D4 /* DetailProcedureCell.xib */; };
 		37E63638290E6EB900D516D4 /* DetailRecipeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63637290E6EB900D516D4 /* DetailRecipeHeaderView.swift */; };
+		37FE7987291B935D005A3E3E /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE7986291B935D005A3E3E /* UIColor+Ext.swift */; };
 		3FCAABA4B3E38E622861E889 /* Pods_CookAndShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */; };
 /* End PBXBuildFile section */
 
@@ -170,6 +174,9 @@
 		37875389290FA61C00F06F4C /* AddToShoppingListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToShoppingListVC.swift; sourceTree = "<group>"; };
 		3787538B290FC5DD00F06F4C /* ShoppingListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListViewController.swift; sourceTree = "<group>"; };
 		3787538D2910098D00F06F4C /* SavedRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipeViewController.swift; sourceTree = "<group>"; };
+		378C1C2C291F895A00CF8D38 /* successGold.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successGold.json; sourceTree = "<group>"; };
+		378EA507291CD033004200F9 /* UserInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputTextField.swift; sourceTree = "<group>"; };
+		378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Ext.swift"; sourceTree = "<group>"; };
 		37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRecognitionViewController.swift; sourceTree = "<group>"; };
 		37C622E8291A09E400A84263 /* SeeFood.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SeeFood.mlmodel; sourceTree = "<group>"; };
 		37CBEC812910AE2B00A62EF2 /* NewShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewShareViewController.swift; sourceTree = "<group>"; };
@@ -242,6 +249,7 @@
 		37E63633290E60F700D516D4 /* DetailProcedureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProcedureCell.swift; sourceTree = "<group>"; };
 		37E63634290E60F700D516D4 /* DetailProcedureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailProcedureCell.xib; sourceTree = "<group>"; };
 		37E63637290E6EB900D516D4 /* DetailRecipeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecipeHeaderView.swift; sourceTree = "<group>"; };
+		37FE7986291B935D005A3E3E /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		517F2D7545434C37ABC19360 /* Pods-CookAndShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookAndShare.release.xcconfig"; path = "Target Support Files/Pods-CookAndShare/Pods-CookAndShare.release.xcconfig"; sourceTree = "<group>"; };
 		92C4A81AF54EA5965DB8EE93 /* Pods-CookAndShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookAndShare.debug.xcconfig"; path = "Target Support Files/Pods-CookAndShare/Pods-CookAndShare.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -349,6 +357,23 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		378C1C27291F833300CF8D38 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				378C1C2B291F837900CF8D38 /* Lottie */,
+				37D69C61290BCF980034D8E1 /* Assets.xcassets */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		378C1C2B291F837900CF8D38 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				378C1C2C291F895A00CF8D38 /* successGold.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		37CBEC832910B60900A62EF2 /* NewShare */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,9 +434,9 @@
 				37D69C7A290BDE1C0034D8E1 /* View */,
 				37D69C75290BDCDF0034D8E1 /* Model */,
 				37D69C7B290BDE250034D8E1 /* ViewModel */,
+				378C1C27291F833300CF8D38 /* Source */,
 				37D69C58290BCF970034D8E1 /* AppDelegate.swift */,
 				37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */,
-				37D69C61290BCF980034D8E1 /* Assets.xcassets */,
 				37C622E8291A09E400A84263 /* SeeFood.mlmodel */,
 				37D69C66290BCF980034D8E1 /* Info.plist */,
 				370B1FFF291A5C5B0092F502 /* Entitlements.plist */,
@@ -438,6 +463,7 @@
 		37D69C7A290BDE1C0034D8E1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				37D69C8D290C128A0034D8E1 /* Cells */,
 				371AE10E29138F47003B16BB /* Map */,
 				37CBEC882910EF2300A62EF2 /* Share.storyboard */,
 				3787537A290F999000F06F4C /* Profile.storyboard */,
@@ -445,7 +471,7 @@
 				37D69CBA290CDD700034D8E1 /* NewPost.storyboard */,
 				37D69C5E290BCF970034D8E1 /* Main.storyboard */,
 				37D69C63290BCF980034D8E1 /* LaunchScreen.storyboard */,
-				37D69C8D290C128A0034D8E1 /* Cells */,
+				378EA507291CD033004200F9 /* UserInputTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -559,6 +585,8 @@
 				37D69CA4290C15B30034D8E1 /* UICollectionView+Ext.swift */,
 				37D69CC1290D10AE0034D8E1 /* String+Ext.swift */,
 				37E63625290E598000D516D4 /* UIImageView+Ext.swift */,
+				37FE7986291B935D005A3E3E /* UIColor+Ext.swift */,
+				378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -735,6 +763,7 @@
 				371AE11429139061003B16BB /* InfoWindowView.xib in Resources */,
 				37E63620290E497F00D516D4 /* AllRecipeCell.xib in Resources */,
 				37CBECA22912025A00A62EF2 /* PublicPostHeaderView.xib in Resources */,
+				378C1C2D291F895A00CF8D38 /* successGold.json in Resources */,
 				372E3AAD291655D400250DAA /* MineImageCell.xib in Resources */,
 				37E63632290E60E800D516D4 /* DetailIngredientCell.xib in Resources */,
 				372E3AA52916550D00250DAA /* MineLocationCell.xib in Resources */,
@@ -877,6 +906,7 @@
 				372E3A992913E28100250DAA /* OthersMessageCell.swift in Sources */,
 				37D69CB4290CBE310034D8E1 /* NewRecipeProcedureCell.swift in Sources */,
 				37CBECA729120DC000A62EF2 /* PublicPostCell.swift in Sources */,
+				378EA508291CD033004200F9 /* UserInputTextField.swift in Sources */,
 				37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */,
 				37E63624290E57BA00D516D4 /* RecipeHeaderView.swift in Sources */,
 				37D7C1A129134F2E005B8781 /* Map.swift in Sources */,
@@ -885,6 +915,7 @@
 				37D69C9F290C14880034D8E1 /* DraftCell.swift in Sources */,
 				3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */,
 				37CBEC852910B62000A62EF2 /* NewShareCell.swift in Sources */,
+				37FE7987291B935D005A3E3E /* UIColor+Ext.swift in Sources */,
 				37875378290F992200F06F4C /* ProfileViewController.swift in Sources */,
 				370B1FFA291A27E50092F502 /* TranslationAPI.swift in Sources */,
 				37CBEC902910EFF100A62EF2 /* ShareCell.swift in Sources */,
@@ -909,6 +940,7 @@
 				3787536C290ED80900F06F4C /* ResultViewController.swift in Sources */,
 				37875376290F96E600F06F4C /* CoreDataManager.swift in Sources */,
 				37D69C77290BDCEA0034D8E1 /* Recipe.swift in Sources */,
+				378EA50A291CEAF8004200F9 /* UIDatePicker+Ext.swift in Sources */,
 				37D7C1A72913579D005B8781 /* APIKey.swift in Sources */,
 				37E63631290E60E800D516D4 /* DetailIngredientCell.swift in Sources */,
 				370B2002291AB6560092F502 /* PushNotificationManager.swift in Sources */,

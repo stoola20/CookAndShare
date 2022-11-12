@@ -9,28 +9,39 @@ import UIKit
 
 class AllRecipeCell: UICollectionViewCell {
 
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var storeButton: UIButton!
+    @IBOutlet weak var yellowBackground: UIView!
+    
     let firestoreManager = FirestoreManager.shared
     var hasSaved = false
     var recipeId = String.empty
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        setUpUI()
     }
-    
+
+    func setUpUI() {
+        imageView.contentMode = .scaleAspectFill
+        titleLabel.textColor = UIColor.darkBrown
+        durationLabel.textColor = UIColor.darkBrown
+        yellowBackground.layer.cornerRadius = 20
+        storeButton.tintColor = UIColor.darkBrown
+        imageView.applyshadowWithCorner(containerView: containerView, cornerRadious: 50)
+    }
+
     func layoutCell(with recipe: Recipe) {
-        guard let url = URL(string: recipe.mainImageURL) else { return }
-        imageView.load(url: url)
+        imageView.loadImage(recipe.mainImageURL, placeHolder: UIImage(named: Constant.friedRice))
         titleLabel.text = recipe.title
         durationLabel.text = "⌛️ \(recipe.cookDuration) 分鐘"
         hasSaved = recipe.saves.contains(Constant.userId)
         recipeId = recipe.recipeId
         updateButton()
     }
-    
+
     func updateButton() {
         let buttonImage = hasSaved
         ? UIImage(systemName: "bookmark.fill")

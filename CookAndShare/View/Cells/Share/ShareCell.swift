@@ -27,12 +27,30 @@ class ShareCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        userImageView.contentMode = .scaleAspectFill
-        foodImageView.contentMode = .scaleAspectFill
         userNameLabel.isUserInteractionEnabled = true
         userNameLabel.addGestureRecognizer(setGestureRecognizer())
         userImageView.isUserInteractionEnabled = true
         userImageView.addGestureRecognizer(setGestureRecognizer())
+        setUpUI()
+    }
+
+    func setUpUI() {
+        foodImageView.contentMode = .scaleAspectFill
+        foodImageView.layer.cornerRadius = 15
+        foodImageView.layer.borderWidth = 1
+        foodImageView.layer.borderColor = UIColor.lightOrange?.cgColor
+        userImageView.contentMode = .scaleAspectFill
+        userImageView.layer.cornerRadius = 30
+
+        userNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        userNameLabel.textColor = UIColor.darkBrown
+        postTimeLabel.font = UIFont.systemFont(ofSize: 15)
+        postTimeLabel.textColor = UIColor.systemBrown
+        titleLabel.textColor = UIColor.darkBrown
+        descriptionLabel.textColor = UIColor.darkBrown
+        bestBeforeLabel.textColor = UIColor.darkBrown
+        meetTimeLabel.textColor = UIColor.darkBrown
+        meetPlaceLabel.textColor = UIColor.darkBrown
     }
 
     func setGestureRecognizer() -> UITapGestureRecognizer {
@@ -40,17 +58,17 @@ class ShareCell: UITableViewCell {
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToProfile))
         return tapRecognizer
     }
-    
+
     @objc func goToProfile() {
         delegate.goToProfile(userId)
     }
-    
+
     func layoutCell(with share: Share) {
         userId = share.authorId
         firestoreManager.fetchUserData(userId: share.authorId) { result in
             switch result {
             case .success(let user):
-                self.userImageView.load(url: URL(string: user.imageURL)!)
+                self.userImageView.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
                 self.userNameLabel.text = user.name
             case .failure(let error):
                 print(error)
@@ -63,6 +81,6 @@ class ShareCell: UITableViewCell {
         bestBeforeLabel.text = "有效期限：\(Date.dateFormatter.string(from: Date(timeIntervalSince1970: Double(share.bestBefore.seconds))))"
         meetTimeLabel.text = "面交時間：\(share.meetTime)"
         meetPlaceLabel.text = "面交地點：\(share.meetPlace)"
-        foodImageView.load(url: URL(string: share.imageURL)!)
+        foodImageView.loadImage(share.imageURL, placeHolder: UIImage(named: Constant.friedRice))
     }
 }

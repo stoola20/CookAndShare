@@ -66,12 +66,20 @@ class NewRecipeDescriptionCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        setUpUI()
         nameLabel.text = Constant.recipeName
         descriptionLabel.text = Constant.description
         durationLabel.text = Constant.duration
         quantityLabel.text = Constant.quantity
         mainImageView.isUserInteractionEnabled = true
         mainImageView.addGestureRecognizer(setGestureRecognizer())
+    }
+
+    func setUpUI() {
+        nameLabel.textColor = UIColor.darkBrown
+        descriptionLabel.textColor = UIColor.darkBrown
+        durationLabel.textColor = UIColor.darkBrown
+        quantityLabel.textColor = UIColor.darkBrown
     }
 
     func setGestureRecognizer() -> UITapGestureRecognizer {

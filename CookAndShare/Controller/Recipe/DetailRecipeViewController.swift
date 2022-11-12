@@ -25,6 +25,7 @@ class DetailRecipeViewController: UIViewController {
             updateLikeButton()
         }
     }
+    @IBOutlet weak var backButton: UIButton!
     let firestoreManager = FirestoreManager.shared
     var hasLiked = false
     var hasSaved = false
@@ -39,6 +40,13 @@ class DetailRecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
+        setUpUI()
+    }
+
+    func setUpUI() {
+        saveButton.tintColor = UIColor.lightOrange
+        likeButton.tintColor = UIColor.lightOrange
+        backButton.tintColor = UIColor.lightOrange
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -50,30 +58,34 @@ class DetailRecipeViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
+
     func updateLikeButton() {
         let likeImage = hasLiked
         ? UIImage(systemName: "heart.fill")
         : UIImage(systemName: "heart")
         likeButton.setImage(likeImage, for: .normal)
     }
-    
+
     func updateSaveButton() {
         let saveImage = hasSaved
         ? UIImage(systemName: "bookmark.fill")
         : UIImage(systemName: "bookmark")
         saveButton.setImage(saveImage, for: .normal)
     }
-    
+
     func setUpTableView() {
         tableView.contentInsetAdjustmentBehavior = .never
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
+        tableView.allowsSelection = false
         tableView.registerCellWithNib(identifier: DetailBannerCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: DetailIngredientCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: DetailProcedureCell.identifier, bundle: nil)
-        tableView.register(DetailRecipeHeaderView.self, forHeaderFooterViewReuseIdentifier: DetailRecipeHeaderView.reuseIdentifier)
+        tableView.register(
+            DetailRecipeHeaderView.self,
+            forHeaderFooterViewReuseIdentifier: DetailRecipeHeaderView.reuseIdentifier
+        )
     }
 
     @IBAction func saveRecipe(_ sender: UIButton) {
@@ -83,14 +95,14 @@ class DetailRecipeViewController: UIViewController {
         hasSaved.toggle()
         updateSaveButton()
     }
-    
+
     @IBAction func likeRecipe(_ sender: UIButton) {
         guard let recipe = recipe else { return }
         firestoreManager.updateRecipeLikes(recipeId: recipe.recipeId, userId: Constant.userId, hasLiked: hasLiked)
         hasLiked.toggle()
         updateLikeButton()
     }
-    
+
     @IBAction func backToLobby(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
     }

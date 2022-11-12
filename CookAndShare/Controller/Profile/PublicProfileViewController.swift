@@ -19,6 +19,14 @@ class PublicProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCollectionView()
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.shadowColor = nil
+        barAppearance.backgroundColor = UIColor.lightOrange
+        // 向上捲動的樣式
+        navigationItem.standardAppearance = barAppearance
+        // 沒有滑動 table view 的樣式
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.backButtonTitle = nil
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -120,9 +128,15 @@ extension PublicProfileViewController: UICollectionViewDataSource {
                 as? PublicPostCell
             else { fatalError("Could not create PublicPostCell") }
             if toRecipe {
-                cell.mainImageView.load(url: URL(string: self.recipes[indexPath.item].mainImageURL)!)
+                cell.mainImageView.loadImage(
+                    self.recipes[indexPath.item].mainImageURL,
+                    placeHolder: UIImage(named: "friedRice")
+                )
             } else {
-                cell.mainImageView.load(url: URL(string: self.shares[indexPath.item].imageURL)!)
+                cell.mainImageView.loadImage(
+                    self.shares[indexPath.item].imageURL,
+                    placeHolder: UIImage(named: "friedRice")
+                )
             }
             return cell
         }
@@ -170,7 +184,7 @@ extension PublicProfileViewController {
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1/4))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(180))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
                 return NSCollectionLayoutSection(group: group)
@@ -180,7 +194,7 @@ extension PublicProfileViewController {
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 item.contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
 
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1/3))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1 / 3))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
                 let section = NSCollectionLayoutSection(group: group)

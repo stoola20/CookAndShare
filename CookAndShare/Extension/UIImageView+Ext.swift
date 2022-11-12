@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 extension UIImageView {
     func load(url: URL) {
@@ -18,5 +19,32 @@ extension UIImageView {
                 }
             }
         }
+    }
+
+    func applyshadowWithCorner(containerView: UIView, cornerRadious: CGFloat) {
+        containerView.layer.shadowColor = UIColor.gray.cgColor
+        containerView.layer.shadowOpacity = 0.7
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 5)
+        containerView.layer.shadowRadius = 2
+        containerView.layer.cornerRadius = cornerRadious
+        containerView.layer.shadowPath = UIBezierPath(roundedRect: containerView.bounds, cornerRadius: cornerRadious).cgPath
+        self.clipsToBounds = true
+        self.layer.cornerRadius = cornerRadious
+    }
+
+    func loadImage(_ urlString: String?, placeHolder: UIImage? = nil) {
+        guard
+            let urlString = urlString,
+            let url = URL(string: urlString)
+        else { return }
+        self.kf.indicatorType = .activity
+        self.kf.setImage(
+            with: url,
+            placeholder: placeHolder,
+            options: [
+                .transition(.fade(1)),
+                .cacheOriginalImage
+            ]
+        )
     }
 }

@@ -17,14 +17,21 @@ class OtherLocationCell: UITableViewCell {
         super.awakeFromNib()
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
+        setUpUI()
+    }
+
+    func setUpUI() {
         mapView.layer.cornerRadius = 20
         friendImageView.layer.cornerRadius = 20
         friendImageView.contentMode = .scaleAspectFill
-        friendImageView.clipsToBounds = true
+        mapTimeLabel.textColor = UIColor.systemBrown
+        mapTimeLabel.font = UIFont.systemFont(ofSize: 13)
     }
 
     func layoutCell(with message: Message, friendImageURL: String) {
-        friendImageView.load(url: URL(string: friendImageURL)!)
+        mapView.clear()
+
+        friendImageView.loadImage(friendImageURL, placeHolder: UIImage(named: Constant.chefMan))
         mapTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
         let subString = message.content.split(separator: ",")
         guard

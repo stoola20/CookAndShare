@@ -22,7 +22,8 @@ class NewRecipeHeaderView: UITableViewHeaderFooterView {
     
     private func configureHeader() {
         addSubview(label)
-        label.font = UIFont.preferredFont(forTextStyle: .title2)
+        label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.textColor = UIColor.darkBrown
         label.translatesAutoresizingMaskIntoConstraints = false
         
         let inset: CGFloat = 16

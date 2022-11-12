@@ -14,7 +14,10 @@ class DetailIngredientCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        ingredientNameLabel.textColor = UIColor.darkBrown
+        ingredientQuantityLabel.textColor = UIColor.darkBrown
+        ingredientNameLabel.font = UIFont.systemFont(ofSize: 18)
+        ingredientQuantityLabel.font = UIFont.systemFont(ofSize: 18)
     }
     
     func layoutCell(with ingredient: Ingredient) {

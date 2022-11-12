@@ -19,7 +19,6 @@
                     <connections>
                         <segue destination="K1O-ai-H0G" kind="relationship" relationship="viewControllers" id="J9p-K4-yCh"/>
                         <segue destination="AR1-nb-5wd" kind="relationship" relationship="viewControllers" id="4Dj-XB-4l6"/>
-                        <segue destination="CUp-7A-FPw" kind="relationship" relationship="viewControllers" id="1bk-Th-4EY"/>
                         <segue destination="ih3-T5-v55" kind="relationship" relationship="viewControllers" id="DAl-Xc-jTD"/>
                         <segue destination="e6D-Ad-NXJ" kind="relationship" relationship="viewControllers" id="Spf-1J-uGr"/>
                     </connections>
@@ -28,11 +27,11 @@
             </objects>
             <point key="canvasLocation" x="-713" y="-161"/>
         </scene>
-        <!--Recipe-->
+        <!--食譜-->
         <scene sceneID="1jl-HN-9og">
             <objects>
                 <navigationController id="K1O-ai-H0G" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recipe" id="XyG-lz-HNN"/>
+                    <tabBarItem key="tabBarItem" title="食譜" image="fork.knife.circle" catalog="system" id="XyG-lz-HNN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UJP-hi-60u">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -43,13 +42,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CiS-be-FRY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2503" y="700"/>
+            <point key="canvasLocation" x="-2058" y="688"/>
         </scene>
-        <!--ShareFood-->
+        <!--食物分享-->
         <scene sceneID="mTL-ms-LcI">
             <objects>
                 <navigationController id="AR1-nb-5wd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="ShareFood" id="5N9-vW-uos"/>
+                    <tabBarItem key="tabBarItem" title="食物分享" image="person.2.fill" catalog="system" id="5N9-vW-uos"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vcR-f8-fjY">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -60,30 +59,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Kz-3i-TgC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1610" y="688"/>
+            <point key="canvasLocation" x="-1125" y="688"/>
         </scene>
-        <!--NewPost-->
-        <scene sceneID="CzN-Sj-0QX">
-            <objects>
-                <navigationController id="CUp-7A-FPw" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="NewPost" id="5eo-Tt-dOx"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Pab-DB-dpj">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="6gT-nn-fQ7" kind="relationship" relationship="rootViewController" id="Xty-8K-L6N"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bB6-GN-wY8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-713" y="688"/>
-        </scene>
-        <!--Map-->
+        <!--地圖-->
         <scene sceneID="64L-YX-1KD">
             <objects>
                 <navigationController id="ih3-T5-v55" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" id="3B5-ky-KYt"/>
+                    <tabBarItem key="tabBarItem" title="地圖" image="mappin.and.ellipse" catalog="system" id="3B5-ky-KYt"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mVc-Lr-0EF">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -94,13 +76,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fc6-BQ-1nn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="184" y="688"/>
+            <point key="canvasLocation" x="-75" y="688"/>
         </scene>
-        <!--Profile-->
+        <!--個人-->
         <scene sceneID="yCW-Tx-evE">
             <objects>
                 <navigationController id="e6D-Ad-NXJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="wLN-DD-e8s"/>
+                    <tabBarItem key="tabBarItem" title="個人" image="person.circle" catalog="system" id="wLN-DD-e8s"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fDw-IN-d0Y">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -111,7 +93,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ghb-Bz-pHA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1093" y="688"/>
+            <point key="canvasLocation" x="843" y="688"/>
         </scene>
         <!--NewPost-->
         <scene sceneID="VbN-gC-3Gp">
@@ -121,7 +103,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kmZ-7b-o8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-713" y="1424"/>
+            <point key="canvasLocation" x="-1610" y="1651"/>
         </scene>
         <!--Recipe-->
         <scene sceneID="TbE-so-ASL">
@@ -131,7 +113,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S6q-0B-I27" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2504" y="1424"/>
+            <point key="canvasLocation" x="-2059" y="1210"/>
         </scene>
         <!--Profile-->
         <scene sceneID="fGx-J1-0ur">
@@ -141,7 +123,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5WC-Sd-sbG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1093" y="1424"/>
+            <point key="canvasLocation" x="842" y="1210"/>
         </scene>
         <!--Share-->
         <scene sceneID="rTJ-AY-KLS">
@@ -151,7 +133,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jqd-hu-vww" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1610" y="1424"/>
+            <point key="canvasLocation" x="-1126" y="1210"/>
         </scene>
         <!--Map-->
         <scene sceneID="gyu-Nw-eQM">
@@ -161,7 +143,17 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z39-qC-KDT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="185" y="1437"/>
+            <point key="canvasLocation" x="-75" y="1210"/>
         </scene>
     </scenes>
+    <color key="tintColor" name="DarkBrown"/>
+    <resources>
+        <image name="fork.knife.circle" catalog="system" width="128" height="121"/>
+        <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
+        <image name="person.2.fill" catalog="system" width="128" height="80"/>
+        <image name="person.circle" catalog="system" width="128" height="121"/>
+        <namedColor name="DarkBrown">
+            <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

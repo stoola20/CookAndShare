@@ -14,6 +14,8 @@ class HotRecipeCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var storeButton: UIButton!
+    @IBOutlet weak var heartImageView: UIImageView!
+    @IBOutlet weak var containerView: UIView!
     var hasSaved = false
     var recipeId = String.empty
     let firestoreManager = FirestoreManager.shared
@@ -21,11 +23,30 @@ class HotRecipeCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         imageView.contentMode = .scaleAspectFill
+        setUpUI()
+    }
+
+    func setUpUI() {
+        storeButton.tintColor = UIColor.background
+        heartImageView.tintColor = UIColor.background
+        likesLabel.textColor = UIColor.background
+        likesLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        titleLabel.textColor = UIColor.darkBrown
+        durationLabel.textColor = UIColor.darkBrown
+
+        containerView.layer.masksToBounds = false
+        containerView.layer.shadowColor = UIColor.gray.cgColor
+        containerView.layer.shadowOpacity = 1
+        containerView.layer.shadowOffset = CGSize(width: 1, height: 3)
+        containerView.layer.shadowRadius = 2
+        containerView.layer.cornerRadius = 10
+
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 10
     }
 
     func layoutCell(with recipe: Recipe) {
-        guard let url = URL(string: recipe.mainImageURL) else { return }
-        imageView.load(url: url)
+        imageView.loadImage(recipe.mainImageURL, placeHolder: UIImage(named: Constant.friedRice))
         likesLabel.text = String(recipe.likes.count)
         titleLabel.text = recipe.title
         durationLabel.text = "⌛️ \(recipe.cookDuration) 分鐘"
@@ -33,7 +54,7 @@ class HotRecipeCell: UICollectionViewCell {
         recipeId = recipe.recipeId
         updateButton()
     }
-    
+
     func updateButton() {
         let buttonImage = hasSaved
         ? UIImage(systemName: "bookmark.fill")

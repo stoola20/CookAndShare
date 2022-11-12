@@ -17,36 +17,44 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xk9-70-puQ" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
+                        <rect key="frame" x="228" y="5" width="133" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="Oax-VE-9TQ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nxi-48-7AX" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
+                        <rect key="frame" x="20" y="5" width="200" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="40" id="CLz-3T-Xje"/>
+                            <constraint firstAttribute="width" constant="200" id="kMo-R3-fEr"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1gD-oS-GUc">
-                        <rect key="frame" x="16" y="13.5" width="20" height="23"/>
+                        <rect key="frame" x="369" y="12.5" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="DWh-JW-QBJ"/>
+                            <constraint firstAttribute="width" constant="25" id="ZwQ-JS-Ojv"/>
+                        </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" image="trash" catalog="system"/>
                         <connections>
                             <action selector="deleteIngredient:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="TcH-rz-H0l"/>
                         </connections>
                     </button>
-                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xk9-70-puQ">
-                        <rect key="frame" x="252" y="8" width="146" height="34"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits"/>
-                    </textField>
-                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nxi-48-7AX">
-                        <rect key="frame" x="44" y="8" width="200" height="34"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="200" id="kMo-R3-fEr"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits"/>
-                    </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="1gD-oS-GUc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="I6G-nb-oCm"/>
+                    <constraint firstAttribute="trailing" secondItem="1gD-oS-GUc" secondAttribute="trailing" constant="20" symbolic="YES" id="3k2-TC-uey"/>
                     <constraint firstItem="xk9-70-puQ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="IeG-6h-8sR"/>
-                    <constraint firstItem="nxi-48-7AX" firstAttribute="leading" secondItem="1gD-oS-GUc" secondAttribute="trailing" constant="8" symbolic="YES" id="LB2-zX-BKD"/>
                     <constraint firstItem="nxi-48-7AX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Leh-vm-5b6"/>
                     <constraint firstItem="1gD-oS-GUc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="RWl-iz-f2E"/>
+                    <constraint firstItem="1gD-oS-GUc" firstAttribute="leading" secondItem="xk9-70-puQ" secondAttribute="trailing" constant="8" symbolic="YES" id="gs3-dF-pCV"/>
                     <constraint firstItem="xk9-70-puQ" firstAttribute="leading" secondItem="nxi-48-7AX" secondAttribute="trailing" constant="8" symbolic="YES" id="s3z-Uc-nrD"/>
-                    <constraint firstAttribute="trailing" secondItem="xk9-70-puQ" secondAttribute="trailing" constant="16" id="tsr-Qc-tKI"/>
+                    <constraint firstItem="nxi-48-7AX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="uAU-M7-JbP"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -55,7 +63,7 @@
                 <outlet property="nameTextField" destination="nxi-48-7AX" id="dk3-YR-E3K"/>
                 <outlet property="quantityTextField" destination="xk9-70-puQ" id="3Ux-9a-fFa"/>
             </connections>
-            <point key="canvasLocation" x="37.681159420289859" y="128.57142857142856"/>
+            <point key="canvasLocation" x="37.681159420289859" y="127.90178571428571"/>
         </tableViewCell>
     </objects>
     <resources>

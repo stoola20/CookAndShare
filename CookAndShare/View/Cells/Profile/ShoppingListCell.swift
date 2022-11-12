@@ -27,6 +27,15 @@ class ShoppingListCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         itemIsSelected = isInShoppingList ? false : true
+        setUpUI()
+    }
+
+    func setUpUI() {
+        nameLabel.textColor = UIColor.darkBrown
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        quantityLabel.textColor = UIColor.darkBrown
+        quantityLabel.font = UIFont.systemFont(ofSize: 20)
+        checkButton.tintColor = UIColor.myGreen
     }
 
     func layoutCell(with ingredient: Ingredient) {
@@ -34,7 +43,7 @@ class ShoppingListCell: UITableViewCell {
         quantityLabel.text = ingredient.quantity
         isInShoppingList = false
     }
-    
+
     func layoutCell(with item: ShoppingList) {
         nameLabel.text = item.name
         quantityLabel.text = item.quantity

@@ -17,7 +17,7 @@ class RecipeTypeCell: UICollectionViewCell {
         super.init(frame: frame)
         configureButton()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) is not implemented")
     }
@@ -25,13 +25,15 @@ class RecipeTypeCell: UICollectionViewCell {
     private func configureButton() {
         addSubview(typeButton)
         typeButton.addTarget(self, action: #selector(pressButton(_:)), for: .touchUpInside)
-        typeButton.backgroundColor = .lightGray
-        typeButton.setTitleColor(.black, for: .normal)
+        typeButton.backgroundColor = UIColor.lightOrange
+        typeButton.setTitleColor(UIColor.darkBrown, for: .normal)
+        typeButton.layer.cornerRadius = 10
         typeButton.translatesAutoresizingMaskIntoConstraints = false
-        
+
         let inset: CGFloat = 5
-        
+
         NSLayoutConstraint.activate([
+            typeButton.widthAnchor.constraint(equalToConstant: 70),
             typeButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             typeButton.topAnchor.constraint(equalTo: topAnchor, constant: inset),
             typeButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -inset)

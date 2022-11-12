@@ -20,14 +20,23 @@ class OtherVoiceCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        setUpUI()
+    }
+
+    func setUpUI() {
         chatBubble.layer.cornerRadius = 15
+        chatBubble.backgroundColor = UIColor.myGreen
         friendImageView.layer.cornerRadius = 20
         friendImageView.contentMode = .scaleAspectFill
-        friendImageView.clipsToBounds = true
+        playButton.tintColor = UIColor.background
+        durationLabel.textColor = UIColor.background
+        durationLabel.font = UIFont.systemFont(ofSize: 15)
+        timeLabel.textColor = UIColor.systemBrown
+        timeLabel.font = UIFont.systemFont(ofSize: 13)
     }
 
     func layoutCell(with message: Message, friendImageURL: String) {
-        friendImageView.load(url: URL(string: friendImageURL)!)
+        friendImageView.loadImage(friendImageURL, placeHolder: UIImage(named: Constant.chefMan))
         timeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
 
         let playerItem = AVPlayerItem(url: URL(string: message.content)!)

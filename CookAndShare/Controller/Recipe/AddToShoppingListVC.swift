@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SPAlert
 
 class AddToShoppingListVC: UIViewController {
     let coreDataManager = CoreDataManager.shared
@@ -18,20 +19,40 @@ class AddToShoppingListVC: UIViewController {
     }
     var selectedIndex: [Int] = []
 
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var addToListButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
+        setUpUI()
     }
 
     func setUpTableView() {
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.allowsSelection = false
+        tableView.separatorColor = UIColor.lightOrange
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         tableView.registerCellWithNib(identifier: ShoppingListCell.identifier, bundle: nil)
     }
 
+    func setUpUI() {
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
+        titleLabel.textColor = UIColor.darkBrown
+        titleLabel.layer.shadowColor = UIColor.darkBrown?.cgColor
+        titleLabel.layer.shadowRadius = 2
+        titleLabel.layer.shadowOffset = CGSize(width: 2, height: 2)
+
+        addToListButton.backgroundColor = UIColor.darkBrown
+        addToListButton.layer.cornerRadius = 25
+        addToListButton.setTitleColor(UIColor.background, for: .normal)
+    }
+
     @IBAction func addToShoppingList(_ sender: UIButton) {
+        SPAlert.present(title: "成功加入", preset: .done)
+
         for index in selectedIndex {
             let ingredient = initialIngredients[index]
             coreDataManager.addItem(name: ingredient.name, quantity: ingredient.quantity)
@@ -40,7 +61,7 @@ class AddToShoppingListVC: UIViewController {
     }
 }
 
-extension AddToShoppingListVC: UITableViewDataSource {
+extension AddToShoppingListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         initialIngredients.count
     }
@@ -69,5 +90,9 @@ extension AddToShoppingListVC: UITableViewDataSource {
         }
         cell.layoutCell(with: initialIngredients[indexPath.row])
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        70
     }
 }

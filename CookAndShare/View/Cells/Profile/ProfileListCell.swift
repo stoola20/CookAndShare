@@ -14,21 +14,25 @@ class ProfileListCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        smallImageView.tintColor = UIColor.myGreen
     }
-    
+
     func layoutCell(in category: ProfileCategory) {
         listLabel.text = category.rawValue
 
         switch category {
         case .save:
             smallImageView.image = UIImage(systemName: "bookmark.circle")
+            listLabel.textColor = UIColor.darkBrown
         case .shoppingList:
             smallImageView.image = UIImage(systemName: "list.bullet")
+            listLabel.textColor = UIColor.darkBrown
         case .setting:
             smallImageView.image = UIImage(systemName: "gear")
+            listLabel.textColor = UIColor.darkBrown
         case .logout:
             smallImageView.image = UIImage(systemName: "rectangle.portrait.and.arrow.right")
+            listLabel.textColor = UIColor.systemRed
         }
     }
 }

@@ -15,4 +15,7 @@ target 'CookAndShare' do
   pod 'GooglePlaces'
   pod 'IQKeyboardManager'
   pod 'FirebaseMessaging'
+  pod 'Kingfisher'
+  pod 'lottie-ios'
+  pod 'SPAlert'
 end

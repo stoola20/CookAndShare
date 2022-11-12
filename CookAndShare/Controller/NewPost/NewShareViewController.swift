@@ -17,6 +17,7 @@ class NewShareViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "發布", style: .plain, target: self, action: #selector(post(_:)))
     }
 
     func setUpTableView() {

@@ -17,15 +17,35 @@ class PublicProfileHeaderCell: UICollectionViewCell {
     @IBOutlet weak var sendMessageButton: UIButton!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var imageHeight: NSLayoutConstraint!
     override func awakeFromNib() {
         super.awakeFromNib()
-        userImageView.contentMode = .scaleAspectFill
-        userImageView.layer.cornerRadius = 50
+        setUpUI()
         sendMessageButton.addTarget(self, action: #selector(presentChatRoom), for: .touchUpInside)
     }
 
+    func setUpUI() {
+        userImageView.contentMode = .scaleAspectFill
+        userImageView.layer.cornerRadius = 50
+        userImageView.layer.borderWidth = 3
+        userImageView.layer.borderColor = UIColor.white.cgColor
+
+        userNameLabel.textColor = UIColor.darkBrown
+        userNameLabel.font = UIFont.boldSystemFont(ofSize: 20)
+
+        sendMessageButton.backgroundColor = UIColor.lightOrange
+        sendMessageButton.layer.cornerRadius = 5
+        sendMessageButton.tintColor = UIColor.darkBrown
+        sendMessageButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+
+        blockUserButton.backgroundColor = UIColor.lightOrange
+        blockUserButton.layer.cornerRadius = 5
+        blockUserButton.tintColor = UIColor.darkBrown
+        blockUserButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+    }
+
     func layoutCell(with user: User) {
-        userImageView.load(url: URL(string: user.imageURL)!)
+        userImageView.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
         userNameLabel.text = user.name
     }
 

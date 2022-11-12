@@ -11,6 +11,7 @@ protocol NewRecipeProcedureDelegate: AnyObject {
     func didDelete(_ cell: NewRecipeProcedureCell)
     func didAddProcedure(_ cell: NewRecipeProcedureCell, description: String)
     func willPickImage(_ cell: NewRecipeProcedureCell)
+    func addProcedure()
 }
 
 class NewRecipeProcedureCell: UITableViewCell {
@@ -23,12 +24,19 @@ class NewRecipeProcedureCell: UITableViewCell {
         }
     }
     @IBOutlet weak var procedureImageView: UIImageView!
-
+    @IBOutlet weak var deleteButton: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        setUpUI()
+        deleteButton.isHidden = true
         procedureImageView.isUserInteractionEnabled = true
-        
         procedureImageView.addGestureRecognizer(setGestureRecognizer())
+    }
+
+    func setUpUI() {
+        stepImageView.tintColor = UIColor.darkBrown
+        deleteButton.tintColor = UIColor.darkBrown
     }
 
     func setGestureRecognizer() -> UITapGestureRecognizer {
@@ -36,12 +44,13 @@ class NewRecipeProcedureCell: UITableViewCell {
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(pickImage))
         return tapRecognizer
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
         procedureTextField.text = String.empty
+        deleteButton.isHidden = true
     }
-    
+
     func layoutCell(with indexPath: IndexPath) {
         let step = indexPath.row + 1
         stepImageView.image = UIImage(systemName: "\(step).circle.fill")
@@ -61,7 +70,7 @@ class NewRecipeProcedureCell: UITableViewCell {
     @IBAction func deleteProcedure(_ sender: UIButton) {
         delegate.didDelete(self)
     }
-    
+
     @objc func pickImage() {
         delegate.willPickImage(self)
     }
@@ -69,6 +78,8 @@ class NewRecipeProcedureCell: UITableViewCell {
     func passData() {
         guard let description = procedureTextField.text else { return }
         delegate.didAddProcedure(self, description: description)
+        delegate.addProcedure()
+        deleteButton.isHidden = false
     }
 }
 
