@@ -31,7 +31,7 @@ class OtherLocationCell: UITableViewCell {
     func layoutCell(with message: Message, friendImageURL: String) {
         mapView.clear()
 
-        friendImageView.load(url: URL(string: friendImageURL)!)
+        friendImageView.loadImage(friendImageURL, placeHolder: UIImage(named: Constant.chefMan))
         mapTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
         let subString = message.content.split(separator: ",")
         guard

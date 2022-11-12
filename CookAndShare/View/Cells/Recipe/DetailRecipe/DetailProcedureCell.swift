@@ -28,7 +28,7 @@ class DetailProcedureCell: UITableViewCell {
     
     func layoutCell(with procedure: Procedure, at indexPath: IndexPath) {
         stepLabel.text = String(indexPath.row + 1)
-        procedureImageView.load(url: URL(string: procedure.imageURL)!)
+        procedureImageView.loadImage(procedure.imageURL, placeHolder: UIImage(named: Constant.friedRice))
         descriptionTextVIew.text = procedure.description
     }
 }

@@ -30,6 +30,7 @@ class ChatListCell: UITableViewCell {
 
     func layoutCell(with friendName: String, imageURL: String, lastMessage: Message) {
         friendNameLabel.text = friendName
+        friendImageView.loadImage(imageURL, placeHolder: UIImage(named: Constant.chefMan))
         friendImageView.load(url: URL(string: imageURL)!)
 
         switch lastMessage.contentType {

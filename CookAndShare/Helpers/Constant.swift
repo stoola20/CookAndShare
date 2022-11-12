@@ -93,4 +93,8 @@ struct Constant {
     static let image = "image"
     static let voice = "voice"
     static let location = "location"
+
+    static let breakfast = "breakfast"
+    static let chefMan = "chefMan"
+    static let friedRice = "friedRice"
 }

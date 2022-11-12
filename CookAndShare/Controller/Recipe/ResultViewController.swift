@@ -24,12 +24,21 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var alertTitleLabel: UILabel!
     @IBOutlet weak var alertMessageLabel: UILabel!
     @IBOutlet weak var addRecipeButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCollectionView()
         title = Constant.searchResult
         setUpUI()
+
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.darkBrown as Any
+        ]
+        barAppearance.shadowColor = nil
+        barAppearance.backgroundColor = UIColor.lightOrange
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.standardAppearance = barAppearance
     }
 
     override func viewWillAppear(_ animated: Bool) {

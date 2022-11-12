@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "shake.png",
+      "filename" : "meal.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "shake-1.png",
+      "filename" : "meal-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "shake-2.png",
+      "filename" : "meal-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

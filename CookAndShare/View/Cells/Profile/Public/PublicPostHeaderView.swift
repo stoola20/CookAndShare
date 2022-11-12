@@ -33,7 +33,7 @@ class PublicPostHeaderView: UICollectionReusableView {
         toRecipe = true
         delegate.headerView(didChange: toRecipe)
         animateUnderline(sender)
-        recipeButton.tintColor = UIColor.myGreen
+        recipeButton.tintColor = UIColor.myOrange
         shareButton.tintColor = UIColor.lightGray
     }
 
@@ -42,7 +42,7 @@ class PublicPostHeaderView: UICollectionReusableView {
         delegate.headerView(didChange: toRecipe)
         animateUnderline(sender)
         recipeButton.tintColor = UIColor.lightGray
-        shareButton.tintColor = UIColor.myGreen
+        shareButton.tintColor = UIColor.myOrange
     }
 
     func animateUnderline(_ sender: UIButton) {

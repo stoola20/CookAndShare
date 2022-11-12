@@ -68,7 +68,7 @@ class ShareCell: UITableViewCell {
         firestoreManager.fetchUserData(userId: share.authorId) { result in
             switch result {
             case .success(let user):
-                self.userImageView.load(url: URL(string: user.imageURL)!)
+                self.userImageView.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
                 self.userNameLabel.text = user.name
             case .failure(let error):
                 print(error)
@@ -81,6 +81,6 @@ class ShareCell: UITableViewCell {
         bestBeforeLabel.text = "有效期限：\(Date.dateFormatter.string(from: Date(timeIntervalSince1970: Double(share.bestBefore.seconds))))"
         meetTimeLabel.text = "面交時間：\(share.meetTime)"
         meetPlaceLabel.text = "面交地點：\(share.meetPlace)"
-        foodImageView.load(url: URL(string: share.imageURL)!)
+        foodImageView.loadImage(share.imageURL, placeHolder: UIImage(named: Constant.friedRice))
     }
 }

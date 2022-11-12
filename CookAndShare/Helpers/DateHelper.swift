@@ -15,7 +15,7 @@ extension Date {
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
     }
-    
+
     static func - (lhs: Date, rhs: Date) -> TimeInterval {
         return lhs.timeIntervalSince1970 - rhs.timeIntervalSince1970
     }
@@ -29,18 +29,17 @@ extension Date {
         let minute = calendar.component(.minute, from: messageTime)
         let zone: String
         let minutesString: String
-        
+
         if hour < 12 {
             zone = "上午"
         } else {
             zone = "下午"
             hour -= 12
         }
-        
+
         minutesString = minute < 10 ? "0\(minute)" : "\(minute)"
         // 同一天的話顯示上午、下午
         if dayComponent == calendar.component(.day, from: Date()) {
-
             return "\(zone) \(hour):\(minutesString)"
 
         // 七天內顯示星期幾

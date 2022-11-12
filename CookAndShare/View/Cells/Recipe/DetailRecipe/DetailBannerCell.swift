@@ -61,13 +61,13 @@ class DetailBannerCell: UITableViewCell {
         firestoreManager.fetchUserData(userId: recipe.authorId) { result in
             switch result {
             case .success(let user):
-                self.profileImage.load(url: URL(string: user.imageURL)!)
+                self.profileImage.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
                 self.authorLabel.text = user.name
             case .failure(let error):
                 print(error)
             }
         }
-        mainImageVIew.load(url: URL(string: recipe.mainImageURL)!)
+        mainImageVIew.loadImage(recipe.mainImageURL, placeHolder: UIImage(named: Constant.friedRice))
         titleLabel.text = recipe.title
         durationLabel.text = "⌛️ \(recipe.cookDuration) 分鐘"
         authorLabel.text = recipe.authorId

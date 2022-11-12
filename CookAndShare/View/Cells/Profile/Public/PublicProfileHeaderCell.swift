@@ -45,7 +45,7 @@ class PublicProfileHeaderCell: UICollectionViewCell {
     }
 
     func layoutCell(with user: User) {
-        userImageView.load(url: URL(string: user.imageURL)!)
+        userImageView.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
         userNameLabel.text = user.name
     }
 

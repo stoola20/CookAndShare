@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().toolbarDoneBarButtonItemText = "完成"
 
-        UITabBar.appearance().tintColor = UIColor.myGreen
+        UITabBar.appearance().tintColor = UIColor.myOrange
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithDefaultBackground()
         UITabBar.appearance().standardAppearance = tabBarAppearance

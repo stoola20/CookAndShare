@@ -36,7 +36,7 @@ class OtherVoiceCell: UITableViewCell {
     }
 
     func layoutCell(with message: Message, friendImageURL: String) {
-        friendImageView.load(url: URL(string: friendImageURL)!)
+        friendImageView.loadImage(friendImageURL, placeHolder: UIImage(named: Constant.chefMan))
         timeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
 
         let playerItem = AVPlayerItem(url: URL(string: message.content)!)

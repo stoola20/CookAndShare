@@ -19,6 +19,16 @@ class FoodRecognitionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.darkBrown
+        ]
+        barAppearance.shadowColor = nil
+        barAppearance.backgroundColor = UIColor.lightOrange
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.standardAppearance = barAppearance
+
         foodImageView.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseSourceType))
         foodImageView.addGestureRecognizer(tap)

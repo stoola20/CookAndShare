@@ -27,9 +27,9 @@ class OtherImageCell: UITableViewCell {
     }
 
     func layoutCell(with message: Message, friendImageURL: String) {
-        friendImageView.load(url: URL(string: friendImageURL)!)
+        friendImageView.loadImage(friendImageURL, placeHolder: UIImage(named: Constant.chefMan))
 
-        largeImageView.load(url: URL(string: message.content)!)
-        imageTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds))) 
+        largeImageView.loadImage(message.content, placeHolder: UIImage(named: Constant.friedRice))
+        imageTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
     }
 }

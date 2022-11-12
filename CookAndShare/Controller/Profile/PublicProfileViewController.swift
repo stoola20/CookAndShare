@@ -26,7 +26,7 @@ class PublicProfileViewController: UIViewController {
         navigationItem.standardAppearance = barAppearance
         // 沒有滑動 table view 的樣式
         navigationItem.scrollEdgeAppearance = barAppearance
-        navigationItem.backButtonTitle = ""
+        navigationItem.backButtonTitle = nil
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -128,9 +128,15 @@ extension PublicProfileViewController: UICollectionViewDataSource {
                 as? PublicPostCell
             else { fatalError("Could not create PublicPostCell") }
             if toRecipe {
-                cell.mainImageView.load(url: URL(string: self.recipes[indexPath.item].mainImageURL)!)
+                cell.mainImageView.loadImage(
+                    self.recipes[indexPath.item].mainImageURL,
+                    placeHolder: UIImage(named: "friedRice")
+                )
             } else {
-                cell.mainImageView.load(url: URL(string: self.shares[indexPath.item].imageURL)!)
+                cell.mainImageView.loadImage(
+                    self.shares[indexPath.item].imageURL,
+                    placeHolder: UIImage(named: "friedRice")
+                )
             }
             return cell
         }

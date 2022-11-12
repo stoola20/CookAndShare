@@ -37,7 +37,6 @@ class ProfileUserCell: UITableViewCell {
 
     func layoutCell(with user: User) {
         userName.text = user.name
-        guard let url = URL(string: user.imageURL) else { return }
-        profileImageView.load(url: url)
+        profileImageView.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
     }
 }
