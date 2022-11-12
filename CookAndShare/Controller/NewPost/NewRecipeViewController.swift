@@ -50,12 +50,6 @@ class NewRecipeViewController: UIViewController {
     }
 
     func presentPHPicker() {
-//        var configuration = PHPickerConfiguration()
-//        configuration.filter = .images
-//        configuration.selectionLimit = 1
-//        let controller = PHPickerViewController(configuration: configuration)
-//        controller.delegate = self
-//        present(controller, animated: true)
         let controller = UIAlertController(title: "請選擇照片來源", message: nil, preferredStyle: .actionSheet)
 
         let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
@@ -295,58 +289,6 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
 
         self.recipe.procedures = procedures
         print(self.recipe.procedures)
-    }
-}
-
-// MARK: - PHPickerViewControllerDelegate
-extension NewRecipeViewController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true)
-
-        if !results.isEmpty {
-            let result = results.first!
-            let itemProvider = result.itemProvider
-            if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                    guard
-                        let image = image as? UIImage,
-                        let self = self,
-                        let indexPath = self.indexPathForImage
-                    else { return }
-
-                    // Upload photo
-                    self.firestoreManager.uploadPhoto(image: image) { result in
-                        switch result {
-                        case .success(let url):
-                            print(url)
-                            if self.imageCell is NewRecipeDescriptionCell {
-                                self.recipe.mainImageURL = url.absoluteString
-                            } else if self.imageCell is NewRecipeProcedureCell {
-                                self.recipe.procedures[indexPath.row].imageURL = url.absoluteString
-                                print("===\(self.recipe.procedures)")
-                            }
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-
-                    // update image
-                    DispatchQueue.main.async {
-                        if self.imageCell is NewRecipeDescriptionCell {
-                            guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeDescriptionCell
-                            else { fatalError("Wrong cell") }
-                            cell.mainImageView.image = image
-                            cell.mainImageView.contentMode = .scaleAspectFill
-                        } else if self.imageCell is NewRecipeProcedureCell {
-                            guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeProcedureCell
-                            else { fatalError("Wrong cell") }
-                            cell.procedureImageView.image = image
-                            cell.procedureImageView.contentMode = .scaleAspectFill
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 
