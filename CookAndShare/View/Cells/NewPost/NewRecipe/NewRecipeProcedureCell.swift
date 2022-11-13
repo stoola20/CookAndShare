@@ -46,12 +46,6 @@ class NewRecipeProcedureCell: UITableViewCell {
         return tapRecognizer
     }
 
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        procedureTextField.text = String.empty
-        deleteButton.isHidden = true
-    }
-
     func layoutCell(with indexPath: IndexPath) {
         let step = indexPath.row + 1
         stepImageView.image = UIImage(systemName: "\(step).circle.fill")

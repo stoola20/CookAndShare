@@ -37,22 +37,19 @@ class NewRecipeIngredientCell: UITableViewCell {
         deleteButton.isHidden = true
         deleteButton.tintColor = UIColor.darkBrown
     }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        deleteButton.isHidden = true
-    }
 
     @IBAction func deleteIngredient(_ sender: UIButton) {
-        guard let ingredientName = nameTextField.text,
-              let ingredientQuantity = quantityTextField.text
+        guard
+            let ingredientName = nameTextField.text,
+            let ingredientQuantity = quantityTextField.text
         else { return }
         delegate.didDelete(self, Ingredient(name: ingredientName, quantity: ingredientQuantity))
     }
 
     func passData() {
-        guard let ingredientName = nameTextField.text,
-              let ingredientQuantity = quantityTextField.text
+        guard
+            let ingredientName = nameTextField.text,
+            let ingredientQuantity = quantityTextField.text
         else { return }
         if ingredientName.isEmpty {
             nameTextField.placeholder = "請輸入食材名稱！"

@@ -46,7 +46,10 @@ class NewRecipeViewController: UIViewController {
         tableView.registerCellWithNib(identifier: NewRecipeDescriptionCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: NewRecipeIngredientCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: NewRecipeProcedureCell.identifier, bundle: nil)
-        tableView.register(NewRecipeHeaderView.self, forHeaderFooterViewReuseIdentifier: NewRecipeHeaderView.reuseIdentifier)
+        tableView.register(
+            NewRecipeHeaderView.self,
+            forHeaderFooterViewReuseIdentifier: NewRecipeHeaderView.reuseIdentifier
+        )
     }
 
     func presentPHPicker() {
@@ -68,13 +71,35 @@ class NewRecipeViewController: UIViewController {
     }
 
     @objc func addIngredient() {
-        numOfIngredients += 1
-        tableView.insertRows(at: [IndexPath(row: numOfIngredients - 1, section: 1)], with: .automatic)
+        let rowNum = tableView.numberOfRows(inSection: 1)
+
+        guard
+            let cell = tableView.cellForRow(at: IndexPath(row: rowNum - 1, section: 1)) as? NewRecipeIngredientCell,
+            let nameText = cell.nameTextField.text,
+            let quantityText = cell.quantityTextField.text
+        else { return }
+
+        if nameText.isEmpty || quantityText.isEmpty {
+            return
+        } else {
+            numOfIngredients += 1
+            tableView.insertRows(at: [IndexPath(row: rowNum, section: 1)], with: .automatic)
+        }
     }
 
     @objc func addProcedure() {
-        numOfProcedures += 1
-        tableView.insertRows(at: [IndexPath(row: numOfProcedures - 1, section: 2)], with: .automatic)
+        let rowNum = tableView.numberOfRows(inSection: 2)
+
+        guard
+            let cell = tableView.cellForRow(at: IndexPath(row: rowNum - 1, section: 2)) as? NewRecipeProcedureCell,
+            let procedureText = cell.procedureTextField.text
+        else { return }
+
+        if !procedureText.isEmpty {
+            numOfProcedures += 1
+            tableView.insertRows(at: [IndexPath(row: rowNum, section: 2)], with: .automatic)
+            tableView.scrollToRow(at: IndexPath(row: rowNum, section: 2), at: .top, animated: true)
+        }
     }
 
     @IBAction func postRecipe(_ sender: UIButton) {
@@ -134,8 +159,17 @@ extension NewRecipeViewController: UITableViewDataSource {
                 as? NewRecipeIngredientCell
             else { fatalError("Could not create ingredient cell") }
             cell.delegate = self
-            cell.nameTextField.text = nil
-            cell.quantityTextField.text = nil
+
+            if indexPath.row < self.recipe.ingredients.count {
+                cell.nameTextField.text = self.recipe.ingredients[indexPath.row].name
+                cell.quantityTextField.text = self.recipe.ingredients[indexPath.row].quantity
+                cell.deleteButton.isHidden = false
+            } else {
+                cell.nameTextField.text = nil
+                cell.quantityTextField.text = nil
+                cell.deleteButton.isHidden = true
+            }
+
             return cell
 
         default:
@@ -148,6 +182,14 @@ extension NewRecipeViewController: UITableViewDataSource {
             else { fatalError("Could not create procedure cell") }
             cell.layoutCell(with: indexPath)
             cell.delegate = self
+
+            if indexPath.row < self.recipe.procedures.count {
+                cell.procedureTextField.text = self.recipe.procedures[indexPath.row].description
+                cell.deleteButton.isHidden = false
+            } else {
+                cell.procedureTextField.text = nil
+                cell.deleteButton.isHidden = true
+            }
             return cell
         }
     }
@@ -202,7 +244,7 @@ extension NewRecipeViewController: NewRecipeIngredientDelegate {
 
         let sortedIngredient = ingredientDict.sorted { $0.key < $1.key }
         var index = 0
-        var newIngredientDict = [Int: Ingredient]()
+        var newIngredientDict: [Int: Ingredient] = [:]
         sortedIngredient.forEach { _, value in
             newIngredientDict[index] = value
             index += 1
@@ -217,7 +259,7 @@ extension NewRecipeViewController: NewRecipeIngredientDelegate {
 
         ingredientDict[indexPath.row] = ingredient
 
-        var ingredients = [Ingredient]()
+        var ingredients: [Ingredient] = []
         var newIngredientNames: [String] = []
         let sortedDict = ingredientDict.sorted { $0.key < $1.key }
 
@@ -246,12 +288,13 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
     func didDelete(_ cell: NewRecipeProcedureCell) {
         numOfProcedures -= 1
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
-        tableView.deleteRows(at: [indexPath], with: .left)
+//        tableView.deleteRows(at: [indexPath], with: .left)
+        tableView.reloadData()
         self.procedureDict.removeValue(forKey: indexPath.row)
 
         let sortedProcedure = procedureDict.sorted { $0.key < $1.key }
         var index = 0
-        var newProcedures = [Procedure]()
+        var newProcedures: [Procedure] = []
         var newProcedureDict: [Int: Procedure] = [:]
         sortedProcedure.forEach { _, value in
             newProcedureDict[index] = value
@@ -307,6 +350,9 @@ extension NewRecipeViewController: UIImagePickerControllerDelegate, UINavigation
                 if self.imageCell is NewRecipeDescriptionCell {
                     self.recipe.mainImageURL = url.absoluteString
                 } else if self.imageCell is NewRecipeProcedureCell {
+                    if indexPath.row >= self.recipe.procedures.count {
+                        
+                    }
                     self.recipe.procedures[indexPath.row].imageURL = url.absoluteString
                     print("===\(self.recipe.procedures)")
                 }
