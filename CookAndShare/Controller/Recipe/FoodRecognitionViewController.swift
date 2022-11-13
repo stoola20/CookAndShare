@@ -11,6 +11,7 @@ import CoreML
 
 class FoodRecognitionViewController: UIViewController {
     let imagePicker = UIImagePickerController()
+    var recognizedResult = ""
     @IBOutlet weak var foodImageView: UIImageView!
     @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var retakeButton: UIButton!
@@ -19,15 +20,6 @@ class FoodRecognitionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
-
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.darkBrown as Any
-        ]
-        barAppearance.shadowColor = nil
-        barAppearance.backgroundColor = UIColor.lightOrange
-        navigationItem.scrollEdgeAppearance = barAppearance
-        navigationItem.standardAppearance = barAppearance
 
         foodImageView.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseSourceType))
@@ -75,6 +67,14 @@ class FoodRecognitionViewController: UIViewController {
     }
 
     @IBAction func searchRecipe(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
+        guard
+            let resultVC = storyboard.instantiateViewController(withIdentifier: String(describing: ResultViewController.self))
+                as? ResultViewController
+        else { fatalError("Could not instantiate resultVC") }
+        resultVC.searchString = recognizedResult
+        resultVC.searchType = .title
+        navigationController?.pushViewController(resultVC, animated: true)
     }
 
     func detect(image: CIImage) {
@@ -94,6 +94,7 @@ class FoodRecognitionViewController: UIViewController {
                             return
                         }
                         DispatchQueue.main.async { [unowned self] in
+                            self.recognizedResult = translation
                             self.resultLabel.text = "辨識結果：\(translation)"
                         }
                     }

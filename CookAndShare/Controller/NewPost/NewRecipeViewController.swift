@@ -20,11 +20,20 @@ class NewRecipeViewController: UIViewController {
     var numOfProcedures = 1
     var ingredientDict: [Int: Ingredient] = [:]
     var procedureDict: [Int: Procedure] = [:]
+    let imagePicker = UIImagePickerController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "發布", style: .plain, target: self, action: #selector(postRecipe(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "發布",
+            style: .plain,
+            target: self,
+            action: #selector(postRecipe(_:))
+        )
+
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
     }
 
 // MARK: - Action
@@ -37,26 +46,60 @@ class NewRecipeViewController: UIViewController {
         tableView.registerCellWithNib(identifier: NewRecipeDescriptionCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: NewRecipeIngredientCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: NewRecipeProcedureCell.identifier, bundle: nil)
-        tableView.register(NewRecipeHeaderView.self, forHeaderFooterViewReuseIdentifier: NewRecipeHeaderView.reuseIdentifier)
+        tableView.register(
+            NewRecipeHeaderView.self,
+            forHeaderFooterViewReuseIdentifier: NewRecipeHeaderView.reuseIdentifier
+        )
     }
 
     func presentPHPicker() {
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-        configuration.selectionLimit = 1
-        let controller = PHPickerViewController(configuration: configuration)
-        controller.delegate = self
-        present(controller, animated: true)
+        let controller = UIAlertController(title: "請選擇照片來源", message: nil, preferredStyle: .actionSheet)
+
+        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true)
+        }
+        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default) { _ in
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        controller.addAction(cameraAction)
+        controller.addAction(photoLibraryAction)
+        controller.addAction(cancelAction)
+        present(controller, animated: true, completion: nil)
     }
 
     @objc func addIngredient() {
-        numOfIngredients += 1
-        tableView.insertRows(at: [IndexPath(row: numOfIngredients - 1, section: 1)], with: .automatic)
+        let rowNum = tableView.numberOfRows(inSection: 1)
+
+        guard
+            let cell = tableView.cellForRow(at: IndexPath(row: rowNum - 1, section: 1)) as? NewRecipeIngredientCell,
+            let nameText = cell.nameTextField.text,
+            let quantityText = cell.quantityTextField.text
+        else { return }
+
+        if nameText.isEmpty || quantityText.isEmpty {
+            return
+        } else {
+            numOfIngredients += 1
+            tableView.insertRows(at: [IndexPath(row: rowNum, section: 1)], with: .automatic)
+        }
     }
 
     @objc func addProcedure() {
-        numOfProcedures += 1
-        tableView.insertRows(at: [IndexPath(row: numOfProcedures - 1, section: 2)], with: .automatic)
+        let rowNum = tableView.numberOfRows(inSection: 2)
+
+        guard
+            let cell = tableView.cellForRow(at: IndexPath(row: rowNum - 1, section: 2)) as? NewRecipeProcedureCell,
+            let procedureText = cell.procedureTextField.text
+        else { return }
+
+        if !procedureText.isEmpty {
+            numOfProcedures += 1
+            tableView.insertRows(at: [IndexPath(row: rowNum, section: 2)], with: .automatic)
+            tableView.scrollToRow(at: IndexPath(row: rowNum, section: 2), at: .top, animated: true)
+        }
     }
 
     @IBAction func postRecipe(_ sender: UIButton) {
@@ -91,7 +134,10 @@ extension NewRecipeViewController: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeDescriptionCell.identifier, for: indexPath)
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: NewRecipeDescriptionCell.identifier,
+                    for: indexPath
+                )
                 as? NewRecipeDescriptionCell
             else { fatalError("Could not create description cell") }
             cell.completion = { [weak self] data in
@@ -106,21 +152,44 @@ extension NewRecipeViewController: UITableViewDataSource {
 
         case 1:
             guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeIngredientCell.identifier, for: indexPath)
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: NewRecipeIngredientCell.identifier,
+                    for: indexPath
+                )
                 as? NewRecipeIngredientCell
             else { fatalError("Could not create ingredient cell") }
             cell.delegate = self
-            cell.nameTextField.text = nil
-            cell.quantityTextField.text = nil
+
+            if indexPath.row < self.recipe.ingredients.count {
+                cell.nameTextField.text = self.recipe.ingredients[indexPath.row].name
+                cell.quantityTextField.text = self.recipe.ingredients[indexPath.row].quantity
+                cell.deleteButton.isHidden = false
+            } else {
+                cell.nameTextField.text = nil
+                cell.quantityTextField.text = nil
+                cell.deleteButton.isHidden = true
+            }
+
             return cell
 
         default:
             guard
-                let cell = tableView.dequeueReusableCell(withIdentifier: NewRecipeProcedureCell.identifier, for: indexPath)
+                let cell = tableView.dequeueReusableCell(
+                    withIdentifier: NewRecipeProcedureCell.identifier,
+                    for: indexPath
+                )
                 as? NewRecipeProcedureCell
             else { fatalError("Could not create procedure cell") }
             cell.layoutCell(with: indexPath)
             cell.delegate = self
+
+            if indexPath.row < self.recipe.procedures.count {
+                cell.procedureTextField.text = self.recipe.procedures[indexPath.row].description
+                cell.deleteButton.isHidden = false
+            } else {
+                cell.procedureTextField.text = nil
+                cell.deleteButton.isHidden = true
+            }
             return cell
         }
     }
@@ -130,7 +199,9 @@ extension NewRecipeViewController: UITableViewDataSource {
 extension NewRecipeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NewRecipeHeaderView.reuseIdentifier)
+            let headerView = tableView.dequeueReusableHeaderFooterView(
+                withIdentifier: NewRecipeHeaderView.reuseIdentifier
+            )
             as? NewRecipeHeaderView
         else { fatalError("Could not create header view.") }
         switch section {
@@ -173,7 +244,7 @@ extension NewRecipeViewController: NewRecipeIngredientDelegate {
 
         let sortedIngredient = ingredientDict.sorted { $0.key < $1.key }
         var index = 0
-        var newIngredientDict = [Int: Ingredient]()
+        var newIngredientDict: [Int: Ingredient] = [:]
         sortedIngredient.forEach { _, value in
             newIngredientDict[index] = value
             index += 1
@@ -188,7 +259,7 @@ extension NewRecipeViewController: NewRecipeIngredientDelegate {
 
         ingredientDict[indexPath.row] = ingredient
 
-        var ingredients = [Ingredient]()
+        var ingredients: [Ingredient] = []
         var newIngredientNames: [String] = []
         let sortedDict = ingredientDict.sorted { $0.key < $1.key }
 
@@ -217,13 +288,14 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
     func didDelete(_ cell: NewRecipeProcedureCell) {
         numOfProcedures -= 1
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
-        tableView.deleteRows(at: [indexPath], with: .left)
+//        tableView.deleteRows(at: [indexPath], with: .left)
+        tableView.reloadData()
         self.procedureDict.removeValue(forKey: indexPath.row)
 
         let sortedProcedure = procedureDict.sorted { $0.key < $1.key }
         var index = 0
-        var newProcedures = [Procedure]()
-        var newProcedureDict = [Int: Procedure]()
+        var newProcedures: [Procedure] = []
+        var newProcedureDict: [Int: Procedure] = [:]
         sortedProcedure.forEach { _, value in
             newProcedureDict[index] = value
             newProcedures.append(value)
@@ -263,54 +335,46 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
     }
 }
 
-// MARK: - PHPickerViewControllerDelegate
-extension NewRecipeViewController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true)
+extension NewRecipeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        guard
+            let userPickedImage = info[.editedImage] as? UIImage,
+            let indexPath = self.indexPathForImage
+        else { fatalError("Wrong cell") }
 
-        if !results.isEmpty {
-            let result = results.first!
-            let itemProvider = result.itemProvider
-            if itemProvider.canLoadObject(ofClass: UIImage.self) {
-                itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
-                    guard
-                        let image = image as? UIImage,
-                        let self = self,
-                        let indexPath = self.indexPathForImage
-                    else { return }
-
-                    // Upload photo
-                    self.firestoreManager.uploadPhoto(image: image) { result in
-                        switch result {
-                        case .success(let url):
-                            print(url)
-                            if self.imageCell is NewRecipeDescriptionCell {
-                                self.recipe.mainImageURL = url.absoluteString
-                            } else if self.imageCell is NewRecipeProcedureCell {
-                                self.recipe.procedures[indexPath.row].imageURL = url.absoluteString
-                                print("===\(self.recipe.procedures)")
-                            }
-                        case .failure(let error):
-                            print(error)
-                        }
+        // Upload photo
+        self.firestoreManager.uploadPhoto(image: userPickedImage) { result in
+            switch result {
+            case .success(let url):
+                print(url)
+                if self.imageCell is NewRecipeDescriptionCell {
+                    self.recipe.mainImageURL = url.absoluteString
+                } else if self.imageCell is NewRecipeProcedureCell {
+                    if indexPath.row >= self.recipe.procedures.count {
+                        
                     }
-
-                    // update image
-                    DispatchQueue.main.async {
-                        if self.imageCell is NewRecipeDescriptionCell {
-                            guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeDescriptionCell
-                            else { fatalError("Wrong cell") }
-                            cell.mainImageView.image = image
-                            cell.mainImageView.contentMode = .scaleAspectFill
-                        } else if self.imageCell is NewRecipeProcedureCell {
-                            guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeProcedureCell
-                            else { fatalError("Wrong cell") }
-                            cell.procedureImageView.image = image
-                            cell.procedureImageView.contentMode = .scaleAspectFill
-                        }
-                    }
+                    self.recipe.procedures[indexPath.row].imageURL = url.absoluteString
+                    print("===\(self.recipe.procedures)")
                 }
+            case .failure(let error):
+                print(error)
             }
         }
+
+        // update image
+        DispatchQueue.main.async {
+            if self.imageCell is NewRecipeDescriptionCell {
+                guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeDescriptionCell
+                else { fatalError("Wrong cell") }
+                cell.mainImageView.image = userPickedImage
+                cell.mainImageView.contentMode = .scaleAspectFill
+            } else if self.imageCell is NewRecipeProcedureCell {
+                guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeProcedureCell
+                else { fatalError("Wrong cell") }
+                cell.procedureImageView.image = userPickedImage
+                cell.procedureImageView.contentMode = .scaleAspectFill
+            }
+        }
+        dismiss(animated: true)
     }
 }

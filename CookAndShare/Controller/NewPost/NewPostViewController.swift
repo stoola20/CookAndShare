@@ -8,7 +8,6 @@
 import UIKit
 
 class NewPostViewController: UIViewController {
-
     @IBOutlet weak var collectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +22,11 @@ class NewPostViewController: UIViewController {
         collectionView.registerCellWithNib(identifier: DraftCell.identifier, bundle: nil)
         collectionView.registerCellWithNib(identifier: NewPostCell.identifier, bundle: nil)
         collectionView.register(NewPostSupplementaryView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NewPostSupplementaryView.identifier)
-        collectionView.register(DraftSupplementaryView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: DraftSupplementaryView.identifier)
+        collectionView.register(
+            DraftSupplementaryView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: DraftSupplementaryView.identifier
+        )
     }
 }
 
@@ -78,11 +81,15 @@ extension NewPostViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "NewPost", bundle: nil)
         if indexPath == IndexPath(item: 0, section: 1) {
-            guard let newRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewRecipeViewController.self)) as? NewRecipeViewController
+            guard
+                let newRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewRecipeViewController.self))
+                    as? NewRecipeViewController
             else { fatalError("Could not instantiate newRecipeVC") }
             navigationController?.pushViewController(newRecipeVC, animated: true)
         } else if indexPath == IndexPath(item: 0, section: 3) {
-            guard let newShareVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewShareViewController.self)) as? NewShareViewController
+            guard
+                let newShareVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewShareViewController.self))
+                    as? NewShareViewController
             else { fatalError("Could not instantiate NewShareViewController") }
             navigationController?.pushViewController(newShareVC, animated: true)
         }

@@ -16,15 +16,6 @@ class ChatListViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
         title = "訊息"
-
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.darkBrown as Any
-        ]
-        barAppearance.shadowColor = nil
-        barAppearance.backgroundColor = UIColor.lightOrange
-        navigationItem.scrollEdgeAppearance = barAppearance
-        navigationItem.standardAppearance = barAppearance
     }
 
     override func viewWillAppear(_ animated: Bool) {

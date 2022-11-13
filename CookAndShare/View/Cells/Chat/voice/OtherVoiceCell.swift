@@ -12,6 +12,7 @@ class OtherVoiceCell: UITableViewCell {
     var player = AVPlayer()
     var timer = Timer()
     var duration = TimeInterval()
+    var totalDuration = TimeInterval()
     @IBOutlet weak var friendImageView: UIImageView!
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var durationLabel: UILabel!
@@ -38,18 +39,13 @@ class OtherVoiceCell: UITableViewCell {
     func layoutCell(with message: Message, friendImageURL: String) {
         friendImageView.loadImage(friendImageURL, placeHolder: UIImage(named: Constant.chefMan))
         timeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
+        duration = message.duration
+        totalDuration = message.duration
+        durationLabel.text = self.duration.audioDurationString()
 
         let playerItem = AVPlayerItem(url: URL(string: message.content)!)
 
         player.replaceCurrentItem(with: playerItem)
-        player.currentItem!.observe(\AVPlayerItem.status) { [weak self] item, _ in
-            guard let self = self else { return }
-            guard item == self.player.currentItem else { return }
-            if item.status == .readyToPlay {
-                self.duration = item.duration.seconds
-                self.durationLabel.text = self.duration.audioDurationString()
-            }
-        }
     }
 
     @IBAction func playAndStop(_ sender: UIButton) {
@@ -75,10 +71,10 @@ class OtherVoiceCell: UITableViewCell {
     @objc func resetPlayingStatus() {
         if player.timeControlStatus == .playing {
             playButton.setImage(UIImage(systemName: "stop.fill"), for: .normal)
-            duration -= player.currentTime().seconds
+            duration -= 1
         } else {
             playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-            duration = player.currentItem!.duration.seconds
+            duration = totalDuration
             timer.invalidate()
         }
         durationLabel.text = duration.audioDurationString()

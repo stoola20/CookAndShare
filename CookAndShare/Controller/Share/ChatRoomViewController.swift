@@ -42,16 +42,6 @@ class ChatRoomViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // navigation bar
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.darkBrown
-        ]
-//        barAppearance.titlePositionAdjustment = UIOffset(horizontal: -200, vertical: 0)
-        barAppearance.shadowColor = nil
-        barAppearance.backgroundColor = UIColor.lightOrange
-        navigationItem.scrollEdgeAppearance = barAppearance
-        navigationItem.standardAppearance = barAppearance
 
         setUpTableView()
         setUpUI()
@@ -136,7 +126,7 @@ class ChatRoomViewController: UIViewController {
         uploadMessage(contentType: .text, content: text)
     }
 
-    func uploadMessage(contentType: ContentType, content: String) {
+    func uploadMessage(contentType: ContentType, content: String, duration: Double = 0) {
         guard let friend = friend else { return }
         guard let conversation = conversation else {
             let document = firestoreManager.conversationsCollection.document()
@@ -147,7 +137,8 @@ class ChatRoomViewController: UIViewController {
                 senderId: Constant.userId,
                 contentType: contentType.rawValue,
                 content: content,
-                time: Timestamp(date: Date())
+                time: Timestamp(date: Date()),
+                duration: duration
             )
             newConversation.messages = [message]
             self.conversation = newConversation
@@ -168,7 +159,8 @@ class ChatRoomViewController: UIViewController {
             "senderId": Constant.userId,
             "content": content,
             "contentType": contentType.rawValue,
-            "time": Timestamp(date: Date())
+            "time": Timestamp(date: Date()),
+            "duration": duration
         ]
         firestoreManager.updateConversation(channelId: conversation.channelId, message: message)
 
@@ -219,7 +211,12 @@ class ChatRoomViewController: UIViewController {
         wrapperViewBottomConstraint.isActive = true
 
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) { self.view.layoutIfNeeded() }
-        let indexPath = IndexPath(row: conversation!.messages.count - 1, section: 0)
+
+        guard let conversation = conversation else {
+            return
+        }
+
+        let indexPath = IndexPath(row: conversation.messages.count - 1, section: 0)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 
@@ -305,10 +302,18 @@ class ChatRoomViewController: UIViewController {
         playAndPauseButton.isHidden = true
         playAndPauseButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
 
-        firestoreManager.handleAudioSendWith(url: getDirectoryPath().appendingPathComponent("\(numOfRecorder).m4a")) { result in
+        let recordFilePath = getDirectoryPath().appendingPathComponent("\(numOfRecorder).m4a")
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: recordFilePath)
+        } catch {
+            print("Play error:", error.localizedDescription)
+        }
+        print("duration \(audioPlayer.duration)")
+        
+        firestoreManager.handleAudioSendWith(url: recordFilePath) { result in
             switch result {
             case .success(let url):
-                self.uploadMessage(contentType: .voice, content: url.absoluteString)
+                self.uploadMessage(contentType: .voice, content: url.absoluteString, duration: self.audioPlayer.duration.rounded(.up))
             case .failure(let error):
                 print(error)
             }

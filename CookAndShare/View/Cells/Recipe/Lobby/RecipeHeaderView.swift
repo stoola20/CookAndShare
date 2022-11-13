@@ -8,7 +8,6 @@
 import UIKit
 
 class RecipeHeaderView: UICollectionReusableView {
-    
     let textLabel = UILabel()
     
     override init(frame: CGRect) {
@@ -27,7 +26,7 @@ class RecipeHeaderView: UICollectionReusableView {
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let inset: CGFloat = 10
-        
+
         NSLayoutConstraint.activate([
             textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset),
             textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -inset),
@@ -35,7 +34,4 @@ class RecipeHeaderView: UICollectionReusableView {
             textLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -inset)
         ])
     }
-    
 }
-
-

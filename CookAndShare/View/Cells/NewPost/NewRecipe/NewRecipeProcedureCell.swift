@@ -37,18 +37,13 @@ class NewRecipeProcedureCell: UITableViewCell {
     func setUpUI() {
         stepImageView.tintColor = UIColor.darkBrown
         deleteButton.tintColor = UIColor.darkBrown
+        procedureImageView.layer.cornerRadius = 5
     }
 
     func setGestureRecognizer() -> UITapGestureRecognizer {
         var tapRecognizer = UITapGestureRecognizer()
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(pickImage))
         return tapRecognizer
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        procedureTextField.text = String.empty
-        deleteButton.isHidden = true
     }
 
     func layoutCell(with indexPath: IndexPath) {
