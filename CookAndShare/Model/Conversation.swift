@@ -21,6 +21,7 @@ struct Message: Codable {
     var contentType: String
     var content: String
     var time: Timestamp
+    var duration: Double
 //    let status: Bool
 }
 

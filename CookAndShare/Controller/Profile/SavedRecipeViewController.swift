@@ -35,13 +35,6 @@ class SavedRecipeViewController: UIViewController {
         super.viewDidLoad()
         setUpCollectionView()
         title = "我的收藏"
-
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.titleTextAttributes = [.foregroundColor: UIColor.darkBrown]
-        barAppearance.shadowColor = nil
-        barAppearance.backgroundColor = UIColor.lightOrange
-        navigationItem.scrollEdgeAppearance = barAppearance
-        navigationItem.standardAppearance = barAppearance
     }
 
     func setUpCollectionView() {

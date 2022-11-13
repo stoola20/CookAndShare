@@ -19,15 +19,6 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         setUpView()
         title = Constant.search
-
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.darkBrown as Any
-        ]
-        barAppearance.shadowColor = nil
-        barAppearance.backgroundColor = UIColor.lightOrange
-        navigationItem.scrollEdgeAppearance = barAppearance
-        navigationItem.standardAppearance = barAppearance
     }
 
     func setUpView() {

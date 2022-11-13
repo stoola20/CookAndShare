@@ -25,6 +25,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().toolbarDoneBarButtonItemText = "完成"
 
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithOpaqueBackground()
+        navigationBarAppearance.backgroundColor = .lightOrange
+        navigationBarAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.darkBrown as Any
+        ]
+        navigationBarAppearance.shadowColor = nil
+        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+
         UITabBar.appearance().tintColor = UIColor.myOrange
         let tabBarAppearance = UITabBarAppearance()
         tabBarAppearance.configureWithDefaultBackground()

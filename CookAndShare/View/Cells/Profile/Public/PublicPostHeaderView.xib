@@ -17,7 +17,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEM-Np-Mny">
                     <rect key="frame" x="0.0" y="49" width="207" height="1"/>
-                    <color key="backgroundColor" name="MyGreen"/>
+                    <color key="backgroundColor" name="DarkBrown"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="HsV-rC-KxP"/>
                     </constraints>
@@ -70,8 +70,8 @@
     <resources>
         <image name="fork.knife.circle" catalog="system" width="128" height="121"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
-        <namedColor name="MyGreen">
-            <color red="0.22745098039215686" green="0.47450980392156861" blue="0.3843137254901961" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="DarkBrown">
+            <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

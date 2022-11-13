@@ -7,7 +7,7 @@
 
 import UIKit
 protocol RecipeTypeCellDelegate: AnyObject {
-    func didSelectedButton(tag: Int)
+    func didSelectedButton(_ cell: RecipeTypeCell, tag: Int)
 }
 
 class RecipeTypeCell: UICollectionViewCell {
@@ -25,8 +25,6 @@ class RecipeTypeCell: UICollectionViewCell {
     private func configureButton() {
         addSubview(typeButton)
         typeButton.addTarget(self, action: #selector(pressButton(_:)), for: .touchUpInside)
-        typeButton.backgroundColor = UIColor.lightOrange
-        typeButton.setTitleColor(UIColor.darkBrown, for: .normal)
         typeButton.layer.cornerRadius = 10
         typeButton.translatesAutoresizingMaskIntoConstraints = false
 
@@ -40,7 +38,19 @@ class RecipeTypeCell: UICollectionViewCell {
         ])
     }
 
+    func updateButtonColor() {
+        if typeButton.tag == 0 {
+            typeButton.backgroundColor = UIColor.darkBrown
+            typeButton.setTitleColor(UIColor.lightOrange, for: .normal)
+        } else {
+            typeButton.backgroundColor = UIColor.lightOrange
+            typeButton.setTitleColor(UIColor.darkBrown, for: .normal)
+        }
+    }
+
     @objc func pressButton(_ sender: UIButton) {
-        delegate.didSelectedButton(tag: sender.tag)
+        delegate.didSelectedButton(self, tag: sender.tag)
+        sender.backgroundColor = UIColor.darkBrown
+        sender.setTitleColor(UIColor.lightOrange, for: .normal)
     }
 }

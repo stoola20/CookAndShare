@@ -36,11 +36,11 @@ struct FirestoreManager {
 
     func handleAudioSendWith(url: URL, completion: @escaping (Result<URL, Error>) -> Void) {
         let fileReference = storage.reference().child(UUID().uuidString + ".m4a")
-        fileReference.putFile(from: url, metadata: nil, completion: { metadata, error in
+        fileReference.putFile(from: url, metadata: nil, completion: { _, error in
             if error != nil {
-                print(error)
+                print(error as Any)
             } else {
-                fileReference.downloadURL(completion: completion)   
+                fileReference.downloadURL(completion: completion)
             }
         })
     }
@@ -56,6 +56,24 @@ struct FirestoreManager {
         }
     }
 
+    func addRecipeListener(completion: @escaping RecipeResponse) {
+        var recipes: [Recipe] = []
+
+        recipesCollection.addSnapshotListener { documentSnapshot, error in
+            guard let documentSnapshot = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            documentSnapshot.documents.forEach { document in
+                guard let recipe = try? document.data(as: Recipe.self) else {
+                    print("Document data was empty.")
+                    return
+                }
+                recipes.append(recipe)
+            }
+            completion(.success(recipes))
+        }
+    }
 
     func searchRecipe(type: SearchType, query: String, completion: @escaping RecipeResponse) {
         switch type {
@@ -336,7 +354,7 @@ struct FirestoreManager {
 
 // MARK: - Chat
     func fetchConversation(with friendId: String, completion: @escaping (Result<Conversation, Error>) -> Void) {
-        conversationsCollection.whereField("friendIds", arrayContainsAny: [Constant.userId, friendId]).getDocuments { (querySnapshot, err) in
+        conversationsCollection.whereField("friendIds", arrayContainsAny: [Constant.userId, friendId]).getDocuments { querySnapshot, _ in
             guard let querySnapshot = querySnapshot else { return }
             if querySnapshot.isEmpty {
                 print("conversation not found!")

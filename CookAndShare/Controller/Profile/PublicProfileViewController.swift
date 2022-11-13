@@ -19,14 +19,6 @@ class PublicProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCollectionView()
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.shadowColor = nil
-        barAppearance.backgroundColor = UIColor.lightOrange
-        // 向上捲動的樣式
-        navigationItem.standardAppearance = barAppearance
-        // 沒有滑動 table view 的樣式
-        navigationItem.scrollEdgeAppearance = barAppearance
-        navigationItem.backButtonTitle = nil
     }
 
     override func viewWillAppear(_ animated: Bool) {

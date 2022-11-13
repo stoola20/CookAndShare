@@ -27,7 +27,7 @@ class RecipeViewController: UIViewController {
     var allRecipes: [Recipe]?
     var filterdRecipes: [Recipe]? {
         didSet {
-            collectionView.reloadData()
+            collectionView.reloadSections(IndexSet(integer: 2))
         }
     }
 
@@ -53,16 +53,24 @@ class RecipeViewController: UIViewController {
         ]
 
         let barAppearance = UINavigationBarAppearance()
-        barAppearance.configureWithTransparentBackground()
         barAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.darkBrown as Any,
             .font: UIFont.boldSystemFont(ofSize: 28)
         ]
         barAppearance.titlePositionAdjustment = UIOffset(horizontal: -200, vertical: 0)
         barAppearance.shadowColor = nil
-        barAppearance.backgroundColor = UIColor.lightOrange
-        navigationItem.scrollEdgeAppearance = barAppearance
+        barAppearance.backgroundColor = .lightOrange
         navigationItem.standardAppearance = barAppearance
+        navigationItem.scrollEdgeAppearance = barAppearance
+
+        firestoreManager.addRecipeListener { result in
+            switch result {
+            case .success(let recipes):
+                print(recipes)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -153,7 +161,16 @@ class RecipeViewController: UIViewController {
 }
 
 extension RecipeViewController: RecipeTypeCellDelegate {
-    func didSelectedButton(tag: Int) {
+    func didSelectedButton(_ cell: RecipeTypeCell, tag: Int) {
+        for index in 0..<RecipeType.allCases.count {
+            guard
+                let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 1))
+                    as? RecipeTypeCell
+            else { fatalError("Could not create cell") }
+            cell.typeButton.backgroundColor = .lightOrange
+            cell.typeButton.setTitleColor(.darkBrown, for: .normal)
+        }
+
         switch tag {
         case 0:
             filterdRecipes = allRecipes
@@ -166,6 +183,9 @@ extension RecipeViewController: RecipeTypeCellDelegate {
         default:
             recipeFilterByVegetable()
         }
+
+        cell.typeButton.backgroundColor = .darkBrown
+        cell.typeButton.setTitleColor(.lightOrange, for: .normal)
     }
 }
 
@@ -200,21 +220,28 @@ extension RecipeViewController: UICollectionViewDataSource {
         switch indexPath.section {
         case 0:
             guard
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotRecipeCell.identifier, for: indexPath) as? HotRecipeCell
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotRecipeCell.identifier, for: indexPath)
+                    as? HotRecipeCell
             else { fatalError("Could not create hot recipe cell") }
             cell.layoutCell(with: hotRecipes[indexPath.item])
             return cell
 
         case 1:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecipeTypeCell.identifier, for: indexPath) as? RecipeTypeCell
+            guard
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecipeTypeCell.identifier, for: indexPath)
+                    as? RecipeTypeCell
             else { fatalError("Could not create hot recipe cell") }
             cell.delegate = self
             cell.typeButton.tag = indexPath.item
             cell.typeButton.setTitle(RecipeType.allCases[indexPath.item].rawValue, for: .normal)
+            cell.updateButtonColor()
+
             return cell
 
         default:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllRecipeCell.identifier, for: indexPath) as? AllRecipeCell
+            guard
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllRecipeCell.identifier, for: indexPath)
+                    as? AllRecipeCell
             else { fatalError("Could not create hot recipe cell") }
             cell.layoutCell(with: filterdRecipes[indexPath.item])
             return cell
@@ -274,7 +301,7 @@ extension RecipeViewController {
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
 
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.7), heightDimension: .fractionalWidth(0.6))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.7), heightDimension: .fractionalWidth(0.65))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
                 let section = NSCollectionLayoutSection(group: group)
@@ -291,7 +318,7 @@ extension RecipeViewController {
                 let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.25), heightDimension: .absolute(65))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.22), heightDimension: .absolute(65))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
                 group.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
 

@@ -30,15 +30,6 @@ class ResultViewController: UIViewController {
         setUpCollectionView()
         title = Constant.searchResult
         setUpUI()
-
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.darkBrown as Any
-        ]
-        barAppearance.shadowColor = nil
-        barAppearance.backgroundColor = UIColor.lightOrange
-        navigationItem.scrollEdgeAppearance = barAppearance
-        navigationItem.standardAppearance = barAppearance
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -99,7 +90,7 @@ class ResultViewController: UIViewController {
             )
             as? NewRecipeViewController
         else { fatalError("Could not create new recipe VC") }
-        present(newRecipeVC, animated: true)
+        navigationController?.pushViewController(newRecipeVC, animated: true)
     }
 }
 

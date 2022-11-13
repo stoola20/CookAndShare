@@ -25,7 +25,7 @@ class PublicPostHeaderView: UICollectionReusableView {
     }
 
     func setUpUI() {
-        recipeButton.tintColor = UIColor.myGreen
+        recipeButton.tintColor = UIColor.myOrange
         shareButton.tintColor = UIColor.gray
     }
 

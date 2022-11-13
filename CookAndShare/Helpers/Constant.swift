@@ -82,7 +82,9 @@ struct Constant {
     static let confirm = "確認"
 
     // user
-    static let userId = "V4hMTRjOK5jOFfdB15KU"
+    static let userId = "cCV8vxF2v9DlUyfgfRwg"
+    // V4hMTRjOK5jOFfdB15KU 勳
+    // cCV8vxF2v9DlUyfgfRwg 測試帳號
     static let recipesId = "recipesId"
     static let savedRecipesId = "savedRecipesId"
     static let sharesId = "sharesId"

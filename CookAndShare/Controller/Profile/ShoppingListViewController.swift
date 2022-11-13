@@ -23,13 +23,6 @@ class ShoppingListViewController: UIViewController {
         title = "採買清單"
         let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addItem))
         navigationItem.rightBarButtonItem = addButton
-
-        let barAppearance = UINavigationBarAppearance()
-        barAppearance.titleTextAttributes = [.foregroundColor: UIColor.darkBrown]
-        barAppearance.shadowColor = nil
-        barAppearance.backgroundColor = UIColor.lightOrange
-        navigationItem.scrollEdgeAppearance = barAppearance
-        navigationItem.standardAppearance = barAppearance
     }
 
     override func viewWillAppear(_ animated: Bool) {

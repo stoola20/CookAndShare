@@ -22,6 +22,7 @@ class DetailBannerCell: UITableViewCell {
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var postTimeLabel: UILabel!
     @IBOutlet weak var storyLabel: UILabel!
 
     override func awakeFromNib() {
@@ -41,7 +42,9 @@ class DetailBannerCell: UITableViewCell {
         titleLabel.textColor = UIColor.darkBrown
         durationLabel.textColor = UIColor.darkBrown
         authorLabel.textColor = UIColor.darkBrown
-        authorLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        authorLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        postTimeLabel.textColor = UIColor.myOrange
+        postTimeLabel.font = UIFont.systemFont(ofSize: 16)
         storyLabel.textColor = UIColor.darkBrown
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
     }
@@ -71,6 +74,7 @@ class DetailBannerCell: UITableViewCell {
         titleLabel.text = recipe.title
         durationLabel.text = "⌛️ \(recipe.cookDuration) 分鐘"
         authorLabel.text = recipe.authorId
+        postTimeLabel.text = Date.getChatRoomTimeString(from: Date(timeIntervalSince1970: Double(recipe.time.seconds)))
         storyLabel.text = recipe.description
     }
 }
