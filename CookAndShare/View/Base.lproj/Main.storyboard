@@ -10,7 +10,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="d8o-bE-4NY">
             <objects>
-                <tabBarController id="77E-3u-cuD" sceneMemberID="viewController">
+                <tabBarController id="77E-3u-cuD" customClass="TabBarController" customModule="CookAndShare" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XMj-KN-Epu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

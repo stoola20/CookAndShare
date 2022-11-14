@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 enum ProfileCategory: String, CaseIterable {
     case save = "我的收藏"
@@ -110,6 +111,13 @@ extension ProfileViewController: UITableViewDelegate {
             else { fatalError("Could not instantiate ShoppingListViewController") }
             savedRecipeVC.savedRecipsId = user.savedRecipesId
             navigationController?.pushViewController(savedRecipeVC, animated: true)
+        } else if indexPath == IndexPath(row: 3, section: 1) {
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+            } catch let signOutError as NSError {
+                print("Error signing out: %@", signOutError)
+            }
         }
     }
 }

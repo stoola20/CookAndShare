@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3707F48A29227AD900618458 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3707F48929227AD900618458 /* LoginViewController.swift */; };
+		3707F48E29227BF400618458 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3707F48D29227BF400618458 /* TabBarController.swift */; };
 		370B1FFA291A27E50092F502 /* TranslationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370B1FF9291A27E50092F502 /* TranslationAPI.swift */; };
 		370B1FFC291A291E0092F502 /* TranslationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370B1FFB291A291E0092F502 /* TranslationManager.swift */; };
 		370B2000291A5C5B0092F502 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 370B1FFF291A5C5B0092F502 /* Entitlements.plist */; };
@@ -129,6 +131,8 @@
 
 /* Begin PBXFileReference section */
 		2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookAndShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3707F48929227AD900618458 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		3707F48D29227BF400618458 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		370B1FF9291A27E50092F502 /* TranslationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationAPI.swift; sourceTree = "<group>"; };
 		370B1FFB291A291E0092F502 /* TranslationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationManager.swift; sourceTree = "<group>"; };
 		370B1FFD291A48810092F502 /* CookAndShareRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CookAndShareRelease.entitlements; sourceTree = "<group>"; };
@@ -491,6 +495,8 @@
 				37D69C85290C0D190034D8E1 /* NewPost */,
 				37D69C86290C0D1F0034D8E1 /* Map */,
 				37D69C87290C0D240034D8E1 /* Profile */,
+				3707F48929227AD900618458 /* LoginViewController.swift */,
+				3707F48D29227BF400618458 /* TabBarController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -869,6 +875,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3707F48A29227AD900618458 /* LoginViewController.swift in Sources */,
 				37D69CC5290D48790034D8E1 /* FirestoreManager.swift in Sources */,
 				37E63622290E4DD500D516D4 /* RecipeTypeCell.swift in Sources */,
 				3787537F290F9A4000F06F4C /* ProfileUserCell.swift in Sources */,
@@ -893,6 +900,7 @@
 				37D7C1A329135215005B8781 /* GoogleMapDataProvider.swift in Sources */,
 				3787538A290FA61C00F06F4C /* AddToShoppingListVC.swift in Sources */,
 				37D69CBE290CE49B0034D8E1 /* NewRecipeHeaderView.swift in Sources */,
+				3707F48E29227BF400618458 /* TabBarController.swift in Sources */,
 				37D69C80290BDF880034D8E1 /* Conversation.swift in Sources */,
 				37E6361B290E496300D516D4 /* HotRecipeCell.swift in Sources */,
 				37D69C82290BEBBA0034D8E1 /* RecipeViewController.swift in Sources */,
@@ -1136,7 +1144,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CookAndShare/CookAndShare.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
@@ -1148,6 +1156,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1157,7 +1166,7 @@
 				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Cook And Share Distribution Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "Sign In";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1171,7 +1180,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CookAndShare/CookAndShareRelease.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
@@ -1183,6 +1192,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1192,7 +1202,7 @@
 				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Cook And Share Distribution Profile";
+				PROVISIONING_PROFILE_SPECIFIER = "Sign In";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
