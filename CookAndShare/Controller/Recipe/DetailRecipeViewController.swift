@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 enum DetailRecipeSection: CaseIterable {
     case banner
@@ -89,18 +90,36 @@ class DetailRecipeViewController: UIViewController {
     }
 
     @IBAction func saveRecipe(_ sender: UIButton) {
-        guard let recipe = recipe else { return }
-        firestoreManager.updateRecipeSaves(recipeId: recipe.recipeId, userId: Constant.userId, hasSaved: hasSaved)
-        firestoreManager.updateUserSaves(recipeId: recipe.recipeId, userId: Constant.userId, hasSaved: hasSaved)
-        hasSaved.toggle()
-        updateSaveButton()
+        if Auth.auth().currentUser == nil {
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            guard
+                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
+                    as? LoginViewController
+            else { fatalError("Could not create loginVC") }
+            present(loginVC, animated: true)
+        } else {
+            guard let recipe = recipe else { return }
+            firestoreManager.updateRecipeSaves(recipeId: recipe.recipeId, userId: Constant.userId, hasSaved: hasSaved)
+            firestoreManager.updateUserSaves(recipeId: recipe.recipeId, userId: Constant.userId, hasSaved: hasSaved)
+            hasSaved.toggle()
+            updateSaveButton()
+        }
     }
 
     @IBAction func likeRecipe(_ sender: UIButton) {
-        guard let recipe = recipe else { return }
-        firestoreManager.updateRecipeLikes(recipeId: recipe.recipeId, userId: Constant.userId, hasLiked: hasLiked)
-        hasLiked.toggle()
-        updateLikeButton()
+        if Auth.auth().currentUser == nil {
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            guard
+                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
+                    as? LoginViewController
+            else { fatalError("Could not create loginVC") }
+            present(loginVC, animated: true)
+        } else {
+            guard let recipe = recipe else { return }
+            firestoreManager.updateRecipeLikes(recipeId: recipe.recipeId, userId: Constant.userId, hasLiked: hasLiked)
+            hasLiked.toggle()
+            updateLikeButton()
+        }
     }
 
     @IBAction func backToLobby(_ sender: UIButton) {
@@ -170,14 +189,23 @@ extension DetailRecipeViewController: UITableViewDelegate {
 
 extension DetailRecipeViewController: DetailRecipeHeaderViewDelegate {
     func willAddIngredient() {
-        let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
-        guard
-            let addToListVC = storyboard.instantiateViewController(withIdentifier: String(describing: AddToShoppingListVC.self))
-            as? AddToShoppingListVC,
-            let recipe = recipe
-        else { fatalError("Could not create AddToShoppingListVC") }
-        addToListVC.initialIngredients = recipe.ingredients
-        present(addToListVC, animated: true)
+        if Auth.auth().currentUser == nil {
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            guard
+                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
+                    as? LoginViewController
+            else { fatalError("Could not create loginVC") }
+            present(loginVC, animated: true)
+        } else {
+            let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
+            guard
+                let addToListVC = storyboard.instantiateViewController(withIdentifier: String(describing: AddToShoppingListVC.self))
+                    as? AddToShoppingListVC,
+                let recipe = recipe
+            else { fatalError("Could not create AddToShoppingListVC") }
+            addToListVC.initialIngredients = recipe.ingredients
+            present(addToListVC, animated: true)
+        }
     }
 }
 

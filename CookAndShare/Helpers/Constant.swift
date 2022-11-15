@@ -103,7 +103,11 @@ struct Constant {
     static let friedRice = "friedRice"
 
     static func getUserId() -> String {
-        guard let userId = Auth.auth().currentUser?.uid else { return "" }
+        print("===")
+        guard let userId = Auth.auth().currentUser?.uid else {
+            print("---")
+            return ""
+        }
         return userId
     }
 }

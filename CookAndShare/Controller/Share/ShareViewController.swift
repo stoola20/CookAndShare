@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ShareViewController: UIViewController {
     let firestoreManager = FirestoreManager.shared
@@ -69,25 +70,43 @@ class ShareViewController: UIViewController {
     }
 
     @objc func addShare() {
-        let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
-        guard
-            let newShareVC = storyboard.instantiateViewController(
-                withIdentifier: String(describing: NewShareViewController.self)
-            )
-            as? NewShareViewController
-        else { fatalError("Could not create newShareVC") }
-        navigationController?.pushViewController(newShareVC, animated: true)
+        if Auth.auth().currentUser == nil {
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            guard
+                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
+                    as? LoginViewController
+            else { fatalError("Could not create loginVC") }
+            present(loginVC, animated: true)
+        } else {
+            let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
+            guard
+                let newShareVC = storyboard.instantiateViewController(
+                    withIdentifier: String(describing: NewShareViewController.self)
+                )
+                    as? NewShareViewController
+            else { fatalError("Could not create newShareVC") }
+            navigationController?.pushViewController(newShareVC, animated: true)
+        }
     }
 
     @objc func showMessage() {
-        let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
-        guard
-            let chatListVC = storyboard.instantiateViewController(
-                withIdentifier: String(describing: ChatListViewController.self)
-            )
-            as? ChatListViewController
-        else { fatalError("Could not create ChatListViewController") }
-        navigationController?.pushViewController(chatListVC, animated: true)
+        if Auth.auth().currentUser == nil {
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            guard
+                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
+                    as? LoginViewController
+            else { fatalError("Could not create loginVC") }
+            present(loginVC, animated: true)
+        } else {
+            let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
+            guard
+                let chatListVC = storyboard.instantiateViewController(
+                    withIdentifier: String(describing: ChatListViewController.self)
+                )
+                    as? ChatListViewController
+            else { fatalError("Could not create ChatListViewController") }
+            navigationController?.pushViewController(chatListVC, animated: true)
+        }
     }
 }
 

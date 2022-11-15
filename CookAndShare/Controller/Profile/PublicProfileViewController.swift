@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class PublicProfileViewController: UIViewController {
     var userId = String.empty
@@ -211,14 +212,23 @@ extension PublicProfileViewController: PublicPostHeaderViewDelegate {
 
 extension PublicProfileViewController: PublicProfileHeaderCellDelegate {
     func presentChatRoom() {
-        let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
-        guard
-            let chatRoomVC = storyboard.instantiateViewController(withIdentifier: String(describing: ChatRoomViewController.self))
-                as? ChatRoomViewController,
-            let user = user
-        else { fatalError("Could not instantiate chatRoomVC") }
-        chatRoomVC.title = user.name
-        chatRoomVC.friend = user
-        navigationController?.pushViewController(chatRoomVC, animated: true)
+        if Auth.auth().currentUser == nil {
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            guard
+                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
+                    as? LoginViewController
+            else { fatalError("Could not create loginVC") }
+            present(loginVC, animated: true)
+        } else {
+            let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
+            guard
+                let chatRoomVC = storyboard.instantiateViewController(withIdentifier: String(describing: ChatRoomViewController.self))
+                    as? ChatRoomViewController,
+                let user = user
+            else { fatalError("Could not instantiate chatRoomVC") }
+            chatRoomVC.title = user.name
+            chatRoomVC.friend = user
+            navigationController?.pushViewController(chatRoomVC, animated: true)
+        }
     }
 }

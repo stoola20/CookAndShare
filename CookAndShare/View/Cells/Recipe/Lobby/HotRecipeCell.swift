@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class HotRecipeCell: UICollectionViewCell {
 
@@ -16,6 +17,7 @@ class HotRecipeCell: UICollectionViewCell {
     @IBOutlet weak var storeButton: UIButton!
     @IBOutlet weak var heartImageView: UIImageView!
     @IBOutlet weak var containerView: UIView!
+    weak var viewController: UIViewController?
     var hasSaved = false
     var recipeId = String.empty
     let firestoreManager = FirestoreManager.shared
@@ -63,9 +65,18 @@ class HotRecipeCell: UICollectionViewCell {
     }
 
     @IBAction func storeRecipe(_ sender: UIButton) {
-        firestoreManager.updateRecipeSaves(recipeId: recipeId, userId: Constant.userId, hasSaved: hasSaved)
-        firestoreManager.updateUserSaves(recipeId: recipeId, userId: Constant.userId, hasSaved: hasSaved)
-        hasSaved.toggle()
-        updateButton()
+        if Auth.auth().currentUser == nil {
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            guard
+                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
+                    as? LoginViewController
+            else { fatalError("Could not create loginVC") }
+            viewController?.present(loginVC, animated: true)
+        } else {
+            firestoreManager.updateRecipeSaves(recipeId: recipeId, userId: Constant.userId, hasSaved: hasSaved)
+            firestoreManager.updateUserSaves(recipeId: recipeId, userId: Constant.userId, hasSaved: hasSaved)
+            hasSaved.toggle()
+            updateButton()
+        }
     }
 }

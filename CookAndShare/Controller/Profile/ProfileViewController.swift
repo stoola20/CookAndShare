@@ -118,7 +118,6 @@ extension ProfileViewController: UITableViewDelegate {
             navigationController?.pushViewController(savedRecipeVC, animated: true)
         } else if indexPath == IndexPath(row: 2, section: 1) {
             do {
-                UserDefaults.standard.removeObject(forKey: "userId")
                 try Auth.auth().signOut()
             } catch let signOutError as NSError {
                 print("Error signing out: %@", signOutError)

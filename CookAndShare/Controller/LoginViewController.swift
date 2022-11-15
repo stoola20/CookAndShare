@@ -127,8 +127,6 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 
                 // User is signed in to Firebase with Apple.
                 guard let authResult = authResult else { return }
-                UserDefaults.standard.set(authResult.user.uid, forKey: "userId")
-                print("===1")
                 self.firestoreManager.isNewUser(id: authResult.user.uid) { result in
                     switch result {
                     case .success(let isNewUser):
@@ -168,6 +166,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                     arrayChildViewControllers?.replaceSubrange(selectedTabIndex...selectedTabIndex, with: [navigationVC])
                 }
                 self.tabBarController?.viewControllers = arrayChildViewControllers
+                self.dismiss(animated: true)
             }
         }
     }
