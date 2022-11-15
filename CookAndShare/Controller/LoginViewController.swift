@@ -12,6 +12,7 @@ import CryptoKit
 
 class LoginViewController: UIViewController {
     private var currentNonce: String?
+    let firestoreManager = FirestoreManager.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,11 +22,11 @@ class LoginViewController: UIViewController {
     // MARK: - 在畫面上產生 Sign in with Apple 按鈕
     func setSignInWithAppleBtn() {
         let signInWithAppleBtn = ASAuthorizationAppleIDButton(
-            authorizationButtonType: .signIn,
+            authorizationButtonType: .continue,
             authorizationButtonStyle: .black
         )
         view.addSubview(signInWithAppleBtn)
-        signInWithAppleBtn.cornerRadius = 20
+        signInWithAppleBtn.cornerRadius = 10
         signInWithAppleBtn.addTarget(self, action: #selector(signInWithApple), for: .touchUpInside)
         signInWithAppleBtn.translatesAutoresizingMaskIntoConstraints = false
         signInWithAppleBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -92,15 +93,15 @@ class LoginViewController: UIViewController {
 
         return hashString
     }
+
+    @IBAction func cancel(_ sender: UIButton) {
+        self.dismiss(animated: true)
+    }
 }
 
 extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            print("user: \(appleIDCredential.user)")
-            print("fullName: \(String(describing: appleIDCredential.fullName))")
-            print("Email: \(String(describing: appleIDCredential.email))")
-            print("realUserStatus: \(String(describing: appleIDCredential.realUserStatus))")
 
             guard let nonce = currentNonce else {
                 fatalError("Invalid state: A login callback was received, but no login request was sent.")
@@ -114,28 +115,51 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 return
             }
 
-            print("nonce: \(nonce)")
-            print("appleIDToken: \(appleIDToken)")
-            print("idTokenString: \(idTokenString)")
             // Initialize a Firebase credential.
             let credential = OAuthProvider.credential(
                 withProviderID: "apple.com",
                 idToken: idTokenString,
                 rawNonce: nonce
             )
+
             // Sign in with Firebase.
-            Auth.auth().signIn(with: credential) { _, error in
+            Auth.auth().signIn(with: credential) { authResult, error in
                 if error != nil {
-                    // Error. If error.code == .MissingOrInvalidNonce, make sure
-                    // you're sending the SHA256-hashed nonce as a hex string with
-                    // your request to Apple.
                     guard let error = error else { return }
                     print(error.localizedDescription)
                     return
                 }
+
                 // User is signed in to Firebase with Apple.
-                // ...
+                guard let authResult = authResult else { return }
+                Constant.userId = authResult.user.uid
+                self.firestoreManager.isNewUser(id: authResult.user.uid) { result in
+                    switch result {
+                    case .success(let isNewUser):
+                        if isNewUser {
+                            guard let fullName = appleIDCredential.fullName else { return }
+                            if let fcmToken: String = UserDefaults.standard.object(forKey: "fcmToken") as? String {
+                                let user = User(
+                                    id: authResult.user.uid,
+                                    name: "\(fullName.familyName ?? "")\(fullName.givenName ?? "")",
+                                    email: authResult.user.email ?? "",
+                                    imageURL: authResult.user.photoURL?.absoluteString ?? "",
+                                    fcmToken: fcmToken,
+                                    recipesId: [],
+                                    savedRecipesId: [],
+                                    sharesId: [],
+                                    conversationId: []
+                                )
+                                self.firestoreManager.createUser(id: authResult.user.uid, user: user)
+                            }
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+
                 print("成功以 Apple 登入 Firebase")
+                self.dismiss(animated: true)
             }
         }
     }

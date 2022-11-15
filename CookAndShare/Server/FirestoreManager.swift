@@ -221,6 +221,28 @@ struct FirestoreManager {
     }
 
 // MARK: - User
+    func createUser(id: String, user: User) {
+        do {
+            try usersCollection.document(id).setData(from: user)
+            print("Document added with ID: \(id)")
+        } catch let error {
+            print("Error adding document: \(error)")
+        }
+    }
+
+    func isNewUser(id: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+        usersCollection.document(id).getDocument { document, _ in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                print("Document data: \(dataDescription)")
+                completion(.success(false))
+            } else {
+                print("Document does not exist")
+                completion(.success(true))
+            }
+        }
+    }
+
     func updateUserRecipePost(recipeId: String, userId: String) {
         let userRef = usersCollection.document(userId)
         userRef.updateData([

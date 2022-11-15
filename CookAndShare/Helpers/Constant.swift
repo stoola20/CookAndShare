@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 struct Constant {
     // CoreData
@@ -82,7 +83,7 @@ struct Constant {
     static let confirm = "確認"
 
     // user
-    static let userId = "cCV8vxF2v9DlUyfgfRwg"
+    static var userId = ""
     // V4hMTRjOK5jOFfdB15KU 勳
     // cCV8vxF2v9DlUyfgfRwg 測試帳號
     static let recipesId = "recipesId"

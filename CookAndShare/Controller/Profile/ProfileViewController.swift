@@ -114,6 +114,8 @@ extension ProfileViewController: UITableViewDelegate {
         } else if indexPath == IndexPath(row: 3, section: 1) {
             let firebaseAuth = Auth.auth()
             do {
+                print("sign out uid : \(firebaseAuth.currentUser?.uid)")
+                print("sign out email : \(firebaseAuth.currentUser?.email)")
                 try firebaseAuth.signOut()
             } catch let signOutError as NSError {
                 print("Error signing out: %@", signOutError)

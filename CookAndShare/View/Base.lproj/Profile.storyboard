@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -67,14 +68,27 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loginBackground" translatesAutoresizingMaskIntoConstraints="NO" id="sDb-ZA-kHc">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hst-Fl-dPF">
+                                <rect key="frame" x="24" y="68" width="64" height="44"/>
+                                <color key="tintColor" name="DarkBrown"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="xmark.octagon.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="25"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="cancel:" destination="SVu-KN-IYE" eventType="touchUpInside" id="Ky7-jV-eRa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="49p-tT-CD3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="sDb-ZA-kHc" secondAttribute="bottom" id="1gW-W1-CFL"/>
                             <constraint firstItem="sDb-ZA-kHc" firstAttribute="top" secondItem="cak-pe-FYu" secondAttribute="top" id="FWB-rg-gwj"/>
+                            <constraint firstItem="Hst-Fl-dPF" firstAttribute="leading" secondItem="49p-tT-CD3" secondAttribute="leading" constant="24" id="gEf-RP-Obj"/>
                             <constraint firstItem="sDb-ZA-kHc" firstAttribute="leading" secondItem="49p-tT-CD3" secondAttribute="leading" id="iR4-nw-NC7"/>
                             <constraint firstItem="sDb-ZA-kHc" firstAttribute="trailing" secondItem="49p-tT-CD3" secondAttribute="trailing" id="nON-P0-VM1"/>
+                            <constraint firstItem="Hst-Fl-dPF" firstAttribute="top" secondItem="49p-tT-CD3" secondAttribute="top" constant="24" id="uK7-zK-KZj"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -192,6 +206,10 @@
     </scenes>
     <resources>
         <image name="loginBackground" width="1872" height="2496"/>
+        <image name="xmark.octagon.fill" catalog="system" width="128" height="112"/>
+        <namedColor name="DarkBrown">
+            <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
