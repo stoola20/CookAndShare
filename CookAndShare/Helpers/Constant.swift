@@ -12,13 +12,13 @@ struct Constant {
     // CoreData
     static let modelName = "CookAndShare"
     static let entityName = "ShoppingList"
-    
+
     // firestore
     static let firestoreRecipes = "recipes"
     static let firestoreUsers = "users"
     static let firestoreShares = "shares"
     static let firestoreConversations = "conversations"
-    
+
     // storyboard
     static let newpost = "NewPost"
     static let recipe = "Recipe"
@@ -45,7 +45,7 @@ struct Constant {
     static let procedureStep1 = "將洋蔥及紅蘿蔔拌炒至熟透"
     static let procedureStep2 = "加入雞腿肉翻炒"
     static let procedureStep3 = "加水煮滾"
-    
+
     // share
     static let shareTitle = "好市多蔬菜湯罐頭"
     static let shareDesription = "兩罐蔬菜湯"
@@ -103,12 +103,7 @@ struct Constant {
     static let friedRice = "friedRice"
 
     static func getUserId() -> String {
-        guard
-            let userId = UserDefaults.standard.object(forKey: "userId")
-                as? String
-        else {
-            return ""
-        }
+        guard let userId = Auth.auth().currentUser?.uid else { return "" }
         return userId
     }
 }

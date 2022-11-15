@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
         signInWithAppleBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
         signInWithAppleBtn.widthAnchor.constraint(equalToConstant: 280).isActive = true
         signInWithAppleBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        signInWithAppleBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70).isActive = true
+        signInWithAppleBtn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -70).isActive = true
     }
 
     @objc func signInWithApple() {
@@ -93,10 +93,6 @@ class LoginViewController: UIViewController {
 
         return hashString
     }
-
-    @IBAction func cancel(_ sender: UIButton) {
-        self.dismiss(animated: true)
-    }
 }
 
 extension LoginViewController: ASAuthorizationControllerDelegate {
@@ -132,6 +128,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 // User is signed in to Firebase with Apple.
                 guard let authResult = authResult else { return }
                 UserDefaults.standard.set(authResult.user.uid, forKey: "userId")
+                print("===1")
                 self.firestoreManager.isNewUser(id: authResult.user.uid) { result in
                     switch result {
                     case .success(let isNewUser):
@@ -158,7 +155,19 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 }
 
                 print("成功以 Apple 登入 Firebase")
-                self.dismiss(animated: true)
+                let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+                guard
+                    let profileVC = storyboard.instantiateViewController(withIdentifier: String(describing: ProfileViewController.self))
+                        as? ProfileViewController
+                else { fatalError("Could not instantiate profileVC") }
+                let navigationVC = UINavigationController(rootViewController: profileVC)
+                navigationVC.tabBarItem = UITabBarItem(title: "個人", image: UIImage(systemName: "person.circle"), tag: 3)
+                navigationVC.navigationBar.tintColor = UIColor.darkBrown
+                var arrayChildViewControllers = self.tabBarController?.viewControllers
+                if let selectedTabIndex = self.tabBarController?.selectedIndex {
+                    arrayChildViewControllers?.replaceSubrange(selectedTabIndex...selectedTabIndex, with: [navigationVC])
+                }
+                self.tabBarController?.viewControllers = arrayChildViewControllers
             }
         }
     }

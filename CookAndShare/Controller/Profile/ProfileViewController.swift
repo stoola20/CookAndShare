@@ -117,14 +117,24 @@ extension ProfileViewController: UITableViewDelegate {
             savedRecipeVC.savedRecipsId = user.savedRecipesId
             navigationController?.pushViewController(savedRecipeVC, animated: true)
         } else if indexPath == IndexPath(row: 2, section: 1) {
-            let firebaseAuth = Auth.auth()
             do {
-                print("sign out uid : \(firebaseAuth.currentUser?.uid)")
-                print("sign out email : \(firebaseAuth.currentUser?.email)")
-                try firebaseAuth.signOut()
+                UserDefaults.standard.removeObject(forKey: "userId")
+                try Auth.auth().signOut()
             } catch let signOutError as NSError {
                 print("Error signing out: %@", signOutError)
             }
+
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            guard
+                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
+                    as? LoginViewController
+            else { fatalError("Could not instantiate LoginViewController") }
+            loginVC.tabBarItem = UITabBarItem(title: "個人", image: UIImage(systemName: "person.circle"), tag: 3)
+            var arrayChildViewControllers = self.tabBarController?.viewControllers
+            if let selectedTabIndex = tabBarController?.selectedIndex {
+                arrayChildViewControllers?.replaceSubrange(selectedTabIndex...selectedTabIndex, with: [loginVC])
+            }
+            self.tabBarController?.viewControllers = arrayChildViewControllers
         }
     }
 }
@@ -133,7 +143,7 @@ extension ProfileViewController: ProfileUserCellDelegate {
     func willEditName() {
         let alert = UIAlertController(title: "請輸入暱稱", message: nil, preferredStyle: .alert)
         alert.addTextField()
-        let okAction = UIAlertAction(title: Constant.confirm, style: .default, handler: { action in
+        let okAction = UIAlertAction(title: Constant.confirm, style: .default) { _ in
             guard
                 let name = alert.textFields?[0].text,
                 !name.isEmpty,
@@ -141,7 +151,7 @@ extension ProfileViewController: ProfileUserCellDelegate {
             else { return }
             self.firestoreManager.updateUserName(userId: Constant.userId, name: name)
             cell.userName.text = name
-        })
+        }
         let cancelAction = UIAlertAction(title: Constant.cancel, style: .cancel, handler: nil)
         alert.addAction(okAction)
         alert.addAction(cancelAction)
