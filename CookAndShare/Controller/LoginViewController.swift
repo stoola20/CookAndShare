@@ -102,7 +102,6 @@ class LoginViewController: UIViewController {
 extension LoginViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-
             guard let nonce = currentNonce else {
                 fatalError("Invalid state: A login callback was received, but no login request was sent.")
             }
@@ -132,7 +131,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 
                 // User is signed in to Firebase with Apple.
                 guard let authResult = authResult else { return }
-                Constant.userId = authResult.user.uid
+                UserDefaults.standard.set(authResult.user.uid, forKey: "userId")
                 self.firestoreManager.isNewUser(id: authResult.user.uid) { result in
                     switch result {
                     case .success(let isNewUser):

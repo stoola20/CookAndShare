@@ -243,6 +243,14 @@ struct FirestoreManager {
         }
     }
 
+    func updateUserName(userId: String, name: String) {
+        usersCollection.document(userId).setData(["name": name], merge: true)
+    }
+
+    func updateUserPhoto(userId: String, imageURL: String) {
+        usersCollection.document(userId).setData(["imageURL": imageURL], merge: true)
+    }
+
     func updateUserRecipePost(recipeId: String, userId: String) {
         let userRef = usersCollection.document(userId)
         userRef.updateData([
