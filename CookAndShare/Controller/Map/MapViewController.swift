@@ -13,7 +13,7 @@ class MapViewController: UIViewController {
     private let dataProvider = GoogleMapDataProvider.shared
     private let locationManager = CLLocationManager()
     private var location = CLLocation()
-    private var keyword = "超市|市場"
+    private var keyword = "market|supermarket"
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var marketButton: UIButton!
     @IBOutlet weak var foodBankButton: UIButton!

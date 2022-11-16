@@ -8,13 +8,13 @@
 import Foundation
 
 struct User: Codable, Hashable {
-    let id: String
-    let name: String
-    let email: String
-    let imageURL: String
-    let fcmToken: String
-    let recipesId: [String]
-    let savedRecipesId: [String]
-    let sharesId: [String]
-    let conversationId: [String]
+    var id = String.empty
+    var name = String.empty
+    var email = String.empty
+    var imageURL = String.empty
+    var fcmToken = String.empty
+    var recipesId: [String] = []
+    var savedRecipesId: [String] = []
+    var sharesId: [String] = []
+    var conversationId: [String] = []
 }

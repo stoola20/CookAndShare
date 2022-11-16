@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 enum RecipeSection: String, CaseIterable {
     case hot = "熱門食譜🔥"
@@ -88,12 +89,21 @@ class RecipeViewController: UIViewController {
     }
 
     @objc func addRecipe() {
-        let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
-        guard let newpostVC = storyboard.instantiateViewController(
-            withIdentifier: String(describing: NewRecipeViewController.self))
-                as? NewRecipeViewController
-        else { fatalError("Could not create newpostVC") }
-        navigationController?.pushViewController(newpostVC, animated: true)
+        if Auth.auth().currentUser == nil {
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            guard
+                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
+                    as? LoginViewController
+            else { fatalError("Could not create loginVC") }
+            present(loginVC, animated: true)
+        } else {
+            let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
+            guard let newpostVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: NewRecipeViewController.self))
+                    as? NewRecipeViewController
+            else { fatalError("Could not create newpostVC") }
+            navigationController?.pushViewController(newpostVC, animated: true)
+        }
     }
 
     func setUpCollectionView() {
@@ -223,6 +233,7 @@ extension RecipeViewController: UICollectionViewDataSource {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotRecipeCell.identifier, for: indexPath)
                     as? HotRecipeCell
             else { fatalError("Could not create hot recipe cell") }
+            cell.viewController = self
             cell.layoutCell(with: hotRecipes[indexPath.item])
             return cell
 
@@ -243,6 +254,7 @@ extension RecipeViewController: UICollectionViewDataSource {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AllRecipeCell.identifier, for: indexPath)
                     as? AllRecipeCell
             else { fatalError("Could not create hot recipe cell") }
+            cell.viewController = self
             cell.layoutCell(with: filterdRecipes[indexPath.item])
             return cell
         }

@@ -6,18 +6,19 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 struct Constant {
     // CoreData
     static let modelName = "CookAndShare"
     static let entityName = "ShoppingList"
-    
+
     // firestore
     static let firestoreRecipes = "recipes"
     static let firestoreUsers = "users"
     static let firestoreShares = "shares"
     static let firestoreConversations = "conversations"
-    
+
     // storyboard
     static let newpost = "NewPost"
     static let recipe = "Recipe"
@@ -44,7 +45,7 @@ struct Constant {
     static let procedureStep1 = "將洋蔥及紅蘿蔔拌炒至熟透"
     static let procedureStep2 = "加入雞腿肉翻炒"
     static let procedureStep3 = "加水煮滾"
-    
+
     // share
     static let shareTitle = "好市多蔬菜湯罐頭"
     static let shareDesription = "兩罐蔬菜湯"
@@ -82,9 +83,10 @@ struct Constant {
     static let confirm = "確認"
 
     // user
-    static let userId = "cCV8vxF2v9DlUyfgfRwg"
+    static var userId = getUserId()
     // V4hMTRjOK5jOFfdB15KU 勳
     // cCV8vxF2v9DlUyfgfRwg 測試帳號
+
     static let recipesId = "recipesId"
     static let savedRecipesId = "savedRecipesId"
     static let sharesId = "sharesId"
@@ -99,4 +101,13 @@ struct Constant {
     static let breakfast = "breakfast"
     static let chefMan = "chefMan"
     static let friedRice = "friedRice"
+
+    static func getUserId() -> String {
+        print("===")
+        guard let userId = Auth.auth().currentUser?.uid else {
+            print("---")
+            return ""
+        }
+        return userId
+    }
 }

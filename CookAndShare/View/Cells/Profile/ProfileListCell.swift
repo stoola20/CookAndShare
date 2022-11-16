@@ -8,7 +8,6 @@
 import UIKit
 
 class ProfileListCell: UITableViewCell {
-    
     @IBOutlet weak var smallImageView: UIImageView!
     @IBOutlet weak var listLabel: UILabel!
     
@@ -26,9 +25,6 @@ class ProfileListCell: UITableViewCell {
             listLabel.textColor = UIColor.darkBrown
         case .shoppingList:
             smallImageView.image = UIImage(systemName: "list.bullet")
-            listLabel.textColor = UIColor.darkBrown
-        case .setting:
-            smallImageView.image = UIImage(systemName: "gear")
             listLabel.textColor = UIColor.darkBrown
         case .logout:
             smallImageView.image = UIImage(systemName: "rectangle.portrait.and.arrow.right")
