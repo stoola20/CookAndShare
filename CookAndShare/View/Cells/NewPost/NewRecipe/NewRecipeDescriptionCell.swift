@@ -51,6 +51,7 @@ class NewRecipeDescriptionCell: UITableViewCell {
             durationPicker.tag = 1
             durationTextField.inputView = durationPicker
             durationTextField.delegate = self
+            durationTextField.text = "10"
         }
     }
     @IBOutlet weak var quantityTextField: UITextField! {
@@ -61,6 +62,7 @@ class NewRecipeDescriptionCell: UITableViewCell {
             quantityPicker.tag = 2
             quantityTextField.inputView = quantityPicker
             quantityTextField.delegate = self
+            quantityTextField.text = "1"
         }
     }
 

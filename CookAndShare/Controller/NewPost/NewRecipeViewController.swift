@@ -103,13 +103,24 @@ class NewRecipeViewController: UIViewController {
     }
 
     @IBAction func postRecipe(_ sender: UIButton) {
-        let document = firestoreManager.recipesCollection.document()
-        recipe.recipeId = document.documentID
-        recipe.authorId = Constant.userId
-        recipe.time = Timestamp(date: Date())
-        firestoreManager.addNewRecipe(recipe, to: document)
-        firestoreManager.updateUserRecipePost(recipeId: document.documentID, userId: Constant.userId)
-        navigationController?.popViewController(animated: true)
+        if recipe.title.isEmpty || recipe.mainImageURL.isEmpty || recipe.ingredients.isEmpty || recipe.procedures.isEmpty {
+            let alert = UIAlertController(
+                title: "請檢查下列欄位是否為空白：",
+                message: "1. 食譜主圖\n2. 食譜名稱\n3. 食材\n4. 步驟",
+                preferredStyle: .alert
+            )
+            let okAction = UIAlertAction(title: "了解", style: .cancel)
+            alert.addAction(okAction)
+            present(alert, animated: true)
+        } else {
+            let document = firestoreManager.recipesCollection.document()
+            recipe.recipeId = document.documentID
+            recipe.authorId = Constant.userId
+            recipe.time = Timestamp(date: Date())
+            firestoreManager.addNewRecipe(recipe, to: document)
+            firestoreManager.updateUserRecipePost(recipeId: document.documentID, userId: Constant.userId)
+            navigationController?.popViewController(animated: true)
+        }
     }
 }
 

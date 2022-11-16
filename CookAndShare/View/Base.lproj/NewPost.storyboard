@@ -171,8 +171,8 @@
                                                     <color key="textColor" name="DarkBrown"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="貼文下架日期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLG-mh-R02">
-                                                    <rect key="frame" x="24" y="-108" width="104" height="0.0"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="預計貼文下架日期（系統會自動替您刪除貼文）" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLG-mh-R02">
+                                                    <rect key="frame" x="24" y="-108" width="366" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="DarkBrown"/>
                                                     <nil key="highlightedColor"/>
@@ -213,6 +213,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="npx-8w-BIt" secondAttribute="trailing" constant="24" id="31y-G8-cDS"/>
                                                 <constraint firstItem="npx-8w-BIt" firstAttribute="leading" secondItem="IXP-bv-y8u" secondAttribute="leading" constant="24" id="5PZ-Mx-ZLv"/>
+                                                <constraint firstAttribute="trailing" secondItem="rLG-mh-R02" secondAttribute="trailing" constant="24" id="6aE-DK-j5E"/>
                                                 <constraint firstAttribute="trailing" secondItem="M63-qJ-DOG" secondAttribute="trailing" constant="24" id="6fD-KJ-g1X"/>
                                                 <constraint firstItem="gDd-TN-g9K" firstAttribute="top" secondItem="IXP-bv-y8u" secondAttribute="top" constant="20" id="6pq-Jk-gXg"/>
                                                 <constraint firstAttribute="trailing" secondItem="GdU-ol-DtO" secondAttribute="trailing" constant="24" id="7ct-SK-MuB"/>
@@ -277,7 +278,7 @@
     </scenes>
     <color key="tintColor" name="DarkBrown"/>
     <resources>
-        <image name="takePhoto" width="512" height="512"/>
+        <image name="takePhoto" width="256" height="256"/>
         <namedColor name="DarkBrown">
             <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
