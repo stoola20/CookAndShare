@@ -83,7 +83,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        completionHandler()
 //    }
 //
-    // 讓 App 在前景也能顯示推播
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner])
-    }
