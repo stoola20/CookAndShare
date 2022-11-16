@@ -38,6 +38,7 @@ class NewRecipeProcedureCell: UITableViewCell {
         stepImageView.tintColor = UIColor.darkBrown
         deleteButton.tintColor = UIColor.darkBrown
         procedureImageView.layer.cornerRadius = 5
+        procedureImageView.contentMode = .scaleAspectFill
     }
 
     func setGestureRecognizer() -> UITapGestureRecognizer {
@@ -72,9 +73,11 @@ class NewRecipeProcedureCell: UITableViewCell {
 
     func passData() {
         guard let description = procedureTextField.text else { return }
-        delegate.didAddProcedure(self, description: description)
-        delegate.addProcedure()
-        deleteButton.isHidden = false
+        if !description.isEmpty {
+            delegate.didAddProcedure(self, description: description)
+            delegate.addProcedure()
+            deleteButton.isHidden = false
+        }
     }
 }
 

@@ -185,9 +185,11 @@ extension NewRecipeViewController: UITableViewDataSource {
 
             if indexPath.row < self.recipe.procedures.count {
                 cell.procedureTextField.text = self.recipe.procedures[indexPath.row].description
+                cell.procedureImageView.loadImage(self.recipe.procedures[indexPath.row].imageURL, placeHolder: UIImage(named: "takePhoto"))
                 cell.deleteButton.isHidden = false
             } else {
                 cell.procedureTextField.text = nil
+                cell.procedureImageView.image = UIImage(named: "takePhoto")
                 cell.deleteButton.isHidden = true
             }
             return cell
@@ -288,7 +290,6 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
     func didDelete(_ cell: NewRecipeProcedureCell) {
         numOfProcedures -= 1
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
-//        tableView.deleteRows(at: [indexPath], with: .left)
         tableView.reloadData()
         self.procedureDict.removeValue(forKey: indexPath.row)
 
@@ -309,29 +310,29 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
         }
         self.recipe.procedures = newProcedures
         self.procedureDict = newProcedureDict
-        print(self.procedureDict)
-        print(self.recipe.procedures)
     }
 
     func didAddProcedure(_ cell: NewRecipeProcedureCell, description: String) {
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
+        if indexPath.row > self.recipe.procedures.count - 1 {
+            procedureDict[indexPath.row] = Procedure(step: 0, description: description, imageURL: "")
+            var procedures: [Procedure] = []
+            let sortedDict = procedureDict.sorted { $0.key < $1.key }
+            sortedDict.forEach { _, value in
+                procedures.append(value)
+            }
 
-        procedureDict[indexPath.row] = Procedure(step: 0, description: description, imageURL: "")
-        print(self.procedureDict)
-        var procedures: [Procedure] = []
-        let sortedDict = procedureDict.sorted { $0.key < $1.key }
-        sortedDict.forEach { _, value in
-            procedures.append(value)
+            for index in 0..<procedures.count {
+                var procedure = procedures[index]
+                procedure.step = index
+                procedures[index] = procedure
+            }
+
+            self.recipe.procedures = procedures
+        } else {
+            self.procedureDict[indexPath.row]?.description = description
+            self.recipe.procedures[indexPath.row].description = description
         }
-
-        for index in 0..<procedures.count {
-            var procedure = procedures[index]
-            procedure.step = index
-            procedures[index] = procedure
-        }
-
-        self.recipe.procedures = procedures
-        print(self.recipe.procedures)
     }
 }
 
@@ -350,11 +351,28 @@ extension NewRecipeViewController: UIImagePickerControllerDelegate, UINavigation
                 if self.imageCell is NewRecipeDescriptionCell {
                     self.recipe.mainImageURL = url.absoluteString
                 } else if self.imageCell is NewRecipeProcedureCell {
-                    if indexPath.row >= self.recipe.procedures.count {
-                        
+                    if indexPath.row > self.recipe.procedures.count - 1 {
+                        var procedure = Procedure()
+                        procedure.imageURL = url.absoluteString
+                        self.procedureDict[indexPath.row] = procedure
+
+                        var procedures: [Procedure] = []
+                        let sortedDict = self.procedureDict.sorted { $0.key < $1.key }
+                        sortedDict.forEach { _, value in
+                            procedures.append(value)
+                        }
+
+                        for index in 0..<procedures.count {
+                            var procedure = procedures[index]
+                            procedure.step = index
+                            procedures[index] = procedure
+                        }
+
+                        self.recipe.procedures = procedures
+                    } else {
+                        self.recipe.procedures[indexPath.row].imageURL = url.absoluteString
+                        self.procedureDict[indexPath.row]?.imageURL = url.absoluteString
                     }
-                    self.recipe.procedures[indexPath.row].imageURL = url.absoluteString
-                    print("===\(self.recipe.procedures)")
                 }
             case .failure(let error):
                 print(error)
@@ -372,7 +390,6 @@ extension NewRecipeViewController: UIImagePickerControllerDelegate, UINavigation
                 guard let cell = self.tableView.cellForRow(at: indexPath) as? NewRecipeProcedureCell
                 else { fatalError("Wrong cell") }
                 cell.procedureImageView.image = userPickedImage
-                cell.procedureImageView.contentMode = .scaleAspectFill
             }
         }
         dismiss(animated: true)
