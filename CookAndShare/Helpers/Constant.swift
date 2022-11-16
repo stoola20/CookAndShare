@@ -47,8 +47,10 @@ struct Constant {
     static let procedureStep3 = "加水煮滾"
 
     // share
-    static let shareTitle = "好市多蔬菜湯罐頭"
-    static let shareDesription = "兩罐蔬菜湯"
+    static let shareTitle = "例：蔬菜湯罐頭"
+    static let shareDesription = "例：兩罐，購入自家樂福"
+    static let meetTime = "例：今天晚上 7 - 9 點"
+    static let meetPlace = "例：台北車站"
 
     // recipe
     static let addToShoppingList = "加入購買清單"

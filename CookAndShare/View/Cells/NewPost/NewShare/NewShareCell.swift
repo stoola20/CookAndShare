@@ -52,9 +52,11 @@ class NewShareCell: UITableViewCell {
         descriptionTextField.delegate = self
         meetTimeTextField.delegate = self
         meetPlaceTextField.delegate = self
-        
+
         titleTextField.placeholder = Constant.shareTitle
         descriptionTextField.placeholder = Constant.shareDesription
+        meetTimeTextField.placeholder = Constant.meetTime
+        meetPlaceTextField.placeholder = Constant.meetPlace
 
         let currentDate = Date()
         bestBeforePicker.minimumDate = currentDate
