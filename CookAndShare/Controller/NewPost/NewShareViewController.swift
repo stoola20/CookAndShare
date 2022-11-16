@@ -36,13 +36,24 @@ class NewShareViewController: UIViewController {
     }
 
     @IBAction func post(_ sender: UIButton) {
-        let document = firestoreManager.sharesCollection.document()
-        share.postTime = Timestamp(date: Date())
-        share.shareId = document.documentID
-        share.authorId = Constant.userId
-        firestoreManager.addNewShare(share, to: document)
-        firestoreManager.updateUserSharePost(shareId: document.documentID, userId: Constant.userId, isNewPost: true)
-        navigationController?.popViewController(animated: true)
+        if share.imageURL.isEmpty || share.title.isEmpty || share.description.isEmpty {
+            let alert = UIAlertController(
+                title: "請檢查下列欄位是否為空白：",
+                message: "1. 分享物主圖\n2. 分享物名稱\n3. 描述",
+                preferredStyle: .alert
+            )
+            let okAction = UIAlertAction(title: "了解", style: .cancel)
+            alert.addAction(okAction)
+            present(alert, animated: true)
+        } else {
+            let document = firestoreManager.sharesCollection.document()
+            share.postTime = Timestamp(date: Date())
+            share.shareId = document.documentID
+            share.authorId = Constant.userId
+            firestoreManager.addNewShare(share, to: document)
+            firestoreManager.updateUserSharePost(shareId: document.documentID, userId: Constant.userId, isNewPost: true)
+            navigationController?.popViewController(animated: true)
+        }
     }
 }
 
