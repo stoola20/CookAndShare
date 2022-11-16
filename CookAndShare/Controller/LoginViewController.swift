@@ -130,22 +130,22 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 self.firestoreManager.isNewUser(id: authResult.user.uid) { result in
                     switch result {
                     case .success(let isNewUser):
-                        if isNewUser {
-                            guard let fullName = appleIDCredential.fullName else { return }
-                            if let fcmToken: String = UserDefaults.standard.object(forKey: "fcmToken") as? String {
-                                let user = User(
-                                    id: authResult.user.uid,
-                                    name: "\(fullName.familyName ?? "")\(fullName.givenName ?? "")",
-                                    email: authResult.user.email ?? "",
-                                    imageURL: authResult.user.photoURL?.absoluteString ?? "",
-                                    fcmToken: fcmToken,
-                                    recipesId: [],
-                                    savedRecipesId: [],
-                                    sharesId: [],
-                                    conversationId: []
-                                )
-                                self.firestoreManager.createUser(id: authResult.user.uid, user: user)
-                            }
+                        if !isNewUser { return }
+
+                        guard let fullName = appleIDCredential.fullName else { return }
+                        if let fcmToken: String = UserDefaults.standard.object(forKey: "fcmToken") as? String {
+                            let user = User(
+                                id: authResult.user.uid,
+                                name: "\(fullName.familyName ?? "")\(fullName.givenName ?? "")",
+                                email: authResult.user.email ?? "",
+                                imageURL: authResult.user.photoURL?.absoluteString ?? "",
+                                fcmToken: fcmToken,
+                                recipesId: [],
+                                savedRecipesId: [],
+                                sharesId: [],
+                                conversationId: []
+                            )
+                            self.firestoreManager.createUser(id: authResult.user.uid, user: user)
                         }
                     case .failure(let error):
                         print(error)

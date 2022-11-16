@@ -84,11 +84,6 @@ struct Constant {
     static let cancel = "取消"
     static let confirm = "確認"
 
-    // user
-    static var userId = getUserId()
-    // V4hMTRjOK5jOFfdB15KU 勳
-    // cCV8vxF2v9DlUyfgfRwg 測試帳號
-
     static let recipesId = "recipesId"
     static let savedRecipesId = "savedRecipesId"
     static let sharesId = "sharesId"
@@ -104,10 +99,11 @@ struct Constant {
     static let chefMan = "chefMan"
     static let friedRice = "friedRice"
 
+    // user
+    // V4hMTRjOK5jOFfdB15KU 勳
+    // cCV8vxF2v9DlUyfgfRwg 測試帳號
     static func getUserId() -> String {
-        print("===")
         guard let userId = Auth.auth().currentUser?.uid else {
-            print("---")
             return ""
         }
         return userId

@@ -33,8 +33,8 @@ class DetailRecipeViewController: UIViewController {
     var recipe: Recipe? {
         didSet {
             guard let recipe = recipe else { return }
-            hasLiked = recipe.likes.contains(Constant.userId)
-            hasSaved = recipe.saves.contains(Constant.userId)
+            hasLiked = recipe.likes.contains(Constant.getUserId())
+            hasSaved = recipe.saves.contains(Constant.getUserId())
         }
     }
 
@@ -99,8 +99,8 @@ class DetailRecipeViewController: UIViewController {
             present(loginVC, animated: true)
         } else {
             guard let recipe = recipe else { return }
-            firestoreManager.updateRecipeSaves(recipeId: recipe.recipeId, userId: Constant.userId, hasSaved: hasSaved)
-            firestoreManager.updateUserSaves(recipeId: recipe.recipeId, userId: Constant.userId, hasSaved: hasSaved)
+            firestoreManager.updateRecipeSaves(recipeId: recipe.recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
+            firestoreManager.updateUserSaves(recipeId: recipe.recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
             hasSaved.toggle()
             updateSaveButton()
         }
@@ -116,7 +116,7 @@ class DetailRecipeViewController: UIViewController {
             present(loginVC, animated: true)
         } else {
             guard let recipe = recipe else { return }
-            firestoreManager.updateRecipeLikes(recipeId: recipe.recipeId, userId: Constant.userId, hasLiked: hasLiked)
+            firestoreManager.updateRecipeLikes(recipeId: recipe.recipeId, userId: Constant.getUserId(), hasLiked: hasLiked)
             hasLiked.toggle()
             updateLikeButton()
         }

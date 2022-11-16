@@ -47,7 +47,7 @@ class ProfileViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        firestoreManager.fetchUserData(userId: Constant.userId) { result in
+        firestoreManager.fetchUserData(userId: Constant.getUserId()) { result in
             switch result {
             case .success(let user):
                 self.user = user
@@ -148,7 +148,7 @@ extension ProfileViewController: ProfileUserCellDelegate {
                 !name.isEmpty,
                 let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ProfileUserCell
             else { return }
-            self.firestoreManager.updateUserName(userId: Constant.userId, name: name)
+            self.firestoreManager.updateUserName(userId: Constant.getUserId(), name: name)
             cell.userName.text = name
         }
         let cancelAction = UIAlertAction(title: Constant.cancel, style: .cancel, handler: nil)
@@ -188,7 +188,7 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             switch result {
             case .success(let url):
                 print(url)
-                self.firestoreManager.updateUserPhoto(userId: Constant.userId, imageURL: url.absoluteString)
+                self.firestoreManager.updateUserPhoto(userId: Constant.getUserId(), imageURL: url.absoluteString)
             case .failure(let error):
                 print(error)
             }
