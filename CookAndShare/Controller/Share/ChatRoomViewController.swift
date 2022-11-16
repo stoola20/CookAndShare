@@ -21,8 +21,9 @@ class ChatRoomViewController: UIViewController {
     var friend: User?
     var conversation: Conversation? {
         didSet {
+            guard let conversation = conversation else { return }
             tableView.reloadData()
-            let indexPath = IndexPath(row: conversation!.messages.count - 1, section: 0)
+            let indexPath = IndexPath(row: conversation.messages.count - 1, section: 0)
             tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
     }
@@ -69,7 +70,8 @@ class ChatRoomViewController: UIViewController {
             switch result {
             case .success(let conversation):
                 self.conversation = conversation
-                self.firestoreManager.addListener(channelId: conversation.channelId) { result in
+                guard let myConversation = self.conversation else { return }
+                self.firestoreManager.addListener(channelId: myConversation.channelId) { result in
                     switch result {
                     case .success(let conversation):
                         self.conversation = conversation

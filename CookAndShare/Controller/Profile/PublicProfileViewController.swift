@@ -138,23 +138,25 @@ extension PublicProfileViewController: UICollectionViewDataSource {
 
 extension PublicProfileViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if toRecipe {
-            let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
-            guard
-                let detailRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: DetailRecipeViewController.self))
-                as? DetailRecipeViewController
-            else { fatalError("Could not create detailVC") }
-            detailRecipeVC.recipe = recipes[indexPath.item]
-            navigationController?.pushViewController(detailRecipeVC, animated: true)
-        } else {
-            let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
-            guard
-                let shareVC = storyboard.instantiateViewController(withIdentifier: String(describing: ShareViewController.self))
-                as? ShareViewController
-            else { fatalError("Could not create detailVC") }
-            shareVC.shares = [shares[indexPath.item]]
-            shareVC.fromPublicVC = true
-            navigationController?.pushViewController(shareVC, animated: true)
+        if indexPath.section == 1 {
+            if toRecipe {
+                let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
+                guard
+                    let detailRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: DetailRecipeViewController.self))
+                        as? DetailRecipeViewController
+                else { fatalError("Could not create detailVC") }
+                detailRecipeVC.recipe = recipes[indexPath.item]
+                navigationController?.pushViewController(detailRecipeVC, animated: true)
+            } else {
+                let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
+                guard
+                    let shareVC = storyboard.instantiateViewController(withIdentifier: String(describing: ShareViewController.self))
+                        as? ShareViewController
+                else { fatalError("Could not create detailVC") }
+                shareVC.shares = [shares[indexPath.item]]
+                shareVC.fromPublicVC = true
+                navigationController?.pushViewController(shareVC, animated: true)
+            }
         }
     }
 
