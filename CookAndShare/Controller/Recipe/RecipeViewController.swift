@@ -24,6 +24,7 @@ enum RecipeType: String, CaseIterable {
 
 class RecipeViewController: UIViewController {
     let firestoreManager = FirestoreManager.shared
+    var selectedTag = 0
     var hotRecipes: [Recipe]?
     var allRecipes: [Recipe]?
     var filterdRecipes: [Recipe]? {
@@ -124,9 +125,9 @@ class RecipeViewController: UIViewController {
                 self.hotRecipes?.sort { $0.likes.count > $1.likes.count }
 
                 self.allRecipes = recipes.sorted { $0.time.seconds > $1.time.seconds }
-                self.filterdRecipes = self.allRecipes
+                self.filterRecipe(byTag: self.selectedTag)
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self.collectionView.reloadSections(IndexSet(integer: 0))
                 }
             case .failure(let error):
                 print(error)
@@ -164,19 +165,8 @@ class RecipeViewController: UIViewController {
             return isMach
         }
     }
-}
 
-extension RecipeViewController: RecipeTypeCellDelegate {
-    func didSelectedButton(_ cell: RecipeTypeCell, tag: Int) {
-        for index in 0..<RecipeType.allCases.count {
-            guard
-                let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 1))
-                    as? RecipeTypeCell
-            else { fatalError("Could not create cell") }
-            cell.typeButton.backgroundColor = .lightOrange
-            cell.typeButton.setTitleColor(.darkBrown, for: .normal)
-        }
-
+    func filterRecipe(byTag tag: Int) {
         switch tag {
         case 0:
             filterdRecipes = allRecipes
@@ -189,6 +179,21 @@ extension RecipeViewController: RecipeTypeCellDelegate {
         default:
             recipeFilterByVegetable()
         }
+    }
+}
+
+extension RecipeViewController: RecipeTypeCellDelegate {
+    func didSelectedButton(_ cell: RecipeTypeCell, tag: Int) {
+        for index in 0..<RecipeType.allCases.count {
+            guard
+                let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 1))
+                    as? RecipeTypeCell
+            else { fatalError("Could not create cell") }
+            cell.typeButton.backgroundColor = .lightOrange
+            cell.typeButton.setTitleColor(.darkBrown, for: .normal)
+        }
+        self.selectedTag = tag
+        filterRecipe(byTag: tag)
 
         cell.typeButton.backgroundColor = .darkBrown
         cell.typeButton.setTitleColor(.lightOrange, for: .normal)
