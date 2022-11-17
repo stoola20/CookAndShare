@@ -25,6 +25,7 @@ enum RecipeType: String, CaseIterable {
 class RecipeViewController: UIViewController {
     let firestoreManager = FirestoreManager.shared
     var selectedTag = 0
+    var indexPath = IndexPath(item: 0, section: 0)
     var hotRecipes: [Recipe]?
     var allRecipes: [Recipe]?
     var filterdRecipes: [Recipe]? {
@@ -127,7 +128,7 @@ class RecipeViewController: UIViewController {
                 self.allRecipes = recipes.sorted { $0.time.seconds > $1.time.seconds }
                 self.filterRecipe(byTag: self.selectedTag)
                 DispatchQueue.main.async {
-                    self.collectionView.reloadSections(IndexSet(integer: 0))
+                    self.collectionView.reloadItems(at: [self.indexPath])
                 }
             case .failure(let error):
                 print(error)
@@ -283,7 +284,7 @@ extension RecipeViewController: UICollectionViewDataSource {
 extension RecipeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
-
+        self.indexPath = indexPath
         let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
         guard let detailVC = storyboard.instantiateViewController(
             withIdentifier: String(describing: DetailRecipeViewController.self))

@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class HotRecipeCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
@@ -17,6 +18,7 @@ class HotRecipeCell: UICollectionViewCell {
     @IBOutlet weak var heartImageView: UIImageView!
     @IBOutlet weak var containerView: UIView!
     weak var viewController: UIViewController?
+    var listener: ListenerRegistration?
     var hasSaved = false
     var recipeId = String.empty
     let firestoreManager = FirestoreManager.shared
@@ -25,6 +27,11 @@ class HotRecipeCell: UICollectionViewCell {
         super.awakeFromNib()
         imageView.contentMode = .scaleAspectFill
         setUpUI()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        listener?.remove()
     }
 
     func setUpUI() {
@@ -48,12 +55,29 @@ class HotRecipeCell: UICollectionViewCell {
 
     func layoutCell(with recipe: Recipe) {
         imageView.loadImage(recipe.mainImageURL, placeHolder: UIImage(named: Constant.friedRice))
-        likesLabel.text = String(recipe.likes.count)
         titleLabel.text = recipe.title
         durationLabel.text = "⌛️ \(recipe.cookDuration) 分鐘"
-        hasSaved = recipe.saves.contains(Constant.getUserId())
         recipeId = recipe.recipeId
-        updateButton()
+
+        listener = Firestore.firestore()
+            .collection(Constant.firestoreRecipes)
+            .document(recipeId)
+            .addSnapshotListener { [weak self] documentSnapshot, error in
+            guard let self = self else { return }
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(String(describing: error))")
+                return
+            }
+
+            guard let newRecipe = try? document.data(as: Recipe.self) else {
+                print("Document data was empty.")
+                return
+            }
+
+            self.likesLabel.text = String(recipe.likes.count)
+            self.hasSaved = newRecipe.saves.contains(Constant.getUserId())
+            self.updateButton()
+            }
     }
 
     func updateButton() {
