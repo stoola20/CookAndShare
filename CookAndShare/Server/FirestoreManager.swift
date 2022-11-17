@@ -386,20 +386,27 @@ struct FirestoreManager {
     }
 
 // MARK: - Chat
-    func fetchConversation(with friendId: String, completion: @escaping (Result<Conversation, Error>) -> Void) {
-        conversationsCollection.whereField("friendIds", arrayContainsAny: [Constant.userId, friendId]).getDocuments { querySnapshot, _ in
+    func fetchConversation(with friendId: String, completion: @escaping (Result<Conversation?, Error>) -> Void) {
+        conversationsCollection.whereField("friendIds", arrayContains: friendId).getDocuments { querySnapshot, _ in
             guard let querySnapshot = querySnapshot else { return }
+            var conversation: Conversation? = nil
             if querySnapshot.isEmpty {
-                print("conversation not found!")
+                print("querySnapshot.isEmpty")
+                completion(.success(conversation))
             } else {
-                guard let document = querySnapshot.documents.first else { fatalError("no document") }
-
-                do {
-                    let conversation = try document.data(as: Conversation.self)
-                    completion(.success(conversation))
-                } catch {
-                    completion(.failure(error))
+                querySnapshot.documents.forEach { document in
+                    do {
+                        let conversationData = try document.data(as: Conversation.self)
+                        if conversationData.friendIds == [friendId, Constant.getUserId()] || conversationData.friendIds == [Constant.getUserId(), friendId] {
+                            conversation = conversationData
+                        } else {
+                            print("conversation not found!")
+                        }
+                    } catch {
+                        completion(.failure(error))
+                    }
                 }
+                completion(.success(conversation))
             }
         }
     }

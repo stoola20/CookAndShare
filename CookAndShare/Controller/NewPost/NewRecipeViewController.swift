@@ -115,10 +115,10 @@ class NewRecipeViewController: UIViewController {
         } else {
             let document = firestoreManager.recipesCollection.document()
             recipe.recipeId = document.documentID
-            recipe.authorId = Constant.userId
+            recipe.authorId = Constant.getUserId()
             recipe.time = Timestamp(date: Date())
             firestoreManager.addNewRecipe(recipe, to: document)
-            firestoreManager.updateUserRecipePost(recipeId: document.documentID, userId: Constant.userId)
+            firestoreManager.updateUserRecipePost(recipeId: document.documentID, userId: Constant.getUserId())
             navigationController?.popViewController(animated: true)
         }
     }

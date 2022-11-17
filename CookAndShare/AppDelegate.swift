@@ -17,7 +17,7 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
-        let pushManager = PushNotificationManager(userID: Constant.userId)
+        let pushManager = PushNotificationManager(userID: Constant.getUserId())
         pushManager.registerForPushNotifications()
 
         GMSServices.provideAPIKey(APIKey.apiKey)
@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         print("deviceTokenString: \(deviceTokenString)")
         Messaging.messaging().apnsToken = deviceToken
-        let pushManager = PushNotificationManager(userID: Constant.userId)
+        let pushManager = PushNotificationManager(userID: Constant.getUserId())
         pushManager.updateFirestorePushTokenIfNeeded()
     }
 
@@ -83,7 +83,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        completionHandler()
 //    }
 //
-    // 讓 App 在前景也能顯示推播
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner])
-    }

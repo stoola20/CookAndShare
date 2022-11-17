@@ -52,7 +52,7 @@ class HotRecipeCell: UICollectionViewCell {
         likesLabel.text = String(recipe.likes.count)
         titleLabel.text = recipe.title
         durationLabel.text = "⌛️ \(recipe.cookDuration) 分鐘"
-        hasSaved = recipe.saves.contains(Constant.userId)
+        hasSaved = recipe.saves.contains(Constant.getUserId())
         recipeId = recipe.recipeId
         updateButton()
     }
@@ -73,8 +73,8 @@ class HotRecipeCell: UICollectionViewCell {
             else { fatalError("Could not create loginVC") }
             viewController?.present(loginVC, animated: true)
         } else {
-            firestoreManager.updateRecipeSaves(recipeId: recipeId, userId: Constant.userId, hasSaved: hasSaved)
-            firestoreManager.updateUserSaves(recipeId: recipeId, userId: Constant.userId, hasSaved: hasSaved)
+            firestoreManager.updateRecipeSaves(recipeId: recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
+            firestoreManager.updateUserSaves(recipeId: recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
             hasSaved.toggle()
             updateButton()
         }

@@ -21,8 +21,9 @@ class ChatRoomViewController: UIViewController {
     var friend: User?
     var conversation: Conversation? {
         didSet {
+            guard let conversation = conversation else { return }
             tableView.reloadData()
-            let indexPath = IndexPath(row: conversation!.messages.count - 1, section: 0)
+            let indexPath = IndexPath(row: conversation.messages.count - 1, section: 0)
             tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
     }
@@ -69,7 +70,8 @@ class ChatRoomViewController: UIViewController {
             switch result {
             case .success(let conversation):
                 self.conversation = conversation
-                self.firestoreManager.addListener(channelId: conversation.channelId) { result in
+                guard let myConversation = self.conversation else { return }
+                self.firestoreManager.addListener(channelId: myConversation.channelId) { result in
                     switch result {
                     case .success(let conversation):
                         self.conversation = conversation
@@ -132,9 +134,9 @@ class ChatRoomViewController: UIViewController {
             let document = firestoreManager.conversationsCollection.document()
             var newConversation = Conversation()
             newConversation.channelId = document.documentID
-            newConversation.friendIds = [friend.id, Constant.userId]
+            newConversation.friendIds = [friend.id, Constant.getUserId()]
             let message = Message(
-                senderId: Constant.userId,
+                senderId: Constant.getUserId(),
                 contentType: contentType.rawValue,
                 content: content,
                 time: Timestamp(date: Date()),
@@ -143,7 +145,7 @@ class ChatRoomViewController: UIViewController {
             newConversation.messages = [message]
             self.conversation = newConversation
             firestoreManager.createNewConversation(newConversation, to: document)
-            firestoreManager.updateUserConversation(userId: Constant.userId, friendId: friend.id, channelId: document.documentID)
+            firestoreManager.updateUserConversation(userId: Constant.getUserId(), friendId: friend.id, channelId: document.documentID)
             firestoreManager.addListener(channelId: document.documentID) { result in
                 switch result {
                 case .success(let conversation):
@@ -156,19 +158,28 @@ class ChatRoomViewController: UIViewController {
         }
 
         let message: [String: Any] = [
-            "senderId": Constant.userId,
+            "senderId": Constant.getUserId(),
             "content": content,
             "contentType": contentType.rawValue,
             "time": Timestamp(date: Date()),
             "duration": duration
         ]
-        firestoreManager.updateConversation(channelId: conversation.channelId, message: message)
 
+        var userName = ""
+        firestoreManager.updateConversation(channelId: conversation.channelId, message: message)
+        firestoreManager.fetchUserData(userId: Constant.getUserId()) { result in
+            switch result {
+            case .success(let user):
+                userName = user.name
+            case .failure(let error):
+                print(error)
+            }
+        }
         let sender = PushNotificationSender()
         sender.sendPushNotification(
             to: friend.fcmToken,
-            title: friend.name,
-            body: "\(friend.name)\(contentType.getMessageBody())"
+            title: userName,
+            body: "\(userName)\(contentType.getMessageBody())"
         )
     }
 
@@ -364,7 +375,7 @@ extension ChatRoomViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let conversation = conversation else { return UITableViewCell() }
         let message = conversation.messages[indexPath.row]
-        if message.senderId == Constant.userId {
+        if message.senderId == Constant.getUserId() {
             switch message.contentType {
             case Constant.text:
                 guard

@@ -23,7 +23,7 @@ class ChatListViewController: UIViewController {
         conversations = []
         let group = DispatchGroup()
         group.enter()
-        firestoreManager.fetchUserData(userId: Constant.userId) { result in
+        firestoreManager.fetchUserData(userId: Constant.getUserId()) { result in
             switch result {
             case .success(let user):
                 user.conversationId.forEach { conversationId in
@@ -78,7 +78,7 @@ extension ChatListViewController: UITableViewDataSource {
                 as? ChatListCell
         else { fatalError("Could not create ChatListCell") }
         let conversation = conversations[indexPath.row]
-        if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.userId),
+        if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.getUserId()),
             let lastMessage = conversation.messages.last {
             let friendId = myIdIndex == 0 ? conversation.friendIds[1] : conversation.friendIds[0]
             firestoreManager.fetchUserData(userId: friendId) { result in
@@ -106,7 +106,7 @@ extension ChatListViewController: UITableViewDelegate {
         else { return }
 
         let conversation = conversations[indexPath.row]
-        if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.userId) {
+        if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.getUserId()) {
             let friendId = myIdIndex == 0 ? conversation.friendIds[1] : conversation.friendIds[0]
             firestoreManager.fetchUserData(userId: friendId) { result in
                 switch result {
