@@ -9,7 +9,6 @@ import UIKit
 import FirebaseAuth
 
 class HotRecipeCell: UICollectionViewCell {
-
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var likesLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!

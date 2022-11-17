@@ -38,6 +38,15 @@ class RecipeViewController: UIViewController {
         super.viewDidLoad()
         title = "食譜"
         setUpCollectionView()
+        setUpNavBar()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        downloadRecipes()
+    }
+
+    func setUpNavBar() {
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(
                 image: UIImage(systemName: "magnifyingglass.circle"),
@@ -63,20 +72,6 @@ class RecipeViewController: UIViewController {
         barAppearance.backgroundColor = .lightOrange
         navigationItem.standardAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
-
-        firestoreManager.addRecipeListener { result in
-            switch result {
-            case .success(let recipes):
-                print(recipes)
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        downloadRecipes()
     }
 
     @objc func searchRecipes() {
@@ -121,7 +116,8 @@ class RecipeViewController: UIViewController {
     }
 
     func downloadRecipes() {
-        firestoreManager.searchAllRecipes { result in
+        firestoreManager.searchAllRecipes { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let recipes):
                 self.hotRecipes = recipes
@@ -292,13 +288,13 @@ extension RecipeViewController: UICollectionViewDelegate {
         switch indexPath.section {
         case 0:
             guard let hotRecipes = hotRecipes else { return }
-            detailVC.recipe = hotRecipes[indexPath.item]
+            detailVC.recipeId = hotRecipes[indexPath.item].recipeId
             navigationController?.pushViewController(detailVC, animated: true)
         case 1:
             return
         default:
             guard let filterdRecipes = filterdRecipes else { return }
-            detailVC.recipe = filterdRecipes[indexPath.item]
+            detailVC.recipeId = filterdRecipes[indexPath.item].recipeId
             navigationController?.pushViewController(detailVC, animated: true)
         }
     }

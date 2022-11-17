@@ -61,7 +61,7 @@ struct FirestoreManager {
 
         recipesCollection.addSnapshotListener { documentSnapshot, error in
             guard let documentSnapshot = documentSnapshot else {
-                print("Error fetching document: \(error!)")
+                print("Error fetching document: \(String(describing: error))")
                 return
             }
             documentSnapshot.documents.forEach { document in
