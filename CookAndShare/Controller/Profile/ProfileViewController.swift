@@ -117,6 +117,7 @@ extension ProfileViewController: UITableViewDelegate {
             savedRecipeVC.savedRecipsId = user.savedRecipesId
             navigationController?.pushViewController(savedRecipeVC, animated: true)
         } else if indexPath == IndexPath(row: 2, section: 1) {
+            firestoreManager.updateFCMToken(userId: Constant.getUserId(), fcmToken: "")
             do {
                 try Auth.auth().signOut()
             } catch let signOutError as NSError {

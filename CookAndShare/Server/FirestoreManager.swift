@@ -251,6 +251,10 @@ struct FirestoreManager {
         usersCollection.document(userId).setData(["imageURL": imageURL], merge: true)
     }
 
+    func updateFCMToken(userId: String, fcmToken: String) {
+        usersCollection.document(userId).setData(["fcmToken": fcmToken], merge: true)
+    }
+
     func updateUserRecipePost(recipeId: String, userId: String) {
         let userRef = usersCollection.document(userId)
         userRef.updateData([

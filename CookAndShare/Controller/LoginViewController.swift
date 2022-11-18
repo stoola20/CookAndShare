@@ -118,7 +118,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             )
 
             // Sign in with Firebase.
-            Auth.auth().signIn(with: credential) { authResult, error in
+            Auth.auth().signIn(with: credential) { [weak self] authResult, error in
+                guard let self = self else { return }
                 if error != nil {
                     guard let error = error else { return }
                     print(error.localizedDescription)
@@ -126,14 +127,19 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 }
 
                 // User is signed in to Firebase with Apple.
-                guard let authResult = authResult else { return }
+                guard
+                    let authResult = authResult,
+                    let fcmToken: String = UserDefaults.standard.object(forKey: "fcmToken") as? String
+                else { return }
                 self.firestoreManager.isNewUser(id: authResult.user.uid) { result in
                     switch result {
                     case .success(let isNewUser):
-                        if !isNewUser { return }
-
-                        guard let fullName = appleIDCredential.fullName else { return }
-                        if let fcmToken: String = UserDefaults.standard.object(forKey: "fcmToken") as? String {
+                        if !isNewUser {
+                            self.firestoreManager.updateFCMToken(userId: Constant.getUserId(), fcmToken: fcmToken)
+                        } else {
+                            
+                            guard let fullName = appleIDCredential.fullName else { return }
+                            // if let fcmToken: String = UserDefaults.standard.object(forKey: "fcmToken") as? String {
                             let user = User(
                                 id: authResult.user.uid,
                                 name: "\(fullName.familyName ?? "")\(fullName.givenName ?? "")",
@@ -146,7 +152,9 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                                 conversationId: []
                             )
                             self.firestoreManager.createUser(id: authResult.user.uid, user: user)
+                            // }
                         }
+
                     case .failure(let error):
                         print(error)
                     }
