@@ -45,7 +45,6 @@ class DetailBannerCell: UITableViewCell {
         containerView.layer.cornerRadius = 35
         titleLabel.textColor = UIColor.darkBrown
         durationLabel.textColor = UIColor.darkBrown
-//        durationLabel.font = UIFont.boldSystemFont(ofSize: 18)
         authorLabel.textColor = UIColor.darkBrown
         authorLabel.font = UIFont.boldSystemFont(ofSize: 20)
         postTimeLabel.textColor = UIColor.myOrange
@@ -87,9 +86,25 @@ class DetailBannerCell: UITableViewCell {
         authorLabel.text = recipe.authorId
         postTimeLabel.text = Date.getChatRoomTimeString(from: Date(timeIntervalSince1970: Double(recipe.time.seconds)))
         storyLabel.text = recipe.description
-        likesLabel.text = String(recipe.likes.count)
-        if recipe.likes.isEmpty {
-            heartImageView.image = UIImage(systemName: "heart")
+
+
+        Firestore.firestore().collection(Constant.firestoreRecipes).document(recipe.recipeId).addSnapshotListener { [weak self] documentSnapshot, error in
+            guard let self = self else { return }
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(String(describing: error))")
+                return
+            }
+
+            guard let newRecipe = try? document.data(as: Recipe.self) else {
+                print("Document data was empty.")
+                return
+            }
+            self.likesLabel.text = String(newRecipe.likes.count)
+            if newRecipe.likes.isEmpty {
+                self.heartImageView.image = UIImage(systemName: "heart")
+            } else {
+                self.heartImageView.image = UIImage(systemName: "heart.fill")
+            }
         }
     }
 }
