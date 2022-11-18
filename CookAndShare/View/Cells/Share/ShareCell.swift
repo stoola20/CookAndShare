@@ -24,6 +24,7 @@ class ShareCell: UITableViewCell {
     @IBOutlet weak var meetTimeLabel: UILabel!
     @IBOutlet weak var meetPlaceLabel: UILabel!
     @IBOutlet weak var foodImageView: UIImageView!
+    @IBOutlet weak var seeProfileButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,6 +32,7 @@ class ShareCell: UITableViewCell {
         userNameLabel.addGestureRecognizer(setGestureRecognizer())
         userImageView.isUserInteractionEnabled = true
         userImageView.addGestureRecognizer(setGestureRecognizer())
+        seeProfileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
         setUpUI()
     }
 
@@ -51,6 +53,9 @@ class ShareCell: UITableViewCell {
         bestBeforeLabel.textColor = UIColor.darkBrown
         meetTimeLabel.textColor = UIColor.darkBrown
         meetPlaceLabel.textColor = UIColor.darkBrown
+        seeProfileButton.tintColor = .darkBrown
+        seeProfileButton.layer.cornerRadius = 15
+        seeProfileButton.backgroundColor = .lightOrange
     }
 
     func setGestureRecognizer() -> UITapGestureRecognizer {

@@ -25,7 +25,7 @@ class DetailProcedureCell: UITableViewCell {
         procedureImageView.contentMode = .scaleAspectFill
         procedureImageView.layer.cornerRadius = 15
     }
-    
+
     func layoutCell(with procedure: Procedure, at indexPath: IndexPath) {
         stepLabel.text = String(indexPath.row + 1)
         procedureImageView.loadImage(procedure.imageURL, placeHolder: UIImage(named: Constant.friedRice))
