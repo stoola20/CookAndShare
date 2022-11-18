@@ -25,7 +25,7 @@ class ShareCell: UITableViewCell {
     @IBOutlet weak var meetPlaceLabel: UILabel!
     @IBOutlet weak var foodImageView: UIImageView!
     @IBOutlet weak var seeProfileButton: UIButton!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         userNameLabel.isUserInteractionEnabled = true
@@ -49,10 +49,14 @@ class ShareCell: UITableViewCell {
         postTimeLabel.font = UIFont.systemFont(ofSize: 15)
         postTimeLabel.textColor = UIColor.systemBrown
         titleLabel.textColor = UIColor.darkBrown
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
         descriptionLabel.textColor = UIColor.darkBrown
         bestBeforeLabel.textColor = UIColor.darkBrown
+
         meetTimeLabel.textColor = UIColor.darkBrown
+        meetTimeLabel.font = UIFont.systemFont(ofSize: 16)
         meetPlaceLabel.textColor = UIColor.darkBrown
+        meetPlaceLabel.font = UIFont.systemFont(ofSize: 16)
         seeProfileButton.tintColor = .darkBrown
         seeProfileButton.layer.cornerRadius = 15
         seeProfileButton.backgroundColor = .lightOrange
@@ -86,11 +90,11 @@ class ShareCell: UITableViewCell {
         }
         let timeInterval = Date() - Date(timeIntervalSince1970: Double(share.postTime.seconds))
         postTimeLabel.text = timeInterval.convertToString(from: timeInterval)
-        titleLabel.text = "食品：\(share.title)"
-        descriptionLabel.text = "描述：\(share.description)"
-        bestBeforeLabel.text = "食品有效期限：\(Date.dateFormatter.string(from: Date(timeIntervalSince1970: Double(share.bestBefore.seconds))))"
-        meetTimeLabel.text = "面交時間：\(share.meetTime)"
-        meetPlaceLabel.text = "面交地點：\(share.meetPlace)"
+        titleLabel.text = "\(share.title)"
+        descriptionLabel.text = "\(share.description)"
+        bestBeforeLabel.text = "\(Date.dateFormatter.string(from: Date(timeIntervalSince1970: Double(share.bestBefore.seconds))))"
+        meetTimeLabel.text = "\(share.meetTime)"
+        meetPlaceLabel.text = "\(share.meetPlace)"
         foodImageView.loadImage(share.imageURL, placeHolder: UIImage(named: Constant.friedRice))
     }
 }
