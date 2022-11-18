@@ -138,4 +138,15 @@ extension ShareViewController: ShareCellDelegate {
         publicProfileVC.userId = userId
         navigationController?.pushViewController(publicProfileVC, animated: true)
     }
+
+    func presentLargePhoto(url: String) {
+        let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
+        guard
+            let previewVC = storyboard.instantiateViewController(withIdentifier: String(describing: PreviewViewController.self))
+                as? PreviewViewController
+        else { fatalError("Could not create previewVC") }
+        previewVC.imageURL = url
+        previewVC.modalPresentationStyle = .overFullScreen
+        present(previewVC, animated: true)
+    }
 }

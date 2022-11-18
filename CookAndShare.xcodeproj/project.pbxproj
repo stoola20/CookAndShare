@@ -16,6 +16,7 @@
 		370B2004291ABAD40092F502 /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370B2003291ABAD40092F502 /* PushNotificationSender.swift */; };
 		371AE11029138F6D003B16BB /* InfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371AE10F29138F6D003B16BB /* InfoWindowView.swift */; };
 		371AE11429139061003B16BB /* InfoWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 371AE11329139061003B16BB /* InfoWindowView.xib */; };
+		37233C392927BF7B0093A2E6 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37233C382927BF7B0093A2E6 /* PreviewViewController.swift */; };
 		372E3A8E2913DCA200250DAA /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A8D2913DCA200250DAA /* ChatListViewController.swift */; };
 		372E3A902913DCAE00250DAA /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */; };
 		372E3A922913E0E200250DAA /* ChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A912913E0E200250DAA /* ChatListCell.swift */; };
@@ -142,6 +143,7 @@
 		370B2003291ABAD40092F502 /* PushNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
 		371AE10F29138F6D003B16BB /* InfoWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWindowView.swift; sourceTree = "<group>"; };
 		371AE11329139061003B16BB /* InfoWindowView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoWindowView.xib; sourceTree = "<group>"; };
+		37233C382927BF7B0093A2E6 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		372E3A8D2913DCA200250DAA /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
 		372E3A912913E0E200250DAA /* ChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCell.swift; sourceTree = "<group>"; };
@@ -520,6 +522,7 @@
 				37CBEC862910EF0300A62EF2 /* ShareViewController.swift */,
 				372E3A8D2913DCA200250DAA /* ChatListViewController.swift */,
 				372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */,
+				37233C382927BF7B0093A2E6 /* PreviewViewController.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -932,6 +935,7 @@
 				37D69CA9290C1A1E0034D8E1 /* DraftSupplementaryView.swift in Sources */,
 				37E63628290E5EAB00D516D4 /* DetailRecipeViewController.swift in Sources */,
 				370B1FFC291A291E0092F502 /* TranslationManager.swift in Sources */,
+				37233C392927BF7B0093A2E6 /* PreviewViewController.swift in Sources */,
 				372E3AB0291655E200250DAA /* OtherImageCell.swift in Sources */,
 				37E63626290E598000D516D4 /* UIImageView+Ext.swift in Sources */,
 				37D69C79290BDD020034D8E1 /* User.swift in Sources */,

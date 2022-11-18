@@ -18,5 +18,4 @@ target 'CookAndShare' do
   pod 'Kingfisher'
   pod 'lottie-ios'
   pod 'SPAlert'
-  pod 'PullToRefresher'
 end

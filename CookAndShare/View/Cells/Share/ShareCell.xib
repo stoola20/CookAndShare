@@ -18,36 +18,37 @@
                 <rect key="frame" x="0.0" y="0.0" width="417" height="537"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZgN-ZC-gmm">
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZgN-ZC-gmm">
                         <rect key="frame" x="84" y="16" width="317" height="74"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aeR-DT-a95">
-                                <rect key="frame" x="0.0" y="0.0" width="154.5" height="20.5"/>
+                                <rect key="frame" x="0.0" y="26.5" width="229" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="256" axis="vertical" alignment="bottom" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="EEU-7Z-OjN">
-                                <rect key="frame" x="162.5" y="0.0" width="154.5" height="57.5"/>
+                                <rect key="frame" x="237" y="8" width="80" height="57.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whU-Qh-uiR">
-                                        <rect key="frame" x="113" y="0.0" width="41.5" height="20.5"/>
+                                        <rect key="frame" x="38.5" y="0.0" width="41.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P31-hk-7lh">
-                                        <rect key="frame" x="58.5" y="26.5" width="96" height="31"/>
+                                        <rect key="frame" x="0.0" y="26.5" width="80" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="31" id="7bs-i9-U56"/>
-                                            <constraint firstAttribute="width" constant="96" id="Rxq-RC-G16"/>
+                                            <constraint firstAttribute="width" constant="80" id="Rxq-RC-G16"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
-                                                <fragment content="查看個人頁面">
+                                                <fragment content="聯繫用戶">
                                                     <attributes>
                                                         <font key="NSFont" size="12" name="PingFangTC-Regular"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>

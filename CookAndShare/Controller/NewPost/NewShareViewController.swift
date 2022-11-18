@@ -36,10 +36,10 @@ class NewShareViewController: UIViewController {
     }
 
     @IBAction func post(_ sender: UIButton) {
-        if share.imageURL.isEmpty || share.title.isEmpty || share.description.isEmpty {
+        if share.imageURL.isEmpty || share.title.isEmpty || share.description.isEmpty || share.meetTime.isEmpty || share.meetPlace.isEmpty {
             let alert = UIAlertController(
-                title: "請檢查下列欄位是否為空白：",
-                message: "1. 分享物主圖\n2. 分享物名稱\n3. 描述",
+                title: "請檢查是否有欄位空白！",
+                message: nil,
                 preferredStyle: .alert
             )
             let okAction = UIAlertAction(title: "了解", style: .cancel)

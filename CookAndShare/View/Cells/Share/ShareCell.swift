@@ -9,11 +9,13 @@ import UIKit
 
 protocol ShareCellDelegate: AnyObject {
     func goToProfile(_ userId: String)
+    func presentLargePhoto(url: String)
 }
 
 class ShareCell: UITableViewCell {
     let firestoreManager = FirestoreManager.shared
     var userId = String.empty
+    var foodImageURL = ""
     weak var delegate: ShareCellDelegate!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -33,6 +35,9 @@ class ShareCell: UITableViewCell {
         userImageView.isUserInteractionEnabled = true
         userImageView.addGestureRecognizer(setGestureRecognizer())
         seeProfileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
+        let foodImageGesture = UITapGestureRecognizer(target: self, action: #selector(presentPhoto))
+        foodImageView.isUserInteractionEnabled = true
+        foodImageView.addGestureRecognizer(foodImageGesture)
         setUpUI()
     }
 
@@ -72,6 +77,10 @@ class ShareCell: UITableViewCell {
         delegate.goToProfile(userId)
     }
 
+    @objc func presentPhoto() {
+        delegate.presentLargePhoto(url: foodImageURL)
+    }
+
     override func prepareForReuse() {
         super.prepareForReuse()
         userImageView.image = UIImage(named: Constant.chefMan)
@@ -96,5 +105,6 @@ class ShareCell: UITableViewCell {
         meetTimeLabel.text = "\(share.meetTime)"
         meetPlaceLabel.text = "\(share.meetPlace)"
         foodImageView.loadImage(share.imageURL, placeHolder: UIImage(named: Constant.friedRice))
+        foodImageURL = share.imageURL
     }
 }
