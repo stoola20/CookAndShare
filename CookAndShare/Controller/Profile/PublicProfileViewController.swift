@@ -145,7 +145,7 @@ extension PublicProfileViewController: UICollectionViewDelegate {
                     let detailRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: DetailRecipeViewController.self))
                         as? DetailRecipeViewController
                 else { fatalError("Could not create detailVC") }
-                detailRecipeVC.recipe = recipes[indexPath.item]
+                detailRecipeVC.recipeId = recipes[indexPath.item].recipeId
                 navigationController?.pushViewController(detailRecipeVC, animated: true)
             } else {
                 let storyboard = UIStoryboard(name: Constant.share, bundle: nil)

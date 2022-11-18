@@ -61,7 +61,7 @@ struct FirestoreManager {
 
         recipesCollection.addSnapshotListener { documentSnapshot, error in
             guard let documentSnapshot = documentSnapshot else {
-                print("Error fetching document: \(error!)")
+                print("Error fetching document: \(String(describing: error))")
                 return
             }
             documentSnapshot.documents.forEach { document in
@@ -249,6 +249,10 @@ struct FirestoreManager {
 
     func updateUserPhoto(userId: String, imageURL: String) {
         usersCollection.document(userId).setData(["imageURL": imageURL], merge: true)
+    }
+
+    func updateFCMToken(userId: String, fcmToken: String) {
+        usersCollection.document(userId).setData(["fcmToken": fcmToken], merge: true)
     }
 
     func updateUserRecipePost(recipeId: String, userId: String) {

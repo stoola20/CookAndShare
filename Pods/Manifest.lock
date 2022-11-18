@@ -756,6 +756,7 @@ PODS:
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
   - PromisesObjC (2.1.1)
+  - PullToRefresher (3.3)
   - SPAlert (4.2.0)
   - SwiftLint (0.49.1)
 
@@ -770,6 +771,7 @@ DEPENDENCIES:
   - IQKeyboardManager
   - Kingfisher
   - lottie-ios
+  - PullToRefresher
   - SPAlert
   - SwiftLint
 
@@ -804,6 +806,7 @@ SPEC REPOS:
     - lottie-ios
     - nanopb
     - PromisesObjC
+    - PullToRefresher
     - SPAlert
     - SwiftLint
 
@@ -837,9 +840,10 @@ SPEC CHECKSUMS:
   lottie-ios: c55158d67d0629a260625cc2ded2052b829e3c3e
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
+  PullToRefresher: 6fc2ab6494caf949bcf6f0223ffd23f9d21a06f6
   SPAlert: 735da1f16a887e294719217572ce1f936d8c8782
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: 6973d3e7bb042d05f2644d68475e0ff8b7e82389
+PODFILE CHECKSUM: 9334001fa281fc553ad72cc0df33a78adc0ee7b3
 
 COCOAPODS: 1.11.3

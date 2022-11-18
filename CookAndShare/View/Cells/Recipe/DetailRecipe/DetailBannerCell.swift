@@ -24,6 +24,9 @@ class DetailBannerCell: UITableViewCell {
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var postTimeLabel: UILabel!
     @IBOutlet weak var storyLabel: UILabel!
+    @IBOutlet weak var heartImageView: UIImageView!
+    @IBOutlet weak var likesLabel: UILabel!
+    @IBOutlet weak var seeProfileButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,6 +35,7 @@ class DetailBannerCell: UITableViewCell {
         authorLabel.isUserInteractionEnabled = true
         profileImage.addGestureRecognizer(setGestureRecognizer())
         authorLabel.addGestureRecognizer(setGestureRecognizer())
+        seeProfileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
     }
 
     func setUpUI() {
@@ -47,6 +51,12 @@ class DetailBannerCell: UITableViewCell {
         postTimeLabel.font = UIFont.systemFont(ofSize: 16)
         storyLabel.textColor = UIColor.darkBrown
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        likesLabel.textColor = UIColor.darkBrown
+        likesLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        heartImageView.tintColor = UIColor.myOrange
+        seeProfileButton.tintColor = .darkBrown
+        seeProfileButton.layer.cornerRadius = 15
+        seeProfileButton.backgroundColor = .lightOrange
     }
 
     func setGestureRecognizer() -> UITapGestureRecognizer {
@@ -72,9 +82,29 @@ class DetailBannerCell: UITableViewCell {
         }
         mainImageVIew.loadImage(recipe.mainImageURL, placeHolder: UIImage(named: Constant.friedRice))
         titleLabel.text = recipe.title
-        durationLabel.text = "⌛️ \(recipe.cookDuration) 分鐘"
+        durationLabel.text = "⌛️ 烹調時間： \(recipe.cookDuration) 分鐘"
         authorLabel.text = recipe.authorId
         postTimeLabel.text = Date.getChatRoomTimeString(from: Date(timeIntervalSince1970: Double(recipe.time.seconds)))
         storyLabel.text = recipe.description
+
+
+        Firestore.firestore().collection(Constant.firestoreRecipes).document(recipe.recipeId).addSnapshotListener { [weak self] documentSnapshot, error in
+            guard let self = self else { return }
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(String(describing: error))")
+                return
+            }
+
+            guard let newRecipe = try? document.data(as: Recipe.self) else {
+                print("Document data was empty.")
+                return
+            }
+            self.likesLabel.text = String(newRecipe.likes.count)
+            if newRecipe.likes.isEmpty {
+                self.heartImageView.image = UIImage(systemName: "heart")
+            } else {
+                self.heartImageView.image = UIImage(systemName: "heart.fill")
+            }
+        }
     }
 }

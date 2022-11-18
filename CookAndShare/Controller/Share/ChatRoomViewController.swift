@@ -178,7 +178,7 @@ class ChatRoomViewController: UIViewController {
         let sender = PushNotificationSender()
         sender.sendPushNotification(
             to: friend.fcmToken,
-            title: userName,
+            title: "好享煮飯",
             body: "\(userName)\(contentType.getMessageBody())"
         )
     }
@@ -320,7 +320,7 @@ class ChatRoomViewController: UIViewController {
             print("Play error:", error.localizedDescription)
         }
         print("duration \(audioPlayer.duration)")
-        
+
         firestoreManager.handleAudioSendWith(url: recordFilePath) { result in
             switch result {
             case .success(let url):

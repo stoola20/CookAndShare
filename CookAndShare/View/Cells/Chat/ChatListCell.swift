@@ -18,6 +18,11 @@ class ChatListCell: UITableViewCell {
         setUpUI()
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        friendImageView.image = UIImage(named: Constant.chefMan)
+    }
+
     func setUpUI() {
         friendImageView.layer.cornerRadius = 30
         friendImageView.contentMode = .scaleAspectFill

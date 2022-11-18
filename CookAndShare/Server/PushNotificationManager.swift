@@ -49,7 +49,21 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print(response)
+        guard
+            let rootViewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?
+            .window?.rootViewController
+        else { return }
+
+        let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
+        if let chatListVC = storyboard.instantiateViewController(withIdentifier: String(describing: ChatListViewController.self)) as? ChatListViewController,
+            let tabBarController = rootViewController as? TabBarController {
+            tabBarController.selectedIndex = 1
+            if let navController = tabBarController.selectedViewController as? UINavigationController {
+                navController.pushViewController(chatListVC, animated: true)
+            }
+        }
+
+        completionHandler()
     }
 
     // 讓 App 在前景也能顯示推播

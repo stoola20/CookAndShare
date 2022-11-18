@@ -24,6 +24,7 @@ class ShareCell: UITableViewCell {
     @IBOutlet weak var meetTimeLabel: UILabel!
     @IBOutlet weak var meetPlaceLabel: UILabel!
     @IBOutlet weak var foodImageView: UIImageView!
+    @IBOutlet weak var seeProfileButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,6 +32,7 @@ class ShareCell: UITableViewCell {
         userNameLabel.addGestureRecognizer(setGestureRecognizer())
         userImageView.isUserInteractionEnabled = true
         userImageView.addGestureRecognizer(setGestureRecognizer())
+        seeProfileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
         setUpUI()
     }
 
@@ -51,6 +53,9 @@ class ShareCell: UITableViewCell {
         bestBeforeLabel.textColor = UIColor.darkBrown
         meetTimeLabel.textColor = UIColor.darkBrown
         meetPlaceLabel.textColor = UIColor.darkBrown
+        seeProfileButton.tintColor = .darkBrown
+        seeProfileButton.layer.cornerRadius = 15
+        seeProfileButton.backgroundColor = .lightOrange
     }
 
     func setGestureRecognizer() -> UITapGestureRecognizer {
@@ -61,6 +66,11 @@ class ShareCell: UITableViewCell {
 
     @objc func goToProfile() {
         delegate.goToProfile(userId)
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        userImageView.image = UIImage(named: Constant.chefMan)
     }
 
     func layoutCell(with share: Share) {
@@ -76,9 +86,9 @@ class ShareCell: UITableViewCell {
         }
         let timeInterval = Date() - Date(timeIntervalSince1970: Double(share.postTime.seconds))
         postTimeLabel.text = timeInterval.convertToString(from: timeInterval)
-        titleLabel.text = "標題：\(share.title)"
+        titleLabel.text = "食品：\(share.title)"
         descriptionLabel.text = "描述：\(share.description)"
-        bestBeforeLabel.text = "有效期限：\(Date.dateFormatter.string(from: Date(timeIntervalSince1970: Double(share.bestBefore.seconds))))"
+        bestBeforeLabel.text = "食品有效期限：\(Date.dateFormatter.string(from: Date(timeIntervalSince1970: Double(share.bestBefore.seconds))))"
         meetTimeLabel.text = "面交時間：\(share.meetTime)"
         meetPlaceLabel.text = "面交地點：\(share.meetPlace)"
         foodImageView.loadImage(share.imageURL, placeHolder: UIImage(named: Constant.friedRice))

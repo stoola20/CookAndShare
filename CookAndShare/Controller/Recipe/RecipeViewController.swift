@@ -24,6 +24,8 @@ enum RecipeType: String, CaseIterable {
 
 class RecipeViewController: UIViewController {
     let firestoreManager = FirestoreManager.shared
+    var selectedTag = 0
+    var indexPath = IndexPath(item: 0, section: 0)
     var hotRecipes: [Recipe]?
     var allRecipes: [Recipe]?
     var filterdRecipes: [Recipe]? {
@@ -38,6 +40,15 @@ class RecipeViewController: UIViewController {
         super.viewDidLoad()
         title = "食譜"
         setUpCollectionView()
+        setUpNavBar()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        downloadRecipes()
+    }
+
+    func setUpNavBar() {
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(
                 image: UIImage(systemName: "magnifyingglass.circle"),
@@ -63,20 +74,6 @@ class RecipeViewController: UIViewController {
         barAppearance.backgroundColor = .lightOrange
         navigationItem.standardAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
-
-        firestoreManager.addRecipeListener { result in
-            switch result {
-            case .success(let recipes):
-                print(recipes)
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        downloadRecipes()
     }
 
     @objc func searchRecipes() {
@@ -121,16 +118,17 @@ class RecipeViewController: UIViewController {
     }
 
     func downloadRecipes() {
-        firestoreManager.searchAllRecipes { result in
+        firestoreManager.searchAllRecipes { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let recipes):
                 self.hotRecipes = recipes
                 self.hotRecipes?.sort { $0.likes.count > $1.likes.count }
 
                 self.allRecipes = recipes.sorted { $0.time.seconds > $1.time.seconds }
-                self.filterdRecipes = self.allRecipes
+                self.filterRecipe(byTag: self.selectedTag)
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self.collectionView.reloadItems(at: [self.indexPath])
                 }
             case .failure(let error):
                 print(error)
@@ -168,19 +166,8 @@ class RecipeViewController: UIViewController {
             return isMach
         }
     }
-}
 
-extension RecipeViewController: RecipeTypeCellDelegate {
-    func didSelectedButton(_ cell: RecipeTypeCell, tag: Int) {
-        for index in 0..<RecipeType.allCases.count {
-            guard
-                let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 1))
-                    as? RecipeTypeCell
-            else { fatalError("Could not create cell") }
-            cell.typeButton.backgroundColor = .lightOrange
-            cell.typeButton.setTitleColor(.darkBrown, for: .normal)
-        }
-
+    func filterRecipe(byTag tag: Int) {
         switch tag {
         case 0:
             filterdRecipes = allRecipes
@@ -193,6 +180,21 @@ extension RecipeViewController: RecipeTypeCellDelegate {
         default:
             recipeFilterByVegetable()
         }
+    }
+}
+
+extension RecipeViewController: RecipeTypeCellDelegate {
+    func didSelectedButton(_ cell: RecipeTypeCell, tag: Int) {
+        for index in 0..<RecipeType.allCases.count {
+            guard
+                let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 1))
+                    as? RecipeTypeCell
+            else { fatalError("Could not create cell") }
+            cell.typeButton.backgroundColor = .lightOrange
+            cell.typeButton.setTitleColor(.darkBrown, for: .normal)
+        }
+        self.selectedTag = tag
+        filterRecipe(byTag: tag)
 
         cell.typeButton.backgroundColor = .darkBrown
         cell.typeButton.setTitleColor(.lightOrange, for: .normal)
@@ -282,7 +284,7 @@ extension RecipeViewController: UICollectionViewDataSource {
 extension RecipeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
-
+        self.indexPath = indexPath
         let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
         guard let detailVC = storyboard.instantiateViewController(
             withIdentifier: String(describing: DetailRecipeViewController.self))
@@ -292,13 +294,13 @@ extension RecipeViewController: UICollectionViewDelegate {
         switch indexPath.section {
         case 0:
             guard let hotRecipes = hotRecipes else { return }
-            detailVC.recipe = hotRecipes[indexPath.item]
+            detailVC.recipeId = hotRecipes[indexPath.item].recipeId
             navigationController?.pushViewController(detailVC, animated: true)
         case 1:
             return
         default:
             guard let filterdRecipes = filterdRecipes else { return }
-            detailVC.recipe = filterdRecipes[indexPath.item]
+            detailVC.recipeId = filterdRecipes[indexPath.item].recipeId
             navigationController?.pushViewController(detailVC, animated: true)
         }
     }

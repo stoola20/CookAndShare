@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class AllRecipeCell: UICollectionViewCell {
     @IBOutlet weak var containerView: UIView!
@@ -18,6 +19,7 @@ class AllRecipeCell: UICollectionViewCell {
 
     weak var viewController: UIViewController?
     let firestoreManager = FirestoreManager.shared
+    var listener: ListenerRegistration?
     var hasSaved = false
     var recipeId = String.empty
     override func awakeFromNib() {
@@ -34,6 +36,11 @@ class AllRecipeCell: UICollectionViewCell {
         imageView.applyshadowWithCorner(containerView: containerView, cornerRadious: 50)
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        listener?.remove()
+    }
+
     func layoutCell(with recipe: Recipe) {
         imageView.loadImage(recipe.mainImageURL, placeHolder: UIImage(named: Constant.friedRice))
         titleLabel.text = recipe.title
@@ -41,6 +48,25 @@ class AllRecipeCell: UICollectionViewCell {
         hasSaved = recipe.saves.contains(Constant.getUserId())
         recipeId = recipe.recipeId
         updateButton()
+
+        listener = Firestore.firestore()
+            .collection(Constant.firestoreRecipes)
+            .document(recipeId)
+            .addSnapshotListener { [weak self] documentSnapshot, error in
+            guard let self = self else { return }
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(String(describing: error))")
+                return
+            }
+
+            guard let newRecipe = try? document.data(as: Recipe.self) else {
+                print("Document data was empty.")
+                return
+            }
+
+            self.hasSaved = newRecipe.saves.contains(Constant.getUserId())
+            self.updateButton()
+            }
     }
 
     func updateButton() {

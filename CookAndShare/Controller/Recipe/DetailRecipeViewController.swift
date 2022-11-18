@@ -16,25 +16,27 @@ enum DetailRecipeSection: CaseIterable {
 
 class DetailRecipeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var saveButton: UIButton! {
-        didSet {
-            updateSaveButton()
-        }
-    }
-    @IBOutlet weak var likeButton: UIButton! {
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
+    let firestoreManager = FirestoreManager.shared
+    var hasLiked = false {
         didSet {
             updateLikeButton()
         }
     }
-    @IBOutlet weak var backButton: UIButton!
-    let firestoreManager = FirestoreManager.shared
-    var hasLiked = false
-    var hasSaved = false
+    var hasSaved = false {
+        didSet {
+            updateSaveButton()
+        }
+    }
+    var recipeId = ""
     var recipe: Recipe? {
         didSet {
             guard let recipe = recipe else { return }
             hasLiked = recipe.likes.contains(Constant.getUserId())
             hasSaved = recipe.saves.contains(Constant.getUserId())
+            tableView.reloadData()
         }
     }
 
@@ -53,6 +55,15 @@ class DetailRecipeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        firestoreManager.fetchRecipeBy(recipeId) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let recipe):
+                self.recipe = recipe
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
