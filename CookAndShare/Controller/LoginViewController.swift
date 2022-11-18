@@ -137,9 +137,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                         if !isNewUser {
                             self.firestoreManager.updateFCMToken(userId: Constant.getUserId(), fcmToken: fcmToken)
                         } else {
-                            
                             guard let fullName = appleIDCredential.fullName else { return }
-                            // if let fcmToken: String = UserDefaults.standard.object(forKey: "fcmToken") as? String {
                             let user = User(
                                 id: authResult.user.uid,
                                 name: "\(fullName.familyName ?? "")\(fullName.givenName ?? "")",
@@ -152,7 +150,6 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                                 conversationId: []
                             )
                             self.firestoreManager.createUser(id: authResult.user.uid, user: user)
-                            // }
                         }
 
                     case .failure(let error):

@@ -8,7 +8,6 @@
 import UIKit
 
 class DetailProcedureCell: UITableViewCell {
-
     @IBOutlet weak var stepLabel: UILabel!
     @IBOutlet weak var procedureImageView: UIImageView!
     @IBOutlet weak var descriptionTextVIew: UITextView!

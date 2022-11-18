@@ -68,6 +68,11 @@ class ShareCell: UITableViewCell {
         delegate.goToProfile(userId)
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        userImageView.image = UIImage(named: Constant.chefMan)
+    }
+
     func layoutCell(with share: Share) {
         userId = share.authorId
         firestoreManager.fetchUserData(userId: share.authorId) { result in
@@ -81,9 +86,9 @@ class ShareCell: UITableViewCell {
         }
         let timeInterval = Date() - Date(timeIntervalSince1970: Double(share.postTime.seconds))
         postTimeLabel.text = timeInterval.convertToString(from: timeInterval)
-        titleLabel.text = "標題：\(share.title)"
+        titleLabel.text = "食品：\(share.title)"
         descriptionLabel.text = "描述：\(share.description)"
-        bestBeforeLabel.text = "有效期限：\(Date.dateFormatter.string(from: Date(timeIntervalSince1970: Double(share.bestBefore.seconds))))"
+        bestBeforeLabel.text = "食品有效期限：\(Date.dateFormatter.string(from: Date(timeIntervalSince1970: Double(share.bestBefore.seconds))))"
         meetTimeLabel.text = "面交時間：\(share.meetTime)"
         meetPlaceLabel.text = "面交地點：\(share.meetPlace)"
         foodImageView.loadImage(share.imageURL, placeHolder: UIImage(named: Constant.friedRice))
