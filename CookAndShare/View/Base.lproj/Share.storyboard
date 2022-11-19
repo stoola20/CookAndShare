@@ -44,11 +44,15 @@
         <!--Preview View Controller-->
         <scene sceneID="Tem-5c-dOZ">
             <objects>
-                <viewController storyboardIdentifier="PreviewViewController" id="NHC-py-MHk" customClass="PreviewViewController" customModule="CookAndShare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PreviewViewController" hidesBottomBarWhenPushed="YES" id="NHC-py-MHk" customClass="PreviewViewController" customModule="CookAndShare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EsA-Sm-8vF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K6x-Cn-1kC">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="PhU-sA-dOD">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
@@ -69,28 +73,35 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="YFj-Vs-6bf"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="UCO-x6-K5a"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FWY-JA-tef">
-                                <rect key="frame" x="30" y="74" width="67" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FWY-JA-tef">
+                                <rect key="frame" x="30" y="74" width="26" height="25.5"/>
                                 <color key="tintColor" name="LightOrange"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="xmark" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
+                                </state>
                                 <connections>
                                     <action selector="back:" destination="NHC-py-MHk" eventType="touchUpInside" id="oZB-1V-vTc"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ZzY-9b-wx7"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="FWY-JA-tef" firstAttribute="top" secondItem="ZzY-9b-wx7" secondAttribute="top" constant="30" id="1xf-6C-Zsi"/>
+                            <constraint firstItem="K6x-Cn-1kC" firstAttribute="top" secondItem="EsA-Sm-8vF" secondAttribute="top" id="547-Om-hql"/>
+                            <constraint firstAttribute="bottom" secondItem="K6x-Cn-1kC" secondAttribute="bottom" id="86Z-2U-JJx"/>
                             <constraint firstItem="PhU-sA-dOD" firstAttribute="top" secondItem="EsA-Sm-8vF" secondAttribute="top" id="B1C-fq-EaI"/>
+                            <constraint firstItem="K6x-Cn-1kC" firstAttribute="leading" secondItem="EsA-Sm-8vF" secondAttribute="leading" id="CNC-e7-3tn"/>
                             <constraint firstAttribute="trailing" secondItem="PhU-sA-dOD" secondAttribute="trailing" id="Sid-aN-xLz"/>
                             <constraint firstItem="FWY-JA-tef" firstAttribute="leading" secondItem="ZzY-9b-wx7" secondAttribute="leading" constant="30" id="bnx-Vy-USC"/>
                             <constraint firstItem="PhU-sA-dOD" firstAttribute="leading" secondItem="EsA-Sm-8vF" secondAttribute="leading" id="loY-3j-nMw"/>
+                            <constraint firstAttribute="trailing" secondItem="K6x-Cn-1kC" secondAttribute="trailing" id="mHG-17-MXF"/>
                             <constraint firstAttribute="bottom" secondItem="PhU-sA-dOD" secondAttribute="bottom" id="vGJ-h3-7gE"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backgroundView" destination="K6x-Cn-1kC" id="WBa-kd-aa7"/>
                         <outlet property="imageView" destination="OW3-Yh-WkT" id="byf-Zk-PvD"/>
                         <outlet property="scrollView" destination="PhU-sA-dOD" id="l95-8q-uWT"/>
                     </connections>
@@ -368,6 +379,7 @@
         <image name="mic" catalog="system" width="108" height="128"/>
         <image name="paperplane.fill" catalog="system" width="128" height="118"/>
         <image name="photo" catalog="system" width="128" height="93"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="DarkBrown">
             <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

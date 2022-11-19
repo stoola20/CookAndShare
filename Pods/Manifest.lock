@@ -740,6 +740,7 @@ PODS:
     - Libuv-gRPC (= 0.0.10)
   - gRPC-Core/Interface (1.44.0)
   - GTMSessionFetcher/Core (2.1.0)
+  - Hero (1.6.2)
   - IQKeyboardManager (6.5.10)
   - Kingfisher (7.3.2)
   - leveldb-library (1.22.1)
@@ -767,6 +768,7 @@ DEPENDENCIES:
   - FirebaseStorage
   - GoogleMaps
   - GooglePlaces
+  - Hero
   - IQKeyboardManager
   - Kingfisher
   - lottie-ios
@@ -797,6 +799,7 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
+    - Hero
     - IQKeyboardManager
     - Kingfisher
     - leveldb-library
@@ -830,6 +833,7 @@ SPEC CHECKSUMS:
   "gRPC-C++": 9675f953ace2b3de7c506039d77be1f2e77a8db2
   gRPC-Core: 943e491cb0d45598b0b0eb9e910c88080369290b
   GTMSessionFetcher: ffbb25ec00ebcb5201adab0a56d808f6f1902d9f
+  Hero: c69009dbc9e2f0472e081adc644dba05fcedae72
   IQKeyboardManager: 45a1fa55c1a5b02c61ac0fd7fd5b62bb4ad20d97
   Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
@@ -840,6 +844,6 @@ SPEC CHECKSUMS:
   SPAlert: 735da1f16a887e294719217572ce1f936d8c8782
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: 6973d3e7bb042d05f2644d68475e0ff8b7e82389
+PODFILE CHECKSUM: c70769d359dc7c56218dbbeeaf89080156e34ba6
 
 COCOAPODS: 1.11.3

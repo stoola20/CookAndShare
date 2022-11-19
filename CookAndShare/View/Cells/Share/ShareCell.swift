@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import Hero
 
 protocol ShareCellDelegate: AnyObject {
     func goToProfile(_ userId: String)
-    func presentLargePhoto(url: String)
+    func presentLargePhoto(url: String, heroId: String)
 }
 
 class ShareCell: UITableViewCell {
@@ -78,7 +79,7 @@ class ShareCell: UITableViewCell {
     }
 
     @objc func presentPhoto() {
-        delegate.presentLargePhoto(url: foodImageURL)
+        delegate.presentLargePhoto(url: foodImageURL, heroId: foodImageView.heroID!)
     }
 
     override func prepareForReuse() {

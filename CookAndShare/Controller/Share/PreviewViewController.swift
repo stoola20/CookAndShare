@@ -6,18 +6,23 @@
 //
 
 import UIKit
+import Hero
 
 class PreviewViewController: UIViewController {
     var imageURL = ""
+    var heroId = ""
+    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(back)))
         scrollView.delegate = self
+        backgroundView.hero.modifiers = [.fade]
         imageView.contentMode = .scaleAspectFill
         imageView.loadImage(imageURL, placeHolder: nil)
+        imageView.hero.id = heroId
     }
 
     override func viewDidLayoutSubviews() {

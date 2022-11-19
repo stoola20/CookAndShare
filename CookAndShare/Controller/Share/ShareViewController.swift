@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import Hero
 
 class ShareViewController: UIViewController {
     let firestoreManager = FirestoreManager.shared
@@ -120,6 +121,7 @@ extension ShareViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: ShareCell.identifier, for: indexPath)
             as? ShareCell
         else { fatalError("Could not create share cell") }
+        cell.foodImageView.hero.id = "\(indexPath.section)\(indexPath.row)"
         cell.delegate = self
         cell.layoutCell(with: shares[indexPath.row])
         return cell
@@ -139,13 +141,15 @@ extension ShareViewController: ShareCellDelegate {
         navigationController?.pushViewController(publicProfileVC, animated: true)
     }
 
-    func presentLargePhoto(url: String) {
+    func presentLargePhoto(url: String, heroId: String) {
         let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
         guard
             let previewVC = storyboard.instantiateViewController(withIdentifier: String(describing: PreviewViewController.self))
                 as? PreviewViewController
         else { fatalError("Could not create previewVC") }
         previewVC.imageURL = url
+        previewVC.isHeroEnabled = true
+        previewVC.heroId = heroId
         previewVC.modalPresentationStyle = .overFullScreen
         present(previewVC, animated: true)
     }
