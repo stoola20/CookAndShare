@@ -158,19 +158,17 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 }
 
                 print("成功以 Apple 登入 Firebase")
-                let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 guard
-                    let profileVC = storyboard.instantiateViewController(withIdentifier: String(describing: ProfileViewController.self))
-                        as? ProfileViewController
-                else { fatalError("Could not instantiate profileVC") }
-                let navigationVC = UINavigationController(rootViewController: profileVC)
-                navigationVC.tabBarItem = UITabBarItem(title: "個人", image: UIImage(systemName: "person.circle"), tag: 3)
-                navigationVC.navigationBar.tintColor = UIColor.darkBrown
-                var arrayChildViewControllers = self.tabBarController?.viewControllers
-                if let selectedTabIndex = self.tabBarController?.selectedIndex {
-                    arrayChildViewControllers?.replaceSubrange(selectedTabIndex...selectedTabIndex, with: [navigationVC])
-                }
-                self.tabBarController?.viewControllers = arrayChildViewControllers
+                    let tabController = storyboard.instantiateViewController(withIdentifier: String(describing: TabBarController.self))
+                        as? TabBarController,
+                    let tabBarControllers = tabController.viewControllers
+                else { fatalError("Could not instantiate tabController") }
+
+                var childViewControllers = self.tabBarController?.viewControllers
+
+                childViewControllers?.replaceSubrange(3...3, with: [tabBarControllers[3]])
+                self.tabBarController?.viewControllers = childViewControllers
                 self.dismiss(animated: true)
             }
         }
