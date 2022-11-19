@@ -79,7 +79,7 @@ class ShareCell: UITableViewCell {
     }
 
     @objc func presentPhoto() {
-        delegate.presentLargePhoto(url: foodImageURL, heroId: foodImageView.heroID!)
+        delegate.presentLargePhoto(url: foodImageURL, heroId: foodImageView.heroID ?? "")
     }
 
     override func prepareForReuse() {

@@ -10,6 +10,7 @@ import PhotosUI
 import FirebaseFirestore
 import GoogleMaps
 import AVFoundation
+import Hero
 
 class ChatRoomViewController: UIViewController {
     var timer: Timer?
@@ -389,6 +390,8 @@ extension ChatRoomViewController: UITableViewDataSource {
                     let cell = tableView.dequeueReusableCell(withIdentifier: MineImageCell.identifier, for: indexPath)
                     as? MineImageCell
                 else { fatalError("could not craete MineMessageCell") }
+                cell.viewController = self
+                cell.largeImageView.hero.id = "\(indexPath.section)\(indexPath.row)"
                 cell.layoutCell(with: message)
                 return cell
             case Constant.location:
@@ -406,7 +409,6 @@ extension ChatRoomViewController: UITableViewDataSource {
                 cell.layoutCell(with: message)
                 return cell
             }
-
         } else {
             guard let friend = friend else { fatalError("Empty friend") }
             switch message.contentType {
@@ -423,6 +425,8 @@ extension ChatRoomViewController: UITableViewDataSource {
                     as? OtherImageCell
                 else { fatalError("could not craete MineMessageCell") }
                 cell.layoutCell(with: message, friendImageURL: friend.imageURL)
+                cell.viewController = self
+                cell.largeImageView.hero.id = "\(indexPath.section)\(indexPath.row)"
                 return cell
             case Constant.location:
                 guard

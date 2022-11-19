@@ -18,6 +18,7 @@ class PreviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(back)))
+        self.hero.isEnabled = true
         scrollView.delegate = self
         backgroundView.hero.modifiers = [.fade]
         imageView.contentMode = .scaleAspectFill

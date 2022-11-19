@@ -25,7 +25,7 @@ class NewRecipeProcedureCell: UITableViewCell {
     }
     @IBOutlet weak var procedureImageView: UIImageView!
     @IBOutlet weak var deleteButton: UIButton!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpUI()

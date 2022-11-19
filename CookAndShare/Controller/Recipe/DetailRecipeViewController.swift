@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import Hero
 
 enum DetailRecipeSection: CaseIterable {
     case banner
@@ -176,6 +177,8 @@ extension DetailRecipeViewController: UITableViewDataSource {
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailProcedureCell.identifier, for: indexPath) as? DetailProcedureCell
             else { fatalError("Could not create procedure cell") }
+            cell.viewController = self
+            cell.procedureImageView.hero.id = "\(indexPath.section)\(indexPath.row)"
             cell.layoutCell(with: recipe.procedures[indexPath.row], at: indexPath)
             return cell
         }

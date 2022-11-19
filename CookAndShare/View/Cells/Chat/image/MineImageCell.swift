@@ -6,14 +6,19 @@
 //
 
 import UIKit
+import Hero
 
 class MineImageCell: UITableViewCell {
     @IBOutlet weak var largeImageView: UIImageView!
     @IBOutlet weak var imageTimeLabel: UILabel!
+    weak var viewController: ChatRoomViewController?
+    var imageURL = ""
 
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpUI()
+        largeImageView.isUserInteractionEnabled = true
+        largeImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(presentLargePhoto)))
     }
 
     func setUpUI() {
@@ -26,5 +31,18 @@ class MineImageCell: UITableViewCell {
     func layoutCell(with message: Message) {
         largeImageView.loadImage(message.content, placeHolder: UIImage(named: Constant.friedRice))
         imageTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
+        imageURL = message.content
+    }
+
+    @objc func presentLargePhoto() {
+        let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
+        guard
+            let previewVC = storyboard.instantiateViewController(withIdentifier: String(describing: PreviewViewController.self))
+                as? PreviewViewController
+        else { fatalError("Could not create previewVC") }
+        previewVC.imageURL = imageURL
+        previewVC.heroId = largeImageView.heroID ?? ""
+        previewVC.modalPresentationStyle = .overFullScreen
+        viewController?.present(previewVC, animated: true)
     }
 }

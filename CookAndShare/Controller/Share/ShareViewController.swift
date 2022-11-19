@@ -148,7 +148,6 @@ extension ShareViewController: ShareCellDelegate {
                 as? PreviewViewController
         else { fatalError("Could not create previewVC") }
         previewVC.imageURL = url
-        previewVC.isHeroEnabled = true
         previewVC.heroId = heroId
         previewVC.modalPresentationStyle = .overFullScreen
         present(previewVC, animated: true)
