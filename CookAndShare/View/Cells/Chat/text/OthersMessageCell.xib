@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="501" height="221"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0eD-8w-GCK">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chefMan" translatesAutoresizingMaskIntoConstraints="NO" id="0eD-8w-GCK">
                         <rect key="frame" x="16" y="8" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="3Ms-sX-CWY"/>
@@ -70,4 +70,7 @@
             <point key="canvasLocation" x="132.60869565217394" y="212.61160714285714"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="chefMan" width="64" height="64"/>
+    </resources>
 </document>
