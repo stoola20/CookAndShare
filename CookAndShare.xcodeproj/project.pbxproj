@@ -27,6 +27,8 @@
 		37233C68292A56AD0093A2E6 /* shareFood.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C62292A56AC0093A2E6 /* shareFood.json */; };
 		37233C69292A56AD0093A2E6 /* socialNetworking.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C63292A56AC0093A2E6 /* socialNetworking.json */; };
 		37233C6A292A56AD0093A2E6 /* taskList.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C64292A56AC0093A2E6 /* taskList.json */; };
+		37233C71292A608D0093A2E6 /* ShoppingList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37233C6F292A608D0093A2E6 /* ShoppingList+CoreDataClass.swift */; };
+		37233C72292A608D0093A2E6 /* ShoppingList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37233C70292A608D0093A2E6 /* ShoppingList+CoreDataProperties.swift */; };
 		372E3A8E2913DCA200250DAA /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A8D2913DCA200250DAA /* ChatListViewController.swift */; };
 		372E3A902913DCAE00250DAA /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */; };
 		372E3A922913E0E200250DAA /* ChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A912913E0E200250DAA /* ChatListCell.swift */; };
@@ -49,8 +51,6 @@
 		3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875369290ED37300F06F4C /* SearchViewController.swift */; };
 		3787536C290ED80900F06F4C /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787536B290ED80900F06F4C /* ResultViewController.swift */; };
 		37875370290F824400F06F4C /* CookAndShare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3787536E290F824400F06F4C /* CookAndShare.xcdatamodeld */; };
-		37875373290F963100F06F4C /* ShoppingList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875371290F963100F06F4C /* ShoppingList+CoreDataClass.swift */; };
-		37875374290F963100F06F4C /* ShoppingList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875372290F963100F06F4C /* ShoppingList+CoreDataProperties.swift */; };
 		37875376290F96E600F06F4C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875375290F96E600F06F4C /* CoreDataManager.swift */; };
 		37875378290F992200F06F4C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875377290F992200F06F4C /* ProfileViewController.swift */; };
 		3787537C290F999000F06F4C /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3787537A290F999000F06F4C /* Profile.storyboard */; };
@@ -163,6 +163,8 @@
 		37233C62292A56AC0093A2E6 /* shareFood.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = shareFood.json; sourceTree = "<group>"; };
 		37233C63292A56AC0093A2E6 /* socialNetworking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = socialNetworking.json; sourceTree = "<group>"; };
 		37233C64292A56AC0093A2E6 /* taskList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskList.json; sourceTree = "<group>"; };
+		37233C6F292A608D0093A2E6 /* ShoppingList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShoppingList+CoreDataClass.swift"; sourceTree = "<group>"; };
+		37233C70292A608D0093A2E6 /* ShoppingList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShoppingList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		372E3A8D2913DCA200250DAA /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
 		372E3A912913E0E200250DAA /* ChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCell.swift; sourceTree = "<group>"; };
@@ -185,8 +187,6 @@
 		37875369290ED37300F06F4C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3787536B290ED80900F06F4C /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		3787536F290F824400F06F4C /* CookAndShare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CookAndShare.xcdatamodel; sourceTree = "<group>"; };
-		37875371290F963100F06F4C /* ShoppingList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShoppingList+CoreDataClass.swift"; sourceTree = "<group>"; };
-		37875372290F963100F06F4C /* ShoppingList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShoppingList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		37875375290F96E600F06F4C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		37875377290F992200F06F4C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3787537B290F999000F06F4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Profile.storyboard; sourceTree = "<group>"; };
@@ -315,9 +315,9 @@
 		372E3A9C29162B9C00250DAA /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				37233C6F292A608D0093A2E6 /* ShoppingList+CoreDataClass.swift */,
+				37233C70292A608D0093A2E6 /* ShoppingList+CoreDataProperties.swift */,
 				37875375290F96E600F06F4C /* CoreDataManager.swift */,
-				37875371290F963100F06F4C /* ShoppingList+CoreDataClass.swift */,
-				37875372290F963100F06F4C /* ShoppingList+CoreDataProperties.swift */,
 				3787536E290F824400F06F4C /* CookAndShare.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -923,9 +923,9 @@
 				37C622E9291A09E500A84263 /* SeeFood.mlmodel in Sources */,
 				372E3AA42916550D00250DAA /* MineLocationCell.swift in Sources */,
 				37D69C99290C14670034D8E1 /* NewPostCell.swift in Sources */,
-				37875374290F963100F06F4C /* ShoppingList+CoreDataProperties.swift in Sources */,
 				372E3A8E2913DCA200250DAA /* ChatListViewController.swift in Sources */,
 				37D69CB0290CBE1C0034D8E1 /* NewRecipeIngredientCell.swift in Sources */,
+				37233C71292A608D0093A2E6 /* ShoppingList+CoreDataClass.swift in Sources */,
 				37CBEC872910EF0300A62EF2 /* ShareViewController.swift in Sources */,
 				37D69C7E290BDF120034D8E1 /* Share.swift in Sources */,
 				37CBEC932910F26B00A62EF2 /* DateHelper.swift in Sources */,
@@ -944,6 +944,7 @@
 				37D69C82290BEBBA0034D8E1 /* RecipeViewController.swift in Sources */,
 				371AE11029138F6D003B16BB /* InfoWindowView.swift in Sources */,
 				372E3AAC291655D400250DAA /* MineImageCell.swift in Sources */,
+				37233C72292A608D0093A2E6 /* ShoppingList+CoreDataProperties.swift in Sources */,
 				37CBECA12912025A00A62EF2 /* PublicPostHeaderView.swift in Sources */,
 				37D69CB7290CD9070034D8E1 /* NewRecipeViewController.swift in Sources */,
 				37C622E72919FB4600A84263 /* FoodRecognitionViewController.swift in Sources */,
@@ -980,7 +981,6 @@
 				3787538C290FC5DD00F06F4C /* ShoppingListViewController.swift in Sources */,
 				37D69CC0290CF3910034D8E1 /* NewRecipeFooterView.swift in Sources */,
 				37CBEC9C291155F200A62EF2 /* PublicProfileHeaderCell.swift in Sources */,
-				37875373290F963100F06F4C /* ShoppingList+CoreDataClass.swift in Sources */,
 				37E6361F290E497F00D516D4 /* AllRecipeCell.swift in Sources */,
 				372E3A902913DCAE00250DAA /* ChatRoomViewController.swift in Sources */,
 				37D69CA5290C15B30034D8E1 /* UICollectionView+Ext.swift in Sources */,

@@ -2,7 +2,7 @@
 //  ShoppingList+CoreDataClass.swift
 //  CookAndShare
 //
-//  Created by Hsun Chen on 2022/10/31.
+//  Created by Hsun Chen on 2022/11/20.
 //
 //
 
@@ -11,5 +11,4 @@ import CoreData
 
 
 public class ShoppingList: NSManagedObject {
-
 }

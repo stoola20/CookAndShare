@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import ESPullToRefresh
+import CoreData
 
 enum RecipeSection: String, CaseIterable {
     case hot = "熱門食譜🔥"
@@ -57,6 +58,7 @@ class RecipeViewController: UIViewController {
             self.downloadRecipes()
         }
         collectionView.es.startPullToRefresh()
+        print(NSPersistentContainer.defaultDirectoryURL())
     }
 
     override func viewWillAppear(_ animated: Bool) {
