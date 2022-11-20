@@ -22,7 +22,7 @@ class DetailRecipeViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var imgHeightConstraint: NSLayoutConstraint!
-    let imageOriginalHeight: CGFloat = 300
+    var imageOriginalHeight = CGFloat()
     let firestoreManager = FirestoreManager.shared
     var hasLiked = false {
         didSet {
@@ -49,6 +49,12 @@ class DetailRecipeViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
         setUpUI()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        imageOriginalHeight = view.bounds.width * 3 / 4
+        tableView.contentInset = UIEdgeInsets(top: imageOriginalHeight - 50, left: 0, bottom: 0, right: 0)
     }
 
     func setUpUI() {
@@ -97,7 +103,6 @@ class DetailRecipeViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.backgroundColor = .clear
-        tableView.contentInset = UIEdgeInsets(top: imageOriginalHeight - 50, left: 0, bottom: 0, right: 0)
         tableView.registerCellWithNib(identifier: DetailBannerCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: DetailIngredientCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: DetailProcedureCell.identifier, bundle: nil)

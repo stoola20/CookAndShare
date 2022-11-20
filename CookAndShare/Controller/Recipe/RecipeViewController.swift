@@ -30,7 +30,9 @@ class RecipeViewController: UIViewController {
     var allRecipes: [Recipe]?
     var filterdRecipes: [Recipe]? {
         didSet {
-            collectionView.reloadSections(IndexSet(integer: 2))
+            DispatchQueue.main.async {
+                self.collectionView.reloadSections(IndexSet(integer: 2))
+            }
         }
     }
 
