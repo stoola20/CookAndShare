@@ -67,7 +67,7 @@ struct Constant {
     static let typeInIngredient = "請輸入食材名"
     static let searchByText = "文字搜尋"
     static let searchByPhoto = """
-        不知道食材的名稱？
+        不知道餐點的名稱？
         沒關係，讓我們幫你辨識！
     """
     static let searchRandomly = """

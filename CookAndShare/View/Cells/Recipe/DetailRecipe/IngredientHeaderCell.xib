@@ -40,7 +40,7 @@
                         <buttonConfiguration key="configuration" style="plain">
                             <imageReference key="image" image="plus" catalog="system" symbolScale="small"/>
                             <attributedString key="attributedTitle">
-                                <fragment content="加入購買清單">
+                                <fragment content="加入採買清單">
                                     <attributes>
                                         <font key="NSFont" size="13" name="PingFangTC-Regular"/>
                                     </attributes>

@@ -51,7 +51,10 @@ class AddToShoppingListVC: UIViewController {
     }
 
     @IBAction func addToShoppingList(_ sender: UIButton) {
-        SPAlert.present(title: "成功加入", preset: .done)
+        let alertView = SPAlertView(title: "成功加入", preset: .done)
+        alertView.iconView?.tintColor = .myOrange
+        alertView.duration = 1
+        alertView.present()
 
         for index in selectedIndex {
             let ingredient = initialIngredients[index]
