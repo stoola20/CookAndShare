@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import ESPullToRefresh
 
 enum RecipeSection: String, CaseIterable {
     case hot = "熱門食譜🔥"
@@ -36,6 +37,14 @@ class RecipeViewController: UIViewController {
         }
     }
 
+    var header: ESRefreshHeaderAnimator {
+        let header = ESRefreshHeaderAnimator.init(frame: CGRect.zero)
+        header.pullToRefreshDescription = "下拉更新"
+        header.releaseToRefreshDescription = ""
+        header.loadingDescription = "載入中..."
+        return header
+    }
+
     @IBOutlet weak var collectionView: UICollectionView!
 
     override func viewDidLoad() {
@@ -43,6 +52,11 @@ class RecipeViewController: UIViewController {
         title = "食譜"
         setUpCollectionView()
         setUpNavBar()
+        collectionView.es.addPullToRefresh(animator: header) { [weak self] in
+            guard let self = self else { return }
+            self.downloadRecipes()
+        }
+        collectionView.es.startPullToRefresh()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -131,6 +145,7 @@ class RecipeViewController: UIViewController {
                 self.filterRecipe(byTag: self.selectedTag)
                 DispatchQueue.main.async {
                     self.collectionView.reloadItems(at: [self.indexPath])
+                    self.collectionView.es.stopPullToRefresh()
                 }
             case .failure(let error):
                 print(error)

@@ -8,11 +8,20 @@
 import UIKit
 import FirebaseAuth
 import Hero
+import ESPullToRefresh
 
 class ShareViewController: UIViewController {
     let firestoreManager = FirestoreManager.shared
     var shares: [Share] = []
     var fromPublicVC = false
+    var header: ESRefreshHeaderAnimator {
+        let header = ESRefreshHeaderAnimator.init(frame: CGRect.zero)
+        header.pullToRefreshDescription = "下拉更新"
+        header.releaseToRefreshDescription = ""
+        header.loadingDescription = "載入中..."
+        return header
+    }
+
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
@@ -45,21 +54,18 @@ class ShareViewController: UIViewController {
         barAppearance.backgroundColor = .lightOrange
         navigationItem.standardAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
+
+        tableView.es.addPullToRefresh(animator: header) { [weak self] in
+            guard let self = self else { return }
+            self.fetchSharePost()
+        }
+        tableView.es.startPullToRefresh()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if fromPublicVC { return }
-        firestoreManager.fetchSharePost { result in
-            switch result {
-            case .success(let shares):
-                self.shares = shares
-                self.shares.sort { $0.postTime.seconds > $1.postTime.seconds }
-                self.tableView.reloadData()
-            case .failure(let error):
-                print(error)
-            }
-        }
+        fetchSharePost()
     }
 
     func setUpTableView() {
@@ -68,6 +74,23 @@ class ShareViewController: UIViewController {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.separatorColor = UIColor.lightOrange
         tableView.registerCellWithNib(identifier: ShareCell.identifier, bundle: nil)
+    }
+
+    func fetchSharePost() {
+        firestoreManager.fetchSharePost { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let shares):
+                self.shares = shares
+                self.shares.sort { $0.postTime.seconds > $1.postTime.seconds }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.tableView.es.stopPullToRefresh()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     @objc func addShare() {
