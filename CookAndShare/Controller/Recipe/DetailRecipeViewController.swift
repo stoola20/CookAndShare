@@ -20,6 +20,9 @@ class DetailRecipeViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var imgView: UIImageView!
+    @IBOutlet weak var imgHeightConstraint: NSLayoutConstraint!
+    let imageOriginalHeight: CGFloat = 300
     let firestoreManager = FirestoreManager.shared
     var hasLiked = false {
         didSet {
@@ -37,6 +40,7 @@ class DetailRecipeViewController: UIViewController {
             guard let recipe = recipe else { return }
             hasLiked = recipe.likes.contains(Constant.getUserId())
             hasSaved = recipe.saves.contains(Constant.getUserId())
+            imgView.loadImage(recipe.mainImageURL, placeHolder: UIImage(named: "friedRice"))
             tableView.reloadData()
         }
     }
@@ -92,6 +96,7 @@ class DetailRecipeViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
+        tableView.contentInset = UIEdgeInsets(top: imageOriginalHeight, left: 0, bottom: 0, right: 0)
         tableView.registerCellWithNib(identifier: DetailBannerCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: DetailIngredientCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: DetailProcedureCell.identifier, bundle: nil)
@@ -190,13 +195,26 @@ extension DetailRecipeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let recipe = recipe else { return nil }
         switch section {
-        case 0: return nil
+        case 0:
+            return nil
         default:
             guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DetailRecipeHeaderView.reuseIdentifier) as? DetailRecipeHeaderView
             else { fatalError("Could not create header view") }
             headerView.layoutHeader(with: recipe, in: section)
             headerView.delegate = self
             return headerView
+        }
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let originalOffsetY = -imageOriginalHeight
+        let moveDistance = abs(scrollView.contentOffset.y - originalOffsetY)
+        if scrollView.contentOffset.y < originalOffsetY {
+            self.imgHeightConstraint.constant = imageOriginalHeight + moveDistance
+            tableView.backgroundColor = .clear
+        } else {
+            self.imgHeightConstraint.constant = imageOriginalHeight - moveDistance/2
+            tableView.backgroundColor = UIColor(white: 0, alpha: moveDistance*1.5/imageOriginalHeight)
         }
     }
 }
