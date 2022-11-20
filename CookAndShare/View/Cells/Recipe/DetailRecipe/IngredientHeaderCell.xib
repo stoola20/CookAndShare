@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="82" id="KGk-i7-Jjw" customClass="IngredientHeaderCell" customModule="CookAndShare" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="82"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="食材" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTg-Mz-weP">
+                        <rect key="frame" x="16" y="16" width="288" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="人份的食材" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOk-sq-PoY">
+                        <rect key="frame" x="60" y="45" width="114" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" name="DarkBrown"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZTC-Dg-Do5">
+                        <rect key="frame" x="190" y="40" width="114" height="31"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="31" id="NbS-FB-rLA"/>
+                        </constraints>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain">
+                            <imageReference key="image" image="plus" catalog="system" symbolScale="small"/>
+                            <attributedString key="attributedTitle">
+                                <fragment content="加入購買清單">
+                                    <attributes>
+                                        <font key="NSFont" size="13" name="PingFangTC-Regular"/>
+                                    </attributes>
+                                </fragment>
+                            </attributedString>
+                        </buttonConfiguration>
+                        <connections>
+                            <action selector="addToList:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="o3G-QK-cNW"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O4Y-LG-UuO">
+                        <rect key="frame" x="16" y="45" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ktT-3Z-Omn">
+                        <rect key="frame" x="16" y="79" width="288" height="1"/>
+                        <color key="backgroundColor" name="LightOrange"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="hqA-r7-yab"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="aTg-Mz-weP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="3Ve-IT-ob9"/>
+                    <constraint firstItem="EOk-sq-PoY" firstAttribute="leading" secondItem="O4Y-LG-UuO" secondAttribute="trailing" constant="2" id="DvX-oy-Xbc"/>
+                    <constraint firstAttribute="trailing" secondItem="aTg-Mz-weP" secondAttribute="trailing" constant="16" id="FaI-sa-XKm"/>
+                    <constraint firstItem="O4Y-LG-UuO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="GEk-la-T6W"/>
+                    <constraint firstAttribute="trailing" secondItem="ZTC-Dg-Do5" secondAttribute="trailing" constant="16" id="Hje-Fo-a2s"/>
+                    <constraint firstItem="ktT-3Z-Omn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="JlI-aq-H2q"/>
+                    <constraint firstItem="ZTC-Dg-Do5" firstAttribute="centerY" secondItem="EOk-sq-PoY" secondAttribute="centerY" id="Ojt-Ep-n38"/>
+                    <constraint firstItem="ktT-3Z-Omn" firstAttribute="top" secondItem="ZTC-Dg-Do5" secondAttribute="bottom" constant="8" id="Qyl-p6-xg7"/>
+                    <constraint firstItem="O4Y-LG-UuO" firstAttribute="top" secondItem="aTg-Mz-weP" secondAttribute="bottom" constant="8" id="SYD-jv-dSM"/>
+                    <constraint firstItem="aTg-Mz-weP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Y1h-hG-1sH"/>
+                    <constraint firstItem="ZTC-Dg-Do5" firstAttribute="leading" secondItem="EOk-sq-PoY" secondAttribute="trailing" constant="16" id="kMC-Fi-ZWw"/>
+                    <constraint firstAttribute="trailing" secondItem="ktT-3Z-Omn" secondAttribute="trailing" constant="16" id="nEc-8Z-0UM"/>
+                    <constraint firstItem="EOk-sq-PoY" firstAttribute="top" secondItem="aTg-Mz-weP" secondAttribute="bottom" constant="8" id="tkQ-Va-Oee"/>
+                    <constraint firstAttribute="bottom" secondItem="ktT-3Z-Omn" secondAttribute="bottom" constant="2" id="u0c-be-0SS"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addButton" destination="ZTC-Dg-Do5" id="6zd-fW-Ts5"/>
+                <outlet property="quantityLabel" destination="O4Y-LG-UuO" id="2sc-Mr-xO7"/>
+                <outlet property="titleLabel" destination="aTg-Mz-weP" id="tJU-lA-W5n"/>
+            </connections>
+            <point key="canvasLocation" x="-39.130434782608695" y="12.723214285714285"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <namedColor name="DarkBrown">
+            <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LightOrange">
+            <color red="0.98039215686274506" green="0.87058823529411766" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

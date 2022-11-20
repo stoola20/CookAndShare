@@ -16,7 +16,6 @@ class DetailBannerCell: UITableViewCell {
     let firestoreManager = FirestoreManager.shared
     var userId = String.empty
     weak var delegate: DetailBannerCellDelegate!
-    @IBOutlet weak var mainImageVIew: UIImageView!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
@@ -30,6 +29,7 @@ class DetailBannerCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = .clear
         setUpUI()
         profileImage.isUserInteractionEnabled = true
         authorLabel.isUserInteractionEnabled = true
@@ -39,10 +39,9 @@ class DetailBannerCell: UITableViewCell {
     }
 
     func setUpUI() {
-        mainImageVIew.contentMode = .scaleAspectFill
         profileImage.layer.cornerRadius = 20
         profileImage.contentMode = .scaleAspectFill
-        containerView.layer.cornerRadius = 35
+        containerView.layer.cornerRadius = 30
         titleLabel.textColor = UIColor.darkBrown
         durationLabel.textColor = UIColor.darkBrown
         authorLabel.textColor = UIColor.darkBrown
@@ -80,7 +79,6 @@ class DetailBannerCell: UITableViewCell {
                 print(error)
             }
         }
-        mainImageVIew.loadImage(recipe.mainImageURL, placeHolder: UIImage(named: Constant.friedRice))
         titleLabel.text = recipe.title
         durationLabel.text = "⌛️ 烹調時間： \(recipe.cookDuration) 分鐘"
         authorLabel.text = recipe.authorId

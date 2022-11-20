@@ -17,6 +17,10 @@
 		371AE11029138F6D003B16BB /* InfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371AE10F29138F6D003B16BB /* InfoWindowView.swift */; };
 		371AE11429139061003B16BB /* InfoWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 371AE11329139061003B16BB /* InfoWindowView.xib */; };
 		37233C392927BF7B0093A2E6 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37233C382927BF7B0093A2E6 /* PreviewViewController.swift */; };
+		37233C422929DAFB0093A2E6 /* IngredientHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37233C402929DAFB0093A2E6 /* IngredientHeaderCell.swift */; };
+		37233C432929DAFB0093A2E6 /* IngredientHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37233C412929DAFB0093A2E6 /* IngredientHeaderCell.xib */; };
+		37233C462929DB0F0093A2E6 /* ProcedureHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37233C442929DB0F0093A2E6 /* ProcedureHeaderCell.swift */; };
+		37233C472929DB0F0093A2E6 /* ProcedureHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37233C452929DB0F0093A2E6 /* ProcedureHeaderCell.xib */; };
 		372E3A8E2913DCA200250DAA /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A8D2913DCA200250DAA /* ChatListViewController.swift */; };
 		372E3A902913DCAE00250DAA /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */; };
 		372E3A922913E0E200250DAA /* ChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A912913E0E200250DAA /* ChatListCell.swift */; };
@@ -125,7 +129,6 @@
 		37E63632290E60E800D516D4 /* DetailIngredientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E63630290E60E800D516D4 /* DetailIngredientCell.xib */; };
 		37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63633290E60F700D516D4 /* DetailProcedureCell.swift */; };
 		37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E63634290E60F700D516D4 /* DetailProcedureCell.xib */; };
-		37E63638290E6EB900D516D4 /* DetailRecipeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63637290E6EB900D516D4 /* DetailRecipeHeaderView.swift */; };
 		37FE7987291B935D005A3E3E /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE7986291B935D005A3E3E /* UIColor+Ext.swift */; };
 		3FCAABA4B3E38E622861E889 /* Pods_CookAndShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */; };
 /* End PBXBuildFile section */
@@ -144,6 +147,10 @@
 		371AE10F29138F6D003B16BB /* InfoWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWindowView.swift; sourceTree = "<group>"; };
 		371AE11329139061003B16BB /* InfoWindowView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoWindowView.xib; sourceTree = "<group>"; };
 		37233C382927BF7B0093A2E6 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		37233C402929DAFB0093A2E6 /* IngredientHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientHeaderCell.swift; sourceTree = "<group>"; };
+		37233C412929DAFB0093A2E6 /* IngredientHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientHeaderCell.xib; sourceTree = "<group>"; };
+		37233C442929DB0F0093A2E6 /* ProcedureHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcedureHeaderCell.swift; sourceTree = "<group>"; };
+		37233C452929DB0F0093A2E6 /* ProcedureHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProcedureHeaderCell.xib; sourceTree = "<group>"; };
 		372E3A8D2913DCA200250DAA /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
 		372E3A912913E0E200250DAA /* ChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCell.swift; sourceTree = "<group>"; };
@@ -254,7 +261,6 @@
 		37E63630290E60E800D516D4 /* DetailIngredientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailIngredientCell.xib; sourceTree = "<group>"; };
 		37E63633290E60F700D516D4 /* DetailProcedureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProcedureCell.swift; sourceTree = "<group>"; };
 		37E63634290E60F700D516D4 /* DetailProcedureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailProcedureCell.xib; sourceTree = "<group>"; };
-		37E63637290E6EB900D516D4 /* DetailRecipeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecipeHeaderView.swift; sourceTree = "<group>"; };
 		37FE7986291B935D005A3E3E /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		517F2D7545434C37ABC19360 /* Pods-CookAndShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookAndShare.release.xcconfig"; path = "Target Support Files/Pods-CookAndShare/Pods-CookAndShare.release.xcconfig"; sourceTree = "<group>"; };
 		92C4A81AF54EA5965DB8EE93 /* Pods-CookAndShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookAndShare.debug.xcconfig"; path = "Target Support Files/Pods-CookAndShare/Pods-CookAndShare.debug.xcconfig"; sourceTree = "<group>"; };
@@ -658,7 +664,10 @@
 				37E63630290E60E800D516D4 /* DetailIngredientCell.xib */,
 				37E63633290E60F700D516D4 /* DetailProcedureCell.swift */,
 				37E63634290E60F700D516D4 /* DetailProcedureCell.xib */,
-				37E63637290E6EB900D516D4 /* DetailRecipeHeaderView.swift */,
+				37233C402929DAFB0093A2E6 /* IngredientHeaderCell.swift */,
+				37233C412929DAFB0093A2E6 /* IngredientHeaderCell.xib */,
+				37233C442929DB0F0093A2E6 /* ProcedureHeaderCell.swift */,
+				37233C452929DB0F0093A2E6 /* ProcedureHeaderCell.xib */,
 			);
 			path = DetailRecipe;
 			sourceTree = "<group>";
@@ -775,6 +784,7 @@
 				378C1C2D291F895A00CF8D38 /* successGold.json in Resources */,
 				372E3AAD291655D400250DAA /* MineImageCell.xib in Resources */,
 				37E63632290E60E800D516D4 /* DetailIngredientCell.xib in Resources */,
+				37233C472929DB0F0093A2E6 /* ProcedureHeaderCell.xib in Resources */,
 				372E3AA52916550D00250DAA /* MineLocationCell.xib in Resources */,
 				37E6362E290E60D500D516D4 /* DetailBannerCell.xib in Resources */,
 				37D69CBC290CDD700034D8E1 /* NewPost.storyboard in Resources */,
@@ -792,6 +802,7 @@
 				37D69CB1290CBE1C0034D8E1 /* NewRecipeIngredientCell.xib in Resources */,
 				37CBEC9D291155F200A62EF2 /* PublicProfileHeaderCell.xib in Resources */,
 				37D69CB5290CBE310034D8E1 /* NewRecipeProcedureCell.xib in Resources */,
+				37233C432929DAFB0093A2E6 /* IngredientHeaderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -919,6 +930,7 @@
 				37CBECA729120DC000A62EF2 /* PublicPostCell.swift in Sources */,
 				378EA508291CD033004200F9 /* UserInputTextField.swift in Sources */,
 				37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */,
+				37233C462929DB0F0093A2E6 /* ProcedureHeaderCell.swift in Sources */,
 				37E63624290E57BA00D516D4 /* RecipeHeaderView.swift in Sources */,
 				37D7C1A129134F2E005B8781 /* Map.swift in Sources */,
 				372E3AB82916560600250DAA /* OtherVoiceCell.swift in Sources */,
@@ -944,7 +956,6 @@
 				3787538C290FC5DD00F06F4C /* ShoppingListViewController.swift in Sources */,
 				37D69CC0290CF3910034D8E1 /* NewRecipeFooterView.swift in Sources */,
 				37CBEC9C291155F200A62EF2 /* PublicProfileHeaderCell.swift in Sources */,
-				37E63638290E6EB900D516D4 /* DetailRecipeHeaderView.swift in Sources */,
 				37875373290F963100F06F4C /* ShoppingList+CoreDataClass.swift in Sources */,
 				37E6361F290E497F00D516D4 /* AllRecipeCell.swift in Sources */,
 				372E3A902913DCAE00250DAA /* ChatRoomViewController.swift in Sources */,
@@ -961,6 +972,7 @@
 				37875370290F824400F06F4C /* CookAndShare.xcdatamodeld in Sources */,
 				372E3A952913E27100250DAA /* MineMessageCell.swift in Sources */,
 				37D7C19629127F13005B8781 /* MapViewController.swift in Sources */,
+				37233C422929DAFB0093A2E6 /* IngredientHeaderCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
