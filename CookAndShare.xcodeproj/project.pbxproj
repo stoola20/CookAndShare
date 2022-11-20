@@ -21,6 +21,12 @@
 		37233C432929DAFB0093A2E6 /* IngredientHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37233C412929DAFB0093A2E6 /* IngredientHeaderCell.xib */; };
 		37233C462929DB0F0093A2E6 /* ProcedureHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37233C442929DB0F0093A2E6 /* ProcedureHeaderCell.swift */; };
 		37233C472929DB0F0093A2E6 /* ProcedureHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37233C452929DB0F0093A2E6 /* ProcedureHeaderCell.xib */; };
+		37233C65292A56AD0093A2E6 /* travelingCamera.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C5F292A56AC0093A2E6 /* travelingCamera.json */; };
+		37233C66292A56AD0093A2E6 /* photoscanMobile.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C60292A56AC0093A2E6 /* photoscanMobile.json */; };
+		37233C67292A56AD0093A2E6 /* cloudStorage.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C61292A56AC0093A2E6 /* cloudStorage.json */; };
+		37233C68292A56AD0093A2E6 /* shareFood.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C62292A56AC0093A2E6 /* shareFood.json */; };
+		37233C69292A56AD0093A2E6 /* socialNetworking.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C63292A56AC0093A2E6 /* socialNetworking.json */; };
+		37233C6A292A56AD0093A2E6 /* taskList.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C64292A56AC0093A2E6 /* taskList.json */; };
 		372E3A8E2913DCA200250DAA /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A8D2913DCA200250DAA /* ChatListViewController.swift */; };
 		372E3A902913DCAE00250DAA /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */; };
 		372E3A922913E0E200250DAA /* ChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A912913E0E200250DAA /* ChatListCell.swift */; };
@@ -151,6 +157,12 @@
 		37233C412929DAFB0093A2E6 /* IngredientHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientHeaderCell.xib; sourceTree = "<group>"; };
 		37233C442929DB0F0093A2E6 /* ProcedureHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcedureHeaderCell.swift; sourceTree = "<group>"; };
 		37233C452929DB0F0093A2E6 /* ProcedureHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProcedureHeaderCell.xib; sourceTree = "<group>"; };
+		37233C5F292A56AC0093A2E6 /* travelingCamera.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = travelingCamera.json; sourceTree = "<group>"; };
+		37233C60292A56AC0093A2E6 /* photoscanMobile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = photoscanMobile.json; sourceTree = "<group>"; };
+		37233C61292A56AC0093A2E6 /* cloudStorage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cloudStorage.json; sourceTree = "<group>"; };
+		37233C62292A56AC0093A2E6 /* shareFood.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = shareFood.json; sourceTree = "<group>"; };
+		37233C63292A56AC0093A2E6 /* socialNetworking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = socialNetworking.json; sourceTree = "<group>"; };
+		37233C64292A56AC0093A2E6 /* taskList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskList.json; sourceTree = "<group>"; };
 		372E3A8D2913DCA200250DAA /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
 		372E3A912913E0E200250DAA /* ChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCell.swift; sourceTree = "<group>"; };
@@ -381,6 +393,12 @@
 		378C1C2B291F837900CF8D38 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				37233C61292A56AC0093A2E6 /* cloudStorage.json */,
+				37233C60292A56AC0093A2E6 /* photoscanMobile.json */,
+				37233C62292A56AC0093A2E6 /* shareFood.json */,
+				37233C63292A56AC0093A2E6 /* socialNetworking.json */,
+				37233C64292A56AC0093A2E6 /* taskList.json */,
+				37233C5F292A56AC0093A2E6 /* travelingCamera.json */,
 				378C1C2C291F895A00CF8D38 /* successGold.json */,
 			);
 			path = Lottie;
@@ -765,13 +783,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				37D69C65290BCF980034D8E1 /* LaunchScreen.storyboard in Resources */,
+				37233C65292A56AD0093A2E6 /* travelingCamera.json in Resources */,
 				372E3AB92916560600250DAA /* OtherVoiceCell.xib in Resources */,
 				37D69CAD290CBE050034D8E1 /* NewRecipeDescriptionCell.xib in Resources */,
 				37875380290F9A4000F06F4C /* ProfileUserCell.xib in Resources */,
 				37CBEC912910EFF100A62EF2 /* ShareCell.xib in Resources */,
+				37233C6A292A56AD0093A2E6 /* taskList.json in Resources */,
 				37D69C9A290C14670034D8E1 /* NewPostCell.xib in Resources */,
 				37D69C6D290BD46D0034D8E1 /* GoogleService-Info.plist in Resources */,
 				37CBEC8A2910EF2300A62EF2 /* Share.storyboard in Resources */,
+				37233C67292A56AD0093A2E6 /* cloudStorage.json in Resources */,
 				37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */,
 				372E3A9A2913E28100250DAA /* OthersMessageCell.xib in Resources */,
 				37D69C62290BCF980034D8E1 /* Assets.xcassets in Resources */,
@@ -779,8 +800,10 @@
 				370B2000291A5C5B0092F502 /* Entitlements.plist in Resources */,
 				372E3AB1291655E200250DAA /* OtherImageCell.xib in Resources */,
 				371AE11429139061003B16BB /* InfoWindowView.xib in Resources */,
+				37233C68292A56AD0093A2E6 /* shareFood.json in Resources */,
 				37E63620290E497F00D516D4 /* AllRecipeCell.xib in Resources */,
 				37CBECA22912025A00A62EF2 /* PublicPostHeaderView.xib in Resources */,
+				37233C69292A56AD0093A2E6 /* socialNetworking.json in Resources */,
 				378C1C2D291F895A00CF8D38 /* successGold.json in Resources */,
 				372E3AAD291655D400250DAA /* MineImageCell.xib in Resources */,
 				37E63632290E60E800D516D4 /* DetailIngredientCell.xib in Resources */,
@@ -794,6 +817,7 @@
 				372E3A962913E27100250DAA /* MineMessageCell.xib in Resources */,
 				37875388290F9A6C00F06F4C /* ShoppingListCell.xib in Resources */,
 				37E63617290E48FB00D516D4 /* Recipe.storyboard in Resources */,
+				37233C66292A56AD0093A2E6 /* photoscanMobile.json in Resources */,
 				37D69CA0290C14880034D8E1 /* DraftCell.xib in Resources */,
 				37D7C19929128E6D005B8781 /* Map.storyboard in Resources */,
 				372E3AA92916551C00250DAA /* OtherLocationCell.xib in Resources */,

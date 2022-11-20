@@ -9,6 +9,7 @@ import UIKit
 import Vision
 import CoreML
 import SPAlert
+import Lottie
 
 class FoodRecognitionViewController: UIViewController {
     let imagePicker = UIImagePickerController()
@@ -18,14 +19,14 @@ class FoodRecognitionViewController: UIViewController {
     @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var retakeButton: UIButton!
     @IBOutlet weak var searchButton: UIButton!
-
+    @IBOutlet weak var animationView: LottieAnimationView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
 
         foodImageView.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseSourceType))
-        foodImageView.addGestureRecognizer(tap)
 
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
@@ -33,6 +34,12 @@ class FoodRecognitionViewController: UIViewController {
         retakeButton.isHidden = true
         retakeButton.addTarget(self, action: #selector(chooseSourceType), for: .touchUpInside)
         searchButton.isHidden = true
+
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.animationSpeed = 1
+        animationView.play()
+        animationView.addGestureRecognizer(tap)
     }
 
     func setUpUI() {
@@ -130,6 +137,7 @@ extension FoodRecognitionViewController: UIImagePickerControllerDelegate, UINavi
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let userPickedImage = info[.editedImage] as? UIImage else { return }
         foodImageView.image = userPickedImage
+        animationView.isHidden = true
         guard let ciimage = CIImage(image: userPickedImage) else {
             fatalError("Could not create ciimage")
         }

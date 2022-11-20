@@ -349,18 +349,30 @@
                                     <constraint firstItem="oWS-39-JCO" firstAttribute="top" secondItem="QUH-Es-wnH" secondAttribute="bottom" constant="20" id="rgI-cd-LS8"/>
                                 </constraints>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z0v-FM-mRJ" customClass="LottieAnimationView" customModule="Lottie">
+                                <rect key="frame" x="0.0" y="186" width="414" height="414"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="travelingCamera"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DGe-cU-m76"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="AY5-R8-dvc" firstAttribute="centerY" secondItem="Aa8-hF-xyD" secondAttribute="centerY" id="46H-JC-4vl"/>
+                            <constraint firstItem="z0v-FM-mRJ" firstAttribute="trailing" secondItem="ddP-cC-GVS" secondAttribute="trailing" id="DbA-DA-EVy"/>
                             <constraint firstItem="DGe-cU-m76" firstAttribute="trailing" secondItem="AY5-R8-dvc" secondAttribute="trailing" id="f5p-vc-GNq"/>
+                            <constraint firstItem="z0v-FM-mRJ" firstAttribute="leading" secondItem="ddP-cC-GVS" secondAttribute="leading" id="jlP-fB-d14"/>
+                            <constraint firstItem="z0v-FM-mRJ" firstAttribute="bottom" secondItem="ddP-cC-GVS" secondAttribute="bottom" id="sAL-Ws-S0x"/>
                             <constraint firstItem="AY5-R8-dvc" firstAttribute="leading" secondItem="Aa8-hF-xyD" secondAttribute="leading" id="vLx-kv-HAn"/>
+                            <constraint firstItem="z0v-FM-mRJ" firstAttribute="top" secondItem="ddP-cC-GVS" secondAttribute="top" id="yt9-xm-HSl"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="animationView" destination="z0v-FM-mRJ" id="77P-hi-FTm"/>
                         <outlet property="foodImageView" destination="ddP-cC-GVS" id="kTl-2a-pg7"/>
                         <outlet property="resultLabel" destination="QUH-Es-wnH" id="KQM-LV-znq"/>
                         <outlet property="retakeButton" destination="nNd-R3-Tgo" id="XAf-Hv-ohg"/>
