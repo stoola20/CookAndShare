@@ -16,6 +16,19 @@
 		370B2004291ABAD40092F502 /* PushNotificationSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370B2003291ABAD40092F502 /* PushNotificationSender.swift */; };
 		371AE11029138F6D003B16BB /* InfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371AE10F29138F6D003B16BB /* InfoWindowView.swift */; };
 		371AE11429139061003B16BB /* InfoWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 371AE11329139061003B16BB /* InfoWindowView.xib */; };
+		37233C392927BF7B0093A2E6 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37233C382927BF7B0093A2E6 /* PreviewViewController.swift */; };
+		37233C422929DAFB0093A2E6 /* IngredientHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37233C402929DAFB0093A2E6 /* IngredientHeaderCell.swift */; };
+		37233C432929DAFB0093A2E6 /* IngredientHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37233C412929DAFB0093A2E6 /* IngredientHeaderCell.xib */; };
+		37233C462929DB0F0093A2E6 /* ProcedureHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37233C442929DB0F0093A2E6 /* ProcedureHeaderCell.swift */; };
+		37233C472929DB0F0093A2E6 /* ProcedureHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37233C452929DB0F0093A2E6 /* ProcedureHeaderCell.xib */; };
+		37233C65292A56AD0093A2E6 /* travelingCamera.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C5F292A56AC0093A2E6 /* travelingCamera.json */; };
+		37233C66292A56AD0093A2E6 /* photoscanMobile.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C60292A56AC0093A2E6 /* photoscanMobile.json */; };
+		37233C67292A56AD0093A2E6 /* cloudStorage.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C61292A56AC0093A2E6 /* cloudStorage.json */; };
+		37233C68292A56AD0093A2E6 /* shareFood.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C62292A56AC0093A2E6 /* shareFood.json */; };
+		37233C69292A56AD0093A2E6 /* socialNetworking.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C63292A56AC0093A2E6 /* socialNetworking.json */; };
+		37233C6A292A56AD0093A2E6 /* taskList.json in Resources */ = {isa = PBXBuildFile; fileRef = 37233C64292A56AC0093A2E6 /* taskList.json */; };
+		37233C71292A608D0093A2E6 /* ShoppingList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37233C6F292A608D0093A2E6 /* ShoppingList+CoreDataClass.swift */; };
+		37233C72292A608D0093A2E6 /* ShoppingList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37233C70292A608D0093A2E6 /* ShoppingList+CoreDataProperties.swift */; };
 		372E3A8E2913DCA200250DAA /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A8D2913DCA200250DAA /* ChatListViewController.swift */; };
 		372E3A902913DCAE00250DAA /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */; };
 		372E3A922913E0E200250DAA /* ChatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3A912913E0E200250DAA /* ChatListCell.swift */; };
@@ -38,8 +51,6 @@
 		3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875369290ED37300F06F4C /* SearchViewController.swift */; };
 		3787536C290ED80900F06F4C /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787536B290ED80900F06F4C /* ResultViewController.swift */; };
 		37875370290F824400F06F4C /* CookAndShare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3787536E290F824400F06F4C /* CookAndShare.xcdatamodeld */; };
-		37875373290F963100F06F4C /* ShoppingList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875371290F963100F06F4C /* ShoppingList+CoreDataClass.swift */; };
-		37875374290F963100F06F4C /* ShoppingList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875372290F963100F06F4C /* ShoppingList+CoreDataProperties.swift */; };
 		37875376290F96E600F06F4C /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875375290F96E600F06F4C /* CoreDataManager.swift */; };
 		37875378290F992200F06F4C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875377290F992200F06F4C /* ProfileViewController.swift */; };
 		3787537C290F999000F06F4C /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3787537A290F999000F06F4C /* Profile.storyboard */; };
@@ -124,7 +135,6 @@
 		37E63632290E60E800D516D4 /* DetailIngredientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E63630290E60E800D516D4 /* DetailIngredientCell.xib */; };
 		37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63633290E60F700D516D4 /* DetailProcedureCell.swift */; };
 		37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E63634290E60F700D516D4 /* DetailProcedureCell.xib */; };
-		37E63638290E6EB900D516D4 /* DetailRecipeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63637290E6EB900D516D4 /* DetailRecipeHeaderView.swift */; };
 		37FE7987291B935D005A3E3E /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE7986291B935D005A3E3E /* UIColor+Ext.swift */; };
 		3FCAABA4B3E38E622861E889 /* Pods_CookAndShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */; };
 /* End PBXBuildFile section */
@@ -142,6 +152,19 @@
 		370B2003291ABAD40092F502 /* PushNotificationSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSender.swift; sourceTree = "<group>"; };
 		371AE10F29138F6D003B16BB /* InfoWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWindowView.swift; sourceTree = "<group>"; };
 		371AE11329139061003B16BB /* InfoWindowView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoWindowView.xib; sourceTree = "<group>"; };
+		37233C382927BF7B0093A2E6 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		37233C402929DAFB0093A2E6 /* IngredientHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientHeaderCell.swift; sourceTree = "<group>"; };
+		37233C412929DAFB0093A2E6 /* IngredientHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientHeaderCell.xib; sourceTree = "<group>"; };
+		37233C442929DB0F0093A2E6 /* ProcedureHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcedureHeaderCell.swift; sourceTree = "<group>"; };
+		37233C452929DB0F0093A2E6 /* ProcedureHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProcedureHeaderCell.xib; sourceTree = "<group>"; };
+		37233C5F292A56AC0093A2E6 /* travelingCamera.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = travelingCamera.json; sourceTree = "<group>"; };
+		37233C60292A56AC0093A2E6 /* photoscanMobile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = photoscanMobile.json; sourceTree = "<group>"; };
+		37233C61292A56AC0093A2E6 /* cloudStorage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cloudStorage.json; sourceTree = "<group>"; };
+		37233C62292A56AC0093A2E6 /* shareFood.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = shareFood.json; sourceTree = "<group>"; };
+		37233C63292A56AC0093A2E6 /* socialNetworking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = socialNetworking.json; sourceTree = "<group>"; };
+		37233C64292A56AC0093A2E6 /* taskList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = taskList.json; sourceTree = "<group>"; };
+		37233C6F292A608D0093A2E6 /* ShoppingList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShoppingList+CoreDataClass.swift"; sourceTree = "<group>"; };
+		37233C70292A608D0093A2E6 /* ShoppingList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShoppingList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		372E3A8D2913DCA200250DAA /* ChatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomViewController.swift; sourceTree = "<group>"; };
 		372E3A912913E0E200250DAA /* ChatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListCell.swift; sourceTree = "<group>"; };
@@ -164,8 +187,6 @@
 		37875369290ED37300F06F4C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3787536B290ED80900F06F4C /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		3787536F290F824400F06F4C /* CookAndShare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CookAndShare.xcdatamodel; sourceTree = "<group>"; };
-		37875371290F963100F06F4C /* ShoppingList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShoppingList+CoreDataClass.swift"; sourceTree = "<group>"; };
-		37875372290F963100F06F4C /* ShoppingList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShoppingList+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		37875375290F96E600F06F4C /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		37875377290F992200F06F4C /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3787537B290F999000F06F4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Profile.storyboard; sourceTree = "<group>"; };
@@ -252,7 +273,6 @@
 		37E63630290E60E800D516D4 /* DetailIngredientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailIngredientCell.xib; sourceTree = "<group>"; };
 		37E63633290E60F700D516D4 /* DetailProcedureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProcedureCell.swift; sourceTree = "<group>"; };
 		37E63634290E60F700D516D4 /* DetailProcedureCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailProcedureCell.xib; sourceTree = "<group>"; };
-		37E63637290E6EB900D516D4 /* DetailRecipeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecipeHeaderView.swift; sourceTree = "<group>"; };
 		37FE7986291B935D005A3E3E /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		517F2D7545434C37ABC19360 /* Pods-CookAndShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookAndShare.release.xcconfig"; path = "Target Support Files/Pods-CookAndShare/Pods-CookAndShare.release.xcconfig"; sourceTree = "<group>"; };
 		92C4A81AF54EA5965DB8EE93 /* Pods-CookAndShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CookAndShare.debug.xcconfig"; path = "Target Support Files/Pods-CookAndShare/Pods-CookAndShare.debug.xcconfig"; sourceTree = "<group>"; };
@@ -295,9 +315,9 @@
 		372E3A9C29162B9C00250DAA /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				37233C6F292A608D0093A2E6 /* ShoppingList+CoreDataClass.swift */,
+				37233C70292A608D0093A2E6 /* ShoppingList+CoreDataProperties.swift */,
 				37875375290F96E600F06F4C /* CoreDataManager.swift */,
-				37875371290F963100F06F4C /* ShoppingList+CoreDataClass.swift */,
-				37875372290F963100F06F4C /* ShoppingList+CoreDataProperties.swift */,
 				3787536E290F824400F06F4C /* CookAndShare.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -373,6 +393,12 @@
 		378C1C2B291F837900CF8D38 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				37233C61292A56AC0093A2E6 /* cloudStorage.json */,
+				37233C60292A56AC0093A2E6 /* photoscanMobile.json */,
+				37233C62292A56AC0093A2E6 /* shareFood.json */,
+				37233C63292A56AC0093A2E6 /* socialNetworking.json */,
+				37233C64292A56AC0093A2E6 /* taskList.json */,
+				37233C5F292A56AC0093A2E6 /* travelingCamera.json */,
 				378C1C2C291F895A00CF8D38 /* successGold.json */,
 			);
 			path = Lottie;
@@ -520,6 +546,7 @@
 				37CBEC862910EF0300A62EF2 /* ShareViewController.swift */,
 				372E3A8D2913DCA200250DAA /* ChatListViewController.swift */,
 				372E3A8F2913DCAE00250DAA /* ChatRoomViewController.swift */,
+				37233C382927BF7B0093A2E6 /* PreviewViewController.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -655,7 +682,10 @@
 				37E63630290E60E800D516D4 /* DetailIngredientCell.xib */,
 				37E63633290E60F700D516D4 /* DetailProcedureCell.swift */,
 				37E63634290E60F700D516D4 /* DetailProcedureCell.xib */,
-				37E63637290E6EB900D516D4 /* DetailRecipeHeaderView.swift */,
+				37233C402929DAFB0093A2E6 /* IngredientHeaderCell.swift */,
+				37233C412929DAFB0093A2E6 /* IngredientHeaderCell.xib */,
+				37233C442929DB0F0093A2E6 /* ProcedureHeaderCell.swift */,
+				37233C452929DB0F0093A2E6 /* ProcedureHeaderCell.xib */,
 			);
 			path = DetailRecipe;
 			sourceTree = "<group>";
@@ -753,13 +783,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				37D69C65290BCF980034D8E1 /* LaunchScreen.storyboard in Resources */,
+				37233C65292A56AD0093A2E6 /* travelingCamera.json in Resources */,
 				372E3AB92916560600250DAA /* OtherVoiceCell.xib in Resources */,
 				37D69CAD290CBE050034D8E1 /* NewRecipeDescriptionCell.xib in Resources */,
 				37875380290F9A4000F06F4C /* ProfileUserCell.xib in Resources */,
 				37CBEC912910EFF100A62EF2 /* ShareCell.xib in Resources */,
+				37233C6A292A56AD0093A2E6 /* taskList.json in Resources */,
 				37D69C9A290C14670034D8E1 /* NewPostCell.xib in Resources */,
 				37D69C6D290BD46D0034D8E1 /* GoogleService-Info.plist in Resources */,
 				37CBEC8A2910EF2300A62EF2 /* Share.storyboard in Resources */,
+				37233C67292A56AD0093A2E6 /* cloudStorage.json in Resources */,
 				37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */,
 				372E3A9A2913E28100250DAA /* OthersMessageCell.xib in Resources */,
 				37D69C62290BCF980034D8E1 /* Assets.xcassets in Resources */,
@@ -767,11 +800,14 @@
 				370B2000291A5C5B0092F502 /* Entitlements.plist in Resources */,
 				372E3AB1291655E200250DAA /* OtherImageCell.xib in Resources */,
 				371AE11429139061003B16BB /* InfoWindowView.xib in Resources */,
+				37233C68292A56AD0093A2E6 /* shareFood.json in Resources */,
 				37E63620290E497F00D516D4 /* AllRecipeCell.xib in Resources */,
 				37CBECA22912025A00A62EF2 /* PublicPostHeaderView.xib in Resources */,
+				37233C69292A56AD0093A2E6 /* socialNetworking.json in Resources */,
 				378C1C2D291F895A00CF8D38 /* successGold.json in Resources */,
 				372E3AAD291655D400250DAA /* MineImageCell.xib in Resources */,
 				37E63632290E60E800D516D4 /* DetailIngredientCell.xib in Resources */,
+				37233C472929DB0F0093A2E6 /* ProcedureHeaderCell.xib in Resources */,
 				372E3AA52916550D00250DAA /* MineLocationCell.xib in Resources */,
 				37E6362E290E60D500D516D4 /* DetailBannerCell.xib in Resources */,
 				37D69CBC290CDD700034D8E1 /* NewPost.storyboard in Resources */,
@@ -781,6 +817,7 @@
 				372E3A962913E27100250DAA /* MineMessageCell.xib in Resources */,
 				37875388290F9A6C00F06F4C /* ShoppingListCell.xib in Resources */,
 				37E63617290E48FB00D516D4 /* Recipe.storyboard in Resources */,
+				37233C66292A56AD0093A2E6 /* photoscanMobile.json in Resources */,
 				37D69CA0290C14880034D8E1 /* DraftCell.xib in Resources */,
 				37D7C19929128E6D005B8781 /* Map.storyboard in Resources */,
 				372E3AA92916551C00250DAA /* OtherLocationCell.xib in Resources */,
@@ -789,6 +826,7 @@
 				37D69CB1290CBE1C0034D8E1 /* NewRecipeIngredientCell.xib in Resources */,
 				37CBEC9D291155F200A62EF2 /* PublicProfileHeaderCell.xib in Resources */,
 				37D69CB5290CBE310034D8E1 /* NewRecipeProcedureCell.xib in Resources */,
+				37233C432929DAFB0093A2E6 /* IngredientHeaderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -885,9 +923,9 @@
 				37C622E9291A09E500A84263 /* SeeFood.mlmodel in Sources */,
 				372E3AA42916550D00250DAA /* MineLocationCell.swift in Sources */,
 				37D69C99290C14670034D8E1 /* NewPostCell.swift in Sources */,
-				37875374290F963100F06F4C /* ShoppingList+CoreDataProperties.swift in Sources */,
 				372E3A8E2913DCA200250DAA /* ChatListViewController.swift in Sources */,
 				37D69CB0290CBE1C0034D8E1 /* NewRecipeIngredientCell.swift in Sources */,
+				37233C71292A608D0093A2E6 /* ShoppingList+CoreDataClass.swift in Sources */,
 				37CBEC872910EF0300A62EF2 /* ShareViewController.swift in Sources */,
 				37D69C7E290BDF120034D8E1 /* Share.swift in Sources */,
 				37CBEC932910F26B00A62EF2 /* DateHelper.swift in Sources */,
@@ -906,6 +944,7 @@
 				37D69C82290BEBBA0034D8E1 /* RecipeViewController.swift in Sources */,
 				371AE11029138F6D003B16BB /* InfoWindowView.swift in Sources */,
 				372E3AAC291655D400250DAA /* MineImageCell.swift in Sources */,
+				37233C72292A608D0093A2E6 /* ShoppingList+CoreDataProperties.swift in Sources */,
 				37CBECA12912025A00A62EF2 /* PublicPostHeaderView.swift in Sources */,
 				37D69CB7290CD9070034D8E1 /* NewRecipeViewController.swift in Sources */,
 				37C622E72919FB4600A84263 /* FoodRecognitionViewController.swift in Sources */,
@@ -916,6 +955,7 @@
 				37CBECA729120DC000A62EF2 /* PublicPostCell.swift in Sources */,
 				378EA508291CD033004200F9 /* UserInputTextField.swift in Sources */,
 				37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */,
+				37233C462929DB0F0093A2E6 /* ProcedureHeaderCell.swift in Sources */,
 				37E63624290E57BA00D516D4 /* RecipeHeaderView.swift in Sources */,
 				37D7C1A129134F2E005B8781 /* Map.swift in Sources */,
 				372E3AB82916560600250DAA /* OtherVoiceCell.swift in Sources */,
@@ -932,6 +972,7 @@
 				37D69CA9290C1A1E0034D8E1 /* DraftSupplementaryView.swift in Sources */,
 				37E63628290E5EAB00D516D4 /* DetailRecipeViewController.swift in Sources */,
 				370B1FFC291A291E0092F502 /* TranslationManager.swift in Sources */,
+				37233C392927BF7B0093A2E6 /* PreviewViewController.swift in Sources */,
 				372E3AB0291655E200250DAA /* OtherImageCell.swift in Sources */,
 				37E63626290E598000D516D4 /* UIImageView+Ext.swift in Sources */,
 				37D69C79290BDD020034D8E1 /* User.swift in Sources */,
@@ -940,8 +981,6 @@
 				3787538C290FC5DD00F06F4C /* ShoppingListViewController.swift in Sources */,
 				37D69CC0290CF3910034D8E1 /* NewRecipeFooterView.swift in Sources */,
 				37CBEC9C291155F200A62EF2 /* PublicProfileHeaderCell.swift in Sources */,
-				37E63638290E6EB900D516D4 /* DetailRecipeHeaderView.swift in Sources */,
-				37875373290F963100F06F4C /* ShoppingList+CoreDataClass.swift in Sources */,
 				37E6361F290E497F00D516D4 /* AllRecipeCell.swift in Sources */,
 				372E3A902913DCAE00250DAA /* ChatRoomViewController.swift in Sources */,
 				37D69CA5290C15B30034D8E1 /* UICollectionView+Ext.swift in Sources */,
@@ -957,6 +996,7 @@
 				37875370290F824400F06F4C /* CookAndShare.xcdatamodeld in Sources */,
 				372E3A952913E27100250DAA /* MineMessageCell.swift in Sources */,
 				37D7C19629127F13005B8781 /* MapViewController.swift in Sources */,
+				37233C422929DAFB0093A2E6 /* IngredientHeaderCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1144,7 +1184,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CookAndShare/CookAndShare.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
@@ -1163,10 +1203,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Sign In";
+				PROVISIONING_PROFILE_SPECIFIER = "CookAndShare Distribution";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1180,7 +1220,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CookAndShare/CookAndShareRelease.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
@@ -1199,10 +1239,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Sign In";
+				PROVISIONING_PROFILE_SPECIFIER = "CookAndShare Distribution";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

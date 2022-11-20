@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="AaI-Ph-ARl">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="AaI-Ph-ARl">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="E17-SW-umg">
@@ -66,9 +66,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQQ-x6-nyo">
-                                <rect key="frame" x="0.0" y="-60" width="414" height="956"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6cd-hy-wNy">
+                                <rect key="frame" x="-2" y="0.0" width="418" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="bfq-tY-YBC"/>
+                                </constraints>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQQ-x6-nyo">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uyg-co-ZLC">
                                 <rect key="frame" x="16" y="60" width="30" height="30"/>
@@ -120,16 +125,21 @@
                             <constraint firstItem="uyg-co-ZLC" firstAttribute="top" secondItem="aIK-Mk-wOh" secondAttribute="top" constant="16" id="4a1-ol-3YA"/>
                             <constraint firstAttribute="bottom" secondItem="VQQ-x6-nyo" secondAttribute="bottom" id="7L1-kQ-PdG"/>
                             <constraint firstItem="ZB3-7t-De2" firstAttribute="leading" secondItem="YUE-jO-iC9" secondAttribute="trailing" constant="16" id="H9X-2y-Q1p"/>
+                            <constraint firstItem="6cd-hy-wNy" firstAttribute="top" secondItem="igR-m5-Moi" secondAttribute="top" id="TGz-K0-vyL"/>
+                            <constraint firstAttribute="trailing" secondItem="6cd-hy-wNy" secondAttribute="trailing" constant="-2" id="WMa-Nx-PMY"/>
                             <constraint firstItem="uyg-co-ZLC" firstAttribute="leading" secondItem="aIK-Mk-wOh" secondAttribute="leading" constant="16" id="bP9-wZ-fbO"/>
                             <constraint firstItem="ZB3-7t-De2" firstAttribute="top" secondItem="aIK-Mk-wOh" secondAttribute="top" constant="16" id="jMF-Th-uOY"/>
+                            <constraint firstItem="6cd-hy-wNy" firstAttribute="leading" secondItem="igR-m5-Moi" secondAttribute="leading" constant="-2" id="oyG-Fi-DgD"/>
                             <constraint firstItem="aIK-Mk-wOh" firstAttribute="trailing" secondItem="ZB3-7t-De2" secondAttribute="trailing" constant="16" id="rU7-BP-fpE"/>
                             <constraint firstItem="YUE-jO-iC9" firstAttribute="top" secondItem="aIK-Mk-wOh" secondAttribute="top" constant="16" id="t3x-qM-uxr"/>
-                            <constraint firstItem="VQQ-x6-nyo" firstAttribute="top" secondItem="igR-m5-Moi" secondAttribute="top" constant="-60" id="xIZ-VZ-42m"/>
+                            <constraint firstItem="VQQ-x6-nyo" firstAttribute="top" secondItem="igR-m5-Moi" secondAttribute="top" id="xIZ-VZ-42m"/>
                             <constraint firstItem="VQQ-x6-nyo" firstAttribute="leading" secondItem="igR-m5-Moi" secondAttribute="leading" id="zgh-ua-as8"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="uyg-co-ZLC" id="A56-Mk-isK"/>
+                        <outlet property="imgHeightConstraint" destination="bfq-tY-YBC" id="zdK-HS-S74"/>
+                        <outlet property="imgView" destination="6cd-hy-wNy" id="ErH-WQ-FwK"/>
                         <outlet property="likeButton" destination="ZB3-7t-De2" id="DhZ-fP-9Xe"/>
                         <outlet property="saveButton" destination="YUE-jO-iC9" id="GMR-tM-KaU"/>
                         <outlet property="tableView" destination="VQQ-x6-nyo" id="glD-H9-D8Q"/>
@@ -147,7 +157,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="iDp-0t-H8f">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="iDp-0t-H8f">
                                 <rect key="frame" x="0.0" y="118" width="414" height="678"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
@@ -217,13 +227,13 @@
                                 <rect key="frame" x="175" y="460" width="64" height="64"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ywm-U1-7C5">
-                                <rect key="frame" x="107" y="306" width="200" height="50"/>
+                                <rect key="frame" x="132" y="306" width="150" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Xcu-RM-44x"/>
-                                    <constraint firstAttribute="width" constant="200" id="Z4S-gT-sZH"/>
+                                    <constraint firstAttribute="width" constant="150" id="Z4S-gT-sZH"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="相機辨識食材"/>
+                                <buttonConfiguration key="configuration" style="plain" title="相機辨識"/>
                                 <connections>
                                     <action selector="showFoodRecognition:" destination="BPY-cx-df1" eventType="touchUpInside" id="QxE-Vm-R0c"/>
                                 </connections>
@@ -339,18 +349,30 @@
                                     <constraint firstItem="oWS-39-JCO" firstAttribute="top" secondItem="QUH-Es-wnH" secondAttribute="bottom" constant="20" id="rgI-cd-LS8"/>
                                 </constraints>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z0v-FM-mRJ" customClass="LottieAnimationView" customModule="Lottie">
+                                <rect key="frame" x="0.0" y="186" width="414" height="414"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="travelingCamera"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DGe-cU-m76"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="AY5-R8-dvc" firstAttribute="centerY" secondItem="Aa8-hF-xyD" secondAttribute="centerY" id="46H-JC-4vl"/>
+                            <constraint firstItem="z0v-FM-mRJ" firstAttribute="trailing" secondItem="ddP-cC-GVS" secondAttribute="trailing" id="DbA-DA-EVy"/>
                             <constraint firstItem="DGe-cU-m76" firstAttribute="trailing" secondItem="AY5-R8-dvc" secondAttribute="trailing" id="f5p-vc-GNq"/>
+                            <constraint firstItem="z0v-FM-mRJ" firstAttribute="leading" secondItem="ddP-cC-GVS" secondAttribute="leading" id="jlP-fB-d14"/>
+                            <constraint firstItem="z0v-FM-mRJ" firstAttribute="bottom" secondItem="ddP-cC-GVS" secondAttribute="bottom" id="sAL-Ws-S0x"/>
                             <constraint firstItem="AY5-R8-dvc" firstAttribute="leading" secondItem="Aa8-hF-xyD" secondAttribute="leading" id="vLx-kv-HAn"/>
+                            <constraint firstItem="z0v-FM-mRJ" firstAttribute="top" secondItem="ddP-cC-GVS" secondAttribute="top" id="yt9-xm-HSl"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="animationView" destination="z0v-FM-mRJ" id="77P-hi-FTm"/>
                         <outlet property="foodImageView" destination="ddP-cC-GVS" id="kTl-2a-pg7"/>
                         <outlet property="resultLabel" destination="QUH-Es-wnH" id="KQM-LV-znq"/>
                         <outlet property="retakeButton" destination="nNd-R3-Tgo" id="XAf-Hv-ohg"/>

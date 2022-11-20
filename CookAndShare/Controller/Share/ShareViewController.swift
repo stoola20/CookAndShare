@@ -7,11 +7,21 @@
 
 import UIKit
 import FirebaseAuth
+import Hero
+import ESPullToRefresh
 
 class ShareViewController: UIViewController {
     let firestoreManager = FirestoreManager.shared
     var shares: [Share] = []
     var fromPublicVC = false
+    var header: ESRefreshHeaderAnimator {
+        let header = ESRefreshHeaderAnimator.init(frame: CGRect.zero)
+        header.pullToRefreshDescription = "下拉更新"
+        header.releaseToRefreshDescription = ""
+        header.loadingDescription = "載入中..."
+        return header
+    }
+
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
@@ -44,21 +54,18 @@ class ShareViewController: UIViewController {
         barAppearance.backgroundColor = .lightOrange
         navigationItem.standardAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
+
+        tableView.es.addPullToRefresh(animator: header) { [weak self] in
+            guard let self = self else { return }
+            self.fetchSharePost()
+        }
+        tableView.es.startPullToRefresh()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if fromPublicVC { return }
-        firestoreManager.fetchSharePost { result in
-            switch result {
-            case .success(let shares):
-                self.shares = shares
-                self.shares.sort { $0.postTime.seconds > $1.postTime.seconds }
-                self.tableView.reloadData()
-            case .failure(let error):
-                print(error)
-            }
-        }
+        fetchSharePost()
     }
 
     func setUpTableView() {
@@ -67,6 +74,23 @@ class ShareViewController: UIViewController {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.separatorColor = UIColor.lightOrange
         tableView.registerCellWithNib(identifier: ShareCell.identifier, bundle: nil)
+    }
+
+    func fetchSharePost() {
+        firestoreManager.fetchSharePost { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let shares):
+                self.shares = shares
+                self.shares.sort { $0.postTime.seconds > $1.postTime.seconds }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.tableView.es.stopPullToRefresh()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     @objc func addShare() {
@@ -120,6 +144,7 @@ extension ShareViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: ShareCell.identifier, for: indexPath)
             as? ShareCell
         else { fatalError("Could not create share cell") }
+        cell.foodImageView.hero.id = "\(indexPath.section)\(indexPath.row)"
         cell.delegate = self
         cell.layoutCell(with: shares[indexPath.row])
         return cell
@@ -137,5 +162,17 @@ extension ShareViewController: ShareCellDelegate {
         else { fatalError("Could not create publicProfileVC") }
         publicProfileVC.userId = userId
         navigationController?.pushViewController(publicProfileVC, animated: true)
+    }
+
+    func presentLargePhoto(url: String, heroId: String) {
+        let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
+        guard
+            let previewVC = storyboard.instantiateViewController(withIdentifier: String(describing: PreviewViewController.self))
+                as? PreviewViewController
+        else { fatalError("Could not create previewVC") }
+        previewVC.imageURL = url
+        previewVC.heroId = heroId
+        previewVC.modalPresentationStyle = .overFullScreen
+        present(previewVC, animated: true)
     }
 }

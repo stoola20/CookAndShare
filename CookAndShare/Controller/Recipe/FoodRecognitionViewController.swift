@@ -8,22 +8,25 @@
 import UIKit
 import Vision
 import CoreML
+import SPAlert
+import Lottie
 
 class FoodRecognitionViewController: UIViewController {
     let imagePicker = UIImagePickerController()
     var recognizedResult = ""
+
     @IBOutlet weak var foodImageView: UIImageView!
     @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var retakeButton: UIButton!
     @IBOutlet weak var searchButton: UIButton!
-
+    @IBOutlet weak var animationView: LottieAnimationView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
 
         foodImageView.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(chooseSourceType))
-        foodImageView.addGestureRecognizer(tap)
 
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
@@ -31,6 +34,12 @@ class FoodRecognitionViewController: UIViewController {
         retakeButton.isHidden = true
         retakeButton.addTarget(self, action: #selector(chooseSourceType), for: .touchUpInside)
         searchButton.isHidden = true
+
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.animationSpeed = 1
+        animationView.play()
+        animationView.addGestureRecognizer(tap)
     }
 
     func setUpUI() {
@@ -51,11 +60,13 @@ class FoodRecognitionViewController: UIViewController {
     @objc func chooseSourceType() {
         let controller = UIAlertController(title: "請選擇照片來源", message: nil, preferredStyle: .actionSheet)
 
-        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
+        let cameraAction = UIAlertAction(title: "相機", style: .default) { [weak self] _ in
+            guard let self = self else { return }
             self.imagePicker.sourceType = .camera
             self.present(self.imagePicker, animated: true)
         }
-        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default) { _ in
+        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default) { [weak self] _ in
+            guard let self = self else { return }
             self.imagePicker.sourceType = .photoLibrary
             self.present(self.imagePicker, animated: true)
         }
@@ -83,11 +94,16 @@ class FoodRecognitionViewController: UIViewController {
             let model = try? VNCoreMLModel(for: MLModel(contentsOf: modelURL))
         else { fatalError("Could not create model") }
 
-        let request = VNCoreMLRequest(model: model) { request, _ in
+        let request = VNCoreMLRequest(model: model) { [weak self] request, _ in
+            guard let self = self else { return }
             guard let results = request.results as? [VNClassificationObservation]
             else { fatalError("Model failed to process image") }
             if let firstResult = results.first {
                 if firstResult.confidence > 0.5 {
+                    let alertView = SPAlertView(title: "辨識完成", preset: .done)
+                    alertView.iconView?.tintColor = .myOrange
+                    alertView.duration = 1
+                    alertView.present()
                     TranslationManager.shared.textToTranslate = firstResult.identifier
                     TranslationManager.shared.translate { translation in
                         guard let translation = translation else {
@@ -100,6 +116,7 @@ class FoodRecognitionViewController: UIViewController {
                     }
                     self.searchButton.isHidden = false
                 } else {
+                    SPAlert.present(message: "無法辨識", haptic: .error)
                     self.resultLabel.text = "照片無法被辨識，請嘗試重新拍攝"
                 }
                 self.retakeButton.isHidden = false
@@ -120,6 +137,7 @@ extension FoodRecognitionViewController: UIImagePickerControllerDelegate, UINavi
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let userPickedImage = info[.editedImage] as? UIImage else { return }
         foodImageView.image = userPickedImage
+        animationView.isHidden = true
         guard let ciimage = CIImage(image: userPickedImage) else {
             fatalError("Could not create ciimage")
         }

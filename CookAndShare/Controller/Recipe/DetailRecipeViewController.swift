@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import Hero
 
 enum DetailRecipeSection: CaseIterable {
     case banner
@@ -19,6 +20,9 @@ class DetailRecipeViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var imgView: UIImageView!
+    @IBOutlet weak var imgHeightConstraint: NSLayoutConstraint!
+    var imageOriginalHeight = CGFloat()
     let firestoreManager = FirestoreManager.shared
     var hasLiked = false {
         didSet {
@@ -36,6 +40,7 @@ class DetailRecipeViewController: UIViewController {
             guard let recipe = recipe else { return }
             hasLiked = recipe.likes.contains(Constant.getUserId())
             hasSaved = recipe.saves.contains(Constant.getUserId())
+            imgView.loadImage(recipe.mainImageURL, placeHolder: UIImage(named: Constant.friedRice))
             tableView.reloadData()
         }
     }
@@ -44,6 +49,12 @@ class DetailRecipeViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
         setUpUI()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        imageOriginalHeight = view.bounds.width * 3 / 4
+        tableView.contentInset = UIEdgeInsets(top: imageOriginalHeight - 50, left: 0, bottom: 0, right: 0)
     }
 
     func setUpUI() {
@@ -91,13 +102,12 @@ class DetailRecipeViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
+        tableView.backgroundColor = .clear
         tableView.registerCellWithNib(identifier: DetailBannerCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: DetailIngredientCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: DetailProcedureCell.identifier, bundle: nil)
-        tableView.register(
-            DetailRecipeHeaderView.self,
-            forHeaderFooterViewReuseIdentifier: DetailRecipeHeaderView.reuseIdentifier
-        )
+        tableView.registerCellWithNib(identifier: IngredientHeaderCell.identifier, bundle: nil)
+        tableView.registerCellWithNib(identifier: ProcedureHeaderCell.identifier, bundle: nil)
     }
 
     @IBAction func saveRecipe(_ sender: UIButton) {
@@ -141,15 +151,15 @@ class DetailRecipeViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension DetailRecipeViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        DetailRecipeSection.allCases.count
+        DetailRecipeSection.allCases.count + 2
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let recipe = recipe else { return 0 }
         switch section {
-        case 0:
+        case 0, 1, 3:
             return 1
-        case 1:
+        case 2:
             return recipe.ingredients.count
         default:
             return recipe.procedures.count
@@ -168,14 +178,28 @@ extension DetailRecipeViewController: UITableViewDataSource {
             return cell
 
         case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: IngredientHeaderCell.identifier, for: indexPath) as? IngredientHeaderCell
+            else { fatalError("Could not create header cell") }
+            cell.layoutHeader(with: recipe)
+            cell.viewController = self
+            return cell
+
+        case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailIngredientCell.identifier, for: indexPath) as? DetailIngredientCell
             else { fatalError("Could not create ingredient cell") }
             cell.layoutCell(with: recipe.ingredients[indexPath.row])
             return cell
 
+        case 3:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ProcedureHeaderCell.identifier) as? ProcedureHeaderCell
+            else { fatalError("Could not create header cell") }
+            return cell
+
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailProcedureCell.identifier, for: indexPath) as? DetailProcedureCell
             else { fatalError("Could not create procedure cell") }
+            cell.viewController = self
+            cell.procedureImageView.hero.id = "\(indexPath.section)\(indexPath.row)"
             cell.layoutCell(with: recipe.procedures[indexPath.row], at: indexPath)
             return cell
         }
@@ -184,21 +208,18 @@ extension DetailRecipeViewController: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension DetailRecipeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let recipe = recipe else { return nil }
-        switch section {
-        case 0: return nil
-        default:
-            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: DetailRecipeHeaderView.reuseIdentifier) as? DetailRecipeHeaderView
-            else { fatalError("Could not create header view") }
-            headerView.layoutHeader(with: recipe, in: section)
-            headerView.delegate = self
-            return headerView
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let originalOffsetY = -(imageOriginalHeight - 50)
+        let moveDistance = abs(scrollView.contentOffset.y - originalOffsetY)
+        if scrollView.contentOffset.y < originalOffsetY {
+            self.imgHeightConstraint.constant = imageOriginalHeight + moveDistance
+            tableView.backgroundColor = .clear
+        } else {
+            self.imgHeightConstraint.constant = imageOriginalHeight - moveDistance / 2
+            tableView.backgroundColor = UIColor(white: 0, alpha: moveDistance * 1.5 / imageOriginalHeight)
         }
     }
-}
 
-extension DetailRecipeViewController: DetailRecipeHeaderViewDelegate {
     func willAddIngredient() {
         if Auth.auth().currentUser == nil {
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)

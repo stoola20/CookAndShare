@@ -6,20 +6,44 @@
 //
 
 import UIKit
+import ESPullToRefresh
 
 class ChatListViewController: UIViewController {
     var conversations: [Conversation] = []
     let firestoreManager = FirestoreManager.shared
+    var header: ESRefreshHeaderAnimator {
+        let header = ESRefreshHeaderAnimator.init(frame: CGRect.zero)
+        header.pullToRefreshDescription = "下拉更新"
+        header.releaseToRefreshDescription = ""
+        header.loadingDescription = "載入中..."
+        return header
+    }
+
     @IBOutlet weak var tableView: UITableView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
         title = "訊息"
+        tableView.es.addPullToRefresh(animator: header) { [weak self] in
+            guard let self = self else { return }
+            self.fetchChatList()
+        }
+        tableView.es.startPullToRefresh()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetchChatList()
+    }
+
+    func setUpTableView() {
+        tableView.separatorStyle = .none
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+
+    func fetchChatList() {
         conversations = []
         let group = DispatchGroup()
         group.enter()
@@ -57,13 +81,8 @@ class ChatListViewController: UIViewController {
                 return lastMessage1.time.seconds > lastMessage2.time.seconds
             }
             self.tableView.reloadData()
+            self.tableView.es.stopPullToRefresh()
         }
-    }
-
-    func setUpTableView() {
-        tableView.separatorStyle = .none
-        tableView.dataSource = self
-        tableView.delegate = self
     }
 }
 

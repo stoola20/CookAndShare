@@ -21,7 +21,12 @@ class ShoppingListViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
         title = "採買清單"
-        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addItem))
+        let addButton = UIBarButtonItem(
+            image: UIImage(systemName: "plus"),
+            style: .plain,
+            target: self,
+            action: #selector(addItem)
+        )
         navigationItem.rightBarButtonItem = addButton
     }
 
@@ -49,8 +54,9 @@ class ShoppingListViewController: UIViewController {
             textField.placeholder = Constant.ingredientQuantity
         }
 
-        let okAction = UIAlertAction(title: Constant.confirm, style: .default, handler: { action in
+        let okAction = UIAlertAction(title: Constant.confirm, style: .default) { [weak self] _ in
             guard
+                let self = self,
                 let name = alert.textFields?[0].text,
                 let quantity = alert.textFields?[1].text,
                 !name.isEmpty,
@@ -59,7 +65,7 @@ class ShoppingListViewController: UIViewController {
             self.coreDataManager.addItem(name: name, quantity: quantity)
             guard let items = self.coreDataManager.fetchItem() else { return }
             self.items = items
-        })
+        }
         let cancelAction = UIAlertAction(title: Constant.cancel, style: .cancel, handler: nil)
         alert.addAction(okAction)
         alert.addAction(cancelAction)

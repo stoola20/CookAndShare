@@ -83,7 +83,7 @@ extension SavedRecipeViewController: UICollectionViewDelegate {
             as? DetailRecipeViewController
         else { fatalError("Could not instantiate detailVC") }
         let recipe = savedRecipes[indexPath.item]
-        detailVC.recipe = recipe
+        detailVC.recipeId = recipe.recipeId
         collectionView.deselectItem(at: indexPath, animated: false)
         navigationController?.pushViewController(detailVC, animated: true)
     }

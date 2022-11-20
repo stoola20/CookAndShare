@@ -9,14 +9,40 @@ import UIKit
 import FirebaseAuth
 import AuthenticationServices
 import CryptoKit
+import Lottie
+import SPAlert
 
 class LoginViewController: UIViewController {
     private var currentNonce: String?
     let firestoreManager = FirestoreManager.shared
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet var animationViews: [LottieAnimationView]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setSignInWithAppleBtn()
+        scrollView.delegate = self
+        setUpUI()
+    }
+
+    func setUpUI() {
+        titleLabel.textColor = UIColor.darkBrown
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        titleLabel.text = "分享"
+        descriptionLabel.textColor = UIColor.darkBrown
+        descriptionLabel.font = UIFont.systemFont(ofSize: 16)
+        descriptionLabel.text = "與其他用戶分享美味食譜和食材"
+        for animationView in animationViews {
+            animationView.clipsToBounds = true
+            animationView.contentMode = .scaleAspectFit
+            animationView.loopMode = .loop
+            animationView.animationSpeed = 1
+            animationView.play()
+        }
+        animationViews[0].play()
     }
 
     // MARK: - 在畫面上產生 Sign in with Apple 按鈕
@@ -158,19 +184,17 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 }
 
                 print("成功以 Apple 登入 Firebase")
-                let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 guard
-                    let profileVC = storyboard.instantiateViewController(withIdentifier: String(describing: ProfileViewController.self))
-                        as? ProfileViewController
-                else { fatalError("Could not instantiate profileVC") }
-                let navigationVC = UINavigationController(rootViewController: profileVC)
-                navigationVC.tabBarItem = UITabBarItem(title: "個人", image: UIImage(systemName: "person.circle"), tag: 3)
-                navigationVC.navigationBar.tintColor = UIColor.darkBrown
-                var arrayChildViewControllers = self.tabBarController?.viewControllers
-                if let selectedTabIndex = self.tabBarController?.selectedIndex {
-                    arrayChildViewControllers?.replaceSubrange(selectedTabIndex...selectedTabIndex, with: [navigationVC])
-                }
-                self.tabBarController?.viewControllers = arrayChildViewControllers
+                    let tabController = storyboard.instantiateViewController(withIdentifier: String(describing: TabBarController.self))
+                        as? TabBarController,
+                    let tabBarControllers = tabController.viewControllers
+                else { fatalError("Could not instantiate tabController") }
+
+                var childViewControllers = self.tabBarController?.viewControllers
+
+                childViewControllers?.replaceSubrange(3...3, with: [tabBarControllers[3]])
+                self.tabBarController?.viewControllers = childViewControllers
                 self.dismiss(animated: true)
             }
         }
@@ -180,15 +204,15 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
         // 登入失敗，處理 Error
         switch error {
         case ASAuthorizationError.canceled:
-            print("使用者取消登入")
+            SPAlert.present(message: "使用者取消登入", haptic: .error)
         case ASAuthorizationError.failed:
-            print("授權請求失敗")
+            SPAlert.present(message: "授權請求失敗", haptic: .error)
         case ASAuthorizationError.invalidResponse:
-            print("授權請求無回應")
+            SPAlert.present(message: "授權請求無回應", haptic: .error)
         case ASAuthorizationError.notHandled:
-            print("授權請求未處理")
+            SPAlert.present(message: "授權請求未處理", haptic: .error)
         case ASAuthorizationError.unknown:
-            print("授權失敗，原因不知")
+            SPAlert.present(message: "授權失敗，原因不明", haptic: .error)
         default:
             break
         }
@@ -200,5 +224,31 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return view.window!
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+extension LoginViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let page = scrollView.contentOffset.x / scrollView.bounds.width
+        pageControl.currentPage = Int(page)
+        for animationView in animationViews {
+            animationView.stop()
+        }
+        animationViews[Int(page)].play()
+        switch page {
+        case 0:
+            titleLabel.text = "分享"
+            descriptionLabel.text = "與用戶分享您的拿手料理和食材"
+        case 1:
+            titleLabel.text = "通訊"
+            descriptionLabel.text = "藉由通訊功能與用戶交換食材及討論料理想法"
+        case 2:
+            titleLabel.text = "採買清單"
+            descriptionLabel.text = "直接從食譜添加至採買清單，\n成為您的廚房小幫手"
+        default:
+            titleLabel.text = "儲存食譜"
+            descriptionLabel.text = "記錄您喜歡的食譜，可跨裝置同步"
+        }
     }
 }

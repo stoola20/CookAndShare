@@ -19,15 +19,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             viewController == viewControllers[3] {
             if Auth.auth().currentUser != nil {
                 print("User is signed in.")
-                let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 guard
-                    let profileVC = storyboard.instantiateViewController(withIdentifier: String(describing: ProfileViewController.self))
-                        as? ProfileViewController
-                else { fatalError("Could not instantiate profileVC") }
-                let navController = UINavigationController(rootViewController: profileVC)
-                navController.navigationBar.tintColor = UIColor.darkBrown
-                navController.tabBarItem = UITabBarItem(title: "個人", image: UIImage(systemName: "person.circle"), tag: 3)
-                viewControllers.replaceSubrange(3...3, with: [navController])
+                    let tabController = storyboard.instantiateViewController(withIdentifier: String(describing: TabBarController.self))
+                        as? TabBarController,
+                    let tabBarControllers = tabController.viewControllers
+                else { fatalError("Could not instantiate tabController") }
+                viewControllers.replaceSubrange(3...3, with: [tabBarControllers[3]])
             } else {
                 print("No user is signed in.")
                 let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
