@@ -28,7 +28,6 @@ class NewShareCell: UITableViewCell {
     @IBOutlet weak var meetTimeTextField: UITextField!
     @IBOutlet weak var meetPlaceTextField: UITextField!
     @IBOutlet weak var bestBeforePicker: UIDatePicker!
-    @IBOutlet weak var dueDatePicker: UIDatePicker!
 
     var completion: ((NewShareModel) -> Void)?
     var data = NewShareModel()
@@ -60,12 +59,8 @@ class NewShareCell: UITableViewCell {
 
         let currentDate = Date()
         bestBeforePicker.minimumDate = currentDate
-        dueDatePicker.minimumDate = currentDate
-        dueDatePicker.setDate(Calendar.current.date(byAdding: .day, value: 5, to: currentDate) ?? currentDate, animated: false)
         bestBeforePicker.addTarget(self, action: #selector(passData), for: .valueChanged)
-        dueDatePicker.addTarget(self, action: #selector(passData), for: .valueChanged)
         bestBeforePicker.textColor = UIColor.darkBrown
-        dueDatePicker.textColor = UIColor.darkBrown
     }
 
     @objc func passData() {
@@ -80,7 +75,7 @@ class NewShareCell: UITableViewCell {
         data.meetTime = meetTime
         data.meetPlace = meetPlace
         data.bestBeforeDate = Timestamp(date: bestBeforePicker.date)
-        data.dueDate = Timestamp(date: dueDatePicker.date)
+        data.dueDate = Timestamp(date: Date())
         completion?(data)
     }
 }

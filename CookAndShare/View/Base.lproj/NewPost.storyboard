@@ -101,10 +101,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewShareCell" id="GDv-1i-O1Y" customClass="NewShareCell" customModule="CookAndShare" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="779"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="615"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GDv-1i-O1Y" id="IXP-bv-y8u">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="779"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="615"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="takePhoto" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-TN-g9K">
@@ -139,73 +139,59 @@
                                                         <constraint firstAttribute="trailing" secondItem="45M-1b-oDa" secondAttribute="trailing" id="yo9-BR-79M"/>
                                                     </constraints>
                                                 </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="描述" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNm-nN-kFs">
-                                                    <rect key="frame" x="24" y="156" width="35" height="0.0"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="描述" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNm-nN-kFs">
+                                                    <rect key="frame" x="24" y="156" width="35" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="DarkBrown"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M63-qJ-DOG" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
-                                                    <rect key="frame" x="24" y="164" width="366" height="18.5"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M63-qJ-DOG" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="185" width="366" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="uhF-xu-LEV"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="食品有效期限" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hof-1p-5AW">
-                                                    <rect key="frame" x="24" y="206.5" width="104" height="0.0"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="食品有效期限（若超過效期，系統會自動替您刪除貼文）" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hof-1p-5AW">
+                                                    <rect key="frame" x="24" y="249" width="366" height="41"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="DarkBrown"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="面交時間" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDl-SP-sDw">
-                                                    <rect key="frame" x="24" y="358.5" width="69.5" height="0.0"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="面交時間" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDl-SP-sDw">
+                                                    <rect key="frame" x="24" y="442" width="69.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="DarkBrown"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="面交地點" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Vd-ca-teC">
-                                                    <rect key="frame" x="24" y="409" width="69.5" height="0.0"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="面交地點" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Vd-ca-teC">
+                                                    <rect key="frame" x="24" y="534.5" width="69.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" name="DarkBrown"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="預計貼文下架日期（系統會自動替您刪除貼文）" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLG-mh-R02">
-                                                    <rect key="frame" x="24" y="-108" width="366" height="0.0"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" name="DarkBrown"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GdU-ol-DtO" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
-                                                    <rect key="frame" x="24" y="366.5" width="366" height="18.5"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GdU-ol-DtO" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="470.5" width="366" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="Kc2-oL-VlJ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="npx-8w-BIt" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
-                                                    <rect key="frame" x="24" y="417" width="366" height="18.5"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="npx-8w-BIt" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="563" width="366" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="Cu2-0A-xD1"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="qYj-dK-e6t">
-                                                    <rect key="frame" x="16" y="214.5" width="382" height="120"/>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="qYj-dK-e6t">
+                                                    <rect key="frame" x="16" y="298" width="382" height="120"/>
                                                     <color key="tintColor" name="DarkBrown"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="120" id="Qzu-U9-QhX"/>
-                                                    </constraints>
-                                                    <locale key="locale" localeIdentifier="zh_TW"/>
-                                                </datePicker>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="Fj8-cR-zMC">
-                                                    <rect key="frame" x="16" y="635" width="382" height="120"/>
-                                                    <color key="tintColor" name="DarkBrown"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="120" id="Zjh-6J-Crx"/>
                                                     </constraints>
                                                     <locale key="locale" localeIdentifier="zh_TW"/>
                                                 </datePicker>
@@ -213,32 +199,27 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="npx-8w-BIt" secondAttribute="trailing" constant="24" id="31y-G8-cDS"/>
                                                 <constraint firstItem="npx-8w-BIt" firstAttribute="leading" secondItem="IXP-bv-y8u" secondAttribute="leading" constant="24" id="5PZ-Mx-ZLv"/>
-                                                <constraint firstAttribute="trailing" secondItem="rLG-mh-R02" secondAttribute="trailing" constant="24" id="6aE-DK-j5E"/>
                                                 <constraint firstAttribute="trailing" secondItem="M63-qJ-DOG" secondAttribute="trailing" constant="24" id="6fD-KJ-g1X"/>
                                                 <constraint firstItem="gDd-TN-g9K" firstAttribute="top" secondItem="IXP-bv-y8u" secondAttribute="top" constant="20" id="6pq-Jk-gXg"/>
                                                 <constraint firstAttribute="trailing" secondItem="GdU-ol-DtO" secondAttribute="trailing" constant="24" id="7ct-SK-MuB"/>
                                                 <constraint firstItem="qYj-dK-e6t" firstAttribute="top" secondItem="hof-1p-5AW" secondAttribute="bottom" constant="8" symbolic="YES" id="9UO-R6-9sV"/>
-                                                <constraint firstItem="Fj8-cR-zMC" firstAttribute="top" secondItem="rLG-mh-R02" secondAttribute="bottom" constant="8" symbolic="YES" id="CDE-VT-mbN"/>
                                                 <constraint firstItem="qYj-dK-e6t" firstAttribute="leading" secondItem="IXP-bv-y8u" secondAttribute="leading" constant="16" id="FIP-iT-5Hf"/>
                                                 <constraint firstItem="4Vd-ca-teC" firstAttribute="leading" secondItem="IXP-bv-y8u" secondAttribute="leading" constant="24" id="Gtz-k0-G0x"/>
                                                 <constraint firstItem="M63-qJ-DOG" firstAttribute="leading" secondItem="IXP-bv-y8u" secondAttribute="leading" constant="24" id="H8h-ba-mnk"/>
-                                                <constraint firstItem="rLG-mh-R02" firstAttribute="top" secondItem="npx-8w-BIt" secondAttribute="bottom" constant="24" id="JHH-mF-P8V"/>
+                                                <constraint firstAttribute="bottom" secondItem="npx-8w-BIt" secondAttribute="bottom" constant="12" id="Hay-Bu-6TS"/>
                                                 <constraint firstItem="7BO-Sn-eix" firstAttribute="leading" secondItem="gDd-TN-g9K" secondAttribute="trailing" constant="24" id="JkV-FB-eC9"/>
                                                 <constraint firstItem="7BO-Sn-eix" firstAttribute="centerY" secondItem="gDd-TN-g9K" secondAttribute="centerY" id="KnK-Ga-ZIC"/>
+                                                <constraint firstAttribute="trailing" secondItem="hof-1p-5AW" secondAttribute="trailing" constant="24" id="M4P-Lu-NTF"/>
                                                 <constraint firstItem="M63-qJ-DOG" firstAttribute="top" secondItem="aNm-nN-kFs" secondAttribute="bottom" constant="8" symbolic="YES" id="NNA-na-bnH"/>
-                                                <constraint firstItem="Fj8-cR-zMC" firstAttribute="leading" secondItem="IXP-bv-y8u" secondAttribute="leading" constant="16" id="VD3-3S-6v6"/>
-                                                <constraint firstAttribute="bottom" secondItem="Fj8-cR-zMC" secondAttribute="bottom" constant="24" id="dgV-Qw-vZ4"/>
                                                 <constraint firstItem="npx-8w-BIt" firstAttribute="top" secondItem="4Vd-ca-teC" secondAttribute="bottom" constant="8" symbolic="YES" id="e4B-9m-4UN"/>
                                                 <constraint firstAttribute="trailing" secondItem="qYj-dK-e6t" secondAttribute="trailing" constant="16" id="eOx-Zf-f0R"/>
                                                 <constraint firstItem="aNm-nN-kFs" firstAttribute="leading" secondItem="IXP-bv-y8u" secondAttribute="leading" constant="24" id="jQn-Rh-KLv"/>
                                                 <constraint firstItem="vDl-SP-sDw" firstAttribute="top" secondItem="qYj-dK-e6t" secondAttribute="bottom" constant="24" id="jgv-gb-Wyj"/>
-                                                <constraint firstItem="rLG-mh-R02" firstAttribute="leading" secondItem="IXP-bv-y8u" secondAttribute="leading" constant="24" id="k0O-JR-7aw"/>
                                                 <constraint firstItem="gDd-TN-g9K" firstAttribute="leading" secondItem="IXP-bv-y8u" secondAttribute="leading" constant="20" id="mlv-MS-PPM"/>
                                                 <constraint firstItem="GdU-ol-DtO" firstAttribute="leading" secondItem="IXP-bv-y8u" secondAttribute="leading" constant="24" id="nqU-tW-Wy1"/>
                                                 <constraint firstAttribute="trailing" secondItem="7BO-Sn-eix" secondAttribute="trailing" constant="24" id="oWS-gH-vUt"/>
                                                 <constraint firstItem="hof-1p-5AW" firstAttribute="top" secondItem="M63-qJ-DOG" secondAttribute="bottom" constant="24" id="qOH-ao-WZI"/>
                                                 <constraint firstItem="4Vd-ca-teC" firstAttribute="top" secondItem="GdU-ol-DtO" secondAttribute="bottom" constant="24" id="roR-xa-Io6"/>
-                                                <constraint firstAttribute="trailing" secondItem="Fj8-cR-zMC" secondAttribute="trailing" constant="16" id="s3f-ZX-fBH"/>
                                                 <constraint firstItem="GdU-ol-DtO" firstAttribute="top" secondItem="vDl-SP-sDw" secondAttribute="bottom" constant="8" symbolic="YES" id="s4n-J3-smg"/>
                                                 <constraint firstItem="hof-1p-5AW" firstAttribute="leading" secondItem="IXP-bv-y8u" secondAttribute="leading" constant="24" id="tU7-yR-WBR"/>
                                                 <constraint firstItem="aNm-nN-kFs" firstAttribute="top" secondItem="gDd-TN-g9K" secondAttribute="bottom" constant="8" symbolic="YES" id="ydx-wX-Ue1"/>
@@ -248,7 +229,6 @@
                                         <connections>
                                             <outlet property="bestBeforePicker" destination="qYj-dK-e6t" id="nR7-4t-COw"/>
                                             <outlet property="descriptionTextField" destination="M63-qJ-DOG" id="8dZ-1a-nap"/>
-                                            <outlet property="dueDatePicker" destination="Fj8-cR-zMC" id="FZ0-GY-Pd1"/>
                                             <outlet property="foodImage" destination="gDd-TN-g9K" id="JLa-Um-8Tf"/>
                                             <outlet property="meetPlaceTextField" destination="npx-8w-BIt" id="rOB-8P-uxR"/>
                                             <outlet property="meetTimeTextField" destination="GdU-ol-DtO" id="FqO-Oe-Xbw"/>
@@ -273,7 +253,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OET-2v-ikR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1018.840579710145" y="1423.6607142857142"/>
+            <point key="canvasLocation" x="1299" y="1424"/>
         </scene>
     </scenes>
     <color key="tintColor" name="DarkBrown"/>

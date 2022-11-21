@@ -378,10 +378,10 @@ struct FirestoreManager {
                 querySnapshot.documents.forEach { document in
                     do {
                         let share = try document.data(as: Share.self)
-                        let shareTimeInterval = Double(share.dueDate.seconds)
-                        let shareDayComponent = Calendar.current.component(.day, from: Date(timeIntervalSince1970: shareTimeInterval))
+                        let bbfTimeInterval = Double(share.bestBefore.seconds)
+                        let shareDayComponent = Calendar.current.component(.day, from: Date(timeIntervalSince1970: bbfTimeInterval))
                         let today = Calendar.current.component(.day, from: Date())
-                        if shareTimeInterval < Date().timeIntervalSince1970 && shareDayComponent != today {
+                        if bbfTimeInterval < Date().timeIntervalSince1970 && shareDayComponent != today {
                             deleteSharePost(shareId: share.shareId)
                             updateUserSharePost(shareId: share.shareId, userId: share.authorId, isNewPost: false)
                         } else {
