@@ -11,10 +11,18 @@ import FirebaseAuth
 enum ProfileCategory: String, CaseIterable {
     case save = "我的收藏"
     case shoppingList = "採買清單"
+    case myPost = "我的貼文"
+    case block = "封鎖名單"
+    case deleteAccount = "刪除帳號"
     case logout = "登出"
 }
 
 class ProfileViewController: UIViewController {
+    lazy var selectedBackground: UIView = {
+        let background = UIView()
+        background.backgroundColor = .white
+        return background
+    }()
     var user: User? {
         didSet {
             tableView.reloadData()
@@ -62,6 +70,7 @@ class ProfileViewController: UIViewController {
         tableView.delegate = self
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         tableView.separatorColor = UIColor.lightOrange
+        tableView.selectionFollowsFocus = false
         tableView.registerCellWithNib(identifier: ProfileUserCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: ProfileListCell.identifier, bundle: nil)
     }
@@ -85,6 +94,7 @@ extension ProfileViewController: UITableViewDataSource {
                 let user = user
             else { return UITableViewCell() }
             cell.delegate = self
+            cell.selectedBackgroundView = selectedBackground
             cell.layoutCell(with: user)
             return cell
         default:
@@ -92,6 +102,7 @@ extension ProfileViewController: UITableViewDataSource {
                 as? ProfileListCell
             else { fatalError("Could not create list cell") }
             cell.layoutCell(in: ProfileCategory.allCases[indexPath.row])
+            cell.selectedBackgroundView = selectedBackground
             return cell
         }
     }
@@ -99,15 +110,9 @@ extension ProfileViewController: UITableViewDataSource {
 
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
-        if indexPath == IndexPath(row: 1, section: 1) {
-            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let shoppingListVC = storyboard.instantiateViewController(withIdentifier: String(describing: ShoppingListViewController.self))
-                as? ShoppingListViewController
-            else { fatalError("Could not instantiate ShoppingListViewController") }
-            navigationController?.pushViewController(shoppingListVC, animated: true)
-        } else if indexPath == IndexPath(row: 0, section: 1) {
+        if indexPath.section == 0 { return }
+        switch indexPath.item {
+        case 0:
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
             guard
                 let savedRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: SavedRecipeViewController.self))
@@ -116,7 +121,28 @@ extension ProfileViewController: UITableViewDelegate {
             else { fatalError("Could not instantiate ShoppingListViewController") }
             savedRecipeVC.savedRecipsId = user.savedRecipesId
             navigationController?.pushViewController(savedRecipeVC, animated: true)
-        } else if indexPath == IndexPath(row: 2, section: 1) {
+        case 1:
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            guard
+                let shoppingListVC = storyboard.instantiateViewController(withIdentifier: String(describing: ShoppingListViewController.self))
+                as? ShoppingListViewController
+            else { fatalError("Could not instantiate ShoppingListViewController") }
+            navigationController?.pushViewController(shoppingListVC, animated: true)
+        case 2:
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            guard
+                let publicProfileVC = storyboard.instantiateViewController(
+                    withIdentifier: String(describing: PublicProfileViewController.self)
+                )
+                as? PublicProfileViewController
+            else { fatalError("Could not create publicProfileVC") }
+            publicProfileVC.userId = Constant.getUserId()
+            navigationController?.pushViewController(publicProfileVC, animated: true)
+        case 3:
+            print("封鎖名單")
+        case 4:
+            print("刪除帳號")
+        default:
             firestoreManager.updateFCMToken(userId: Constant.getUserId(), fcmToken: "")
             do {
                 try Auth.auth().signOut()

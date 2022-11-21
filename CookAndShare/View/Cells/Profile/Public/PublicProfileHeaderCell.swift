@@ -47,6 +47,10 @@ class PublicProfileHeaderCell: UICollectionViewCell {
     func layoutCell(with user: User) {
         userImageView.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
         userNameLabel.text = user.name
+        if user.id == Constant.getUserId() {
+            sendMessageButton.isHidden = true
+            blockUserButton.isHidden = true
+        }
     }
 
     @objc func presentChatRoom() {
