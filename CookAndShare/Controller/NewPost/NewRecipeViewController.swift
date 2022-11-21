@@ -8,6 +8,7 @@
 import UIKit
 import PhotosUI
 import FirebaseFirestore
+import SPAlert
 
 class NewRecipeViewController: UIViewController {
 // MARK: - Property
@@ -118,7 +119,7 @@ class NewRecipeViewController: UIViewController {
             recipe.authorId = Constant.getUserId()
             recipe.time = Timestamp(date: Date())
             firestoreManager.addNewRecipe(recipe, to: document)
-            firestoreManager.updateUserRecipePost(recipeId: document.documentID, userId: Constant.getUserId())
+            firestoreManager.updateUserRecipePost(recipeId: document.documentID, userId: Constant.getUserId(), isNewPost: true)
             navigationController?.popViewController(animated: true)
         }
     }

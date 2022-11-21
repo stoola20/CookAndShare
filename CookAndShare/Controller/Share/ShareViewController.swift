@@ -175,4 +175,23 @@ extension ShareViewController: ShareCellDelegate {
         previewVC.modalPresentationStyle = .overFullScreen
         present(previewVC, animated: true)
     }
+
+    func deletePost(_ cell: ShareCell) {
+        let alert = UIAlertController(title: "確定刪除此貼文？", message: "此動作將無法回復！", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "確定刪除", style: .destructive) { [weak self] _ in
+            guard
+                let self = self,
+                let indexPath = self.tableView.indexPath(for: cell)
+            else { fatalError("Wrong indexPath") }
+            let share = self.shares[indexPath.row]
+            self.shares.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .left)
+            self.firestoreManager.deleteSharePost(shareId: share.shareId)
+            self.firestoreManager.updateUserSharePost(shareId: share.shareId, userId: share.authorId, isNewPost: false)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
 }

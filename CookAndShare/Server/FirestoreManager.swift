@@ -220,6 +220,16 @@ struct FirestoreManager {
         }
     }
 
+    func deleteRecipePost(recipeId: String) {
+        recipesCollection.document(recipeId).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
+
 // MARK: - User
     func createUser(id: String, user: User) {
         do {
@@ -243,6 +253,28 @@ struct FirestoreManager {
         }
     }
 
+    func searchAllUsers(completion: @escaping (Result<[User], Error>) -> Void) {
+        var users: [User] = []
+
+        usersCollection.getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion(.failure(error))
+            } else {
+                guard let querySnapshot = querySnapshot else { return }
+                querySnapshot.documents.forEach { document in
+                    do {
+                        let user = try document.data(as: User.self)
+                        users.append(user)
+                    } catch {
+                        print(error)
+                    }
+                }
+                completion(.success(users))
+            }
+        }
+    }
+
     func updateUserName(userId: String, name: String) {
         usersCollection.document(userId).setData(["name": name], merge: true)
     }
@@ -255,11 +287,17 @@ struct FirestoreManager {
         usersCollection.document(userId).setData(["fcmToken": fcmToken], merge: true)
     }
 
-    func updateUserRecipePost(recipeId: String, userId: String) {
+    func updateUserRecipePost(recipeId: String, userId: String, isNewPost: Bool) {
         let userRef = usersCollection.document(userId)
-        userRef.updateData([
-            Constant.recipesId: FieldValue.arrayUnion([recipeId])
-        ])
+        if isNewPost {
+            userRef.updateData([
+                Constant.recipesId: FieldValue.arrayUnion([recipeId])
+            ])
+        } else {
+            userRef.updateData([
+                Constant.recipesId: FieldValue.arrayRemove([recipeId])
+            ])
+        }
     }
 
     func updateUserSaves(recipeId: String, userId: String, hasSaved: Bool) {
@@ -393,7 +431,7 @@ struct FirestoreManager {
     func fetchConversation(with friendId: String, completion: @escaping (Result<Conversation?, Error>) -> Void) {
         conversationsCollection.whereField("friendIds", arrayContains: friendId).getDocuments { querySnapshot, _ in
             guard let querySnapshot = querySnapshot else { return }
-            var conversation: Conversation? = nil
+            var conversation: Conversation?
             if querySnapshot.isEmpty {
                 print("querySnapshot.isEmpty")
                 completion(.success(conversation))

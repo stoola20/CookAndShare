@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import Hero
+import SPAlert
 
 enum DetailRecipeSection: CaseIterable {
     case banner
@@ -250,5 +251,33 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
         else { fatalError("Could not create publicProfileVC") }
         publicProfileVC.userId = userId
         navigationController?.pushViewController(publicProfileVC, animated: true)
+    }
+
+    func deletePost() {
+        let alert = UIAlertController(title: "確定刪除此貼文？", message: "此動作將無法回復！", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "確定刪除", style: .destructive) { [weak self] _ in
+            SPAlert.present(message: "刪除中...", haptic: .warning)
+            guard
+                let self = self,
+                let recipe = self.recipe
+            else { return }
+            self.firestoreManager.deleteRecipePost(recipeId: self.recipeId)
+            self.firestoreManager.updateUserRecipePost(recipeId: self.recipeId, userId: recipe.authorId, isNewPost: false)
+            self.firestoreManager.searchAllUsers { result in
+                switch result {
+                case .success(let users):
+                    users.forEach { user in
+                        self.firestoreManager.updateUserSaves(recipeId: self.recipeId, userId: user.id, hasSaved: true)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            self.navigationController?.popViewController(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
     }
 }

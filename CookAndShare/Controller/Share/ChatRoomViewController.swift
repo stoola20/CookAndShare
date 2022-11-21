@@ -172,16 +172,16 @@ class ChatRoomViewController: UIViewController {
             switch result {
             case .success(let user):
                 userName = user.name
+                let sender = PushNotificationSender()
+                sender.sendPushNotification(
+                    to: friend.fcmToken,
+                    title: "好享煮飯",
+                    body: "\(userName)\(contentType.getMessageBody())"
+                )
             case .failure(let error):
                 print(error)
             }
         }
-        let sender = PushNotificationSender()
-        sender.sendPushNotification(
-            to: friend.fcmToken,
-            title: "好享煮飯",
-            body: "\(userName)\(contentType.getMessageBody())"
-        )
     }
 
     // MARK: - Image Message

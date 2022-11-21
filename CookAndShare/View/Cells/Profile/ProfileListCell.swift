@@ -30,7 +30,7 @@ class ProfileListCell: UITableViewCell {
             smallImageView.image = UIImage(systemName: "text.below.photo")
             listLabel.textColor = UIColor.darkBrown
         case .block:
-            smallImageView.image = UIImage(systemName: "hand.raised")
+            smallImageView.image = UIImage(systemName: "hand.raised.slash")
             listLabel.textColor = UIColor.darkBrown
         case .deleteAccount:
             smallImageView.image = UIImage(systemName: "trash")
