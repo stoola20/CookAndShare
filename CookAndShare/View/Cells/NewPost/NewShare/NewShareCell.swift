@@ -63,6 +63,15 @@ class NewShareCell: UITableViewCell {
         bestBeforePicker.textColor = UIColor.darkBrown
     }
 
+    func layoutCell(with share: Share) {
+        foodImage.loadImage(share.imageURL, placeHolder: UIImage(named: "takePhoto"))
+        titleTextField.text = share.title
+        descriptionTextField.text = share.description
+        meetTimeTextField.text = share.meetTime
+        meetPlaceTextField.text = share.meetPlace
+        bestBeforePicker.setDate(Date(timeIntervalSince1970: Double(share.bestBefore.seconds)), animated: true)
+    }
+
     @objc func passData() {
         guard
             let title = titleTextField.text,

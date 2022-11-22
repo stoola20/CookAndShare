@@ -11,6 +11,7 @@ import FirebaseFirestore
 protocol DetailBannerCellDelegate: AnyObject {
     func goToProfile(_ userId: String)
     func deletePost()
+    func editPost()
 }
 
 class DetailBannerCell: UITableViewCell {
@@ -70,10 +71,10 @@ class DetailBannerCell: UITableViewCell {
 
     @objc func editPost() {
         print("編輯貼文")
+        delegate.editPost()
     }
 
     @objc func deletePost() {
-        print("刪除貼文")
         delegate.deletePost()
     }
 

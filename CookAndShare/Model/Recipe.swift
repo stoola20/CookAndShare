@@ -12,12 +12,12 @@ import FirebaseFirestoreSwift
 struct Recipe: Codable, Hashable {
     var recipeId = String.empty
     var authorId = String.empty
-    var cookDuration: Int = 0
+    var cookDuration: Int = 10
     var time = Timestamp()
     var title = String.empty
     var mainImageURL = String.empty
     var description = String.empty
-    var quantity: Int = 0
+    var quantity: Int = 1
     var ingredientNames: [String] = []
     var ingredients: [Ingredient] = []
     var procedures: [Procedure] = []

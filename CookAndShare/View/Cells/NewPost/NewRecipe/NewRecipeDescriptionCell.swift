@@ -84,6 +84,14 @@ class NewRecipeDescriptionCell: UITableViewCell {
         quantityLabel.textColor = UIColor.darkBrown
     }
 
+    func layoutCell(with recipe: Recipe) {
+        nameTextField.text = recipe.title
+        descriptionTextField.text = recipe.description
+        durationTextField.text = String(recipe.cookDuration)
+        quantityTextField.text = String(recipe.quantity)
+        mainImageView.loadImage(recipe.mainImageURL, placeHolder: UIImage(named: "takePhoto"))
+    }
+
     func setGestureRecognizer() -> UITapGestureRecognizer {
         var tapRecognizer = UITapGestureRecognizer()
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(pickImage))

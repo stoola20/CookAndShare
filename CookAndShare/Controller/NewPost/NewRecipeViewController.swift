@@ -114,12 +114,16 @@ class NewRecipeViewController: UIViewController {
             alert.addAction(okAction)
             present(alert, animated: true)
         } else {
-            let document = firestoreManager.recipesCollection.document()
-            recipe.recipeId = document.documentID
-            recipe.authorId = Constant.getUserId()
-            recipe.time = Timestamp(date: Date())
-            firestoreManager.addNewRecipe(recipe, to: document)
-            firestoreManager.updateUserRecipePost(recipeId: document.documentID, userId: Constant.getUserId(), isNewPost: true)
+            if recipe.recipeId.isEmpty {
+                let document = firestoreManager.recipesCollection.document()
+                recipe.recipeId = document.documentID
+                recipe.authorId = Constant.getUserId()
+                recipe.time = Timestamp(date: Date())
+                firestoreManager.addNewRecipe(recipe, to: document)
+                firestoreManager.updateUserRecipePost(recipeId: document.documentID, userId: Constant.getUserId(), isNewPost: true)
+            } else {
+                try? firestoreManager.recipesCollection.document(recipe.recipeId).setData(from: recipe, merge: true)
+            }
             navigationController?.popViewController(animated: true)
         }
     }
@@ -136,9 +140,9 @@ extension NewRecipeViewController: UITableViewDataSource {
         case 0:
             return 1
         case 1:
-            return numOfIngredients
+            return recipe.ingredients.count + 1
         default:
-            return numOfProcedures
+            return recipe.procedures.count + 1
         }
     }
 
@@ -152,6 +156,7 @@ extension NewRecipeViewController: UITableViewDataSource {
                 )
                 as? NewRecipeDescriptionCell
             else { fatalError("Could not create description cell") }
+            cell.layoutCell(with: recipe)
             cell.completion = { [weak self] data in
                 guard let self = self else { return }
                 self.recipe.title = data.name

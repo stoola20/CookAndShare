@@ -280,4 +280,14 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
         alert.addAction(cancelAction)
         present(alert, animated: true)
     }
+
+    func editPost() {
+        let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
+        guard let newRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewRecipeViewController.self))
+                as? NewRecipeViewController,
+              let recipe = recipe
+        else { fatalError("Cpuld not instantiate newRecipeVC") }
+        newRecipeVC.recipe = recipe
+        navigationController?.pushViewController(newRecipeVC, animated: true)
+    }
 }

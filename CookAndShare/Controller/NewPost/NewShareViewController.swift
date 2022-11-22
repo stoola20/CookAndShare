@@ -46,12 +46,16 @@ class NewShareViewController: UIViewController {
             alert.addAction(okAction)
             present(alert, animated: true)
         } else {
-            let document = firestoreManager.sharesCollection.document()
-            share.postTime = Timestamp(date: Date())
-            share.shareId = document.documentID
-            share.authorId = Constant.getUserId()
-            firestoreManager.addNewShare(share, to: document)
-            firestoreManager.updateUserSharePost(shareId: document.documentID, userId: Constant.getUserId(), isNewPost: true)
+            if share.shareId.isEmpty {
+                let document = firestoreManager.sharesCollection.document()
+                share.postTime = Timestamp(date: Date())
+                share.shareId = document.documentID
+                share.authorId = Constant.getUserId()
+                firestoreManager.addNewShare(share, to: document)
+                firestoreManager.updateUserSharePost(shareId: document.documentID, userId: Constant.getUserId(), isNewPost: true)
+            } else {
+                try? firestoreManager.sharesCollection.document(share.shareId).setData(from: share, merge: true)
+            }
             navigationController?.popViewController(animated: true)
         }
     }
@@ -68,6 +72,7 @@ extension NewShareViewController: UITableViewDataSource {
             as? NewShareCell
         else { fatalError("Could not create new share cell") }
         cell.setUpView()
+        cell.layoutCell(with: share)
         cell.delegate = self
         cell.completion = { [weak self] data in
             guard let self = self else { return }
@@ -87,11 +92,13 @@ extension NewShareViewController: NewShareCellDelegate {
     func willPickImage() {
         let controller = UIAlertController(title: "請選擇照片來源", message: nil, preferredStyle: .actionSheet)
 
-        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
+        let cameraAction = UIAlertAction(title: "相機", style: .default) { [weak self] _ in
+            guard let self = self else { return }
             self.imagePicker.sourceType = .camera
             self.present(self.imagePicker, animated: true)
         }
-        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default) { _ in
+        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default) { [weak self] _ in
+            guard let self = self else { return }
             self.imagePicker.sourceType = .photoLibrary
             self.present(self.imagePicker, animated: true)
         }
@@ -111,7 +118,8 @@ extension NewShareViewController: UIImagePickerControllerDelegate, UINavigationC
         else { fatalError("Wrong cell") }
 
         // Upload photo
-        self.firestoreManager.uploadPhoto(image: userPickedImage) { result in
+        self.firestoreManager.uploadPhoto(image: userPickedImage) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let url):
                 print(url)

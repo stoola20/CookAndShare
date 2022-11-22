@@ -194,4 +194,15 @@ extension ShareViewController: ShareCellDelegate {
         alert.addAction(cancelAction)
         present(alert, animated: true)
     }
+
+    func editPost(_ cell: ShareCell) {
+        let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
+        guard
+            let newShareVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewShareViewController.self))
+                as? NewShareViewController,
+            let indexPath = self.tableView.indexPath(for: cell)
+        else { fatalError("Could not instantiate newShareVC") }
+        newShareVC.share = shares[indexPath.row]
+        navigationController?.pushViewController(newShareVC, animated: true)
+    }
 }

@@ -12,6 +12,7 @@ protocol ShareCellDelegate: AnyObject {
     func goToProfile(_ userId: String)
     func presentLargePhoto(url: String, heroId: String)
     func deletePost(_ cell: ShareCell)
+    func editPost(_ cell: ShareCell)
 }
 
 class ShareCell: UITableViewCell {
@@ -86,10 +87,10 @@ class ShareCell: UITableViewCell {
 
     @objc func editPost() {
         print("編輯貼文")
+        delegate.editPost(self)
     }
 
     @objc func deletePost() {
-        print("刪除貼文")
         delegate.deletePost(self)
     }
 
