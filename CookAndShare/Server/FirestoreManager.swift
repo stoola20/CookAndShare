@@ -131,7 +131,7 @@ struct FirestoreManager {
 
     func searchRecipeTitle(_ title: String, completion: @escaping RecipeResponse) {
         var recipes: [Recipe] = []
-        recipesCollection.whereField(Constant.title, isEqualTo: title).getDocuments { querySnapshot, error in
+        recipesCollection.getDocuments { querySnapshot, error in
             if let error = error {
                 print("Error getting documents: \(error)")
                 completion(.failure(error))
@@ -140,7 +140,9 @@ struct FirestoreManager {
                 querySnapshot.documents.forEach { document in
                     do {
                         let recipe = try document.data(as: Recipe.self)
-                        recipes.append(recipe)
+                        if recipe.title.contains(title) {
+                            recipes.append(recipe)
+                        }
                     } catch {
                         print(error)
                     }
