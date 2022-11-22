@@ -59,13 +59,14 @@ class ShareViewController: UIViewController {
             guard let self = self else { return }
             self.fetchSharePost()
         }
-        tableView.es.startPullToRefresh()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if fromPublicVC { return }
-        fetchSharePost()
+        if !fromPublicVC {
+            tableView.es.startPullToRefresh()
+            fetchSharePost()
+        }
     }
 
     func setUpTableView() {
@@ -174,5 +175,35 @@ extension ShareViewController: ShareCellDelegate {
         previewVC.heroId = heroId
         previewVC.modalPresentationStyle = .overFullScreen
         present(previewVC, animated: true)
+    }
+
+    func deletePost(_ cell: ShareCell) {
+        let alert = UIAlertController(title: "確定刪除此貼文？", message: "此動作將無法回復！", preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "確定刪除", style: .destructive) { [weak self] _ in
+            guard
+                let self = self,
+                let indexPath = self.tableView.indexPath(for: cell)
+            else { fatalError("Wrong indexPath") }
+            let share = self.shares[indexPath.row]
+            self.shares.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .left)
+            self.firestoreManager.deleteSharePost(shareId: share.shareId)
+            self.firestoreManager.updateUserSharePost(shareId: share.shareId, userId: share.authorId, isNewPost: false)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+
+    func editPost(_ cell: ShareCell) {
+        let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
+        guard
+            let newShareVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewShareViewController.self))
+                as? NewShareViewController,
+            let indexPath = self.tableView.indexPath(for: cell)
+        else { fatalError("Could not instantiate newShareVC") }
+        newShareVC.share = shares[indexPath.row]
+        navigationController?.pushViewController(newShareVC, animated: true)
     }
 }
