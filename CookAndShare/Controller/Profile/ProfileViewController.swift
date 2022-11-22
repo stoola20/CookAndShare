@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import SafariServices
 
 enum ProfileCategory: String, CaseIterable {
     case save = "我的收藏"
@@ -48,6 +49,25 @@ class ProfileViewController: UIViewController {
         barAppearance.backgroundColor = .lightOrange
         navigationItem.standardAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
+
+        let action = UIAction(
+            title: "隱私權政策",
+            image: UIImage(systemName: "lock.shield")
+        ) { [weak self] _ in
+            guard
+                let url = URL(string: "https://www.privacypolicies.com/live/32b90ff9-1e31-4d0b-bb08-7ca320c11db9"),
+                let self = self
+            else { return }
+
+            let safariVC = SFSafariViewController(url: url)
+            self.present(safariVC, animated: true, completion: nil)
+        }
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: nil,
+            image: UIImage(systemName: "exclamationmark.shield"),
+            primaryAction: action
+        )
 
         imagePicker.delegate = self
         imagePicker.allowsEditing = true

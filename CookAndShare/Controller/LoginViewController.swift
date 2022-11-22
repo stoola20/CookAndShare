@@ -11,6 +11,7 @@ import AuthenticationServices
 import CryptoKit
 import Lottie
 import SPAlert
+import SafariServices
 
 class LoginViewController: UIViewController {
     private var currentNonce: String?
@@ -20,12 +21,15 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet var animationViews: [LottieAnimationView]!
-
+    @IBOutlet weak var privacyPolicy: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setSignInWithAppleBtn()
         scrollView.delegate = self
         setUpUI()
+        privacyPolicy.isUserInteractionEnabled = true
+        privacyPolicy.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openPrivacyPolicy)))
     }
 
     func setUpUI() {
@@ -43,6 +47,14 @@ class LoginViewController: UIViewController {
             animationView.play()
         }
         animationViews[0].play()
+    }
+
+    @objc func openPrivacyPolicy() {
+        guard let url = URL(string: "https://www.privacypolicies.com/live/32b90ff9-1e31-4d0b-bb08-7ca320c11db9")
+        else { return }
+
+        let safariVC = SFSafariViewController(url: url)
+        self.present(safariVC, animated: true, completion: nil)
     }
 
     // MARK: - 在畫面上產生 Sign in with Apple 按鈕
