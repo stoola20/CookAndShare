@@ -159,7 +159,12 @@ extension ProfileViewController: UITableViewDelegate {
             publicProfileVC.userId = Constant.getUserId()
             navigationController?.pushViewController(publicProfileVC, animated: true)
         case 3:
-            print("封鎖名單")
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            guard
+                let blockListVC = storyboard.instantiateViewController(withIdentifier: String(describing: BlockListViewController.self))
+                    as? BlockListViewController
+            else { fatalError("Could not instantiate blockListVC") }
+            navigationController?.pushViewController(blockListVC, animated: true)
         case 4:
             print("刪除帳號")
         default:

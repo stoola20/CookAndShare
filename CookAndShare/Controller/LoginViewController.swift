@@ -185,7 +185,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                                 recipesId: [],
                                 savedRecipesId: [],
                                 sharesId: [],
-                                conversationId: []
+                                conversationId: [],
+                                blockList: []
                             )
                             self.firestoreManager.createUser(id: authResult.user.uid, user: user)
                         }

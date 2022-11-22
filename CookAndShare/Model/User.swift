@@ -17,4 +17,5 @@ struct User: Codable, Hashable {
     var savedRecipesId: [String] = []
     var sharesId: [String] = []
     var conversationId: [String] = []
+    var blockList: [String] = []
 }

@@ -289,6 +289,19 @@ struct FirestoreManager {
         usersCollection.document(userId).setData(["fcmToken": fcmToken], merge: true)
     }
 
+    func updateUserBlocklist(userId: String, blockId: String, hasBlocked: Bool) {
+        let userRef = usersCollection.document(userId)
+        if hasBlocked {
+            userRef.updateData([
+                "blockList": FieldValue.arrayRemove([blockId])
+            ])
+        } else {
+            userRef.updateData([
+                "blockList": FieldValue.arrayUnion([blockId])
+            ])
+        }
+    }
+
     func updateUserRecipePost(recipeId: String, userId: String, isNewPost: Bool) {
         let userRef = usersCollection.document(userId)
         if isNewPost {

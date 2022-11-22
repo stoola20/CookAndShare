@@ -9,10 +9,13 @@ import UIKit
 
 protocol PublicProfileHeaderCellDelegate: AnyObject {
     func presentChatRoom()
+    func blockUser()
 }
 
 class PublicProfileHeaderCell: UICollectionViewCell {
     weak var delegate: PublicProfileHeaderCellDelegate!
+    let firestoreManager = FirestoreManager.shared
+    var userId = String.empty
     @IBOutlet weak var blockUserButton: UIButton!
     @IBOutlet weak var sendMessageButton: UIButton!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -22,6 +25,7 @@ class PublicProfileHeaderCell: UICollectionViewCell {
         super.awakeFromNib()
         setUpUI()
         sendMessageButton.addTarget(self, action: #selector(presentChatRoom), for: .touchUpInside)
+        blockUserButton.addTarget(self, action: #selector(blockUser), for: .touchUpInside)
     }
 
     func setUpUI() {
@@ -45,6 +49,7 @@ class PublicProfileHeaderCell: UICollectionViewCell {
     }
 
     func layoutCell(with user: User) {
+        self.userId = user.id
         userImageView.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
         userNameLabel.text = user.name
         if user.id == Constant.getUserId() {
@@ -55,5 +60,9 @@ class PublicProfileHeaderCell: UICollectionViewCell {
 
     @objc func presentChatRoom() {
         delegate.presentChatRoom()
+    }
+
+    @objc func blockUser() {
+        delegate.blockUser()
     }
 }
