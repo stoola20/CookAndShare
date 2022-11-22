@@ -13,6 +13,7 @@ protocol DetailBannerCellDelegate: AnyObject {
     func deletePost()
     func editPost()
     func block(user: User)
+    func reportRecipe()
 }
 
 class DetailBannerCell: UITableViewCell {
@@ -83,7 +84,6 @@ class DetailBannerCell: UITableViewCell {
     }
 
     @objc func blockList() {
-        print("封鎖用戶")
         guard let user = user else {
             return
         }
@@ -91,7 +91,7 @@ class DetailBannerCell: UITableViewCell {
     }
 
     @objc func report() {
-        print("檢舉")
+        delegate.reportRecipe()
     }
 
     func layoutCell(with recipe: Recipe) {

@@ -23,6 +23,7 @@ struct Recipe: Codable, Hashable {
     var procedures: [Procedure] = []
     var likes: [String] = []
     var saves: [String] = []
+    var reports: [String] = []
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(recipeId)

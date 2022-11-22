@@ -14,6 +14,7 @@ protocol ShareCellDelegate: AnyObject {
     func deletePost(_ cell: ShareCell)
     func editPost(_ cell: ShareCell)
     func block(user: User)
+    func reportShare(_ cell: ShareCell)
 }
 
 class ShareCell: UITableViewCell {
@@ -106,7 +107,7 @@ class ShareCell: UITableViewCell {
     }
 
     @objc func report() {
-        print("檢舉")
+        delegate.reportShare(self)
     }
 
     override func prepareForReuse() {

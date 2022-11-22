@@ -283,9 +283,10 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
 
     func editPost() {
         let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
-        guard let newRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewRecipeViewController.self))
+        guard
+            let newRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewRecipeViewController.self))
                 as? NewRecipeViewController,
-              let recipe = recipe
+            let recipe = recipe
         else { fatalError("Cpuld not instantiate newRecipeVC") }
         newRecipeVC.recipe = recipe
         navigationController?.pushViewController(newRecipeVC, animated: true)
@@ -301,6 +302,23 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
             guard let self = self else { return }
             self.firestoreManager.updateUserBlocklist(userId: Constant.getUserId(), blockId: user.id, hasBlocked: false)
             self.navigationController?.popToRootViewController(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+
+    func reportRecipe() {
+        let alert = UIAlertController(
+            title: "檢舉這則貼文？",
+            message: "你的檢舉將會匿名。如果有人有立即的人身安全疑慮，請立即與當地緊急救護服務聯絡，把握救援時間。",
+            preferredStyle: .actionSheet
+        )
+        let confirmAction = UIAlertAction(title: "確定檢舉", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            self.firestoreManager.updateRecipeReports(recipeId: self.recipeId, userId: Constant.getUserId())
+            SPAlert.present(message: "謝謝你告知我們，我們會在未來減少顯示這類內容", haptic: .success)
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
         alert.addAction(confirmAction)

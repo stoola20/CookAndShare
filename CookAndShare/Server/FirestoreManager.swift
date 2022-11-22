@@ -11,6 +11,7 @@ import FirebaseStorage
 
 typealias RecipeResponse = (Result<[Recipe], Error>) -> Void
 
+// swiftlint:disable type_body_length
 struct FirestoreManager {
     static let shared = FirestoreManager()
     let recipesCollection = Firestore.firestore().collection(Constant.firestoreRecipes)
@@ -22,7 +23,7 @@ struct FirestoreManager {
 // MARK: - Upload Photo
     func uploadPhoto(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
         let fileReference = storage.reference().child(UUID().uuidString + ".jpg")
-        if let data = image.jpegData(compressionQuality: 0.3) {
+        if let data = image.jpegData(compressionQuality: 0.5) {
             fileReference.putData(data, metadata: nil) { result in
                 switch result {
                 case .success:
@@ -224,6 +225,13 @@ struct FirestoreManager {
                 Constant.saves: FieldValue.arrayUnion([userId])
             ])
         }
+    }
+
+    func updateRecipeReports(recipeId: String, userId: String) {
+        let recipeRef = recipesCollection.document(recipeId)
+        recipeRef.updateData([
+            "reports": FieldValue.arrayUnion([userId])
+        ])
     }
 
     func deleteRecipePost(recipeId: String) {
@@ -441,6 +449,13 @@ struct FirestoreManager {
                 }
             }
         }
+    }
+
+    func updateShareReports(shareId: String, userId: String) {
+        let recipeRef = sharesCollection.document(shareId)
+        recipeRef.updateData([
+            "reports": FieldValue.arrayUnion([userId])
+        ])
     }
 
     func deleteSharePost(shareId: String) {
