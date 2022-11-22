@@ -166,20 +166,20 @@ class ChatRoomViewController: UIViewController {
             "duration": duration
         ]
 
-        var userName = ""
         firestoreManager.updateConversation(channelId: conversation.channelId, message: message)
-        firestoreManager.fetchUserData(userId: Constant.getUserId()) { result in
-            switch result {
-            case .success(let user):
-                userName = user.name
-                let sender = PushNotificationSender()
-                sender.sendPushNotification(
-                    to: friend.fcmToken,
-                    title: "好享煮飯",
-                    body: "\(userName)\(contentType.getMessageBody())"
-                )
-            case .failure(let error):
-                print(error)
+        if !friend.blockList.contains(Constant.getUserId()) {
+            firestoreManager.fetchUserData(userId: Constant.getUserId()) { result in
+                switch result {
+                case .success(let user):
+                    let sender = PushNotificationSender()
+                    sender.sendPushNotification(
+                        to: friend.fcmToken,
+                        title: "好享煮飯",
+                        body: "\(user.name)\(contentType.getMessageBody())"
+                    )
+                case .failure(let error):
+                    print(error)
+                }
             }
         }
     }

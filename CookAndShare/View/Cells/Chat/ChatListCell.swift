@@ -12,7 +12,7 @@ class ChatListCell: UITableViewCell {
     @IBOutlet weak var friendNameLabel: UILabel!
     @IBOutlet weak var lastMessageLabel: UILabel!
     @IBOutlet weak var lastTimeLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpUI()
@@ -21,6 +21,9 @@ class ChatListCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         friendImageView.image = UIImage(named: Constant.chefMan)
+        friendNameLabel.text = nil
+        lastMessageLabel.text = nil
+        lastTimeLabel.text = nil
     }
 
     func setUpUI() {

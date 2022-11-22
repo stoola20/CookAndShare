@@ -29,7 +29,6 @@ class ChatListViewController: UIViewController {
             guard let self = self else { return }
             self.fetchChatList()
         }
-        tableView.es.startPullToRefresh()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -52,11 +51,12 @@ class ChatListViewController: UIViewController {
             case .success(let user):
                 user.conversationId.forEach { conversationId in
                     group.enter()
-
                     self.firestoreManager.fetchConversationBy(conversationId) { result in
                         switch result {
                         case .success(let conversation):
-                            self.conversations.append(conversation)
+                            if Set(user.blockList).isDisjoint(with: Set(conversation.friendIds)) {
+                                self.conversations.append(conversation)
+                            }
                             group.leave()
                         case .failure(let error):
                             print(error)

@@ -64,7 +64,6 @@ class ShareViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !fromPublicVC {
-            tableView.es.startPullToRefresh()
             fetchSharePost()
         }
     }
