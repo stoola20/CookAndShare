@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 import SafariServices
 
 enum ProfileCategory: String, CaseIterable {
@@ -130,6 +131,7 @@ extension ProfileViewController: UITableViewDataSource {
 
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         if indexPath.section == 0 { return }
         switch indexPath.item {
         case 0:
@@ -166,7 +168,64 @@ extension ProfileViewController: UITableViewDelegate {
             else { fatalError("Could not instantiate blockListVC") }
             navigationController?.pushViewController(blockListVC, animated: true)
         case 4:
-            print("刪除帳號")
+            let alert = UIAlertController(
+                title: "永久刪除帳號？",
+                message: "此步驟無法回復。如果繼續，你的個人檔案、發文、訊息記錄都將被刪除，他人將無法在好享煮飯看到你。",
+                preferredStyle: .actionSheet
+            )
+
+            let confirmAction = UIAlertAction(title: "確認刪除", style: .destructive) { [weak self] _ in
+                guard
+                    let self = self,
+                    let mySelf = self.user
+                else { return }
+
+                self.firestoreManager.searchAllUsers { result in
+                    switch result {
+                    case .success(let users):
+                        users.forEach { otherOne in
+                            mySelf.conversationId.forEach { channelId in
+                                if otherOne.conversationId.contains(channelId) {
+                                    self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                                        Constant.conversationId: FieldValue.arrayRemove([channelId])
+                                    ])
+                                }
+                            }
+                            mySelf.recipesId.forEach { recipeId in
+                                if otherOne.savedRecipesId.contains(recipeId) {
+                                    self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                                        Constant.savedRecipesId: FieldValue.arrayRemove([recipeId])
+                                    ])
+                                }
+                            }
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+                mySelf.conversationId.forEach { channelId in
+                    self.firestoreManager.conversationsCollection.document(channelId).delete()
+                }
+                mySelf.sharesId.forEach { shareId in
+                    self.firestoreManager.sharesCollection.document(shareId).delete()
+                }
+                mySelf.recipesId.forEach { recipeId in
+                    self.firestoreManager.recipesCollection.document(recipeId).delete()
+                }
+
+                let user = Auth.auth().currentUser
+                user?.delete { error in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        print("帳戶已被 firebase auth 刪除")
+                    }
+                }
+            }
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+            alert.addAction(confirmAction)
+            alert.addAction(cancelAction)
+            present(alert, animated: true)
         default:
             firestoreManager.updateFCMToken(userId: Constant.getUserId(), fcmToken: "")
             do {

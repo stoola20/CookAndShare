@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseStorage
+import FirebaseAuth
 
 typealias RecipeResponse = (Result<[Recipe], Error>) -> Void
 
@@ -96,68 +97,17 @@ struct FirestoreManager {
                 completion(.failure(error))
             } else {
                 guard let querySnapshot = querySnapshot else { return }
-                fetchUserData(userId: Constant.getUserId()) { result in
-                    switch result {
-                    case .success(let user):
-                        querySnapshot.documents.forEach { document in
-                            do {
-                                let recipe = try document.data(as: Recipe.self)
-                                if !user.blockList.contains(recipe.authorId) {
-                                    recipes.append(recipe)
-                                }
-                            } catch {
-                                print(error)
-                            }
+                if Auth.auth().currentUser == nil {
+                    querySnapshot.documents.forEach { document in
+                        do {
+                            let recipe = try document.data(as: Recipe.self)
+                            recipes.append(recipe)
+                        } catch {
+                            print(error)
                         }
-                        completion(.success(recipes))
-                    case .failure(let error):
-                        print(error)
                     }
-                }
-            }
-        }
-    }
-
-    func searchRecipeTitle(_ title: String, completion: @escaping RecipeResponse) {
-        var recipes: [Recipe] = []
-        recipesCollection.getDocuments { querySnapshot, error in
-            if let error = error {
-                print("Error getting documents: \(error)")
-                completion(.failure(error))
-            } else {
-                guard let querySnapshot = querySnapshot else { return }
-                fetchUserData(userId: Constant.getUserId()) { result in
-                    switch result {
-                    case .success(let user):
-                        querySnapshot.documents.forEach { document in
-                            do {
-                                let recipe = try document.data(as: Recipe.self)
-                                if !user.blockList.contains(recipe.authorId) && recipe.title.contains(title) {
-                                    recipes.append(recipe)
-                                }
-                            } catch {
-                                print(error)
-                            }
-                        }
-                        completion(.success(recipes))
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-            }
-        }
-    }
-
-    func searchIngredientName(_ name: String, completion: @escaping RecipeResponse) {
-        var recipes: [Recipe] = []
-        recipesCollection
-            .whereField(Constant.ingredientNames, arrayContains: name)
-            .getDocuments { querySnapshot, error in
-                if let error = error {
-                    print("Error getting documents: \(error)")
-                    completion(.failure(error))
+                    completion(.success(recipes))
                 } else {
-                    guard let querySnapshot = querySnapshot else { return }
                     fetchUserData(userId: Constant.getUserId()) { result in
                         switch result {
                         case .success(let user):
@@ -174,6 +124,93 @@ struct FirestoreManager {
                             completion(.success(recipes))
                         case .failure(let error):
                             print(error)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func searchRecipeTitle(_ title: String, completion: @escaping RecipeResponse) {
+        var recipes: [Recipe] = []
+        recipesCollection.getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error getting documents: \(error)")
+                completion(.failure(error))
+            } else {
+                guard let querySnapshot = querySnapshot else { return }
+                if Auth.auth().currentUser == nil {
+                    querySnapshot.documents.forEach { document in
+                        do {
+                            let recipe = try document.data(as: Recipe.self)
+                            recipes.append(recipe)
+                        } catch {
+                            print(error)
+                        }
+                    }
+                    completion(.success(recipes))
+                } else {
+                    fetchUserData(userId: Constant.getUserId()) { result in
+                        switch result {
+                        case .success(let user):
+                            querySnapshot.documents.forEach { document in
+                                do {
+                                    let recipe = try document.data(as: Recipe.self)
+                                    if !user.blockList.contains(recipe.authorId) && recipe.title.contains(title) {
+                                        recipes.append(recipe)
+                                    }
+                                } catch {
+                                    print(error)
+                                }
+                            }
+                            completion(.success(recipes))
+                        case .failure(let error):
+                            print(error)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func searchIngredientName(_ name: String, completion: @escaping RecipeResponse) {
+        var recipes: [Recipe] = []
+        recipesCollection
+            .whereField(Constant.ingredientNames, arrayContains: name)
+            .getDocuments { querySnapshot, error in
+                if let error = error {
+                    print("Error getting documents: \(error)")
+                    completion(.failure(error))
+                } else {
+                    guard let querySnapshot = querySnapshot else { return }
+                    if Auth.auth().currentUser == nil {
+                        querySnapshot.documents.forEach { document in
+                            do {
+                                let recipe = try document.data(as: Recipe.self)
+                                recipes.append(recipe)
+                            } catch {
+                                print(error)
+                            }
+                        }
+                        completion(.success(recipes))
+                    } else {
+                        fetchUserData(userId: Constant.getUserId()) { result in
+                            switch result {
+                            case .success(let user):
+                                querySnapshot.documents.forEach { document in
+                                    do {
+                                        let recipe = try document.data(as: Recipe.self)
+                                        if !user.blockList.contains(recipe.authorId) {
+                                            recipes.append(recipe)
+                                        }
+                                    } catch {
+                                        print(error)
+                                    }
+                                }
+                                completion(.success(recipes))
+                            case .failure(let error):
+                                print(error)
+                            }
                         }
                     }
                 }
@@ -402,28 +439,48 @@ struct FirestoreManager {
                 completion(.failure(error))
             } else {
                 guard let querySnapshot = querySnapshot else { return }
-                fetchUserData(userId: Constant.getUserId()) { result in
-                    switch result {
-                    case .success(let user):
-                        querySnapshot.documents.forEach { document in
-                            do {
-                                let share = try document.data(as: Share.self)
-                                let bbfTimeInterval = Double(share.bestBefore.seconds)
-                                let shareDayComponent = Calendar.current.component(.day, from: Date(timeIntervalSince1970: bbfTimeInterval))
-                                let today = Calendar.current.component(.day, from: Date())
-                                if bbfTimeInterval < Date().timeIntervalSince1970 && shareDayComponent != today {
-                                    deleteSharePost(shareId: share.shareId)
-                                    updateUserSharePost(shareId: share.shareId, userId: share.authorId, isNewPost: false)
-                                } else if !user.blockList.contains(share.authorId) {
-                                    shares.append(share)
-                                }
-                            } catch {
-                                completion(.failure(error))
+                if Auth.auth().currentUser == nil {
+                    querySnapshot.documents.forEach { document in
+                        do {
+                            let share = try document.data(as: Share.self)
+                            let bbfTimeInterval = Double(share.bestBefore.seconds)
+                            let shareDayComponent = Calendar.current.component(.day, from: Date(timeIntervalSince1970: bbfTimeInterval))
+                            let today = Calendar.current.component(.day, from: Date())
+                            if bbfTimeInterval < Date().timeIntervalSince1970 && shareDayComponent != today {
+                                deleteSharePost(shareId: share.shareId)
+                                updateUserSharePost(shareId: share.shareId, userId: share.authorId, isNewPost: false)
+                            } else {
+                                shares.append(share)
                             }
+                        } catch {
+                            completion(.failure(error))
                         }
-                        completion(.success(shares))
-                    case .failure(let error):
-                        print(error)
+                    }
+                    completion(.success(shares))
+                } else {
+                    fetchUserData(userId: Constant.getUserId()) { result in
+                        switch result {
+                        case .success(let user):
+                            querySnapshot.documents.forEach { document in
+                                do {
+                                    let share = try document.data(as: Share.self)
+                                    let bbfTimeInterval = Double(share.bestBefore.seconds)
+                                    let shareDayComponent = Calendar.current.component(.day, from: Date(timeIntervalSince1970: bbfTimeInterval))
+                                    let today = Calendar.current.component(.day, from: Date())
+                                    if bbfTimeInterval < Date().timeIntervalSince1970 && shareDayComponent != today {
+                                        deleteSharePost(shareId: share.shareId)
+                                        updateUserSharePost(shareId: share.shareId, userId: share.authorId, isNewPost: false)
+                                    } else if !user.blockList.contains(share.authorId) {
+                                        shares.append(share)
+                                    }
+                                } catch {
+                                    completion(.failure(error))
+                                }
+                            }
+                            completion(.success(shares))
+                        case .failure(let error):
+                            print(error)
+                        }
                     }
                 }
             }
