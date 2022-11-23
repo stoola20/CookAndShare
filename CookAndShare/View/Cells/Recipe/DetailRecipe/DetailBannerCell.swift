@@ -12,11 +12,14 @@ protocol DetailBannerCellDelegate: AnyObject {
     func goToProfile(_ userId: String)
     func deletePost()
     func editPost()
+    func block(user: User)
+    func reportRecipe()
 }
 
 class DetailBannerCell: UITableViewCell {
     let firestoreManager = FirestoreManager.shared
-    var userId = String.empty
+    var user: User?
+    
     weak var delegate: DetailBannerCellDelegate!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -66,11 +69,13 @@ class DetailBannerCell: UITableViewCell {
     }
 
     @objc func goToProfile() {
-        delegate.goToProfile(userId)
+        guard let user = user else {
+            return
+        }
+        delegate.goToProfile(user.id)
     }
 
     @objc func editPost() {
-        print("編輯貼文")
         delegate.editPost()
     }
 
@@ -79,20 +84,24 @@ class DetailBannerCell: UITableViewCell {
     }
 
     @objc func blockList() {
-        print("封鎖用戶")
+        guard let user = user else {
+            return
+        }
+        delegate.block(user: user)
     }
 
     @objc func report() {
-        print("檢舉")
+        delegate.reportRecipe()
     }
 
     func layoutCell(with recipe: Recipe) {
-        userId = recipe.authorId
-        firestoreManager.fetchUserData(userId: recipe.authorId) { result in
+        firestoreManager.fetchUserData(userId: recipe.authorId) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let user):
                 self.profileImage.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
                 self.authorLabel.text = user.name
+                self.user = user
             case .failure(let error):
                 print(error)
             }

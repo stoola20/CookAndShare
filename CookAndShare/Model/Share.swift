@@ -19,4 +19,5 @@ struct Share: Codable {
     var bestBefore = Timestamp()
     var dueDate = Timestamp()
     var postTime = Timestamp()
+    var reports: [String] = []
 }

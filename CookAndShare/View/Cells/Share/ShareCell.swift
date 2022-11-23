@@ -13,11 +13,13 @@ protocol ShareCellDelegate: AnyObject {
     func presentLargePhoto(url: String, heroId: String)
     func deletePost(_ cell: ShareCell)
     func editPost(_ cell: ShareCell)
+    func block(user: User)
+    func reportShare(_ cell: ShareCell)
 }
 
 class ShareCell: UITableViewCell {
     let firestoreManager = FirestoreManager.shared
-    var userId = String.empty
+    var user: User?
     var foodImageURL = ""
     weak var delegate: ShareCellDelegate!
     @IBOutlet weak var userImageView: UIImageView!
@@ -30,7 +32,7 @@ class ShareCell: UITableViewCell {
     @IBOutlet weak var foodImageView: UIImageView!
     @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var seeProfileButton: UIButton!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         userNameLabel.isUserInteractionEnabled = true
@@ -78,7 +80,11 @@ class ShareCell: UITableViewCell {
     }
 
     @objc func goToProfile() {
-        delegate.goToProfile(userId)
+        guard let user = user else {
+            return
+        }
+
+        delegate.goToProfile(user.id)
     }
 
     @objc func presentPhoto() {
@@ -86,7 +92,6 @@ class ShareCell: UITableViewCell {
     }
 
     @objc func editPost() {
-        print("編輯貼文")
         delegate.editPost(self)
     }
 
@@ -95,11 +100,14 @@ class ShareCell: UITableViewCell {
     }
 
     @objc func blockList() {
-        print("封鎖用戶")
+        guard let user = user else {
+            return
+        }
+        delegate.block(user: user)
     }
 
     @objc func report() {
-        print("檢舉")
+        delegate.reportShare(self)
     }
 
     override func prepareForReuse() {
@@ -109,12 +117,13 @@ class ShareCell: UITableViewCell {
     }
 
     func layoutCell(with share: Share) {
-        userId = share.authorId
-        firestoreManager.fetchUserData(userId: share.authorId) { result in
+        firestoreManager.fetchUserData(userId: share.authorId) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let user):
                 self.userImageView.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
                 self.userNameLabel.text = user.name
+                self.user = user
             case .failure(let error):
                 print(error)
             }

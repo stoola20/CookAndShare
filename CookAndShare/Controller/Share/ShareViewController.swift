@@ -9,6 +9,7 @@ import UIKit
 import FirebaseAuth
 import Hero
 import ESPullToRefresh
+import SPAlert
 
 class ShareViewController: UIViewController {
     let firestoreManager = FirestoreManager.shared
@@ -64,7 +65,6 @@ class ShareViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if !fromPublicVC {
-            tableView.es.startPullToRefresh()
             fetchSharePost()
         }
     }
@@ -178,7 +178,7 @@ extension ShareViewController: ShareCellDelegate {
     }
 
     func deletePost(_ cell: ShareCell) {
-        let alert = UIAlertController(title: "確定刪除此貼文？", message: "此動作將無法回復！", preferredStyle: .alert)
+        let alert = UIAlertController(title: "確定刪除此貼文？", message: "此動作將無法回復。", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "確定刪除", style: .destructive) { [weak self] _ in
             guard
                 let self = self,
@@ -205,5 +205,41 @@ extension ShareViewController: ShareCellDelegate {
         else { fatalError("Could not instantiate newShareVC") }
         newShareVC.share = shares[indexPath.row]
         navigationController?.pushViewController(newShareVC, animated: true)
+    }
+
+    func block(user: User) {
+        let alert = UIAlertController(
+            title: "封鎖\(user.name)？",
+            message: "你將不會看到他的貼文、個人檔案或來自他的訊息。你封鎖用戶時，對方不會收到通知。",
+            preferredStyle: .actionSheet
+        )
+        let confirmAction = UIAlertAction(title: "確定封鎖", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            self.firestoreManager.updateUserBlocklist(userId: Constant.getUserId(), blockId: user.id, hasBlocked: false)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+
+    func reportShare(_ cell: ShareCell) {
+        let alert = UIAlertController(
+            title: "檢舉這則貼文？",
+            message: "你的檢舉將會匿名。如果有人有立即的人身安全疑慮，請立即與當地緊急救護服務聯絡，把握救援時間。",
+            preferredStyle: .actionSheet
+        )
+        let confirmAction = UIAlertAction(title: "確定檢舉", style: .destructive) { [weak self] _ in
+            guard
+                let self = self,
+                let indexPath = self.tableView.indexPath(for: cell)
+            else { return }
+            self.firestoreManager.updateShareReports(shareId: self.shares[indexPath.row].shareId, userId: Constant.getUserId())
+            SPAlert.present(message: "謝謝你告知我們，我們會在未來減少顯示這類內容", haptic: .success)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
     }
 }

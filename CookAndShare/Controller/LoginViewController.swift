@@ -11,6 +11,11 @@ import AuthenticationServices
 import CryptoKit
 import Lottie
 import SPAlert
+import SafariServices
+import KeychainSwift
+import SwiftJWT
+import SwiftUI
+import Alamofire
 
 class LoginViewController: UIViewController {
     private var currentNonce: String?
@@ -20,12 +25,15 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet var animationViews: [LottieAnimationView]!
+    @IBOutlet weak var privacyPolicy: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setSignInWithAppleBtn()
         scrollView.delegate = self
         setUpUI()
+        privacyPolicy.isUserInteractionEnabled = true
+        privacyPolicy.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openPrivacyPolicy)))
     }
 
     func setUpUI() {
@@ -43,6 +51,14 @@ class LoginViewController: UIViewController {
             animationView.play()
         }
         animationViews[0].play()
+    }
+
+    @objc func openPrivacyPolicy() {
+        guard let url = URL(string: "https://www.privacypolicies.com/live/32b90ff9-1e31-4d0b-bb08-7ca320c11db9")
+        else { return }
+
+        let safariVC = SFSafariViewController(url: url)
+        self.present(safariVC, animated: true, completion: nil)
     }
 
     // MARK: - 在畫面上產生 Sign in with Apple 按鈕
@@ -136,6 +152,35 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 return
             }
 
+            if let authorizationCode = appleIDCredential.authorizationCode,
+                let codeString = String(data: authorizationCode, encoding: .utf8) {
+                let header = Header(kid: "G6TJ9374M2")
+                let claims = JWTClaims(
+                    iss: "PDRVZ7DT2S",
+                    iat: Date(),
+                    exp: Date(timeIntervalSinceNow: 12000),
+                    aud: "https://appleid.apple.com",
+                    sub: "com.jessica.CookAndShare"
+                )
+                var myJWT = JWT(header: header, claims: claims)
+
+                do {
+                    let privateKey = """
+                    -----BEGIN PRIVATE KEY-----
+                    MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgQUvOFziafOnkaLkG
+                    WpXq8kgukqYKv3YGPfiUSWQywSugCgYIKoZIzj0DAQehRANCAARuwibrSa/3X9LD
+                    j1sA8ZeD06aFZrdxjrJBahqehq+PKauxNZIFGrOYhhrM08TwC9Ow+5cSLBYEiC5V
+                    IEmsGfn3
+                    -----END PRIVATE KEY-----
+                    """
+                    let jwtSigner = JWTSigner.es256(privateKey: Data(privateKey.utf8))
+                    let clientSecret = try myJWT.sign(using: jwtSigner)
+                    getRefreshToken(clientSecret: clientSecret, code: codeString)
+                } catch {
+                    print(error)
+                }
+            }
+
             // Initialize a Firebase credential.
             let credential = OAuthProvider.credential(
                 withProviderID: "apple.com",
@@ -173,7 +218,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                                 recipesId: [],
                                 savedRecipesId: [],
                                 sharesId: [],
-                                conversationId: []
+                                conversationId: [],
+                                blockList: []
                             )
                             self.firestoreManager.createUser(id: authResult.user.uid, user: user)
                         }
@@ -198,6 +244,31 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 self.dismiss(animated: true)
             }
         }
+    }
+
+    func getRefreshToken(clientSecret: String, code: String) {
+        let paramString: [String: Any] = [
+            "client_id": "com.jessica.CookAndShare",
+            "client_secret": clientSecret,
+            "code": code,
+            "grant_type": "authorization_code"
+        ]
+
+        let headers: HTTPHeaders = [.contentType("application/x-www-form-urlencoded")]
+
+        guard let url = URL(string: "https://appleid.apple.com/auth/token") else { return }
+        AF.request(
+            url,
+            method: .post,
+            parameters: paramString,
+            headers: headers
+        )
+        .responseDecodable(of: RefreshResponse.self, completionHandler: { response in
+            if let data = response.value {
+                let keychain = KeychainSwift()
+                keychain.set(data.refreshToken, forKey: "refreshToken")
+            }
+        })
     }
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {

@@ -18,14 +18,24 @@ class SavedRecipeViewController: UIViewController {
 
     var savedRecipsId: [String] = [] {
         didSet {
-            for id in savedRecipsId {
-                firestoreManager.searchRecipesById(id) { result in
-                    switch result {
-                    case .success(let recipe):
-                        self.savedRecipes.append(recipe)
-                    case .failure(let error):
-                        print(error)
+            firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let user):
+                    for id in self.savedRecipsId {
+                        self.firestoreManager.fetchRecipeBy(id) { result in
+                            switch result {
+                            case .success(let recipe):
+                                if !user.blockList.contains(recipe.authorId) {
+                                    self.savedRecipes.append(recipe)
+                                }
+                            case .failure(let error):
+                                print(error)
+                            }
+                        }
                     }
+                case .failure(let error):
+                    print(error)
                 }
             }
         }

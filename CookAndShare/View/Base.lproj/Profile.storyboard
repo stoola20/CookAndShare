@@ -131,6 +131,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1qf-53-6US">
+                                <rect key="frame" x="139.5" y="507" width="135.5" height="13.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="註冊等同於接受" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSa-Xc-U4f">
+                                        <rect key="frame" x="0.0" y="0.0" width="79" height="13.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" name="DarkBrown"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="隱私權政策" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9j-Wa-4Bb">
+                                        <rect key="frame" x="79" y="0.0" width="56.5" height="13.5"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
+                                        <color key="textColor" name="MyOrange"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="49p-tT-CD3"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -139,10 +156,12 @@
                             <constraint firstItem="49p-tT-CD3" firstAttribute="trailing" secondItem="dxd-ok-cPC" secondAttribute="trailing" constant="24" id="0yQ-Oc-qEC"/>
                             <constraint firstItem="49p-tT-CD3" firstAttribute="trailing" secondItem="Ify-bK-SVA" secondAttribute="trailing" id="5PM-BS-qfL"/>
                             <constraint firstItem="8h6-At-vFh" firstAttribute="centerX" secondItem="cak-pe-FYu" secondAttribute="centerX" id="6wd-rr-Zmi"/>
+                            <constraint firstItem="1qf-53-6US" firstAttribute="top" secondItem="dxd-ok-cPC" secondAttribute="bottom" constant="20" id="C2T-9t-Lyy"/>
                             <constraint firstItem="99q-oP-wez" firstAttribute="centerX" secondItem="cak-pe-FYu" secondAttribute="centerX" id="Eei-Cf-ngC"/>
                             <constraint firstItem="Ify-bK-SVA" firstAttribute="top" secondItem="49p-tT-CD3" secondAttribute="top" constant="40" id="QT8-8B-Kcs"/>
                             <constraint firstItem="dxd-ok-cPC" firstAttribute="top" secondItem="8h6-At-vFh" secondAttribute="bottom" constant="12" id="Thy-6k-cvj"/>
                             <constraint firstItem="99q-oP-wez" firstAttribute="top" secondItem="Ify-bK-SVA" secondAttribute="bottom" constant="12" id="Zyd-eV-jKA"/>
+                            <constraint firstItem="1qf-53-6US" firstAttribute="centerX" secondItem="cak-pe-FYu" secondAttribute="centerX" id="k5d-GQ-5kL"/>
                             <constraint firstItem="dxd-ok-cPC" firstAttribute="leading" secondItem="49p-tT-CD3" secondAttribute="leading" constant="24" id="un6-Nj-5cf"/>
                             <constraint firstItem="Ify-bK-SVA" firstAttribute="leading" secondItem="49p-tT-CD3" secondAttribute="leading" id="vvh-Mv-TMJ"/>
                         </constraints>
@@ -150,6 +169,7 @@
                     <connections>
                         <outlet property="descriptionLabel" destination="dxd-ok-cPC" id="KLZ-O4-31e"/>
                         <outlet property="pageControl" destination="99q-oP-wez" id="CpC-0V-2IB"/>
+                        <outlet property="privacyPolicy" destination="A9j-Wa-4Bb" id="fMK-Hv-LOe"/>
                         <outlet property="scrollView" destination="Ify-bK-SVA" id="xFj-MC-YfG"/>
                         <outlet property="titleLabel" destination="8h6-At-vFh" id="SXR-LB-2pt"/>
                         <outletCollection property="animationViews" destination="vdT-BN-PF6" collectionClass="NSMutableArray" id="Ymm-CE-3oC"/>
@@ -161,6 +181,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BRM-HN-cWX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1093" y="751"/>
+        </scene>
+        <!--Block List View Controller-->
+        <scene sceneID="WD6-gg-MkY">
+            <objects>
+                <viewController storyboardIdentifier="BlockListViewController" id="76B-7d-caH" customClass="BlockListViewController" customModule="CookAndShare" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="sdl-yf-ZwR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="gDk-dF-lD6">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="7Fm-Lr-ahg"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="gDk-dF-lD6" firstAttribute="top" secondItem="7Fm-Lr-ahg" secondAttribute="top" id="As4-G9-ZhE"/>
+                            <constraint firstItem="gDk-dF-lD6" firstAttribute="leading" secondItem="7Fm-Lr-ahg" secondAttribute="leading" id="Cbk-Fe-7Rg"/>
+                            <constraint firstItem="7Fm-Lr-ahg" firstAttribute="trailing" secondItem="gDk-dF-lD6" secondAttribute="trailing" id="T65-v6-N7t"/>
+                            <constraint firstItem="7Fm-Lr-ahg" firstAttribute="bottom" secondItem="gDk-dF-lD6" secondAttribute="bottom" id="akW-w4-h8F"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="gDk-dF-lD6" id="Bse-BK-aFl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Ve-MQ-eu5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1922" y="751"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="uFS-AV-I71">
