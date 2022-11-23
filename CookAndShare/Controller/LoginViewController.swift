@@ -12,6 +12,9 @@ import CryptoKit
 import Lottie
 import SPAlert
 import SafariServices
+import KeychainSwift
+import SwiftJWT
+import SwiftUI
 
 class LoginViewController: UIViewController {
     private var currentNonce: String?
@@ -22,7 +25,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet var animationViews: [LottieAnimationView]!
     @IBOutlet weak var privacyPolicy: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setSignInWithAppleBtn()
@@ -146,6 +149,36 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
                 print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
                 return
+            }
+
+            if let authorizationCode = appleIDCredential.authorizationCode,
+                let codeString = String(data: authorizationCode, encoding: .utf8) {
+                print("===codeString\(codeString)")
+                let header = Header(kid: "7GLPAGDN2H")
+                let claims = JWTClaims(
+                    iss: "PDRVZ7DT2S",
+                    iat: Date(),
+                    exp: Date(timeIntervalSinceNow: 12000),
+                    aud: "https://appleid.apple.com",
+                    sub: "com.jessica.CookAndShare"
+                )
+                var myJWT = JWT(header: header, claims: claims)
+
+                do {
+                    let privateKey = """
+                    -----BEGIN PRIVATE KEY-----
+                    MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgqYcvp7f+cULBU1Rd
+                    nug+uiBAOrGN1kdoSR79vMVVDcSgCgYIKoZIzj0DAQehRANCAARyVzX2xUnesbAv
+                    VhJ+ZFC/xk/lkdLgVyBHogD1SwB6snqQMub60Hm1rb0ka3inOUpb0U88ToJIUpWX
+                    sUbUfKEr
+                    -----END PRIVATE KEY-----
+                    """
+                    let jwtSigner = JWTSigner.es256(privateKey: Data(privateKey.utf8))
+                    let clientSecret = try myJWT.sign(using: jwtSigner)
+                    print("===signedJWT \(clientSecret)")
+                } catch {
+                    print(error)
+                }
             }
 
             // Initialize a Firebase credential.

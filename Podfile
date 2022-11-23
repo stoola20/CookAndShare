@@ -20,4 +20,7 @@ target 'CookAndShare' do
   pod 'SPAlert'
   pod 'Hero'
   pod 'ESPullToRefresh'
+  pod 'KeychainSwift'
+  pod 'SwiftJWT'
+  pod 'FirebaseCrashlytics'
 end

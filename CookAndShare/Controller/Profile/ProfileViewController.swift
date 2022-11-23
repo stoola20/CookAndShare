@@ -9,6 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 import SafariServices
+import KeychainSwift
 
 enum ProfileCategory: String, CaseIterable {
     case save = "我的收藏"
@@ -220,6 +221,12 @@ extension ProfileViewController: UITableViewDelegate {
                     } else {
                         print("帳戶已被 firebase auth 刪除")
                     }
+                }
+
+                let keychain = KeychainSwift()
+                let token = keychain.get("refreshToken")
+                if let token = token {
+                    print("===refreshToken\(token)")
                 }
             }
             let cancelAction = UIAlertAction(title: "取消", style: .cancel)
