@@ -23,4 +23,5 @@ target 'CookAndShare' do
   pod 'KeychainSwift'
   pod 'SwiftJWT'
   pod 'FirebaseCrashlytics'
+  pod 'Alamofire'
 end

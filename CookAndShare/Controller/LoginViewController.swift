@@ -15,6 +15,7 @@ import SafariServices
 import KeychainSwift
 import SwiftJWT
 import SwiftUI
+import Alamofire
 
 class LoginViewController: UIViewController {
     private var currentNonce: String?
@@ -153,8 +154,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 
             if let authorizationCode = appleIDCredential.authorizationCode,
                 let codeString = String(data: authorizationCode, encoding: .utf8) {
-                print("===codeString\(codeString)")
-                let header = Header(kid: "7GLPAGDN2H")
+                let header = Header(kid: "G6TJ9374M2")
                 let claims = JWTClaims(
                     iss: "PDRVZ7DT2S",
                     iat: Date(),
@@ -167,15 +167,15 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 do {
                     let privateKey = """
                     -----BEGIN PRIVATE KEY-----
-                    MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgqYcvp7f+cULBU1Rd
-                    nug+uiBAOrGN1kdoSR79vMVVDcSgCgYIKoZIzj0DAQehRANCAARyVzX2xUnesbAv
-                    VhJ+ZFC/xk/lkdLgVyBHogD1SwB6snqQMub60Hm1rb0ka3inOUpb0U88ToJIUpWX
-                    sUbUfKEr
+                    MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgQUvOFziafOnkaLkG
+                    WpXq8kgukqYKv3YGPfiUSWQywSugCgYIKoZIzj0DAQehRANCAARuwibrSa/3X9LD
+                    j1sA8ZeD06aFZrdxjrJBahqehq+PKauxNZIFGrOYhhrM08TwC9Ow+5cSLBYEiC5V
+                    IEmsGfn3
                     -----END PRIVATE KEY-----
                     """
                     let jwtSigner = JWTSigner.es256(privateKey: Data(privateKey.utf8))
                     let clientSecret = try myJWT.sign(using: jwtSigner)
-                    print("===signedJWT \(clientSecret)")
+                    getRefreshToken(clientSecret: clientSecret, code: codeString)
                 } catch {
                     print(error)
                 }
@@ -244,6 +244,31 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 self.dismiss(animated: true)
             }
         }
+    }
+
+    func getRefreshToken(clientSecret: String, code: String) {
+        let paramString: [String: Any] = [
+            "client_id": "com.jessica.CookAndShare",
+            "client_secret": clientSecret,
+            "code": code,
+            "grant_type": "authorization_code"
+        ]
+
+        let headers: HTTPHeaders = [.contentType("application/x-www-form-urlencoded")]
+
+        guard let url = URL(string: "https://appleid.apple.com/auth/token") else { return }
+        AF.request(
+            url,
+            method: .post,
+            parameters: paramString,
+            headers: headers
+        )
+        .responseDecodable(of: RefreshResponse.self, completionHandler: { response in
+            if let data = response.value {
+                let keychain = KeychainSwift()
+                keychain.set(data.refreshToken, forKey: "refreshToken")
+            }
+        })
     }
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {

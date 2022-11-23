@@ -596,6 +596,7 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
+  - Alamofire (5.6.2)
   - BlueCryptor (1.0.32)
   - BlueECC (1.2.5)
   - BlueRSA (1.0.200)
@@ -784,6 +785,7 @@ PODS:
   - SwiftLint (0.49.1)
 
 DEPENDENCIES:
+  - Alamofire
   - ESPullToRefresh
   - FirebaseAuth
   - FirebaseCrashlytics
@@ -805,6 +807,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - abseil
+    - Alamofire
     - BlueCryptor
     - BlueECC
     - BlueRSA
@@ -849,6 +852,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
+  Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
   BlueCryptor: b0aee3d9b8f367b49b30de11cda90e1735571c24
   BlueECC: 0d18e93347d3ec6d41416de21c1ffa4d4cd3c2cc
   BlueRSA: dfeef51db96bcc4edec654956c1581adbda4e6a3
@@ -891,6 +895,6 @@ SPEC CHECKSUMS:
   SwiftJWT: 88c412708f58c169d431d344c87bc79a87c830ae
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: b17e551528e3e0db5cd15d8827293cd1e0b1821a
+PODFILE CHECKSUM: 5bc27e3d945f066f31d514ee7c109bb07f317945
 
 COCOAPODS: 1.11.3

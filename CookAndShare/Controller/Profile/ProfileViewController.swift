@@ -10,6 +10,9 @@ import FirebaseAuth
 import FirebaseFirestore
 import SafariServices
 import KeychainSwift
+import Alamofire
+import SwiftJWT
+import SPAlert
 
 enum ProfileCategory: String, CaseIterable {
     case save = "我的收藏"
@@ -96,6 +99,71 @@ class ProfileViewController: UIViewController {
         tableView.registerCellWithNib(identifier: ProfileUserCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: ProfileListCell.identifier, bundle: nil)
     }
+
+    func revokeToken(clientSecret: String, token: String) {
+        let paramString: [String: Any] = [
+            "client_id": "com.jessica.CookAndShare",
+            "client_secret": clientSecret,
+            "token": token,
+            "token_type_hint": "refresh_token"
+        ]
+
+        let headers: HTTPHeaders = [.contentType("application/x-www-form-urlencoded")]
+
+        guard let url = URL(string: "https://appleid.apple.com/auth/revoke") else { return }
+        AF.request(
+            url,
+            method: .post,
+            parameters: paramString,
+            headers: headers
+        )
+        .responseData { response in
+            print("===revoke status code \(response.response?.statusCode)")
+        }
+    }
+
+    func generateClientSecret() -> String {
+        let header = Header(kid: "G6TJ9374M2")
+        let claims = JWTClaims(
+            iss: "PDRVZ7DT2S",
+            iat: Date(),
+            exp: Date(timeIntervalSinceNow: 12000),
+            aud: "https://appleid.apple.com",
+            sub: "com.jessica.CookAndShare"
+        )
+        var myJWT = JWT(header: header, claims: claims)
+
+        do {
+            let privateKey = """
+            -----BEGIN PRIVATE KEY-----
+            MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgQUvOFziafOnkaLkG
+            WpXq8kgukqYKv3YGPfiUSWQywSugCgYIKoZIzj0DAQehRANCAARuwibrSa/3X9LD
+            j1sA8ZeD06aFZrdxjrJBahqehq+PKauxNZIFGrOYhhrM08TwC9Ow+5cSLBYEiC5V
+            IEmsGfn3
+            -----END PRIVATE KEY-----
+            """
+            let jwtSigner = JWTSigner.es256(privateKey: Data(privateKey.utf8))
+            let clientSecret = try myJWT.sign(using: jwtSigner)
+            return clientSecret
+        } catch {
+            print("===error", error)
+            return ""
+        }
+    }
+
+    func showLoginVC() {
+        let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+        guard
+            let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
+                as? LoginViewController
+        else { fatalError("Could not instantiate LoginViewController") }
+        loginVC.tabBarItem = UITabBarItem(title: "個人", image: UIImage(systemName: "person.circle"), tag: 3)
+        var arrayChildViewControllers = self.tabBarController?.viewControllers
+        if let selectedTabIndex = tabBarController?.selectedIndex {
+            arrayChildViewControllers?.replaceSubrange(selectedTabIndex...selectedTabIndex, with: [loginVC])
+        }
+        self.tabBarController?.viewControllers = arrayChildViewControllers
+    }
 }
 
 extension ProfileViewController: UITableViewDataSource {
@@ -176,11 +244,11 @@ extension ProfileViewController: UITableViewDelegate {
             )
 
             let confirmAction = UIAlertAction(title: "確認刪除", style: .destructive) { [weak self] _ in
+                SPAlert.present(message: "帳號已刪除", haptic: .error)
                 guard
                     let self = self,
                     let mySelf = self.user
                 else { return }
-
                 self.firestoreManager.searchAllUsers { result in
                     switch result {
                     case .success(let users):
@@ -214,6 +282,8 @@ extension ProfileViewController: UITableViewDelegate {
                     self.firestoreManager.recipesCollection.document(recipeId).delete()
                 }
 
+                self.firestoreManager.usersCollection.document(mySelf.id).delete()
+
                 let user = Auth.auth().currentUser
                 user?.delete { error in
                     if let error = error {
@@ -225,9 +295,11 @@ extension ProfileViewController: UITableViewDelegate {
 
                 let keychain = KeychainSwift()
                 let token = keychain.get("refreshToken")
-                if let token = token {
-                    print("===refreshToken\(token)")
+                guard let token = token else {
+                    return
                 }
+                self.revokeToken(clientSecret: self.generateClientSecret(), token: token)
+                self.showLoginVC()
             }
             let cancelAction = UIAlertAction(title: "取消", style: .cancel)
             alert.addAction(confirmAction)
@@ -240,18 +312,7 @@ extension ProfileViewController: UITableViewDelegate {
             } catch let signOutError as NSError {
                 print("Error signing out: %@", signOutError)
             }
-
-            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
-                    as? LoginViewController
-            else { fatalError("Could not instantiate LoginViewController") }
-            loginVC.tabBarItem = UITabBarItem(title: "個人", image: UIImage(systemName: "person.circle"), tag: 3)
-            var arrayChildViewControllers = self.tabBarController?.viewControllers
-            if let selectedTabIndex = tabBarController?.selectedIndex {
-                arrayChildViewControllers?.replaceSubrange(selectedTabIndex...selectedTabIndex, with: [loginVC])
-            }
-            self.tabBarController?.viewControllers = arrayChildViewControllers
+            showLoginVC()
         }
     }
 }
