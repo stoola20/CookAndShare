@@ -19,12 +19,15 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         setUpView()
         title = Constant.search
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
     }
 
     func setUpView() {
         textLabel.text = Constant.searchByText
         cameraLabel.text = Constant.searchByPhoto
         randomLabel.text = Constant.searchRandomly
+        let button = UIButton(type: .custom)
+        
 
         titleTextField.placeholder = Constant.typeInTitle
         titleTextField.delegate = self
@@ -76,13 +79,16 @@ class SearchViewController: UIViewController {
         foodRecognitionVC.title = Constant.foodRecognition
         navigationController?.pushViewController(foodRecognitionVC, animated: true)
     }
-}
 
-extension SearchViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    @objc func dismissKeyboard() {
+        titleTextField.resignFirstResponder()
+        ingredientTextField.resignFirstResponder()
+    }
+
+    @objc func searchRecipe(_ textField: UITextField) {
         textField.resignFirstResponder()
 
-        guard let text = textField.text else { return true }
+        guard let text = textField.text else { return }
         if !text.isEmpty {
             let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
             guard
@@ -93,6 +99,12 @@ extension SearchViewController: UITextFieldDelegate {
             resultVC.searchString = searchString
             navigationController?.pushViewController(resultVC, animated: true)
         }
+    }
+}
+
+extension SearchViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchRecipe(textField)
         return true
     }
 }

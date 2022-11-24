@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSPlacesClient.provideAPIKey(APIKey.apiKey)
         IQKeyboardManager.shared().isEnabled = true
         IQKeyboardManager.shared().toolbarDoneBarButtonItemText = "完成"
+        IQKeyboardManager.shared().disabledToolbarClasses.add(ChatRoomViewController.self)
+        IQKeyboardManager.shared().disabledToolbarClasses.add(SearchViewController.self)
 
         let navigationBarAppearance = UINavigationBarAppearance()
         navigationBarAppearance.configureWithOpaqueBackground()

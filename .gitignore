@@ -131,3 +131,4 @@ iOSInjectionProject/
 ### Others ###
 GoogleService-Info.plist
 APIKey.swift
+JWTid.swift
