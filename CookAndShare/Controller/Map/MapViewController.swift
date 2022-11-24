@@ -17,6 +17,8 @@ class MapViewController: UIViewController {
     private var keyword = "市場|supermarket"
     private let geocoder = GMSGeocoder()
     private var isFirstCamera = true
+    private var infoWindow = InfoWindowView()
+    private var tappedMarker = GMSMarker()
     lazy var searchThisAreaButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .background
@@ -129,8 +131,10 @@ class MapViewController: UIViewController {
                         longitude: placeResult.geometry.location.lng
                     )
                     marker.icon = GMSMarker.markerImage(with: .systemOrange)
-                    marker.accessibilityLabel = placeResult.name
-                    marker.accessibilityValue = placeResult.address
+                    marker.userData = [
+                        "name": placeResult.name,
+                        "address": placeResult.address
+                    ]
                     marker.map = self.mapView
                 }
             }
@@ -162,6 +166,13 @@ class MapViewController: UIViewController {
         mapView.clear()
         fetchNearbyPlace(keyword: keyword, location: dynamicLocation)
     }
+
+    @objc func navigate() {
+        print("===導航")
+        let locationString = "\(tappedMarker.position.latitude),\(tappedMarker.position.longitude)"
+        let url = URL(string: "comgooglemaps://?daddr=\(locationString)&directionsmode=driving&zoom=14")!
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
 }
 
 extension MapViewController: CLLocationManagerDelegate {
@@ -189,14 +200,46 @@ extension MapViewController: CLLocationManagerDelegate {
 
 extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+        return UIView()
+    }
+
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        infoWindow.removeFromSuperview()
+        tappedMarker = marker
+        let location = CLLocationCoordinate2D(
+            latitude: marker.position.latitude,
+            longitude: marker.position.longitude
+        )
         guard
             let nibView = Bundle.main.loadNibNamed(String(describing: InfoWindowView.self), owner: self, options: nil),
             let view = nibView[0] as? InfoWindowView,
-            let accessibilityLabel = marker.accessibilityLabel,
-            let accessibilityValue = marker.accessibilityValue
-        else { return UIView() }
-        view.layoutView(name: accessibilityLabel, address: accessibilityValue)
-        return view
+            let data = marker.userData as? [String: String],
+            let name = data["name"],
+            let address = data["address"]
+        else { fatalError("Could not create info view") }
+
+        infoWindow = view
+        infoWindow.layoutView(name: name, address: address)
+        infoWindow.center = mapView.projection.point(for: location)
+        infoWindow.center.y += 20
+        infoWindow.navigateButton.addTarget(self, action: #selector(navigate), for: .touchUpInside)
+
+        self.view.addSubview(infoWindow)
+        searchThisAreaButton.isHidden = true
+        return false
+    }
+
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        if tappedMarker.userData != nil {
+            let location = tappedMarker.position
+            infoWindow.center = mapView.projection.point(for: location)
+            infoWindow.center.y += 20
+        }
+    }
+
+    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+        searchThisAreaButton.isHidden = true
+        infoWindow.removeFromSuperview()
     }
 
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
@@ -209,13 +252,16 @@ extension MapViewController: GMSMapViewDelegate {
             isFirstCamera.toggle()
         } else {
             searchThisAreaButton.isHidden = false
-            geocoder.reverseGeocodeCoordinate(cameraPosition.target) { [weak self] response, error in
+            geocoder.reverseGeocodeCoordinate(cameraPosition.target) { [weak self] _, error in
                 guard
                     let self = self,
                     error == nil
                 else { return }
-                
-                self.dynamicLocation = CLLocation(latitude: cameraPosition.target.latitude, longitude: cameraPosition.target.longitude)
+
+                self.dynamicLocation = CLLocation(
+                    latitude: cameraPosition.target.latitude,
+                    longitude: cameraPosition.target.longitude
+                )
             }
         }
     }
