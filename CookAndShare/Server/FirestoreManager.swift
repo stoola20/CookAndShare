@@ -291,15 +291,15 @@ struct FirestoreManager {
         }
     }
 
-    func isNewUser(id: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func isNewUser(id: String, completion: @escaping (Bool)-> Void) {
         usersCollection.document(id).getDocument { document, _ in
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 print("Document data: \(dataDescription)")
-                completion(.success(false))
+                completion(false)
             } else {
                 print("Document does not exist")
-                completion(.success(true))
+                completion(true)
             }
         }
     }

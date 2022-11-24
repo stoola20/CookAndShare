@@ -29,12 +29,9 @@ class ProfileViewController: UIViewController {
         background.backgroundColor = .white
         return background
     }()
-    var user: User? {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var user: User?
     let firestoreManager = FirestoreManager.shared
+    let coredataManager = CoreDataManager.shared
     let imagePicker = UIImagePickerController()
 
     @IBOutlet weak var tableView: UITableView!
@@ -78,17 +75,18 @@ class ProfileViewController: UIViewController {
         imagePicker.allowsEditing = true
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        firestoreManager.fetchUserData(userId: Constant.getUserId()) { result in
-            switch result {
-            case .success(let user):
-                self.user = user
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
+//            guard let self = self else { return }
+//            switch result {
+//            case .success(let user):
+//                self.user = user
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//    }
 
     func setUpTableView () {
         tableView.dataSource = self
@@ -102,7 +100,7 @@ class ProfileViewController: UIViewController {
 
     func revokeToken(clientSecret: String, token: String) {
         let paramString: [String: Any] = [
-            "client_id": "com.jessica.CookAndShare",
+            "client_id": JWTManager.shared.bundleId,
             "client_secret": clientSecret,
             "token": token,
             "token_type_hint": "refresh_token"
@@ -110,7 +108,7 @@ class ProfileViewController: UIViewController {
 
         let headers: HTTPHeaders = [.contentType("application/x-www-form-urlencoded")]
 
-        guard let url = URL(string: "https://appleid.apple.com/auth/revoke") else { return }
+        guard let url = URL(string: JWTManager.shared.revokeEndpoint) else { return }
         AF.request(
             url,
             method: .post,
@@ -119,35 +117,6 @@ class ProfileViewController: UIViewController {
         )
         .responseData { response in
             print("===revoke status code \(response.response?.statusCode)")
-        }
-    }
-
-    func generateClientSecret() -> String {
-        let header = Header(kid: "G6TJ9374M2")
-        let claims = JWTClaims(
-            iss: "PDRVZ7DT2S",
-            iat: Date(),
-            exp: Date(timeIntervalSinceNow: 12000),
-            aud: "https://appleid.apple.com",
-            sub: "com.jessica.CookAndShare"
-        )
-        var myJWT = JWT(header: header, claims: claims)
-
-        do {
-            let privateKey = """
-            -----BEGIN PRIVATE KEY-----
-            MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgQUvOFziafOnkaLkG
-            WpXq8kgukqYKv3YGPfiUSWQywSugCgYIKoZIzj0DAQehRANCAARuwibrSa/3X9LD
-            j1sA8ZeD06aFZrdxjrJBahqehq+PKauxNZIFGrOYhhrM08TwC9Ow+5cSLBYEiC5V
-            IEmsGfn3
-            -----END PRIVATE KEY-----
-            """
-            let jwtSigner = JWTSigner.es256(privateKey: Data(privateKey.utf8))
-            let clientSecret = try myJWT.sign(using: jwtSigner)
-            return clientSecret
-        } catch {
-            print("===error", error)
-            return ""
         }
     }
 
@@ -163,6 +132,87 @@ class ProfileViewController: UIViewController {
             arrayChildViewControllers?.replaceSubrange(selectedTabIndex...selectedTabIndex, with: [loginVC])
         }
         self.tabBarController?.viewControllers = arrayChildViewControllers
+    }
+
+    func deleteAccount() {
+        let alert = UIAlertController(
+            title: "永久刪除帳號？",
+            message: "此步驟無法回復。如果繼續，你的個人檔案、發文、訊息記錄都將被刪除，他人將無法在好享煮飯看到你。",
+            preferredStyle: .actionSheet
+        )
+
+        let confirmAction = UIAlertAction(title: "確認刪除", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            SPAlert.present(message: "帳號已刪除", haptic: .error)
+            self.deleteFirestoreDocument()
+            self.deleteCoreData()
+
+            let keychain = KeychainSwift()
+            let token = keychain.get("refreshToken")
+            guard let token = token else { return }
+            self.revokeToken(clientSecret: JWTManager.shared.makeJWT(), token: token)
+            self.showLoginVC()
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+
+    func deleteFirestoreDocument() {
+        guard let mySelf = self.user else { return }
+        self.firestoreManager.searchAllUsers { result in
+            switch result {
+            case .success(let users):
+                users.forEach { otherOne in
+                    mySelf.conversationId.forEach { channelId in
+                        if otherOne.conversationId.contains(channelId) {
+                            self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                                Constant.conversationId: FieldValue.arrayRemove([channelId])
+                            ])
+                        }
+                    }
+                    mySelf.recipesId.forEach { recipeId in
+                        if otherOne.savedRecipesId.contains(recipeId) {
+                            self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                                Constant.savedRecipesId: FieldValue.arrayRemove([recipeId])
+                            ])
+                        }
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        mySelf.conversationId.forEach { channelId in
+            self.firestoreManager.conversationsCollection.document(channelId).delete()
+        }
+        mySelf.sharesId.forEach { shareId in
+            self.firestoreManager.sharesCollection.document(shareId).delete()
+        }
+        mySelf.recipesId.forEach { recipeId in
+            self.firestoreManager.recipesCollection.document(recipeId).delete()
+        }
+
+        self.firestoreManager.usersCollection.document(mySelf.id).delete()
+
+        let user = Auth.auth().currentUser
+        user?.delete { error in
+            if let error = error {
+                print(error)
+            } else {
+                print("帳戶已被 firebase auth 刪除")
+            }
+        }
+    }
+
+    func deleteCoreData() {
+        guard let shoppingList = coredataManager.fetchItem() else {
+            return
+        }
+        shoppingList.forEach { item in
+            coredataManager.deleteItem(item: item)
+        }
     }
 }
 
@@ -180,12 +230,21 @@ extension ProfileViewController: UITableViewDataSource {
         case 0:
             guard
                 let cell = tableView.dequeueReusableCell(withIdentifier: ProfileUserCell.identifier, for: indexPath)
-                as? ProfileUserCell,
-                let user = user
-            else { return UITableViewCell() }
+                as? ProfileUserCell
+            else { fatalError("Could not create user cell") }
+
             cell.delegate = self
             cell.selectedBackgroundView = selectedBackground
-            cell.layoutCell(with: user)
+            firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let user):
+                    self.user = user
+                    cell.layoutCell(with: user)
+                case .failure(let error):
+                    print(error)
+                }
+            }
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileListCell.identifier, for: indexPath)
@@ -237,74 +296,7 @@ extension ProfileViewController: UITableViewDelegate {
             else { fatalError("Could not instantiate blockListVC") }
             navigationController?.pushViewController(blockListVC, animated: true)
         case 4:
-            let alert = UIAlertController(
-                title: "永久刪除帳號？",
-                message: "此步驟無法回復。如果繼續，你的個人檔案、發文、訊息記錄都將被刪除，他人將無法在好享煮飯看到你。",
-                preferredStyle: .actionSheet
-            )
-
-            let confirmAction = UIAlertAction(title: "確認刪除", style: .destructive) { [weak self] _ in
-                SPAlert.present(message: "帳號已刪除", haptic: .error)
-                guard
-                    let self = self,
-                    let mySelf = self.user
-                else { return }
-                self.firestoreManager.searchAllUsers { result in
-                    switch result {
-                    case .success(let users):
-                        users.forEach { otherOne in
-                            mySelf.conversationId.forEach { channelId in
-                                if otherOne.conversationId.contains(channelId) {
-                                    self.firestoreManager.usersCollection.document(otherOne.id).updateData([
-                                        Constant.conversationId: FieldValue.arrayRemove([channelId])
-                                    ])
-                                }
-                            }
-                            mySelf.recipesId.forEach { recipeId in
-                                if otherOne.savedRecipesId.contains(recipeId) {
-                                    self.firestoreManager.usersCollection.document(otherOne.id).updateData([
-                                        Constant.savedRecipesId: FieldValue.arrayRemove([recipeId])
-                                    ])
-                                }
-                            }
-                        }
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-                mySelf.conversationId.forEach { channelId in
-                    self.firestoreManager.conversationsCollection.document(channelId).delete()
-                }
-                mySelf.sharesId.forEach { shareId in
-                    self.firestoreManager.sharesCollection.document(shareId).delete()
-                }
-                mySelf.recipesId.forEach { recipeId in
-                    self.firestoreManager.recipesCollection.document(recipeId).delete()
-                }
-
-                self.firestoreManager.usersCollection.document(mySelf.id).delete()
-
-                let user = Auth.auth().currentUser
-                user?.delete { error in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        print("帳戶已被 firebase auth 刪除")
-                    }
-                }
-
-                let keychain = KeychainSwift()
-                let token = keychain.get("refreshToken")
-                guard let token = token else {
-                    return
-                }
-                self.revokeToken(clientSecret: self.generateClientSecret(), token: token)
-                self.showLoginVC()
-            }
-            let cancelAction = UIAlertAction(title: "取消", style: .cancel)
-            alert.addAction(confirmAction)
-            alert.addAction(cancelAction)
-            present(alert, animated: true)
+            deleteAccount()
         default:
             firestoreManager.updateFCMToken(userId: Constant.getUserId(), fcmToken: "")
             do {
@@ -363,20 +355,22 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         else { fatalError("Wrong cell") }
 
         // Upload photo
-        self.firestoreManager.uploadPhoto(image: userPickedImage) { result in
+        self.firestoreManager.uploadPhoto(image: userPickedImage) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let url):
                 print(url)
                 self.firestoreManager.updateUserPhoto(userId: Constant.getUserId(), imageURL: url.absoluteString)
+                cell.profileImageView.loadImage(url.absoluteString)
             case .failure(let error):
                 print(error)
             }
         }
-
-        // update image
-        DispatchQueue.main.async {
-            cell.profileImageView.image = userPickedImage
-        }
+//
+//        // update image
+//        DispatchQueue.main.async {
+//            cell.profileImageView.image = userPickedImage
+//        }
         dismiss(animated: true)
     }
 }

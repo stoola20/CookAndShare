@@ -42,7 +42,7 @@ class ProfileUserCell: UITableViewCell {
 
     func layoutCell(with user: User) {
         userName.text = user.name
-        profileImageView.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
+        profileImageView.loadImage(user.imageURL)
     }
 
     @objc func choosePhoto() {
