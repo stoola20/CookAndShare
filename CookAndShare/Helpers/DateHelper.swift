@@ -64,6 +64,8 @@ extension Date {
 
             if hour < 12 {
                 zone = "上午"
+            } else if hour == 12 {
+                zone = "下午"
             } else {
                 zone = "下午"
                 hour -= 12

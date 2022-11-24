@@ -57,7 +57,7 @@ class ProfileViewController: UIViewController {
 
         let action = UIAction(
             title: "隱私權政策",
-            image: UIImage(systemName: "lock.shield")
+            image: UIImage(systemName: "checkmark.shield")
         ) { [weak self] _ in
             guard
                 let url = URL(string: "https://www.privacypolicies.com/live/32b90ff9-1e31-4d0b-bb08-7ca320c11db9"),
@@ -70,7 +70,7 @@ class ProfileViewController: UIViewController {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: nil,
-            image: UIImage(systemName: "exclamationmark.shield"),
+            image: UIImage(systemName: "checkmark.shield"),
             primaryAction: action
         )
 

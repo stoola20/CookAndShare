@@ -123,7 +123,6 @@ class ChatRoomViewController: UIViewController {
     }
 
     @IBAction func sendMessage(_ sender: UIButton) {
-        inputTextField.resignFirstResponder()
         guard let text = inputTextField.text else { return }
         if text.isEmpty { return }
         inputTextField.text = nil
