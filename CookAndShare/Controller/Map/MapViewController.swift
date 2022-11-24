@@ -13,7 +13,19 @@ class MapViewController: UIViewController {
     private let dataProvider = GoogleMapDataProvider.shared
     private let locationManager = CLLocationManager()
     private var location = CLLocation()
-    private var keyword = "market|supermarket"
+    private var dynamicLocation = CLLocation()
+    private var keyword = "市場|supermarket"
+    private let geocoder = GMSGeocoder()
+    private var isFirstCamera = true
+    lazy var searchThisAreaButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .background
+        button.setTitle("搜尋這個區域", for: .normal)
+        button.setTitleColor(.darkBrown, for: .normal)
+        button.addTarget(self, action: #selector(searchThisArea), for: .touchUpInside)
+        return button
+    }()
+    lazy var containerView = UIView()
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var marketButton: UIButton!
     @IBOutlet weak var foodBankButton: UIButton!
@@ -53,6 +65,13 @@ class MapViewController: UIViewController {
         } else {
             locationManager.requestWhenInUseAuthorization()
         }
+
+        configSearchAreaButton()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchThisAreaButton.isHidden = true
     }
 
     func setUpUI() {
@@ -66,7 +85,36 @@ class MapViewController: UIViewController {
         buttonBackground.layer.cornerRadius = 10
     }
 
-    func fetchNearbyPlace(keyword: String) {
+    func configSearchAreaButton() {
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        searchThisAreaButton.translatesAutoresizingMaskIntoConstraints = false
+        containerView.addSubview(searchThisAreaButton)
+        view.insertSubview(containerView, aboveSubview: mapView)
+
+        NSLayoutConstraint.activate([
+            searchThisAreaButton.topAnchor.constraint(equalTo: containerView.topAnchor),
+            searchThisAreaButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            searchThisAreaButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            searchThisAreaButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+
+            containerView.topAnchor.constraint(equalTo: marketButton.bottomAnchor, constant: 10),
+            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            containerView.heightAnchor.constraint(equalToConstant: 30),
+            containerView.widthAnchor.constraint(equalToConstant: 130)
+        ])
+
+        containerView.layer.masksToBounds = false
+        containerView.layer.shadowColor = UIColor.gray.cgColor
+        containerView.layer.shadowOpacity = 1
+        containerView.layer.shadowOffset = CGSize(width: 1, height: 2)
+        containerView.layer.shadowRadius = 2
+        containerView.layer.cornerRadius = 15
+
+        searchThisAreaButton.clipsToBounds = true
+        searchThisAreaButton.layer.cornerRadius = 15
+    }
+
+    func fetchNearbyPlace(keyword: String, location: CLLocation) {
         let locationString = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
         dataProvider.fetchNearbySearch(location: locationString, keyword: keyword) { listResponse in
             guard let listResponse = listResponse else {
@@ -94,8 +142,8 @@ class MapViewController: UIViewController {
         buttons.forEach { button in
             button.isSelected = false
         }
-        keyword = sender == marketButton ? "超市|市場" : "食物銀行"
-        fetchNearbyPlace(keyword: keyword)
+        keyword = sender == marketButton ? "市場|supermarket" : "食物銀行"
+        fetchNearbyPlace(keyword: keyword, location: location)
         sender.isSelected = true
         backgroundCenter.isActive = false
         backgroundCenter = buttonBackground.centerXAnchor.constraint(equalTo: sender.centerXAnchor)
@@ -108,6 +156,11 @@ class MapViewController: UIViewController {
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut) {
             self.view.layoutIfNeeded()
         }
+    }
+
+    @objc func searchThisArea() {
+        mapView.clear()
+        fetchNearbyPlace(keyword: keyword, location: dynamicLocation)
     }
 }
 
@@ -126,7 +179,7 @@ extension MapViewController: CLLocationManagerDelegate {
         mapView.animate(toLocation: location.coordinate)
         mapView.animate(toZoom: 13)
         manager.stopUpdatingLocation()
-        fetchNearbyPlace(keyword: keyword)
+        fetchNearbyPlace(keyword: keyword, location: location)
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -144,5 +197,26 @@ extension MapViewController: GMSMapViewDelegate {
         else { return UIView() }
         view.layoutView(name: accessibilityLabel, address: accessibilityValue)
         return view
+    }
+
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        searchThisAreaButton.isHidden = true
+    }
+
+    func mapView(_ mapView: GMSMapView, idleAt cameraPosition: GMSCameraPosition) {
+        if isFirstCamera {
+            searchThisAreaButton.isHidden = true
+            isFirstCamera.toggle()
+        } else {
+            searchThisAreaButton.isHidden = false
+            geocoder.reverseGeocodeCoordinate(cameraPosition.target) { [weak self] response, error in
+                guard
+                    let self = self,
+                    error == nil
+                else { return }
+                
+                self.dynamicLocation = CLLocation(latitude: cameraPosition.target.latitude, longitude: cameraPosition.target.longitude)
+            }
+        }
     }
 }
