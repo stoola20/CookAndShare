@@ -1214,7 +1214,7 @@
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CookAndShare/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "開啟相機即可辨識食材";
+				INFOPLIST_KEY_NSCameraUsageDescription = "開啟相機即可上傳相片及辨識食材";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "藉由提供您的地點，好享煮飯可以找到您附近的超市、市場及食物銀行";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "開啟錄音權限就能傳送語音訊息";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1222,7 +1222,8 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1250,7 +1251,7 @@
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CookAndShare/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "開啟相機即可辨識食材";
+				INFOPLIST_KEY_NSCameraUsageDescription = "開啟相機即可上傳相片及辨識食材";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "藉由提供您的地點，好享煮飯可以找到您附近的超市、市場及食物銀行";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "開啟錄音權限就能傳送語音訊息";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1258,7 +1259,8 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
