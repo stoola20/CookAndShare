@@ -31,6 +31,7 @@ class ProfileViewController: UIViewController {
         return background
     }()
     var user: User?
+    var allUsers: [User] = []
     let firestoreManager = FirestoreManager.shared
     let coredataManager = CoreDataManager.shared
     let imagePicker = UIImagePickerController()
@@ -363,6 +364,7 @@ extension ProfileViewController: ASAuthorizationControllerDelegate {
     }
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        self.deleteFirestoreDocument()
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             guard let nonce = currentNonce else {
                 fatalError("Invalid state: A login callback was received, but no login request was sent.")
@@ -392,7 +394,6 @@ extension ProfileViewController: ASAuthorizationControllerDelegate {
                     print("===error \(error)")
                 } else {
                     // User re-authenticated.
-                    self.deleteFirestoreDocument()
                     self.deleteCoreData()
 
                     let keychain = KeychainSwift()
