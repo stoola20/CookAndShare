@@ -51,6 +51,7 @@
 		372E3AB5291655F600250DAA /* MineVoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3AB3291655F600250DAA /* MineVoiceCell.xib */; };
 		372E3AB82916560600250DAA /* OtherVoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3AB62916560600250DAA /* OtherVoiceCell.swift */; };
 		372E3AB92916560600250DAA /* OtherVoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3AB72916560600250DAA /* OtherVoiceCell.xib */; };
+		37489AF82930B2E600B144D9 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37489AF72930B2E600B144D9 /* AuthManager.swift */; };
 		3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875369290ED37300F06F4C /* SearchViewController.swift */; };
 		3787536C290ED80900F06F4C /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787536B290ED80900F06F4C /* ResultViewController.swift */; };
 		37875370290F824400F06F4C /* CookAndShare.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3787536E290F824400F06F4C /* CookAndShare.xcdatamodeld */; };
@@ -193,6 +194,7 @@
 		372E3AB3291655F600250DAA /* MineVoiceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineVoiceCell.xib; sourceTree = "<group>"; };
 		372E3AB62916560600250DAA /* OtherVoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherVoiceCell.swift; sourceTree = "<group>"; };
 		372E3AB72916560600250DAA /* OtherVoiceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherVoiceCell.xib; sourceTree = "<group>"; };
+		37489AF72930B2E600B144D9 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		37875369290ED37300F06F4C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3787536B290ED80900F06F4C /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		3787536F290F824400F06F4C /* CookAndShare.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CookAndShare.xcdatamodel; sourceTree = "<group>"; };
@@ -678,6 +680,7 @@
 				370B2003291ABAD40092F502 /* PushNotificationSender.swift */,
 				37A31313292E4DB8007E5E8C /* JWTClaims.swift */,
 				37A31315292E6FF6007E5E8C /* Params.swift */,
+				37489AF72930B2E600B144D9 /* AuthManager.swift */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -951,6 +954,7 @@
 				37CBEC932910F26B00A62EF2 /* DateHelper.swift in Sources */,
 				37875383290F9A4F00F06F4C /* ProfileListCell.swift in Sources */,
 				37D69C59290BCF970034D8E1 /* AppDelegate.swift in Sources */,
+				37489AF82930B2E600B144D9 /* AuthManager.swift in Sources */,
 				37D69C8C290C11C40034D8E1 /* Constant.swift in Sources */,
 				3729FE1D292CD7A600F7E2F3 /* BLockListCell.swift in Sources */,
 				37CBEC952911110900A62EF2 /* PublicProfileViewController.swift in Sources */,

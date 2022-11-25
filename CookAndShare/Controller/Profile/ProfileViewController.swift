@@ -13,6 +13,7 @@ import KeychainSwift
 import Alamofire
 import SwiftJWT
 import SPAlert
+import AuthenticationServices
 
 enum ProfileCategory: String, CaseIterable {
     case save = "我的收藏"
@@ -33,6 +34,7 @@ class ProfileViewController: UIViewController {
     let firestoreManager = FirestoreManager.shared
     let coredataManager = CoreDataManager.shared
     let imagePicker = UIImagePickerController()
+    private var currentNonce: String?
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -124,22 +126,15 @@ class ProfileViewController: UIViewController {
     func deleteAccount() {
         let alert = UIAlertController(
             title: "永久刪除帳號？",
-            message: "此步驟無法回復。如果繼續，你的個人檔案、發文、訊息記錄都將被刪除，他人將無法在好享煮飯看到你。",
+            message: "此步驟無法回復。如果繼續，你的個人檔案、發文、訊息記錄都將被刪除，他人將無法在好享煮飯看到你。基於安全性，你將需要重新登入。",
             preferredStyle: .actionSheet
         )
 
         let confirmAction = UIAlertAction(title: "確認刪除", style: .destructive) { [weak self] _ in
             guard let self = self else { return }
-            SPAlert.present(message: "帳號已刪除", haptic: .error)
-            self.deleteFirestoreDocument()
-            self.deleteCoreData()
-
-            let keychain = KeychainSwift()
-            let token = keychain.get("refreshToken")
-            guard let token = token else { return }
-            self.revokeToken(clientSecret: JWTManager.shared.makeJWT(), token: token)
-            self.showLoginVC()
+            self.signInWithApple()
         }
+
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
         alert.addAction(confirmAction)
         alert.addAction(cancelAction)
@@ -186,15 +181,6 @@ class ProfileViewController: UIViewController {
         }
 
         self.firestoreManager.usersCollection.document(mySelf.id).delete()
-
-        let user = Auth.auth().currentUser
-        user?.delete { error in
-            if let error = error {
-                print(error)
-            } else {
-                print("帳戶已被 firebase auth 刪除")
-            }
-        }
     }
 
     func deleteCoreData() {
@@ -358,5 +344,81 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             }
         }
         dismiss(animated: true)
+    }
+}
+
+extension ProfileViewController: ASAuthorizationControllerDelegate {
+    func signInWithApple() {
+        let nonce = AuthManager.shared.randomNonceString()
+        currentNonce = nonce
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        request.nonce = AuthManager.shared.sha256(nonce)
+
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            guard let nonce = currentNonce else {
+                fatalError("Invalid state: A login callback was received, but no login request was sent.")
+            }
+            guard let appleIDToken = appleIDCredential.identityToken else {
+                print("Unable to fetch identity token")
+                return
+            }
+            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                return
+            }
+
+            // Initialize a Firebase credential.
+            let credential = OAuthProvider.credential(
+                withProviderID: "apple.com",
+                idToken: idTokenString,
+                rawNonce: nonce
+            )
+
+            let currentUser = Auth.auth().currentUser
+            // Re-authenticate
+            currentUser?.reauthenticate(with: credential) { [weak self] result, error in
+                guard let self = self else { return }
+                if let error = error {
+                    // An error happened.
+                    print("===error \(error)")
+                } else {
+                    // User re-authenticated.
+                    currentUser?.delete { error in
+                        if let error = error {
+                            print(error)
+                        } else {
+                            print("帳戶已被 firebase auth 刪除")
+                        }
+                    }
+                    self.deleteFirestoreDocument()
+                    self.deleteCoreData()
+
+                    let keychain = KeychainSwift()
+                    let token = keychain.get("refreshToken")
+                    keychain.delete("refreshToken")
+                    guard let token = token else { return }
+                    self.revokeToken(clientSecret: JWTManager.shared.makeJWT(), token: token)
+                    self.showLoginVC()
+                    SPAlert.present(message: "帳號已刪除", haptic: .error)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - ASAuthorizationControllerPresentationContextProviding
+// 在畫面上顯示授權畫面
+extension ProfileViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return view.window!
     }
 }
