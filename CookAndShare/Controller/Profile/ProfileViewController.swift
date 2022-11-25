@@ -148,10 +148,14 @@ class ProfileViewController: UIViewController {
 
     func deleteFirestoreDocument() {
         guard let mySelf = self.user else { return }
-        self.firestoreManager.searchAllUsers { result in
+        self.firestoreManager.searchAllUsers { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let users):
                 users.forEach { otherOne in
+                    self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                        "blockList": FieldValue.arrayRemove([mySelf.id])
+                    ])
                     mySelf.conversationId.forEach { channelId in
                         if otherOne.conversationId.contains(channelId) {
                             self.firestoreManager.usersCollection.document(otherOne.id).updateData([
