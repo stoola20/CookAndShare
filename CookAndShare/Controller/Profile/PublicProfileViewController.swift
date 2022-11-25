@@ -28,6 +28,7 @@ class PublicProfileViewController: UIViewController {
     }
 
     func setUpCollectionView() {
+        recipeCollectionView.bounces = false
         recipeCollectionView.dataSource = self
         recipeCollectionView.delegate = self
         recipeCollectionView.collectionViewLayout = configureCollectionViewLayout()

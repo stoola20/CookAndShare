@@ -13,6 +13,7 @@ import KeychainSwift
 import Alamofire
 import SwiftJWT
 import SPAlert
+import AuthenticationServices
 
 enum ProfileCategory: String, CaseIterable {
     case save = "我的收藏"
@@ -29,13 +30,12 @@ class ProfileViewController: UIViewController {
         background.backgroundColor = .white
         return background
     }()
-    var user: User? {
-        didSet {
-            tableView.reloadData()
-        }
-    }
+    var user: User?
+    var allUsers: [User] = []
     let firestoreManager = FirestoreManager.shared
+    let coredataManager = CoreDataManager.shared
     let imagePicker = UIImagePickerController()
+    private var currentNonce: String?
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -57,7 +57,7 @@ class ProfileViewController: UIViewController {
 
         let action = UIAction(
             title: "隱私權政策",
-            image: UIImage(systemName: "lock.shield")
+            image: UIImage(systemName: "checkmark.shield")
         ) { [weak self] _ in
             guard
                 let url = URL(string: "https://www.privacypolicies.com/live/32b90ff9-1e31-4d0b-bb08-7ca320c11db9"),
@@ -70,24 +70,12 @@ class ProfileViewController: UIViewController {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             title: nil,
-            image: UIImage(systemName: "exclamationmark.shield"),
+            image: UIImage(systemName: "checkmark.shield"),
             primaryAction: action
         )
 
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        firestoreManager.fetchUserData(userId: Constant.getUserId()) { result in
-            switch result {
-            case .success(let user):
-                self.user = user
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
 
     func setUpTableView () {
@@ -102,7 +90,7 @@ class ProfileViewController: UIViewController {
 
     func revokeToken(clientSecret: String, token: String) {
         let paramString: [String: Any] = [
-            "client_id": "com.jessica.CookAndShare",
+            "client_id": JWTManager.shared.bundleId,
             "client_secret": clientSecret,
             "token": token,
             "token_type_hint": "refresh_token"
@@ -110,7 +98,7 @@ class ProfileViewController: UIViewController {
 
         let headers: HTTPHeaders = [.contentType("application/x-www-form-urlencoded")]
 
-        guard let url = URL(string: "https://appleid.apple.com/auth/revoke") else { return }
+        guard let url = URL(string: JWTManager.shared.revokeEndpoint) else { return }
         AF.request(
             url,
             method: .post,
@@ -122,47 +110,87 @@ class ProfileViewController: UIViewController {
         }
     }
 
-    func generateClientSecret() -> String {
-        let header = Header(kid: "G6TJ9374M2")
-        let claims = JWTClaims(
-            iss: "PDRVZ7DT2S",
-            iat: Date(),
-            exp: Date(timeIntervalSinceNow: 12000),
-            aud: "https://appleid.apple.com",
-            sub: "com.jessica.CookAndShare"
-        )
-        var myJWT = JWT(header: header, claims: claims)
-
-        do {
-            let privateKey = """
-            -----BEGIN PRIVATE KEY-----
-            MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgQUvOFziafOnkaLkG
-            WpXq8kgukqYKv3YGPfiUSWQywSugCgYIKoZIzj0DAQehRANCAARuwibrSa/3X9LD
-            j1sA8ZeD06aFZrdxjrJBahqehq+PKauxNZIFGrOYhhrM08TwC9Ow+5cSLBYEiC5V
-            IEmsGfn3
-            -----END PRIVATE KEY-----
-            """
-            let jwtSigner = JWTSigner.es256(privateKey: Data(privateKey.utf8))
-            let clientSecret = try myJWT.sign(using: jwtSigner)
-            return clientSecret
-        } catch {
-            print("===error", error)
-            return ""
-        }
-    }
-
     func showLoginVC() {
         let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
         guard
             let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
                 as? LoginViewController
         else { fatalError("Could not instantiate LoginViewController") }
-        loginVC.tabBarItem = UITabBarItem(title: "個人", image: UIImage(systemName: "person.circle"), tag: 3)
+        loginVC.tabBarItem = UITabBarItem(title: "個人", image: UIImage(named: "account_gray_25"), selectedImage: UIImage(named: "account_25"))
         var arrayChildViewControllers = self.tabBarController?.viewControllers
         if let selectedTabIndex = tabBarController?.selectedIndex {
             arrayChildViewControllers?.replaceSubrange(selectedTabIndex...selectedTabIndex, with: [loginVC])
         }
         self.tabBarController?.viewControllers = arrayChildViewControllers
+    }
+
+    func deleteAccount() {
+        let alert = UIAlertController(
+            title: "永久刪除帳號？",
+            message: "此步驟無法回復。如果繼續，你的個人檔案、發文、訊息記錄都將被刪除，他人將無法在好享煮飯看到你。基於安全性，你將需要重新登入。",
+            preferredStyle: .actionSheet
+        )
+
+        let confirmAction = UIAlertAction(title: "確認刪除", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            self.signInWithApple()
+        }
+
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+
+    func deleteFirestoreDocument() {
+        guard let mySelf = self.user else { return }
+        self.firestoreManager.searchAllUsers { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let users):
+                users.forEach { otherOne in
+                    self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                        "blockList": FieldValue.arrayRemove([mySelf.id])
+                    ])
+                    mySelf.conversationId.forEach { channelId in
+                        if otherOne.conversationId.contains(channelId) {
+                            self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                                Constant.conversationId: FieldValue.arrayRemove([channelId])
+                            ])
+                        }
+                    }
+                    mySelf.recipesId.forEach { recipeId in
+                        if otherOne.savedRecipesId.contains(recipeId) {
+                            self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                                Constant.savedRecipesId: FieldValue.arrayRemove([recipeId])
+                            ])
+                        }
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+        mySelf.conversationId.forEach { channelId in
+            self.firestoreManager.conversationsCollection.document(channelId).delete()
+        }
+        mySelf.sharesId.forEach { shareId in
+            self.firestoreManager.sharesCollection.document(shareId).delete()
+        }
+        mySelf.recipesId.forEach { recipeId in
+            self.firestoreManager.recipesCollection.document(recipeId).delete()
+        }
+
+        self.firestoreManager.usersCollection.document(mySelf.id).delete()
+    }
+
+    func deleteCoreData() {
+        guard let shoppingList = coredataManager.fetchItem() else {
+            return
+        }
+        shoppingList.forEach { item in
+            coredataManager.deleteItem(item: item)
+        }
     }
 }
 
@@ -180,12 +208,21 @@ extension ProfileViewController: UITableViewDataSource {
         case 0:
             guard
                 let cell = tableView.dequeueReusableCell(withIdentifier: ProfileUserCell.identifier, for: indexPath)
-                as? ProfileUserCell,
-                let user = user
-            else { return UITableViewCell() }
+                as? ProfileUserCell
+            else { fatalError("Could not create user cell") }
+
             cell.delegate = self
             cell.selectedBackgroundView = selectedBackground
-            cell.layoutCell(with: user)
+            firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let user):
+                    self.user = user
+                    cell.layoutCell(with: user)
+                case .failure(let error):
+                    print(error)
+                }
+            }
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileListCell.identifier, for: indexPath)
@@ -237,74 +274,7 @@ extension ProfileViewController: UITableViewDelegate {
             else { fatalError("Could not instantiate blockListVC") }
             navigationController?.pushViewController(blockListVC, animated: true)
         case 4:
-            let alert = UIAlertController(
-                title: "永久刪除帳號？",
-                message: "此步驟無法回復。如果繼續，你的個人檔案、發文、訊息記錄都將被刪除，他人將無法在好享煮飯看到你。",
-                preferredStyle: .actionSheet
-            )
-
-            let confirmAction = UIAlertAction(title: "確認刪除", style: .destructive) { [weak self] _ in
-                SPAlert.present(message: "帳號已刪除", haptic: .error)
-                guard
-                    let self = self,
-                    let mySelf = self.user
-                else { return }
-                self.firestoreManager.searchAllUsers { result in
-                    switch result {
-                    case .success(let users):
-                        users.forEach { otherOne in
-                            mySelf.conversationId.forEach { channelId in
-                                if otherOne.conversationId.contains(channelId) {
-                                    self.firestoreManager.usersCollection.document(otherOne.id).updateData([
-                                        Constant.conversationId: FieldValue.arrayRemove([channelId])
-                                    ])
-                                }
-                            }
-                            mySelf.recipesId.forEach { recipeId in
-                                if otherOne.savedRecipesId.contains(recipeId) {
-                                    self.firestoreManager.usersCollection.document(otherOne.id).updateData([
-                                        Constant.savedRecipesId: FieldValue.arrayRemove([recipeId])
-                                    ])
-                                }
-                            }
-                        }
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-                mySelf.conversationId.forEach { channelId in
-                    self.firestoreManager.conversationsCollection.document(channelId).delete()
-                }
-                mySelf.sharesId.forEach { shareId in
-                    self.firestoreManager.sharesCollection.document(shareId).delete()
-                }
-                mySelf.recipesId.forEach { recipeId in
-                    self.firestoreManager.recipesCollection.document(recipeId).delete()
-                }
-
-                self.firestoreManager.usersCollection.document(mySelf.id).delete()
-
-                let user = Auth.auth().currentUser
-                user?.delete { error in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        print("帳戶已被 firebase auth 刪除")
-                    }
-                }
-
-                let keychain = KeychainSwift()
-                let token = keychain.get("refreshToken")
-                guard let token = token else {
-                    return
-                }
-                self.revokeToken(clientSecret: self.generateClientSecret(), token: token)
-                self.showLoginVC()
-            }
-            let cancelAction = UIAlertAction(title: "取消", style: .cancel)
-            alert.addAction(confirmAction)
-            alert.addAction(cancelAction)
-            present(alert, animated: true)
+            deleteAccount()
         default:
             firestoreManager.updateFCMToken(userId: Constant.getUserId(), fcmToken: "")
             do {
@@ -363,20 +333,111 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         else { fatalError("Wrong cell") }
 
         // Upload photo
-        self.firestoreManager.uploadPhoto(image: userPickedImage) { result in
+        self.firestoreManager.uploadPhoto(image: userPickedImage) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let url):
                 print(url)
                 self.firestoreManager.updateUserPhoto(userId: Constant.getUserId(), imageURL: url.absoluteString)
+                cell.profileImageView.loadImage(url.absoluteString)
             case .failure(let error):
                 print(error)
             }
         }
-
-        // update image
-        DispatchQueue.main.async {
-            cell.profileImageView.image = userPickedImage
-        }
         dismiss(animated: true)
+    }
+}
+
+extension ProfileViewController: ASAuthorizationControllerDelegate {
+    func signInWithApple() {
+        let nonce = AuthManager.shared.randomNonceString()
+        currentNonce = nonce
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        request.nonce = AuthManager.shared.sha256(nonce)
+
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        self.deleteFirestoreDocument()
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            guard let nonce = currentNonce else {
+                fatalError("Invalid state: A login callback was received, but no login request was sent.")
+            }
+            guard let appleIDToken = appleIDCredential.identityToken else {
+                print("Unable to fetch identity token")
+                return
+            }
+            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                return
+            }
+
+            // Initialize a Firebase credential.
+            let credential = OAuthProvider.credential(
+                withProviderID: "apple.com",
+                idToken: idTokenString,
+                rawNonce: nonce
+            )
+
+            let currentUser = Auth.auth().currentUser
+            // Re-authenticate
+            currentUser?.reauthenticate(with: credential) { [weak self] result, error in
+                guard let self = self else { return }
+                if let error = error {
+                    // An error happened.
+                    print("===error \(error)")
+                } else {
+                    // User re-authenticated.
+                    self.deleteCoreData()
+
+                    let keychain = KeychainSwift()
+                    let token = keychain.get("refreshToken")
+                    keychain.delete("refreshToken")
+                    guard let token = token else { return }
+                    self.revokeToken(clientSecret: JWTManager.shared.makeJWT(), token: token)
+                    currentUser?.delete { error in
+                        if let error = error {
+                            print(error)
+                        } else {
+                            print("帳戶已被 firebase auth 刪除")
+                        }
+                    }
+                    self.showLoginVC()
+                    SPAlert.present(message: "帳號已刪除", haptic: .error)
+                }
+            }
+        }
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // 登入失敗，處理 Error
+        switch error {
+        case ASAuthorizationError.canceled:
+            SPAlert.present(message: "使用者取消登入", haptic: .error)
+        case ASAuthorizationError.failed:
+            SPAlert.present(message: "授權請求失敗", haptic: .error)
+        case ASAuthorizationError.invalidResponse:
+            SPAlert.present(message: "授權請求無回應", haptic: .error)
+        case ASAuthorizationError.notHandled:
+            SPAlert.present(message: "授權請求未處理", haptic: .error)
+        case ASAuthorizationError.unknown:
+            SPAlert.present(message: "授權失敗，原因不明", haptic: .error)
+        default:
+            break
+        }
+    }
+}
+
+// MARK: - ASAuthorizationControllerPresentationContextProviding
+// 在畫面上顯示授權畫面
+extension ProfileViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return view.window!
     }
 }

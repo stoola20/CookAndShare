@@ -64,7 +64,7 @@ class LoginViewController: UIViewController {
     // MARK: - 在畫面上產生 Sign in with Apple 按鈕
     func setSignInWithAppleBtn() {
         let signInWithAppleBtn = ASAuthorizationAppleIDButton(
-            authorizationButtonType: .continue,
+            authorizationButtonType: .signIn,
             authorizationButtonStyle: .black
         )
         view.addSubview(signInWithAppleBtn)
@@ -78,62 +78,17 @@ class LoginViewController: UIViewController {
     }
 
     @objc func signInWithApple() {
-        let nonce = randomNonceString()
+        let nonce = AuthManager.shared.randomNonceString()
         currentNonce = nonce
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
-        request.nonce = sha256(nonce)
+        request.nonce = AuthManager.shared.sha256(nonce)
 
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
-    }
-
-    // Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
-    private func randomNonceString(length: Int = 32) -> String {
-        precondition(length > 0)
-        let charset: [Character] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-        var result = ""
-        var remainingLength = length
-
-        while remainingLength > 0 {
-            let randoms: [UInt8] = (0 ..< 16).map { _ in
-                var random: UInt8 = 0
-                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
-                if errorCode != errSecSuccess {
-                    fatalError(
-                        "Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)"
-                    )
-                }
-                return random
-            }
-
-            randoms.forEach { random in
-                if remainingLength == 0 {
-                    return
-                }
-
-                if random < charset.count {
-                    result.append(charset[Int(random)])
-                    remainingLength -= 1
-                }
-            }
-        }
-
-        return result
-    }
-
-    private func sha256(_ input: String) -> String {
-        let inputData = Data(input.utf8)
-        let hashedData = SHA256.hash(data: inputData)
-        let hashString = hashedData.compactMap {
-            String(format: "%02x", $0)
-        }
-        .joined()
-
-        return hashString
     }
 }
 
@@ -154,31 +109,7 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 
             if let authorizationCode = appleIDCredential.authorizationCode,
                 let codeString = String(data: authorizationCode, encoding: .utf8) {
-                let header = Header(kid: "G6TJ9374M2")
-                let claims = JWTClaims(
-                    iss: "PDRVZ7DT2S",
-                    iat: Date(),
-                    exp: Date(timeIntervalSinceNow: 12000),
-                    aud: "https://appleid.apple.com",
-                    sub: "com.jessica.CookAndShare"
-                )
-                var myJWT = JWT(header: header, claims: claims)
-
-                do {
-                    let privateKey = """
-                    -----BEGIN PRIVATE KEY-----
-                    MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgQUvOFziafOnkaLkG
-                    WpXq8kgukqYKv3YGPfiUSWQywSugCgYIKoZIzj0DAQehRANCAARuwibrSa/3X9LD
-                    j1sA8ZeD06aFZrdxjrJBahqehq+PKauxNZIFGrOYhhrM08TwC9Ow+5cSLBYEiC5V
-                    IEmsGfn3
-                    -----END PRIVATE KEY-----
-                    """
-                    let jwtSigner = JWTSigner.es256(privateKey: Data(privateKey.utf8))
-                    let clientSecret = try myJWT.sign(using: jwtSigner)
-                    getRefreshToken(clientSecret: clientSecret, code: codeString)
-                } catch {
-                    print(error)
-                }
+                getRefreshToken(clientSecret: JWTManager.shared.makeJWT(), code: codeString)
             }
 
             // Initialize a Firebase credential.
@@ -202,53 +133,47 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                     let authResult = authResult,
                     let fcmToken: String = UserDefaults.standard.object(forKey: "fcmToken") as? String
                 else { return }
-                self.firestoreManager.isNewUser(id: authResult.user.uid) { result in
-                    switch result {
-                    case .success(let isNewUser):
-                        if !isNewUser {
-                            self.firestoreManager.updateFCMToken(userId: Constant.getUserId(), fcmToken: fcmToken)
-                        } else {
-                            guard let fullName = appleIDCredential.fullName else { return }
-                            let user = User(
-                                id: authResult.user.uid,
-                                name: "\(fullName.familyName ?? "")\(fullName.givenName ?? "")",
-                                email: authResult.user.email ?? "",
-                                imageURL: authResult.user.photoURL?.absoluteString ?? "",
-                                fcmToken: fcmToken,
-                                recipesId: [],
-                                savedRecipesId: [],
-                                sharesId: [],
-                                conversationId: [],
-                                blockList: []
-                            )
-                            self.firestoreManager.createUser(id: authResult.user.uid, user: user)
-                        }
 
-                    case .failure(let error):
-                        print(error)
+                self.firestoreManager.isNewUser(id: authResult.user.uid) { isNewUser in
+                    if !isNewUser {
+                        self.firestoreManager.updateFCMToken(userId: Constant.getUserId(), fcmToken: fcmToken)
+                    } else {
+                        guard let fullName = appleIDCredential.fullName else { return }
+                        let user = User(
+                            id: authResult.user.uid,
+                            name: "\(fullName.familyName ?? "")\(fullName.givenName ?? "")",
+                            email: authResult.user.email ?? "",
+                            imageURL: authResult.user.photoURL?.absoluteString ?? "",
+                            fcmToken: fcmToken,
+                            recipesId: [],
+                            savedRecipesId: [],
+                            sharesId: [],
+                            conversationId: [],
+                            blockList: []
+                        )
+                        self.firestoreManager.createUser(id: authResult.user.uid, user: user)
                     }
+                    print("成功以 Apple 登入 Firebase")
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    guard
+                        let tabController = storyboard.instantiateViewController(withIdentifier: String(describing: TabBarController.self))
+                            as? TabBarController,
+                        let tabBarControllers = tabController.viewControllers
+                    else { fatalError("Could not instantiate tabController") }
+
+                    var childViewControllers = self.tabBarController?.viewControllers
+
+                    childViewControllers?.replaceSubrange(3...3, with: [tabBarControllers[3]])
+                    self.tabBarController?.viewControllers = childViewControllers
+                    self.dismiss(animated: true)
                 }
-
-                print("成功以 Apple 登入 Firebase")
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                guard
-                    let tabController = storyboard.instantiateViewController(withIdentifier: String(describing: TabBarController.self))
-                        as? TabBarController,
-                    let tabBarControllers = tabController.viewControllers
-                else { fatalError("Could not instantiate tabController") }
-
-                var childViewControllers = self.tabBarController?.viewControllers
-
-                childViewControllers?.replaceSubrange(3...3, with: [tabBarControllers[3]])
-                self.tabBarController?.viewControllers = childViewControllers
-                self.dismiss(animated: true)
             }
         }
     }
 
     func getRefreshToken(clientSecret: String, code: String) {
         let paramString: [String: Any] = [
-            "client_id": "com.jessica.CookAndShare",
+            "client_id": JWTManager.shared.bundleId,
             "client_secret": clientSecret,
             "code": code,
             "grant_type": "authorization_code"
@@ -256,7 +181,9 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 
         let headers: HTTPHeaders = [.contentType("application/x-www-form-urlencoded")]
 
-        guard let url = URL(string: "https://appleid.apple.com/auth/token") else { return }
+        guard
+            let url = URL(string: JWTManager.shared.tokenEndpoint)
+        else { return }
         AF.request(
             url,
             method: .post,

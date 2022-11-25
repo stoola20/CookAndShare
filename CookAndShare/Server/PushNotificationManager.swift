@@ -59,15 +59,11 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
             let tabBarController = rootViewController as? TabBarController {
             tabBarController.selectedIndex = 1
             if let navController = tabBarController.selectedViewController as? UINavigationController {
-                navController.pushViewController(chatListVC, animated: true)
+                navController.popToRootViewController(animated: false)
+                navController.pushViewController(chatListVC, animated: false)
             }
         }
 
         completionHandler()
-    }
-
-    // 讓 App 在前景也能顯示推播
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner])
     }
 }

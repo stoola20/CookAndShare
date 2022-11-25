@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,11 +16,18 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEM-Np-Mny">
-                    <rect key="frame" x="0.0" y="49" width="207" height="1"/>
-                    <color key="backgroundColor" name="DarkBrown"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uf9-OU-k16">
+                    <rect key="frame" x="0.0" y="49" width="414" height="1"/>
+                    <color key="backgroundColor" systemColor="systemGray4Color"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="HsV-rC-KxP"/>
+                        <constraint firstAttribute="height" constant="1" id="pfX-uj-poy"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEM-Np-Mny">
+                    <rect key="frame" x="0.0" y="48" width="207" height="2"/>
+                    <color key="backgroundColor" name="MyOrange"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2" id="HsV-rC-KxP"/>
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Mc7-rw-L1S">
@@ -28,7 +36,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wQE-th-usi">
                             <rect key="frame" x="0.0" y="0.0" width="207" height="50"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="fork.knife.circle" catalog="system">
+                            <state key="normal" image="cookingGray">
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="24"/>
                             </state>
                             <connections>
@@ -51,11 +59,14 @@
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
             <constraints>
                 <constraint firstItem="gEM-Np-Mny" firstAttribute="width" secondItem="wQE-th-usi" secondAttribute="width" id="LCs-YP-HI1"/>
+                <constraint firstItem="uf9-OU-k16" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="NIz-da-7XV"/>
                 <constraint firstItem="Mc7-rw-L1S" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="NYf-3m-Zyf"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="Mc7-rw-L1S" secondAttribute="bottom" id="WtP-zl-vhK"/>
+                <constraint firstAttribute="bottom" secondItem="uf9-OU-k16" secondAttribute="bottom" id="aP3-mw-2hq"/>
                 <constraint firstAttribute="trailing" secondItem="Mc7-rw-L1S" secondAttribute="trailing" id="avf-km-rlY"/>
                 <constraint firstItem="gEM-Np-Mny" firstAttribute="bottom" secondItem="VXr-Tz-HHm" secondAttribute="bottom" id="hb2-IL-D94"/>
                 <constraint firstItem="gEM-Np-Mny" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="jdY-gD-uAT"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="uf9-OU-k16" secondAttribute="trailing" id="oq4-Wh-8vg"/>
                 <constraint firstItem="Mc7-rw-L1S" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" id="x0S-k9-QR7"/>
             </constraints>
             <connections>
@@ -68,10 +79,13 @@
         </collectionReusableView>
     </objects>
     <resources>
-        <image name="fork.knife.circle" catalog="system" width="128" height="121"/>
+        <image name="cookingGray" width="23" height="23"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
-        <namedColor name="DarkBrown">
-            <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="MyOrange">
+            <color red="0.90196078431372551" green="0.67843137254901964" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

@@ -21,11 +21,20 @@ class PublicProfileHeaderCell: UICollectionViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var imageHeight: NSLayoutConstraint!
+    @IBOutlet weak var userStackView: UIStackView!
+    @IBOutlet weak var buttonStackView: UIStackView!
+    @IBOutlet weak var bannerView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpUI()
         sendMessageButton.addTarget(self, action: #selector(presentChatRoom), for: .touchUpInside)
         blockUserButton.addTarget(self, action: #selector(blockUser), for: .touchUpInside)
+        userStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            userStackView.centerYAnchor.constraint(equalTo: bannerView.bottomAnchor),
+            userStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            userStackView.bottomAnchor.constraint(equalTo: buttonStackView.topAnchor, constant: -16)
+        ])
     }
 
     func setUpUI() {

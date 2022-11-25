@@ -24,6 +24,13 @@ class PreviewViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         imageView.loadImage(imageURL, placeHolder: nil)
         imageView.hero.id = heroId
+
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        guard let image = imageView.image else { return }
+        NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: image.size.width),
+            imageView.heightAnchor.constraint(equalToConstant: image.size.height)
+        ])
     }
 
     override func viewDidLayoutSubviews() {

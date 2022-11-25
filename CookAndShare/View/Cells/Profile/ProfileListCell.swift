@@ -36,7 +36,7 @@ class ProfileListCell: UITableViewCell {
             smallImageView.image = UIImage(systemName: "trash")
             listLabel.textColor = UIColor.systemRed
         case .logout:
-            smallImageView.image = UIImage(systemName: "rectangle.portrait.and.arrow.right")
+            smallImageView.image = UIImage(named: "logout_36")
             listLabel.textColor = UIColor.systemRed
         }
     }

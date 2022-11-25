@@ -33,7 +33,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                     let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
                         as? LoginViewController
                 else { fatalError("Could not instantiate LoginViewController") }
-                loginVC.tabBarItem = UITabBarItem(title: "個人", image: UIImage(systemName: "person.circle"), tag: 3)
+                loginVC.tabBarItem = UITabBarItem(title: "個人", image: UIImage(named: "account_gray_25"), selectedImage: UIImage(named: "account_25"))
                 viewControllers.replaceSubrange(3...3, with: [loginVC])
             }
             self.viewControllers = viewControllers

@@ -146,7 +146,11 @@ class ChatRoomViewController: UIViewController {
             newConversation.messages = [message]
             self.conversation = newConversation
             firestoreManager.createNewConversation(newConversation, to: document)
-            firestoreManager.updateUserConversation(userId: Constant.getUserId(), friendId: friend.id, channelId: document.documentID)
+            firestoreManager.updateUserConversation(
+                userId: Constant.getUserId(),
+                friendId: friend.id,
+                channelId: document.documentID
+            )
             firestoreManager.addListener(channelId: document.documentID) { result in
                 switch result {
                 case .success(let conversation):
@@ -233,6 +237,7 @@ class ChatRoomViewController: UIViewController {
     }
 
     @objc func hideAudioRecordView() {
+        inputTextField.resignFirstResponder()
         playAndPauseButton.isHidden = true
         sendVoiceButton.isHidden = true
         wrapperViewBottomConstraint.isActive = false
@@ -452,8 +457,8 @@ extension ChatRoomViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
 
-        if !results.isEmpty {
-            let result = results.first!
+        if !results.isEmpty,
+            let result = results.first {
             let itemProvider = result.itemProvider
             if itemProvider.canLoadObject(ofClass: UIImage.self) {
                 itemProvider.loadObject(ofClass: UIImage.self) { [weak self] image, error in

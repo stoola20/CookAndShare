@@ -54,11 +54,9 @@ class CoreDataManager {
 
         do {
             let existedIngredient = try managedContext.fetch(request)
-//            if existedIngredient.count == 1 {
-                let ingredientToUpdate = existedIngredient[0]
-                ingredientToUpdate.done = done
-                saveContext()
-//            }
+            let ingredientToUpdate = existedIngredient[0]
+            ingredientToUpdate.done = done
+            saveContext()
         } catch {
             print(error)
         }
