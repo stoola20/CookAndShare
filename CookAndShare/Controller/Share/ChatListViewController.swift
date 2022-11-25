@@ -43,7 +43,7 @@ class ChatListViewController: UIViewController {
     }
 
     func fetchChatList() {
-        conversations = []
+        var tempConversations: [Conversation] = []
         let group = DispatchGroup()
         group.enter()
         firestoreManager.fetchUserData(userId: Constant.getUserId()) { result in
@@ -55,7 +55,7 @@ class ChatListViewController: UIViewController {
                         switch result {
                         case .success(let conversation):
                             if Set(user.blockList).isDisjoint(with: Set(conversation.friendIds)) {
-                                self.conversations.append(conversation)
+                                tempConversations.append(conversation)
                             }
                             group.leave()
                         case .failure(let error):
@@ -73,7 +73,7 @@ class ChatListViewController: UIViewController {
 
         group.notify(queue: DispatchQueue.main) { [weak self] in
             guard let self = self else { return }
-            self.conversations.sort { conversation1, conversation2 in
+            self.conversations = tempConversations.sorted { conversation1, conversation2 in
                 guard
                     let lastMessage1 = conversation1.messages.last,
                     let lastMessage2 = conversation2.messages.last

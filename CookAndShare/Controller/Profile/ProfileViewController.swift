@@ -75,19 +75,6 @@ class ProfileViewController: UIViewController {
         imagePicker.allowsEditing = true
     }
 
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(let user):
-//                self.user = user
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-
     func setUpTableView () {
         tableView.dataSource = self
         tableView.delegate = self
@@ -126,7 +113,7 @@ class ProfileViewController: UIViewController {
             let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
                 as? LoginViewController
         else { fatalError("Could not instantiate LoginViewController") }
-        loginVC.tabBarItem = UITabBarItem(title: "個人", image: UIImage(systemName: "person.circle"), tag: 3)
+        loginVC.tabBarItem = UITabBarItem(title: "個人", image: UIImage(named: "account_gray_25"), selectedImage: UIImage(named: "account_25"))
         var arrayChildViewControllers = self.tabBarController?.viewControllers
         if let selectedTabIndex = tabBarController?.selectedIndex {
             arrayChildViewControllers?.replaceSubrange(selectedTabIndex...selectedTabIndex, with: [loginVC])
@@ -366,11 +353,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                 print(error)
             }
         }
-//
-//        // update image
-//        DispatchQueue.main.async {
-//            cell.profileImageView.image = userPickedImage
-//        }
         dismiss(animated: true)
     }
 }
