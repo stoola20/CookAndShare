@@ -392,13 +392,6 @@ extension ProfileViewController: ASAuthorizationControllerDelegate {
                     print("===error \(error)")
                 } else {
                     // User re-authenticated.
-                    currentUser?.delete { error in
-                        if let error = error {
-                            print(error)
-                        } else {
-                            print("帳戶已被 firebase auth 刪除")
-                        }
-                    }
                     self.deleteFirestoreDocument()
                     self.deleteCoreData()
 
@@ -407,10 +400,35 @@ extension ProfileViewController: ASAuthorizationControllerDelegate {
                     keychain.delete("refreshToken")
                     guard let token = token else { return }
                     self.revokeToken(clientSecret: JWTManager.shared.makeJWT(), token: token)
+                    currentUser?.delete { error in
+                        if let error = error {
+                            print(error)
+                        } else {
+                            print("帳戶已被 firebase auth 刪除")
+                        }
+                    }
                     self.showLoginVC()
                     SPAlert.present(message: "帳號已刪除", haptic: .error)
                 }
             }
+        }
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        // 登入失敗，處理 Error
+        switch error {
+        case ASAuthorizationError.canceled:
+            SPAlert.present(message: "使用者取消登入", haptic: .error)
+        case ASAuthorizationError.failed:
+            SPAlert.present(message: "授權請求失敗", haptic: .error)
+        case ASAuthorizationError.invalidResponse:
+            SPAlert.present(message: "授權請求無回應", haptic: .error)
+        case ASAuthorizationError.notHandled:
+            SPAlert.present(message: "授權請求未處理", haptic: .error)
+        case ASAuthorizationError.unknown:
+            SPAlert.present(message: "授權失敗，原因不明", haptic: .error)
+        default:
+            break
         }
     }
 }

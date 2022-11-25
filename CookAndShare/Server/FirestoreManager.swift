@@ -291,7 +291,7 @@ struct FirestoreManager {
         }
     }
 
-    func isNewUser(id: String, completion: @escaping (Bool)-> Void) {
+    func isNewUser(id: String, completion: @escaping (Bool) -> Void) {
         usersCollection.document(id).getDocument { document, _ in
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"

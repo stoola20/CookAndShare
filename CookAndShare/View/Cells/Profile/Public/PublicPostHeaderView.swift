@@ -18,31 +18,34 @@ class PublicPostHeaderView: UICollectionReusableView {
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var underlineLeading: NSLayoutConstraint!
     @IBOutlet weak var underline: UIView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpUI()
+        recipeButton.isSelected = true
     }
 
     func setUpUI() {
-        recipeButton.tintColor = UIColor.myOrange
-        shareButton.tintColor = UIColor.gray
+        recipeButton.setImage(UIImage(named: "cooking"), for: .selected)
+        recipeButton.setImage(UIImage(named: "cookingGray"), for: .normal)
+        shareButton.setImage(UIImage(named: "share_gray_23"), for: .normal)
+        shareButton.setImage(UIImage(named: "share_23"), for: .selected)
     }
 
     @IBAction func changeToRecipe(_ sender: UIButton) {
         toRecipe = true
         delegate.headerView(didChange: toRecipe)
         animateUnderline(sender)
-        recipeButton.tintColor = UIColor.myOrange
-        shareButton.tintColor = UIColor.lightGray
+        recipeButton.isSelected = true
+        shareButton.isSelected = false
     }
 
     @IBAction func changeToShare(_ sender: UIButton) {
         toRecipe = false
         delegate.headerView(didChange: toRecipe)
         animateUnderline(sender)
-        recipeButton.tintColor = UIColor.lightGray
-        shareButton.tintColor = UIColor.myOrange
+        recipeButton.isSelected = false
+        shareButton.isSelected = true
     }
 
     func animateUnderline(_ sender: UIButton) {
