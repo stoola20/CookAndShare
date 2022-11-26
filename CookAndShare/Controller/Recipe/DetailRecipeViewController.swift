@@ -312,7 +312,7 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
     func reportRecipe() {
         let alert = UIAlertController(
             title: "檢舉這則貼文？",
-            message: "你的檢舉將會匿名。如果有人有立即的人身安全疑慮，請立即與當地緊急救護服務聯絡，把握救援時間。",
+            message: "你的檢舉將會匿名。",
             preferredStyle: .actionSheet
         )
         let confirmAction = UIAlertAction(title: "確定檢舉", style: .destructive) { [weak self] _ in

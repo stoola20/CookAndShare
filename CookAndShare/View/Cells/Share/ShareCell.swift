@@ -156,7 +156,7 @@ class ShareCell: UITableViewCell {
                     attributes: .destructive
                 )
             ])
-        } else {
+        } else if !Constant.getUserId().isEmpty {
             seeProfileButton.isHidden = false
             moreButton.menu = UIMenu(children: [
                 UICommand(
@@ -169,6 +169,15 @@ class ShareCell: UITableViewCell {
                     title: "封鎖用戶",
                     image: UIImage(systemName: "hand.raised.slash"),
                     action: #selector(blockList),
+                    attributes: .destructive
+                )
+            ])
+        } else {
+            moreButton.menu = UIMenu(children: [
+                UICommand(
+                    title: "檢舉",
+                    image: UIImage(systemName: "exclamationmark.bubble"),
+                    action: #selector(report),
                     attributes: .destructive
                 )
             ])
