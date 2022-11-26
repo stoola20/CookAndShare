@@ -85,8 +85,8 @@ class PublicProfileViewController: UIViewController {
 
         group.notify(queue: DispatchQueue.main) { [weak self] in
             guard let self = self else { return }
-            self.recipes = tempRecipes
-            self.shares = tempShares
+            self.recipes = tempRecipes.sorted { $0.time.seconds > $1.time.seconds }
+            self.shares = tempShares.sorted { $0.postTime.seconds > $1.postTime.seconds }
             self.recipeCollectionView.reloadData()
         }
     }

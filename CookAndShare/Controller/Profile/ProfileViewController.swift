@@ -244,10 +244,10 @@ extension ProfileViewController: UITableViewDelegate {
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
             guard
                 let savedRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: SavedRecipeViewController.self))
-                as? SavedRecipeViewController,
-                let user = user
+                as? SavedRecipeViewController//,
+//                let user = user
             else { fatalError("Could not instantiate ShoppingListViewController") }
-            savedRecipeVC.savedRecipsId = user.savedRecipesId
+//            savedRecipeVC.savedRecipsId = user.savedRecipesId
             navigationController?.pushViewController(savedRecipeVC, animated: true)
         case 1:
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)

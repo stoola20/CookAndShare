@@ -10,12 +10,12 @@ import UIKit
 class NewRecipeHeaderView: UITableViewHeaderFooterView {
     static let reuseIdentifier: String = String(describing: NewRecipeHeaderView.self)
     lazy var label = UILabel()
-    
+
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         configureHeader()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -25,7 +25,7 @@ class NewRecipeHeaderView: UITableViewHeaderFooterView {
         label.font = UIFont.boldSystemFont(ofSize: 22)
         label.textColor = UIColor.darkBrown
         label.translatesAutoresizingMaskIntoConstraints = false
-        
+
         let inset: CGFloat = 16
         
         NSLayoutConstraint.activate([
