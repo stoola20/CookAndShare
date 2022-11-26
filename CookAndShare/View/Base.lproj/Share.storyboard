@@ -299,7 +299,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkD-rY-nI8">
-                                                    <rect key="frame" x="336.5" y="8" width="41.5" height="20.5"/>
+                                                    <rect key="frame" x="344.5" y="17" width="41.5" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -312,16 +312,16 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="PC4-9U-1kk">
-                                                    <rect key="frame" x="108" y="17" width="220.5" height="43"/>
+                                                    <rect key="frame" x="108" y="17" width="228.5" height="43"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tps-JQ-PQJ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="220.5" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="228.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xdh-Tx-H09">
-                                                            <rect key="frame" x="0.0" y="22.5" width="220.5" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="22.5" width="228.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -330,14 +330,14 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="KkD-rY-nI8" firstAttribute="top" secondItem="rK8-bW-dkP" secondAttribute="top" id="8Z2-26-kYk"/>
                                                 <constraint firstItem="PC4-9U-1kk" firstAttribute="centerY" secondItem="rK8-bW-dkP" secondAttribute="centerY" id="N8e-gE-Jx1"/>
                                                 <constraint firstItem="rK8-bW-dkP" firstAttribute="leading" secondItem="uMb-Q2-574" secondAttribute="leading" constant="24" id="OFw-vM-zdK"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="KkD-rY-nI8" secondAttribute="trailing" constant="16" id="dfo-TR-38A"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="KkD-rY-nI8" secondAttribute="trailing" constant="8" id="dfo-TR-38A"/>
                                                 <constraint firstAttribute="bottom" secondItem="rK8-bW-dkP" secondAttribute="bottom" constant="8" id="dgg-re-6r8"/>
                                                 <constraint firstItem="rK8-bW-dkP" firstAttribute="top" secondItem="uMb-Q2-574" secondAttribute="top" constant="8" id="hdq-Ga-ffg"/>
                                                 <constraint firstItem="KkD-rY-nI8" firstAttribute="leading" secondItem="PC4-9U-1kk" secondAttribute="trailing" constant="8" id="oim-SQ-arN"/>
                                                 <constraint firstItem="PC4-9U-1kk" firstAttribute="leading" secondItem="rK8-bW-dkP" secondAttribute="trailing" constant="24" id="pvO-Uo-hC8"/>
+                                                <constraint firstItem="KkD-rY-nI8" firstAttribute="centerY" secondItem="tps-JQ-PQJ" secondAttribute="centerY" id="w5C-AB-pAl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -370,7 +370,7 @@
     </scenes>
     <color key="tintColor" name="DarkBrown"/>
     <resources>
-        <image name="chefMan" width="64" height="64"/>
+        <image name="chefMan" width="170" height="170"/>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
         <image name="mic" catalog="system" width="108" height="128"/>
         <image name="paperplane.fill" catalog="system" width="128" height="118"/>

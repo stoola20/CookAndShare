@@ -35,6 +35,7 @@
                         <rect key="frame" x="190" y="40" width="114" height="31"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="31" id="NbS-FB-rLA"/>
+                            <constraint firstAttribute="width" constant="114" id="Nbb-sj-Gcn"/>
                         </constraints>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain">
