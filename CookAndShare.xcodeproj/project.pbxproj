@@ -755,6 +755,7 @@
 				7D63C74869D0967C70A3BE98 /* [CP] Embed Pods Frameworks */,
 				3787536D290F5D4E00F06F4C /* ShellScript */,
 				3EA2BCA876A5DDCE9B09E1BC /* [CP] Copy Pods Resources */,
+				370FA4A52931995100BA82A8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -855,6 +856,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		370FA4A52931995100BA82A8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		3787536D290F5D4E00F06F4C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1215,6 +1235,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CookAndShare/Info.plist;
