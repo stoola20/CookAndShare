@@ -32,7 +32,8 @@ class SavedRecipeViewController: UIViewController {
                     }
                 }
             }
-            group.notify(queue: DispatchQueue.main) {
+            group.notify(queue: DispatchQueue.main) { [weak self] in
+                guard let self = self else { return }
                 self.savedRecipes = tempRecipes.sorted { $0.time.seconds > $1.time.seconds }
                 self.collectionView.reloadData()
             }
