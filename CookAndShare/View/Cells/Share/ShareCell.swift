@@ -24,6 +24,7 @@ class ShareCell: UITableViewCell {
     weak var delegate: ShareCellDelegate!
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var postTimeLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var bestBeforeLabel: UILabel!
@@ -56,6 +57,8 @@ class ShareCell: UITableViewCell {
 
         userNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
         userNameLabel.textColor = UIColor.darkBrown
+        postTimeLabel.font = UIFont.systemFont(ofSize: 13)
+        postTimeLabel.textColor = .myOrange
         titleLabel.textColor = UIColor.darkBrown
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
         descriptionLabel.textColor = UIColor.darkBrown
@@ -128,6 +131,8 @@ class ShareCell: UITableViewCell {
                 print(error)
             }
         }
+        let timeInterval = Date() - Date(timeIntervalSince1970: Double(share.postTime.seconds))
+        postTimeLabel.text = timeInterval.convertToString(from: timeInterval)
         titleLabel.text = "\(share.title)"
         descriptionLabel.text = "\(share.description)"
         bestBeforeLabel.text = "\(Date.dateFormatter.string(from: Date(timeIntervalSince1970: Double(share.bestBefore.seconds))))"

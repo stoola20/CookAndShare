@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "chefMan@1x.png",
+      "filename" : "chefHatTransparent.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "chefMan@2x.png",
+      "filename" : "chefHatTransparent-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "chefMan@3x.png",
+      "filename" : "chefHatTransparent-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -38,8 +38,8 @@ class RecipeTypeCell: UICollectionViewCell {
         ])
     }
 
-    func updateButtonColor() {
-        if typeButton.tag == 0 {
+    func updateButtonColor(seletedTag: Int) {
+        if typeButton.tag == seletedTag {
             typeButton.backgroundColor = UIColor.darkBrown
             typeButton.setTitleColor(UIColor.lightOrange, for: .normal)
         } else {

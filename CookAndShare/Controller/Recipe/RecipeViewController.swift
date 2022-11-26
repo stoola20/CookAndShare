@@ -140,8 +140,12 @@ class RecipeViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let recipes):
-                self.hotRecipes = recipes
-                self.hotRecipes?.sort { $0.likes.count > $1.likes.count }
+                let tempRecipes = recipes.sorted { $0.likes.count > $1.likes.count }
+                var tempHot: [Recipe] = []
+                for index in 0..<tempRecipes.count where index <= 9 {
+                    tempHot.append(tempRecipes[index])
+                }
+                self.hotRecipes = tempHot
 
                 self.allRecipes = recipes.sorted { $0.time.seconds > $1.time.seconds }
                 self.filterRecipe(byTag: self.selectedTag)
@@ -266,7 +270,7 @@ extension RecipeViewController: UICollectionViewDataSource {
             cell.delegate = self
             cell.typeButton.tag = indexPath.item
             cell.typeButton.setTitle(RecipeType.allCases[indexPath.item].rawValue, for: .normal)
-            cell.updateButtonColor()
+            cell.updateButtonColor(seletedTag: selectedTag)
 
             return cell
 
