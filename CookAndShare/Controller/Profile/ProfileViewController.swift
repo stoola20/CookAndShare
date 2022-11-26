@@ -32,9 +32,10 @@ class ProfileViewController: UIViewController {
     }()
     var user: User?
     var allUsers: [User] = []
-    let firestoreManager = FirestoreManager.shared
-    let coredataManager = CoreDataManager.shared
+    private let firestoreManager = FirestoreManager.shared
+    private let coredataManager = CoreDataManager.shared
     let imagePicker = UIImagePickerController()
+    private let editNameAlert = UIAlertController(title: "請輸入暱稱", message: "(0 / 9)", preferredStyle: .alert)
     private var currentNonce: String?
 
     @IBOutlet weak var tableView: UITableView!
@@ -244,10 +245,8 @@ extension ProfileViewController: UITableViewDelegate {
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
             guard
                 let savedRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: SavedRecipeViewController.self))
-                as? SavedRecipeViewController//,
-//                let user = user
+                as? SavedRecipeViewController
             else { fatalError("Could not instantiate ShoppingListViewController") }
-//            savedRecipeVC.savedRecipsId = user.savedRecipesId
             navigationController?.pushViewController(savedRecipeVC, animated: true)
         case 1:
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
@@ -289,11 +288,14 @@ extension ProfileViewController: UITableViewDelegate {
 
 extension ProfileViewController: ProfileUserCellDelegate {
     func willEditName() {
-        let alert = UIAlertController(title: "請輸入暱稱", message: nil, preferredStyle: .alert)
-        alert.addTextField()
-        let okAction = UIAlertAction(title: Constant.confirm, style: .default) { _ in
+        editNameAlert.addTextField { [weak self] textField in
+            guard let self = self else { return }
+            textField.delegate = self
+        }
+        let okAction = UIAlertAction(title: Constant.confirm, style: .default) { [weak self] _ in
             guard
-                let name = alert.textFields?[0].text,
+                let self = self,
+                let name = self.editNameAlert.textFields?[0].text,
                 !name.isEmpty,
                 let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ProfileUserCell
             else { return }
@@ -301,19 +303,21 @@ extension ProfileViewController: ProfileUserCellDelegate {
             cell.userName.text = name
         }
         let cancelAction = UIAlertAction(title: Constant.cancel, style: .cancel, handler: nil)
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true, completion: nil)
+        editNameAlert.addAction(okAction)
+        editNameAlert.addAction(cancelAction)
+        present(editNameAlert, animated: true, completion: nil)
     }
 
     func willChangePhoto() {
         let controller = UIAlertController(title: "請選擇照片來源", message: nil, preferredStyle: .actionSheet)
 
-        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
+        let cameraAction = UIAlertAction(title: "相機", style: .default) { [weak self] _ in
+            guard let self = self else { return }
             self.imagePicker.sourceType = .camera
             self.present(self.imagePicker, animated: true)
         }
-        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default) { _ in
+        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default) { [weak self] _ in
+            guard let self = self else { return }
             self.imagePicker.sourceType = .photoLibrary
             self.present(self.imagePicker, animated: true)
         }
@@ -439,5 +443,17 @@ extension ProfileViewController: ASAuthorizationControllerDelegate {
 extension ProfileViewController: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return view.window!
+    }
+}
+
+extension ProfileViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        let maxNumber = 9
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        let characterCount = updatedText.count <= maxNumber ? updatedText.count : maxNumber
+        editNameAlert.message = "(\(characterCount) / \(maxNumber))"
+        return updatedText.count <= maxNumber
     }
 }

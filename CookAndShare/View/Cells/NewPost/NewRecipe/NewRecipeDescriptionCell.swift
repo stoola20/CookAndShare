@@ -85,6 +85,7 @@ class NewRecipeDescriptionCell: UITableViewCell {
     }
 
     func layoutCell(with recipe: Recipe) {
+        nameLabel.text = "食譜名稱 (\(recipe.title.count) / 14)"
         nameTextField.text = recipe.title
         descriptionTextField.text = recipe.description
         durationTextField.text = String(recipe.cookDuration)
@@ -152,5 +153,14 @@ extension NewRecipeDescriptionCell: UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         passData()
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        let characterCount = updatedText.count <= 14 ? updatedText.count : 14
+        nameLabel.text = "食譜名稱 (\(characterCount) / 14)"
+        return updatedText.count <= 14
     }
 }

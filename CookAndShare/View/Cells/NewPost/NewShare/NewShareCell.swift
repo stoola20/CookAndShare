@@ -28,7 +28,8 @@ class NewShareCell: UITableViewCell {
     @IBOutlet weak var meetTimeTextField: UITextField!
     @IBOutlet weak var meetPlaceTextField: UITextField!
     @IBOutlet weak var bestBeforePicker: UIDatePicker!
-
+    @IBOutlet weak var nameLabel: UILabel!
+    
     var completion: ((NewShareModel) -> Void)?
     var data = NewShareModel()
     weak var delegate: NewShareCellDelegate!
@@ -64,6 +65,7 @@ class NewShareCell: UITableViewCell {
     }
 
     func layoutCell(with share: Share) {
+        nameLabel.text = "分享物 (\(share.title.count) / 14)"
         foodImage.loadImage(share.imageURL, placeHolder: UIImage(named: "takePhoto"))
         titleTextField.text = share.title
         descriptionTextField.text = share.description
@@ -97,5 +99,14 @@ extension NewShareCell: UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         passData()
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+        let characterCount = updatedText.count <= 14 ? updatedText.count : 14
+        nameLabel.text = "分享物 (\(characterCount) / 14)"
+        return updatedText.count <= 14
     }
 }
