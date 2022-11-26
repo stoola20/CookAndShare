@@ -10,33 +10,31 @@ import UIKit
 class SavedRecipeViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     let firestoreManager = FirestoreManager.shared
-    var savedRecipes: [Recipe] = [] {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
-
+    var user: User?
+    var savedRecipes: [Recipe] = []
     var savedRecipsId: [String] = [] {
         didSet {
-            firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let user):
-                    for id in self.savedRecipsId {
-                        self.firestoreManager.fetchRecipeBy(id) { result in
-                            switch result {
-                            case .success(let recipe):
-                                if !user.blockList.contains(recipe.authorId) {
-                                    self.savedRecipes.append(recipe)
-                                }
-                            case .failure(let error):
-                                print(error)
-                            }
+            guard let user = user else { return }
+            var tempRecipes: [Recipe] = []
+            let group = DispatchGroup()
+            for id in self.savedRecipsId {
+                group.enter()
+                self.firestoreManager.fetchRecipeBy(id) { result in
+                    switch result {
+                    case .success(let recipe):
+                        if !user.blockList.contains(recipe.authorId) {
+                            tempRecipes.append(recipe)
                         }
+                        group.leave()
+                    case .failure(let error):
+                        print(error)
+                        group.leave()
                     }
-                case .failure(let error):
-                    print(error)
                 }
+            }
+            group.notify(queue: DispatchQueue.main) {
+                self.savedRecipes = tempRecipes.sorted { $0.time.seconds > $1.time.seconds }
+                self.collectionView.reloadData()
             }
         }
     }
@@ -45,6 +43,20 @@ class SavedRecipeViewController: UIViewController {
         super.viewDidLoad()
         setUpCollectionView()
         title = "我的收藏"
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
+            guard let self = self else { return}
+            switch result {
+            case .success(let user):
+                self.user = user
+                self.savedRecipsId = user.savedRecipesId
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 
     func setUpCollectionView() {

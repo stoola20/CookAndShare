@@ -123,7 +123,7 @@ extension ResultViewController: UICollectionViewDelegate {
             let recipes = recipes
         else { fatalError("Could not instantiate detailVC") }
 
-        detailVC.recipe = recipes[indexPath.item]
+        detailVC.recipeId = recipes[indexPath.item].recipeId
         navigationController?.pushViewController(detailVC, animated: true)
     }
 }
