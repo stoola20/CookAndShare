@@ -14,6 +14,7 @@ import SPAlert
 class ShareViewController: UIViewController {
     let firestoreManager = FirestoreManager.shared
     var shares: [Share] = []
+    var shareId = ""
     var fromPublicVC = false
     var header: ESRefreshHeaderAnimator {
         let header = ESRefreshHeaderAnimator.init(frame: CGRect.zero)
@@ -31,12 +32,6 @@ class ShareViewController: UIViewController {
         setUpTableView()
 
         navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(
-                image: UIImage(systemName: "message"),
-                style: .plain,
-                target: self,
-                action: #selector(showMessage)
-            ),
             UIBarButtonItem(
                 image: UIImage(systemName: "plus.circle"),
                 style: .plain,
@@ -56,9 +51,11 @@ class ShareViewController: UIViewController {
         navigationItem.standardAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
 
-        tableView.es.addPullToRefresh(animator: header) { [weak self] in
-            guard let self = self else { return }
-            self.fetchSharePost()
+        if !fromPublicVC {
+            tableView.es.addPullToRefresh(animator: header) { [weak self] in
+                guard let self = self else { return }
+                self.fetchSharePost()
+            }
         }
     }
 
@@ -66,6 +63,8 @@ class ShareViewController: UIViewController {
         super.viewWillAppear(animated)
         if !fromPublicVC {
             fetchSharePost()
+        } else {
+            fetchShareById()
         }
     }
 
@@ -94,6 +93,21 @@ class ShareViewController: UIViewController {
         }
     }
 
+    func fetchShareById() {
+        firestoreManager.fetchShareBy(shareId) { result in
+            switch result {
+            case .success(let share):
+                self.shares = [share]
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.tableView.es.stopPullToRefresh()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+
     @objc func addShare() {
         if Auth.auth().currentUser == nil {
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
@@ -101,6 +115,7 @@ class ShareViewController: UIViewController {
                 let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
                     as? LoginViewController
             else { fatalError("Could not create loginVC") }
+            loginVC.isPresented = true
             present(loginVC, animated: true)
         } else {
             let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
@@ -111,26 +126,6 @@ class ShareViewController: UIViewController {
                     as? NewShareViewController
             else { fatalError("Could not create newShareVC") }
             navigationController?.pushViewController(newShareVC, animated: true)
-        }
-    }
-
-    @objc func showMessage() {
-        if Auth.auth().currentUser == nil {
-            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
-                    as? LoginViewController
-            else { fatalError("Could not create loginVC") }
-            present(loginVC, animated: true)
-        } else {
-            let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
-            guard
-                let chatListVC = storyboard.instantiateViewController(
-                    withIdentifier: String(describing: ChatListViewController.self)
-                )
-                    as? ChatListViewController
-            else { fatalError("Could not create ChatListViewController") }
-            navigationController?.pushViewController(chatListVC, animated: true)
         }
     }
 }

@@ -18,8 +18,9 @@ import SwiftUI
 import Alamofire
 
 class LoginViewController: UIViewController {
+    var isPresented = false
     private var currentNonce: String?
-    let firestoreManager = FirestoreManager.shared
+    private let firestoreManager = FirestoreManager.shared
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var titleLabel: UILabel!
@@ -48,7 +49,6 @@ class LoginViewController: UIViewController {
             animationView.contentMode = .scaleAspectFit
             animationView.loopMode = .loop
             animationView.animationSpeed = 1
-            animationView.play()
         }
         animationViews[0].play()
     }
@@ -74,7 +74,7 @@ class LoginViewController: UIViewController {
         signInWithAppleBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
         signInWithAppleBtn.widthAnchor.constraint(equalToConstant: 280).isActive = true
         signInWithAppleBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        signInWithAppleBtn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -70).isActive = true
+        signInWithAppleBtn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
     }
 
     @objc func signInWithApple() {
@@ -156,14 +156,20 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                     print("成功以 Apple 登入 Firebase")
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     guard
-                        let tabController = storyboard.instantiateViewController(withIdentifier: String(describing: TabBarController.self))
+                        let tabController = storyboard.instantiateViewController(
+                            withIdentifier: String(describing: TabBarController.self)
+                        )
                             as? TabBarController,
                         let tabBarControllers = tabController.viewControllers
                     else { fatalError("Could not instantiate tabController") }
-
+                    if self.isPresented {
+                        UserDefaults.standard.set(false, forKey: "normalAppearance")
+                    } else {
+                        UserDefaults.standard.set(true, forKey: "normalAppearance")
+                    }
                     var childViewControllers = self.tabBarController?.viewControllers
-
-                    childViewControllers?.replaceSubrange(3...3, with: [tabBarControllers[3]])
+                    childViewControllers?.replaceSubrange(2...2, with: [tabBarControllers[2]])
+                    childViewControllers?.replaceSubrange(4...4, with: [tabBarControllers[4]])
                     self.tabBarController?.viewControllers = childViewControllers
                     self.dismiss(animated: true)
                 }

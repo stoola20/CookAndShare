@@ -21,8 +21,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fx7-Pt-H2Q">
                         <rect key="frame" x="0.0" y="50" width="281" height="342"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKD-ev-XLH">
-                                <rect key="frame" x="120" y="62" width="41.5" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKD-ev-XLH">
+                                <rect key="frame" x="16" y="62" width="249" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -34,7 +34,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jTd-jm-V63">
-                                <rect key="frame" x="240" y="301" width="25" height="25"/>
+                                <rect key="frame" x="240" y="303" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="1Rt-8H-ini"/>
                                     <constraint firstAttribute="height" constant="25" id="KBX-ZK-S7s"/>
@@ -48,10 +48,11 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="jTd-jm-V63" secondAttribute="bottom" constant="16" id="86f-B2-I28"/>
+                            <constraint firstItem="gKD-ev-XLH" firstAttribute="leading" secondItem="fx7-Pt-H2Q" secondAttribute="leading" constant="16" id="Gdq-HT-yY2"/>
+                            <constraint firstAttribute="trailing" secondItem="gKD-ev-XLH" secondAttribute="trailing" constant="16" id="JEW-SI-WVw"/>
                             <constraint firstItem="gKD-ev-XLH" firstAttribute="top" secondItem="fx7-Pt-H2Q" secondAttribute="top" constant="62" id="KI3-Kf-KNI"/>
-                            <constraint firstItem="gKD-ev-XLH" firstAttribute="centerX" secondItem="fx7-Pt-H2Q" secondAttribute="centerX" id="Tt0-DM-xYO"/>
                             <constraint firstAttribute="bottom" secondItem="SRw-Iw-JIl" secondAttribute="bottom" constant="16" id="Tzv-nz-Hdn"/>
+                            <constraint firstItem="jTd-jm-V63" firstAttribute="centerY" secondItem="SRw-Iw-JIl" secondAttribute="centerY" id="aqZ-FW-347"/>
                             <constraint firstAttribute="trailing" secondItem="jTd-jm-V63" secondAttribute="trailing" constant="16" id="wYC-jC-H1E"/>
                             <constraint firstItem="SRw-Iw-JIl" firstAttribute="leading" secondItem="fx7-Pt-H2Q" secondAttribute="leading" constant="16" id="wfD-Rm-fWP"/>
                         </constraints>

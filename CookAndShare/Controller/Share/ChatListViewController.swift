@@ -18,6 +18,11 @@ class ChatListViewController: UIViewController {
         header.loadingDescription = "載入中..."
         return header
     }
+    lazy var selectedBackground: UIView = {
+        let background = UIView()
+        background.backgroundColor = .white
+        return background
+    }()
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -109,6 +114,7 @@ extension ChatListViewController: UITableViewDataSource {
                 }
             }
         }
+        cell.selectedBackgroundView = selectedBackground
         return cell
     }
 }

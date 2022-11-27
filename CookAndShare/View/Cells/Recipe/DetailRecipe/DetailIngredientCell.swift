@@ -8,7 +8,6 @@
 import UIKit
 
 class DetailIngredientCell: UITableViewCell {
-
     @IBOutlet weak var ingredientNameLabel: UILabel!
     @IBOutlet weak var ingredientQuantityLabel: UILabel!
 

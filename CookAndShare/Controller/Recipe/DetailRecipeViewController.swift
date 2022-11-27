@@ -118,6 +118,7 @@ class DetailRecipeViewController: UIViewController {
                 let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
                     as? LoginViewController
             else { fatalError("Could not create loginVC") }
+            loginVC.isPresented = true
             present(loginVC, animated: true)
         } else {
             guard let recipe = recipe else { return }
@@ -135,6 +136,7 @@ class DetailRecipeViewController: UIViewController {
                 let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
                     as? LoginViewController
             else { fatalError("Could not create loginVC") }
+            loginVC.isPresented = true
             present(loginVC, animated: true)
         } else {
             guard let recipe = recipe else { return }
@@ -228,6 +230,7 @@ extension DetailRecipeViewController: UITableViewDelegate {
                 let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
                     as? LoginViewController
             else { fatalError("Could not create loginVC") }
+            loginVC.isPresented = true
             present(loginVC, animated: true)
         } else {
             let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)

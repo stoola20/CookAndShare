@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "breakfast.png",
+      "filename" : "shakePhone_100@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "breakfast-1.png",
+      "filename" : "shakePhone_100@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "breakfast-2.png",
+      "filename" : "shakePhone_100@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

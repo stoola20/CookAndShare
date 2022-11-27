@@ -154,7 +154,7 @@ extension PublicProfileViewController: UICollectionViewDelegate {
                     let shareVC = storyboard.instantiateViewController(withIdentifier: String(describing: ShareViewController.self))
                         as? ShareViewController
                 else { fatalError("Could not create detailVC") }
-                shareVC.shares = [shares[indexPath.item]]
+                shareVC.shareId = shares[indexPath.item].shareId
                 shareVC.fromPublicVC = true
                 navigationController?.pushViewController(shareVC, animated: true)
             }
@@ -221,6 +221,7 @@ extension PublicProfileViewController: PublicProfileHeaderCellDelegate {
                 let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
                     as? LoginViewController
             else { fatalError("Could not create loginVC") }
+            loginVC.isPresented = true
             present(loginVC, animated: true)
         } else {
             let storyboard = UIStoryboard(name: Constant.share, bundle: nil)

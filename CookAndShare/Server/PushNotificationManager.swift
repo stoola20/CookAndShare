@@ -54,13 +54,10 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
             .window?.rootViewController
         else { return }
 
-        let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
-        if let chatListVC = storyboard.instantiateViewController(withIdentifier: String(describing: ChatListViewController.self)) as? ChatListViewController,
-            let tabBarController = rootViewController as? TabBarController {
-            tabBarController.selectedIndex = 1
+        if let tabBarController = rootViewController as? TabBarController {
+            tabBarController.selectedIndex = 2
             if let navController = tabBarController.selectedViewController as? UINavigationController {
                 navController.popToRootViewController(animated: false)
-                navController.pushViewController(chatListVC, animated: false)
             }
         }
 

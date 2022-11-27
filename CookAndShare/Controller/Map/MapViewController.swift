@@ -21,10 +21,11 @@ class MapViewController: UIViewController {
     private var tappedMarker = GMSMarker()
     lazy var searchThisAreaButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .background
+        button.backgroundColor = .white
         button.setTitle("搜尋這個區域", for: .normal)
         button.setTitleColor(.darkBrown, for: .normal)
         button.addTarget(self, action: #selector(searchThisArea), for: .touchUpInside)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         return button
     }()
     lazy var containerView = UIView()
@@ -33,7 +34,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var foodBankButton: UIButton!
     @IBOutlet weak var buttonBackground: UIView!
     @IBOutlet weak var backgroundCenter: NSLayoutConstraint!
-    @IBOutlet weak var backgroundWidth: NSLayoutConstraint!
+    @IBOutlet weak var bannerBackground: UIView!
     @IBOutlet var buttons: [UIButton]!
 
     override func viewDidLoad() {
@@ -85,6 +86,11 @@ class MapViewController: UIViewController {
         foodBankButton.setTitleColor(UIColor.myOrange, for: .normal)
         foodBankButton.tintColor = .clear
         buttonBackground.layer.cornerRadius = 10
+
+        bannerBackground.layer.shadowColor = UIColor.gray.cgColor
+        bannerBackground.layer.shadowOpacity = 0.6
+        bannerBackground.layer.shadowOffset = CGSize(width: 1, height: 2)
+        bannerBackground.layer.shadowRadius = 1
     }
 
     func configSearchAreaButton() {
@@ -99,21 +105,21 @@ class MapViewController: UIViewController {
             searchThisAreaButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
             searchThisAreaButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
 
-            containerView.topAnchor.constraint(equalTo: marketButton.bottomAnchor, constant: 10),
+            containerView.topAnchor.constraint(equalTo: marketButton.bottomAnchor, constant: 15),
             containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            containerView.heightAnchor.constraint(equalToConstant: 30),
+            containerView.heightAnchor.constraint(equalToConstant: 40),
             containerView.widthAnchor.constraint(equalToConstant: 130)
         ])
 
         containerView.layer.masksToBounds = false
         containerView.layer.shadowColor = UIColor.gray.cgColor
-        containerView.layer.shadowOpacity = 1
+        containerView.layer.shadowOpacity = 0.6
         containerView.layer.shadowOffset = CGSize(width: 1, height: 2)
-        containerView.layer.shadowRadius = 2
-        containerView.layer.cornerRadius = 15
+        containerView.layer.shadowRadius = 1
+        containerView.layer.cornerRadius = 20
 
         searchThisAreaButton.clipsToBounds = true
-        searchThisAreaButton.layer.cornerRadius = 15
+        searchThisAreaButton.layer.cornerRadius = 20
     }
 
     func fetchNearbyPlace(keyword: String, location: CLLocation) {
@@ -143,19 +149,17 @@ class MapViewController: UIViewController {
 
     @objc func changeCategory(_ sender: UIButton) {
         self.mapView.clear()
+        infoWindow.removeFromSuperview()
+        searchThisAreaButton.isHidden = true
         buttons.forEach { button in
             button.isSelected = false
         }
         keyword = sender == marketButton ? "市場|supermarket" : "食物銀行"
-        fetchNearbyPlace(keyword: keyword, location: location)
+        fetchNearbyPlace(keyword: keyword, location: dynamicLocation)
         sender.isSelected = true
         backgroundCenter.isActive = false
         backgroundCenter = buttonBackground.centerXAnchor.constraint(equalTo: sender.centerXAnchor)
         backgroundCenter.isActive = true
-
-        backgroundWidth.isActive = false
-        backgroundWidth = buttonBackground.widthAnchor.constraint(equalTo: sender.widthAnchor, multiplier: 0.9)
-        backgroundWidth.isActive = true
 
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut) {
             self.view.layoutIfNeeded()
@@ -168,9 +172,9 @@ class MapViewController: UIViewController {
     }
 
     @objc func navigate() {
-        print("===導航")
         let locationString = "\(tappedMarker.position.latitude),\(tappedMarker.position.longitude)"
-        let url = URL(string: "comgooglemaps://?daddr=\(locationString)&directionsmode=driving&zoom=14")!
+        guard let url = URL(string: "comgooglemaps://?daddr=\(locationString)&directionsmode=driving&zoom=14")
+        else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }
@@ -187,6 +191,7 @@ extension MapViewController: CLLocationManagerDelegate {
             return
         }
         self.location = location
+        self.dynamicLocation = location
         mapView.animate(toLocation: location.coordinate)
         mapView.animate(toZoom: 13)
         manager.stopUpdatingLocation()
@@ -221,7 +226,6 @@ extension MapViewController: GMSMapViewDelegate {
         infoWindow = view
         infoWindow.layoutView(name: name, address: address)
         infoWindow.center = mapView.projection.point(for: location)
-        infoWindow.center.y += 20
         infoWindow.navigateButton.addTarget(self, action: #selector(navigate), for: .touchUpInside)
 
         self.view.addSubview(infoWindow)
@@ -233,7 +237,6 @@ extension MapViewController: GMSMapViewDelegate {
         if tappedMarker.userData != nil {
             let location = tappedMarker.position
             infoWindow.center = mapView.projection.point(for: location)
-            infoWindow.center.y += 20
         }
     }
 

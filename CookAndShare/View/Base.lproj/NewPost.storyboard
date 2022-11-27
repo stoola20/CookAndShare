@@ -232,6 +232,7 @@
                                             <outlet property="foodImage" destination="gDd-TN-g9K" id="JLa-Um-8Tf"/>
                                             <outlet property="meetPlaceTextField" destination="npx-8w-BIt" id="rOB-8P-uxR"/>
                                             <outlet property="meetTimeTextField" destination="GdU-ol-DtO" id="FqO-Oe-Xbw"/>
+                                            <outlet property="nameLabel" destination="qHn-bP-hMu" id="FkV-yi-DAX"/>
                                             <outlet property="titleTextField" destination="45M-1b-oDa" id="QFe-BN-pn8"/>
                                         </connections>
                                     </tableViewCell>
