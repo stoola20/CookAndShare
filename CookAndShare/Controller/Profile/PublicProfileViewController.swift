@@ -154,7 +154,7 @@ extension PublicProfileViewController: UICollectionViewDelegate {
                     let shareVC = storyboard.instantiateViewController(withIdentifier: String(describing: ShareViewController.self))
                         as? ShareViewController
                 else { fatalError("Could not create detailVC") }
-                shareVC.shares = [shares[indexPath.item]]
+                shareVC.shareId = shares[indexPath.item].shareId
                 shareVC.fromPublicVC = true
                 navigationController?.pushViewController(shareVC, animated: true)
             }

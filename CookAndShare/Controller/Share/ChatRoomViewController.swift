@@ -122,13 +122,6 @@ class ChatRoomViewController: UIViewController {
         sendVoiceButton.tintColor = UIColor.background
     }
 
-    @IBAction func sendMessage(_ sender: UIButton) {
-        guard let text = inputTextField.text else { return }
-        if text.isEmpty { return }
-        inputTextField.text = nil
-        uploadMessage(contentType: .text, content: text)
-    }
-
     func uploadMessage(contentType: ContentType, content: String, duration: Double = 0) {
         guard let friend = friend else { return }
         guard let conversation = conversation else {
@@ -505,6 +498,17 @@ extension ChatRoomViewController: CLLocationManagerDelegate {
 }
 
 extension ChatRoomViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        guard
+            let text = textField.text,
+            !text.isEmpty
+        else { return true }
+        textField.text = nil
+        uploadMessage(contentType: .text, content: text, duration: 0)
+        return true
+    }
+
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         hideAudioRecordView()
         return true

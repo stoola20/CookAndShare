@@ -121,23 +121,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N3w-26-Zp7">
                                 <rect key="frame" x="0.0" y="830" width="414" height="66"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" horizontalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uP5-Ll-y6l">
-                                        <rect key="frame" x="373" y="21.5" width="25" height="23.5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="vQU-C2-CZa"/>
-                                        </constraints>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="paperplane.fill" catalog="system">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="sendMessage:" destination="8hq-km-LIe" eventType="touchUpInside" id="djN-QE-tix"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b41-gQ-yOn">
-                                        <rect key="frame" x="16" y="21" width="25" height="24.5"/>
+                                        <rect key="frame" x="16" y="21" width="30" height="24.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="ubz-Am-WwD"/>
+                                            <constraint firstAttribute="width" constant="30" id="ubz-Am-WwD"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="mappin.and.ellipse" catalog="system">
@@ -148,9 +135,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CkD-rh-Zcw">
-                                        <rect key="frame" x="49" y="22" width="25" height="22.5"/>
+                                        <rect key="frame" x="54" y="22" width="30" height="22.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="MFg-Ax-B8F"/>
+                                            <constraint firstAttribute="width" constant="30" id="MFg-Ax-B8F"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="photo" catalog="system">
@@ -161,9 +148,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3F-lm-DID">
-                                        <rect key="frame" x="82" y="21" width="25" height="24.5"/>
+                                        <rect key="frame" x="92" y="21" width="30" height="24.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="25" id="xsC-lT-r4J"/>
+                                            <constraint firstAttribute="width" constant="30" id="xsC-lT-r4J"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="mic" catalog="system">
@@ -174,24 +161,22 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="請輸入訊息" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ntN-GX-90i">
-                                        <rect key="frame" x="115" y="16" width="250" height="34"/>
+                                        <rect key="frame" x="130" y="16" width="268" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="send"/>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" name="MyOrange"/>
                                 <constraints>
                                     <constraint firstItem="ntN-GX-90i" firstAttribute="leading" secondItem="c3F-lm-DID" secondAttribute="trailing" constant="8" id="5Jw-TM-wCO"/>
                                     <constraint firstAttribute="bottom" secondItem="ntN-GX-90i" secondAttribute="bottom" constant="16" id="7sS-cZ-hc4"/>
-                                    <constraint firstItem="uP5-Ll-y6l" firstAttribute="centerY" secondItem="b41-gQ-yOn" secondAttribute="centerY" id="9A1-YK-5cV"/>
                                     <constraint firstItem="c3F-lm-DID" firstAttribute="leading" secondItem="CkD-rh-Zcw" secondAttribute="trailing" constant="8" id="Cng-qh-gfP"/>
                                     <constraint firstItem="CkD-rh-Zcw" firstAttribute="centerY" secondItem="b41-gQ-yOn" secondAttribute="centerY" id="Ema-uG-gJ6"/>
-                                    <constraint firstAttribute="trailing" secondItem="uP5-Ll-y6l" secondAttribute="trailing" constant="16" id="MHc-UO-P4b"/>
                                     <constraint firstItem="b41-gQ-yOn" firstAttribute="leading" secondItem="N3w-26-Zp7" secondAttribute="leading" constant="16" id="PCD-43-S8t"/>
                                     <constraint firstItem="ntN-GX-90i" firstAttribute="centerY" secondItem="c3F-lm-DID" secondAttribute="centerY" id="TOi-1j-KuW"/>
+                                    <constraint firstAttribute="trailing" secondItem="ntN-GX-90i" secondAttribute="trailing" constant="16" id="bQo-u4-JdF"/>
                                     <constraint firstItem="CkD-rh-Zcw" firstAttribute="leading" secondItem="b41-gQ-yOn" secondAttribute="trailing" constant="8" id="eDA-H9-qn9"/>
                                     <constraint firstItem="ntN-GX-90i" firstAttribute="centerY" secondItem="b41-gQ-yOn" secondAttribute="centerY" id="f9W-qq-zrr"/>
-                                    <constraint firstItem="uP5-Ll-y6l" firstAttribute="leading" secondItem="ntN-GX-90i" secondAttribute="trailing" constant="8" id="tO8-PF-gyc"/>
                                     <constraint firstItem="ntN-GX-90i" firstAttribute="top" secondItem="N3w-26-Zp7" secondAttribute="top" constant="16" id="xFV-og-ukC"/>
                                 </constraints>
                             </view>
@@ -277,14 +262,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KDn-Qb-Oqa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="213.04347826086959" y="1423.6607142857142"/>
+            <point key="canvasLocation" x="-607" y="1424"/>
         </scene>
     </scenes>
     <color key="tintColor" name="DarkBrown"/>
     <resources>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
         <image name="mic" catalog="system" width="108" height="128"/>
-        <image name="paperplane.fill" catalog="system" width="128" height="118"/>
         <image name="photo" catalog="system" width="128" height="93"/>
         <image name="xmark.circle" catalog="system" width="128" height="121"/>
         <namedColor name="DarkBrown">
