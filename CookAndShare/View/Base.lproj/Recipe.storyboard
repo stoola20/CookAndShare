@@ -212,22 +212,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TST-eY-0yF">
-                                <rect key="frame" x="24" y="252" width="366" height="24"/>
+                                <rect key="frame" x="24" y="237" width="366" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" name="DarkBrown"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y71-1Z-s8y">
-                                <rect key="frame" x="24" y="406" width="366" height="24"/>
+                                <rect key="frame" x="24" y="376" width="366" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" name="DarkBrown"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shake" translatesAutoresizingMaskIntoConstraints="NO" id="akt-NB-hkM">
-                                <rect key="frame" x="175" y="460" width="64" height="64"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shakePhone_100" translatesAutoresizingMaskIntoConstraints="NO" id="akt-NB-hkM">
+                                <rect key="frame" x="157" y="415" width="100" height="100"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ywm-U1-7C5">
-                                <rect key="frame" x="132" y="306" width="150" height="50"/>
+                                <rect key="frame" x="132" y="276" width="150" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Xcu-RM-44x"/>
                                     <constraint firstAttribute="width" constant="150" id="Z4S-gT-sZH"/>
@@ -245,12 +245,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i96-6F-8oc">
-                                <rect key="frame" x="24" y="114" width="366" height="34"/>
+                                <rect key="frame" x="24" y="99" width="366" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EnZ-g0-09a">
-                                <rect key="frame" x="24" y="168" width="366" height="34"/>
+                                <rect key="frame" x="24" y="153" width="366" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -264,15 +264,15 @@
                             <constraint firstItem="oOY-3e-BVB" firstAttribute="trailing" secondItem="EnZ-g0-09a" secondAttribute="trailing" constant="24" id="7ne-0j-cfT"/>
                             <constraint firstItem="Nc1-ae-yCQ" firstAttribute="top" secondItem="oOY-3e-BVB" secondAttribute="top" constant="16" id="A4O-CD-Wb7"/>
                             <constraint firstItem="Nc1-ae-yCQ" firstAttribute="centerX" secondItem="ap4-fi-8lh" secondAttribute="centerX" id="BOn-iW-pqC"/>
-                            <constraint firstItem="i96-6F-8oc" firstAttribute="top" secondItem="Nc1-ae-yCQ" secondAttribute="bottom" constant="30" id="BuR-wa-wrJ"/>
+                            <constraint firstItem="i96-6F-8oc" firstAttribute="top" secondItem="Nc1-ae-yCQ" secondAttribute="bottom" constant="15" id="BuR-wa-wrJ"/>
                             <constraint firstItem="i96-6F-8oc" firstAttribute="leading" secondItem="oOY-3e-BVB" secondAttribute="leading" constant="24" id="FDg-QZ-djE"/>
-                            <constraint firstItem="akt-NB-hkM" firstAttribute="top" secondItem="Y71-1Z-s8y" secondAttribute="bottom" constant="30" id="Gxg-La-tY7"/>
+                            <constraint firstItem="akt-NB-hkM" firstAttribute="top" secondItem="Y71-1Z-s8y" secondAttribute="bottom" constant="15" id="Gxg-La-tY7"/>
                             <constraint firstItem="EnZ-g0-09a" firstAttribute="leading" secondItem="oOY-3e-BVB" secondAttribute="leading" constant="24" id="K92-68-7dn"/>
                             <constraint firstItem="Y71-1Z-s8y" firstAttribute="top" secondItem="ywm-U1-7C5" secondAttribute="bottom" constant="50" id="LrM-iV-QLF"/>
                             <constraint firstItem="TST-eY-0yF" firstAttribute="leading" secondItem="oOY-3e-BVB" secondAttribute="leading" constant="24" id="bTe-b7-QOY"/>
                             <constraint firstItem="EnZ-g0-09a" firstAttribute="top" secondItem="i96-6F-8oc" secondAttribute="bottom" constant="20" id="edZ-el-6B8"/>
                             <constraint firstItem="oOY-3e-BVB" firstAttribute="trailing" secondItem="TST-eY-0yF" secondAttribute="trailing" constant="24" id="mVD-px-pBv"/>
-                            <constraint firstItem="ywm-U1-7C5" firstAttribute="top" secondItem="TST-eY-0yF" secondAttribute="bottom" constant="30" id="qyM-ZP-CdA"/>
+                            <constraint firstItem="ywm-U1-7C5" firstAttribute="top" secondItem="TST-eY-0yF" secondAttribute="bottom" constant="15" id="qyM-ZP-CdA"/>
                             <constraint firstItem="TST-eY-0yF" firstAttribute="top" secondItem="EnZ-g0-09a" secondAttribute="bottom" constant="50" id="slu-Hp-Ndv"/>
                             <constraint firstItem="oOY-3e-BVB" firstAttribute="trailing" secondItem="Y71-1Z-s8y" secondAttribute="trailing" constant="24" id="vOE-9c-bbY"/>
                             <constraint firstItem="Y71-1Z-s8y" firstAttribute="leading" secondItem="oOY-3e-BVB" secondAttribute="leading" constant="24" id="wMF-6l-mMS"/>
@@ -479,7 +479,7 @@
         <image name="chevron.backward.circle.fill" catalog="system" width="128" height="121"/>
         <image name="empty-bowl" width="256" height="256"/>
         <image name="heart" catalog="system" width="128" height="109"/>
-        <image name="shake" width="64" height="64"/>
+        <image name="shakePhone_100" width="100" height="100"/>
         <image name="takePhoto" width="256" height="256"/>
         <namedColor name="DarkBrown">
             <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
