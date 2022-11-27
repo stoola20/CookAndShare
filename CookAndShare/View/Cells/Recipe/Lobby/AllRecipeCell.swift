@@ -83,6 +83,7 @@ class AllRecipeCell: UICollectionViewCell {
                 let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
                     as? LoginViewController
             else { fatalError("Could not create loginVC") }
+            loginVC.isPresented = true
             viewController?.present(loginVC, animated: true)
         } else {
             firestoreManager.updateRecipeSaves(recipeId: recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)

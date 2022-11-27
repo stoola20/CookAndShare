@@ -221,6 +221,7 @@ extension PublicProfileViewController: PublicProfileHeaderCellDelegate {
                 let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
                     as? LoginViewController
             else { fatalError("Could not create loginVC") }
+            loginVC.isPresented = true
             present(loginVC, animated: true)
         } else {
             let storyboard = UIStoryboard(name: Constant.share, bundle: nil)

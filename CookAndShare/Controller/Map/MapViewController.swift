@@ -226,7 +226,6 @@ extension MapViewController: GMSMapViewDelegate {
         infoWindow = view
         infoWindow.layoutView(name: name, address: address)
         infoWindow.center = mapView.projection.point(for: location)
-        infoWindow.center.y += 20
         infoWindow.navigateButton.addTarget(self, action: #selector(navigate), for: .touchUpInside)
 
         self.view.addSubview(infoWindow)
@@ -238,7 +237,6 @@ extension MapViewController: GMSMapViewDelegate {
         if tappedMarker.userData != nil {
             let location = tappedMarker.position
             infoWindow.center = mapView.projection.point(for: location)
-            infoWindow.center.y += 20
         }
     }
 

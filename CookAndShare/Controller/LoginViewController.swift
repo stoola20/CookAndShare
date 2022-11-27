@@ -18,8 +18,9 @@ import SwiftUI
 import Alamofire
 
 class LoginViewController: UIViewController {
+    var isPresented = false
     private var currentNonce: String?
-    let firestoreManager = FirestoreManager.shared
+    private let firestoreManager = FirestoreManager.shared
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var titleLabel: UILabel!
@@ -155,15 +156,20 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                     print("成功以 Apple 登入 Firebase")
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     guard
-                        let tabController = storyboard.instantiateViewController(withIdentifier: String(describing: TabBarController.self))
+                        let tabController = storyboard.instantiateViewController(
+                            withIdentifier: String(describing: TabBarController.self)
+                        )
                             as? TabBarController,
                         let tabBarControllers = tabController.viewControllers
                     else { fatalError("Could not instantiate tabController") }
-
-                    var childViewControllers = self.tabBarController?.viewControllers
-                    if let selectedTabIndex = self.tabBarController?.selectedIndex {
-                        childViewControllers?.replaceSubrange(selectedTabIndex...selectedTabIndex, with: [tabBarControllers[selectedTabIndex]])
+                    if self.isPresented {
+                        UserDefaults.standard.set(false, forKey: "normalAppearance")
+                    } else {
+                        UserDefaults.standard.set(true, forKey: "normalAppearance")
                     }
+                    var childViewControllers = self.tabBarController?.viewControllers
+                    childViewControllers?.replaceSubrange(2...2, with: [tabBarControllers[2]])
+                    childViewControllers?.replaceSubrange(4...4, with: [tabBarControllers[4]])
                     self.tabBarController?.viewControllers = childViewControllers
                     self.dismiss(animated: true)
                 }

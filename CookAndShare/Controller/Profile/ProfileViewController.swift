@@ -114,15 +114,30 @@ class ProfileViewController: UIViewController {
     func showLoginVC() {
         let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
         guard
-            let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
-                as? LoginViewController
+            let messageLoginVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: LoginViewController.self)
+            )
+                as? LoginViewController,
+            let profileLoginVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: LoginViewController.self)
+            )
+            as? LoginViewController
         else { fatalError("Could not instantiate LoginViewController") }
-        loginVC.tabBarItem = UITabBarItem(title: "個人", image: UIImage(named: "account_gray_25"), selectedImage: UIImage(named: "account_25"))
-        var arrayChildViewControllers = self.tabBarController?.viewControllers
-        if let selectedTabIndex = tabBarController?.selectedIndex {
-            arrayChildViewControllers?.replaceSubrange(selectedTabIndex...selectedTabIndex, with: [loginVC])
-        }
-        self.tabBarController?.viewControllers = arrayChildViewControllers
+        messageLoginVC.tabBarItem = UITabBarItem(
+            title: "訊息",
+            image: UIImage(named: "chat_gray_25"),
+            selectedImage: UIImage(named: "chat_25")
+        )
+        profileLoginVC.tabBarItem = UITabBarItem(
+            title: "個人",
+            image: UIImage(named: "account_gray_25"),
+            selectedImage: UIImage(named: "account_25")
+        )
+        var childViewControllers = self.tabBarController?.viewControllers
+        childViewControllers?.replaceSubrange(2...2, with: [messageLoginVC])
+        childViewControllers?.replaceSubrange(4...4, with: [profileLoginVC])
+        self.tabBarController?.viewControllers = childViewControllers
+        UserDefaults.standard.set(false, forKey: "normalAppearance")
     }
 
     func deleteAccount() {

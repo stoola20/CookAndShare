@@ -58,6 +58,12 @@ class RecipeViewController: UIViewController {
             self.downloadRecipes()
         }
         collectionView.es.startPullToRefresh()
+
+        if Auth.auth().currentUser == nil {
+            UserDefaults.standard.set(false, forKey: "normalAppearance")
+        } else {
+            UserDefaults.standard.set(true, forKey: "normalAppearance")
+        }
     }
 
     func setUpNavBar() {
@@ -104,6 +110,7 @@ class RecipeViewController: UIViewController {
                 let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
                     as? LoginViewController
             else { fatalError("Could not create loginVC") }
+            loginVC.isPresented = true
             present(loginVC, animated: true)
         } else {
             let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
