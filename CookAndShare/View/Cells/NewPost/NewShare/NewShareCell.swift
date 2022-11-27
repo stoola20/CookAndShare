@@ -102,11 +102,14 @@ extension NewShareCell: UITextFieldDelegate {
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let currentText = textField.text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-        let characterCount = updatedText.count <= 14 ? updatedText.count : 14
-        nameLabel.text = "分享物 (\(characterCount) / 14)"
-        return updatedText.count <= 14
+        if textField == titleTextField {
+            let currentText = textField.text ?? ""
+            guard let stringRange = Range(range, in: currentText) else { return false }
+            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+            let characterCount = updatedText.count <= 14 ? updatedText.count : 14
+            nameLabel.text = "分享物 (\(characterCount) / 14)"
+            return updatedText.count <= 14
+        }
+        return true
     }
 }

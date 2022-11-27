@@ -58,12 +58,6 @@ class RecipeViewController: UIViewController {
             self.downloadRecipes()
         }
         collectionView.es.startPullToRefresh()
-        print(NSPersistentContainer.defaultDirectoryURL())
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        downloadRecipes()
     }
 
     func setUpNavBar() {
@@ -149,8 +143,9 @@ class RecipeViewController: UIViewController {
 
                 self.allRecipes = recipes.sorted { $0.time.seconds > $1.time.seconds }
                 self.filterRecipe(byTag: self.selectedTag)
+
                 DispatchQueue.main.async {
-                    self.collectionView.reloadItems(at: [self.indexPath])
+                    self.collectionView.reloadSections(IndexSet(integer: 0))
                     self.collectionView.es.stopPullToRefresh()
                 }
             case .failure(let error):
@@ -307,7 +302,6 @@ extension RecipeViewController: UICollectionViewDataSource {
 extension RecipeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
-        self.indexPath = indexPath
         let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
         guard let detailVC = storyboard.instantiateViewController(
             withIdentifier: String(describing: DetailRecipeViewController.self))
@@ -338,7 +332,7 @@ extension RecipeViewController {
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
                 item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
 
-                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.7), heightDimension: .fractionalWidth(0.65))
+                let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.7), heightDimension: .fractionalWidth(0.7))
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
                 let section = NSCollectionLayoutSection(group: group)

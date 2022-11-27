@@ -158,11 +158,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="iDp-0t-H8f">
-                                <rect key="frame" x="0.0" y="118" width="414" height="678"/>
+                                <rect key="frame" x="0.0" y="118" width="414" height="658"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nvd-xP-Jqw">
-                                <rect key="frame" x="107" y="812" width="200" height="50"/>
+                                <rect key="frame" x="107" y="792" width="200" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Ofb-q0-ABC"/>
                                     <constraint firstAttribute="height" constant="50" id="RyB-r3-2hJ"/>
@@ -189,7 +189,7 @@
                             <constraint firstItem="iDp-0t-H8f" firstAttribute="top" secondItem="TSF-le-0vn" secondAttribute="bottom" constant="20" id="83H-yI-W6W"/>
                             <constraint firstItem="TSF-le-0vn" firstAttribute="centerX" secondItem="RNh-ks-K2h" secondAttribute="centerX" id="CTq-RS-eSG"/>
                             <constraint firstItem="Nvd-xP-Jqw" firstAttribute="centerX" secondItem="RNh-ks-K2h" secondAttribute="centerX" id="iHH-ci-KPN"/>
-                            <constraint firstItem="Nvd-xP-Jqw" firstAttribute="bottom" secondItem="Z7R-eN-N4n" secondAttribute="bottom" id="p8R-QN-2PN"/>
+                            <constraint firstItem="Nvd-xP-Jqw" firstAttribute="bottom" secondItem="Z7R-eN-N4n" secondAttribute="bottom" constant="-20" id="p8R-QN-2PN"/>
                             <constraint firstItem="iDp-0t-H8f" firstAttribute="trailing" secondItem="Z7R-eN-N4n" secondAttribute="trailing" id="qkK-GG-oeO"/>
                         </constraints>
                     </view>
@@ -470,6 +470,9 @@
             <point key="canvasLocation" x="-397" y="1769"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="z0v-FM-mRJ"/>
+    </designables>
     <color key="tintColor" name="DarkBrown"/>
     <resources>
         <image name="bookmark" catalog="system" width="112" height="128"/>
