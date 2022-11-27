@@ -48,7 +48,6 @@ class LoginViewController: UIViewController {
             animationView.contentMode = .scaleAspectFit
             animationView.loopMode = .loop
             animationView.animationSpeed = 1
-            animationView.play()
         }
         animationViews[0].play()
     }

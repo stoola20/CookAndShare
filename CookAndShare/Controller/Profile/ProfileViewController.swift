@@ -107,7 +107,7 @@ class ProfileViewController: UIViewController {
             headers: headers
         )
         .responseData { response in
-            print("===revoke status code \(response.response?.statusCode)")
+            print("===revoke status code \(String(describing: response.response?.statusCode))")
         }
     }
 

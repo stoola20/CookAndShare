@@ -18,20 +18,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZW9-OQ-7Is">
-                                <rect key="frame" x="44" y="49" width="140" height="40"/>
-                                <color key="backgroundColor" name="MyOrange"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pv8-BD-yYG" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="94" width="414" height="768"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="MFX-mv-kX3">
-                                <rect key="frame" x="36" y="44" width="342" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sy6-FN-HdS">
+                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
+                                <color key="backgroundColor" name="LightOrange"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="RUd-7E-Hxa"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZW9-OQ-7Is">
+                                <rect key="frame" x="62" y="49" width="120" height="40"/>
+                                <color key="backgroundColor" name="MyOrange"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="nEP-rk-VfT"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="MFX-mv-kX3">
+                                <rect key="frame" x="52" y="44" width="310" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j1O-hY-Ulj">
-                                        <rect key="frame" x="0.0" y="0.0" width="156" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="140" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="140" id="GYp-14-toc"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="超市及市場"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6f7-AP-dTf">
-                                        <rect key="frame" x="186" y="0.0" width="156" height="50"/>
+                                        <rect key="frame" x="170" y="0.0" width="140" height="50"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="食物銀行"/>
                                     </button>
@@ -40,31 +57,28 @@
                                     <constraint firstAttribute="height" constant="50" id="dBq-tD-vtE"/>
                                 </constraints>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pv8-BD-yYG" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="94" width="414" height="768"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="G8Z-gB-717"/>
-                        <color key="backgroundColor" name="LightOrange"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="G8Z-gB-717" firstAttribute="trailing" secondItem="Pv8-BD-yYG" secondAttribute="trailing" id="6pK-3Y-oE5"/>
-                            <constraint firstItem="MFX-mv-kX3" firstAttribute="leading" secondItem="G8Z-gB-717" secondAttribute="leading" constant="36" id="9NU-En-ow5"/>
-                            <constraint firstItem="ZW9-OQ-7Is" firstAttribute="width" secondItem="j1O-hY-Ulj" secondAttribute="width" multiplier="0.9" id="JmU-Ro-Bt9"/>
+                            <constraint firstItem="sy6-FN-HdS" firstAttribute="top" secondItem="G8Z-gB-717" secondAttribute="top" id="I06-sV-Ikp"/>
                             <constraint firstItem="MFX-mv-kX3" firstAttribute="top" secondItem="G8Z-gB-717" secondAttribute="top" id="LDI-Mh-N2y"/>
                             <constraint firstItem="Pv8-BD-yYG" firstAttribute="leading" secondItem="G8Z-gB-717" secondAttribute="leading" id="MzN-Ez-EFB"/>
                             <constraint firstItem="ZW9-OQ-7Is" firstAttribute="height" secondItem="j1O-hY-Ulj" secondAttribute="height" multiplier="0.8" id="c50-zU-AGm"/>
                             <constraint firstItem="ZW9-OQ-7Is" firstAttribute="centerX" secondItem="j1O-hY-Ulj" secondAttribute="centerX" id="d32-OX-Pty"/>
-                            <constraint firstItem="G8Z-gB-717" firstAttribute="trailing" secondItem="MFX-mv-kX3" secondAttribute="trailing" constant="36" id="fo4-ZQ-buC"/>
+                            <constraint firstItem="G8Z-gB-717" firstAttribute="trailing" secondItem="sy6-FN-HdS" secondAttribute="trailing" id="eew-F7-GIp"/>
                             <constraint firstItem="ZW9-OQ-7Is" firstAttribute="centerY" secondItem="j1O-hY-Ulj" secondAttribute="centerY" id="hzM-I1-Qjb"/>
+                            <constraint firstItem="sy6-FN-HdS" firstAttribute="leading" secondItem="G8Z-gB-717" secondAttribute="leading" id="m5e-3C-VaP"/>
                             <constraint firstItem="G8Z-gB-717" firstAttribute="bottom" secondItem="Pv8-BD-yYG" secondAttribute="bottom" id="pwJ-kE-gMs"/>
+                            <constraint firstItem="MFX-mv-kX3" firstAttribute="centerX" secondItem="pvM-XA-ygd" secondAttribute="centerX" id="rwd-tR-hcE"/>
                             <constraint firstItem="Pv8-BD-yYG" firstAttribute="top" secondItem="MFX-mv-kX3" secondAttribute="bottom" id="vtx-dc-xdj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="soV-pa-7wi"/>
                     <connections>
                         <outlet property="backgroundCenter" destination="d32-OX-Pty" id="aAx-ke-fRJ"/>
-                        <outlet property="backgroundWidth" destination="JmU-Ro-Bt9" id="aEu-sR-2Za"/>
+                        <outlet property="bannerBackground" destination="sy6-FN-HdS" id="hk4-9A-ut3"/>
                         <outlet property="buttonBackground" destination="ZW9-OQ-7Is" id="Noo-YF-vpm"/>
                         <outlet property="foodBankButton" destination="6f7-AP-dTf" id="Y5s-af-ZPD"/>
                         <outlet property="mapView" destination="Pv8-BD-yYG" id="egm-e2-SGE"/>
