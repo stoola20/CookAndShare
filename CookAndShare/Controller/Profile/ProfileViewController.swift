@@ -150,6 +150,15 @@ class ProfileViewController: UIViewController {
         let confirmAction = UIAlertAction(title: "確認刪除", style: .destructive) { [weak self] _ in
             guard let self = self else { return }
             self.signInWithApple()
+            self.firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let user):
+                    self.user = user
+                case .failure(let error):
+                    print(error)
+                }
+            }
         }
 
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
