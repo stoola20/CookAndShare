@@ -32,12 +32,6 @@ class ShareViewController: UIViewController {
 
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(
-                image: UIImage(systemName: "message"),
-                style: .plain,
-                target: self,
-                action: #selector(showMessage)
-            ),
-            UIBarButtonItem(
                 image: UIImage(systemName: "plus.circle"),
                 style: .plain,
                 target: self,
@@ -111,26 +105,6 @@ class ShareViewController: UIViewController {
                     as? NewShareViewController
             else { fatalError("Could not create newShareVC") }
             navigationController?.pushViewController(newShareVC, animated: true)
-        }
-    }
-
-    @objc func showMessage() {
-        if Auth.auth().currentUser == nil {
-            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
-                    as? LoginViewController
-            else { fatalError("Could not create loginVC") }
-            present(loginVC, animated: true)
-        } else {
-            let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
-            guard
-                let chatListVC = storyboard.instantiateViewController(
-                    withIdentifier: String(describing: ChatListViewController.self)
-                )
-                    as? ChatListViewController
-            else { fatalError("Could not create ChatListViewController") }
-            navigationController?.pushViewController(chatListVC, animated: true)
         }
     }
 }

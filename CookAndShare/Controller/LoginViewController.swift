@@ -162,8 +162,9 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                     else { fatalError("Could not instantiate tabController") }
 
                     var childViewControllers = self.tabBarController?.viewControllers
-
-                    childViewControllers?.replaceSubrange(3...3, with: [tabBarControllers[3]])
+                    if let selectedTabIndex = self.tabBarController?.selectedIndex {
+                        childViewControllers?.replaceSubrange(selectedTabIndex...selectedTabIndex, with: [tabBarControllers[selectedTabIndex]])
+                    }
                     self.tabBarController?.viewControllers = childViewControllers
                     self.dismiss(animated: true)
                 }
