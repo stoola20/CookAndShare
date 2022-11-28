@@ -72,6 +72,7 @@
 		378EA50A291CEAF8004200F9 /* UIDatePicker+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */; };
 		37A31314292E4DB8007E5E8C /* JWTClaims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31313292E4DB8007E5E8C /* JWTClaims.swift */; };
 		37A31316292E6FF6007E5E8C /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31315292E6FF6007E5E8C /* Params.swift */; };
+		37B2E10C293497E6008BF0B8 /* Pods_CookAndShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */; };
 		37BA50AC292FB6E500E88C57 /* JWTid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA50AB292FB6E500E88C57 /* JWTid.swift */; };
 		37C622E72919FB4600A84263 /* FoodRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */; };
 		37C622E9291A09E500A84263 /* SeeFood.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E8291A09E400A84263 /* SeeFood.mlmodel */; };
@@ -143,7 +144,6 @@
 		37E63635290E60F700D516D4 /* DetailProcedureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63633290E60F700D516D4 /* DetailProcedureCell.swift */; };
 		37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E63634290E60F700D516D4 /* DetailProcedureCell.xib */; };
 		37FE7987291B935D005A3E3E /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE7986291B935D005A3E3E /* UIColor+Ext.swift */; };
-		3FCAABA4B3E38E622861E889 /* Pods_CookAndShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -297,7 +297,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3FCAABA4B3E38E622861E889 /* Pods_CookAndShare.framework in Frameworks */,
+				37B2E10C293497E6008BF0B8 /* Pods_CookAndShare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1238,6 +1238,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CookAndShare/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "好享煮飯";

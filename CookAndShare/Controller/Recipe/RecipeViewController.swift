@@ -58,12 +58,6 @@ class RecipeViewController: UIViewController {
             self.downloadRecipes()
         }
         collectionView.es.startPullToRefresh()
-
-        if Auth.auth().currentUser == nil {
-            UserDefaults.standard.set(false, forKey: "normalAppearance")
-        } else {
-            UserDefaults.standard.set(true, forKey: "normalAppearance")
-        }
     }
 
     func setUpNavBar() {

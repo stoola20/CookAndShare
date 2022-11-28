@@ -20,7 +20,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             viewController == viewControllers[2] || viewController == viewControllers[4]
         else { return }
         let normalAppearance = UserDefaults.standard.bool(forKey: "normalAppearance")
-        if Auth.auth().currentUser == nil && normalAppearance {
+        if Auth.auth().currentUser == nil {
             print("===No user is signed in.")
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
             guard
