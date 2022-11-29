@@ -66,34 +66,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ify-bK-SVA">
-                                <rect key="frame" x="0.0" y="84" width="414" height="300"/>
+                                <rect key="frame" x="0.0" y="84" width="414" height="250"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="vob-3O-ulM">
-                                        <rect key="frame" x="0.0" y="0.0" width="1656" height="300"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1656" height="250"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vdT-BN-PF6" customClass="LottieAnimationView" customModule="Lottie">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="shareFood"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwd-uM-Rcc" customClass="LottieAnimationView" customModule="Lottie">
-                                                <rect key="frame" x="414" y="0.0" width="414" height="300"/>
+                                                <rect key="frame" x="414" y="0.0" width="414" height="250"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="socialNetworking"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hsQ-Ug-lMr" customClass="LottieAnimationView" customModule="Lottie">
-                                                <rect key="frame" x="828" y="0.0" width="414" height="300"/>
+                                                <rect key="frame" x="828" y="0.0" width="414" height="250"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="taskList"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zRC-9u-8Xa" customClass="LottieAnimationView" customModule="Lottie">
-                                                <rect key="frame" x="1242" y="0.0" width="414" height="300"/>
+                                                <rect key="frame" x="1242" y="0.0" width="414" height="250"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="cloudStorage"/>
@@ -103,7 +103,7 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="IXn-Ga-xxG"/>
+                                    <constraint firstAttribute="height" constant="250" id="IXn-Ga-xxG"/>
                                     <constraint firstItem="t2O-rL-DyU" firstAttribute="width" secondItem="vdT-BN-PF6" secondAttribute="width" id="M4D-hu-OJd"/>
                                     <constraint firstItem="vob-3O-ulM" firstAttribute="bottom" secondItem="LzQ-db-eq4" secondAttribute="bottom" id="OH8-Br-TI3"/>
                                     <constraint firstItem="vob-3O-ulM" firstAttribute="top" secondItem="LzQ-db-eq4" secondAttribute="top" id="VeJ-4y-fTS"/>
@@ -115,24 +115,24 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="t2O-rL-DyU"/>
                             </scrollView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="4" translatesAutoresizingMaskIntoConstraints="NO" id="99q-oP-wez">
-                                <rect key="frame" x="141" y="396" width="132.5" height="26"/>
+                                <rect key="frame" x="141" y="346" width="132.5" height="26"/>
                                 <color key="pageIndicatorTintColor" name="MyOrange"/>
                                 <color key="currentPageIndicatorTintColor" name="DarkBrown"/>
                             </pageControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8h6-At-vFh">
-                                <rect key="frame" x="186.5" y="434" width="41.5" height="20.5"/>
+                                <rect key="frame" x="186.5" y="384" width="41.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxd-ok-cPC">
-                                <rect key="frame" x="24" y="466.5" width="366" height="20.5"/>
+                                <rect key="frame" x="24" y="416.5" width="366" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1qf-53-6US">
-                                <rect key="frame" x="139.5" y="507" width="135.5" height="13.5"/>
+                                <rect key="frame" x="139.5" y="447" width="135.5" height="13.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="註冊等同於接受" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSa-Xc-U4f">
                                         <rect key="frame" x="0.0" y="0.0" width="79" height="13.5"/>
@@ -156,7 +156,7 @@
                             <constraint firstItem="49p-tT-CD3" firstAttribute="trailing" secondItem="dxd-ok-cPC" secondAttribute="trailing" constant="24" id="0yQ-Oc-qEC"/>
                             <constraint firstItem="49p-tT-CD3" firstAttribute="trailing" secondItem="Ify-bK-SVA" secondAttribute="trailing" id="5PM-BS-qfL"/>
                             <constraint firstItem="8h6-At-vFh" firstAttribute="centerX" secondItem="cak-pe-FYu" secondAttribute="centerX" id="6wd-rr-Zmi"/>
-                            <constraint firstItem="1qf-53-6US" firstAttribute="top" secondItem="dxd-ok-cPC" secondAttribute="bottom" constant="20" id="C2T-9t-Lyy"/>
+                            <constraint firstItem="1qf-53-6US" firstAttribute="top" secondItem="dxd-ok-cPC" secondAttribute="bottom" constant="10" id="C2T-9t-Lyy"/>
                             <constraint firstItem="99q-oP-wez" firstAttribute="centerX" secondItem="cak-pe-FYu" secondAttribute="centerX" id="Eei-Cf-ngC"/>
                             <constraint firstItem="Ify-bK-SVA" firstAttribute="top" secondItem="49p-tT-CD3" secondAttribute="top" constant="40" id="QT8-8B-Kcs"/>
                             <constraint firstItem="dxd-ok-cPC" firstAttribute="top" secondItem="8h6-At-vFh" secondAttribute="bottom" constant="12" id="Thy-6k-cvj"/>
@@ -320,12 +320,6 @@
             <point key="canvasLocation" x="2726" y="1424"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="hsQ-Ug-lMr"/>
-        <designable name="iwd-uM-Rcc"/>
-        <designable name="vdT-BN-PF6"/>
-        <designable name="zRC-9u-8Xa"/>
-    </designables>
     <resources>
         <namedColor name="DarkBrown">
             <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
