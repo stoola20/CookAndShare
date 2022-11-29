@@ -24,6 +24,7 @@ class ChatListViewController: UIViewController {
         return background
     }()
 
+    @IBOutlet weak var noConversationLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
@@ -39,6 +40,7 @@ class ChatListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchChatList()
+        noConversationLabel.isHidden = true
     }
 
     func setUpTableView() {
@@ -85,6 +87,7 @@ class ChatListViewController: UIViewController {
                 else { return true }
                 return lastMessage1.time.seconds > lastMessage2.time.seconds
             }
+            self.noConversationLabel.isHidden = self.conversations.isEmpty ? false : true
             self.tableView.reloadData()
             self.tableView.es.stopPullToRefresh()
         }

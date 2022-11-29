@@ -132,7 +132,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1qf-53-6US">
-                                <rect key="frame" x="139.5" y="457" width="135.5" height="13.5"/>
+                                <rect key="frame" x="139.5" y="447" width="135.5" height="13.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="註冊等同於接受" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSa-Xc-U4f">
                                         <rect key="frame" x="0.0" y="0.0" width="79" height="13.5"/>
@@ -156,7 +156,7 @@
                             <constraint firstItem="49p-tT-CD3" firstAttribute="trailing" secondItem="dxd-ok-cPC" secondAttribute="trailing" constant="24" id="0yQ-Oc-qEC"/>
                             <constraint firstItem="49p-tT-CD3" firstAttribute="trailing" secondItem="Ify-bK-SVA" secondAttribute="trailing" id="5PM-BS-qfL"/>
                             <constraint firstItem="8h6-At-vFh" firstAttribute="centerX" secondItem="cak-pe-FYu" secondAttribute="centerX" id="6wd-rr-Zmi"/>
-                            <constraint firstItem="1qf-53-6US" firstAttribute="top" secondItem="dxd-ok-cPC" secondAttribute="bottom" constant="20" id="C2T-9t-Lyy"/>
+                            <constraint firstItem="1qf-53-6US" firstAttribute="top" secondItem="dxd-ok-cPC" secondAttribute="bottom" constant="10" id="C2T-9t-Lyy"/>
                             <constraint firstItem="99q-oP-wez" firstAttribute="centerX" secondItem="cak-pe-FYu" secondAttribute="centerX" id="Eei-Cf-ngC"/>
                             <constraint firstItem="Ify-bK-SVA" firstAttribute="top" secondItem="49p-tT-CD3" secondAttribute="top" constant="40" id="QT8-8B-Kcs"/>
                             <constraint firstItem="dxd-ok-cPC" firstAttribute="top" secondItem="8h6-At-vFh" secondAttribute="bottom" constant="12" id="Thy-6k-cvj"/>
