@@ -31,8 +31,6 @@ class RecipeTypeCell: UICollectionViewCell {
         let inset: CGFloat = 5
 
         NSLayoutConstraint.activate([
-//            typeButton.widthAnchor.constraint(equalToConstant: 70),
-//            typeButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             typeButton.leadingAnchor.constraint(equalTo: leadingAnchor),
             typeButton.trailingAnchor.constraint(equalTo: trailingAnchor),
             typeButton.topAnchor.constraint(equalTo: topAnchor, constant: inset),

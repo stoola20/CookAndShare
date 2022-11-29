@@ -351,6 +351,18 @@ extension ProfileViewController: ProfileUserCellDelegate {
         controller.addAction(cameraAction)
         controller.addAction(photoLibraryAction)
         controller.addAction(cancelAction)
+
+        if let popoverController = controller.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(
+                x: self.view.bounds.midX,
+                y: self.view.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            popoverController.permittedArrowDirections = []
+        }
+
         present(controller, animated: true, completion: nil)
     }
 }
