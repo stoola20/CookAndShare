@@ -1331,7 +1331,7 @@
 		3075864EED2997C59BFB51E45195373C /* fs.c in Sources */ = {isa = PBXBuildFile; fileRef = 878787FFCF09C369F11F19308C55446D /* fs.c */; settings = {COMPILER_FLAGS = "-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_DARWIN_USE_64_BIT_INODE=1 -D_DARWIN_UNLIMITED_SELECT=1 -fno-objc-arc"; }; };
 		307F881E82BA7C11EEFF28DA4E92D1B4 /* number.upb.h in Headers */ = {isa = PBXBuildFile; fileRef = 49239180113620EFD804B5A9F2C4E25E /* number.upb.h */; };
 		308BFEE7B553F861510BF7C249CD2850 /* overlay.cc in Sources */ = {isa = PBXBuildFile; fileRef = A2364BF606096C3AC9428BC90BFCF598 /* overlay.cc */; settings = {COMPILER_FLAGS = "$(inherited) -Wreorder -Werror=reorder -Wno-comma -fno-objc-arc"; }; };
-		308C4A9BD8A248144C8959B362395245 /* gRPC-C++-gRPCCertificates-Cpp in Resources */ = {isa = PBXBuildFile; fileRef = 9C7C87B5D0A6752AFA2642F1BCA967A3 /* gRPC-C++-gRPCCertificates-Cpp */; };
+		308C4A9BD8A248144C8959B362395245 /* gRPCCertificates-Cpp.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9C7C87B5D0A6752AFA2642F1BCA967A3 /* gRPCCertificates-Cpp.bundle */; };
 		309337D96C54354485D71878672DA459 /* cast.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = A48C08544AE7D6E7AD70FA045B15F65F /* cast.h */; };
 		309F672875850A278A7001C76AD1C895 /* outlier_detection.upb.h in Copy src/core/ext/upb-generated/envoy/config/cluster/v3 Private Headers */ = {isa = PBXBuildFile; fileRef = 1B1E7C8812E594F84D23A44FB3636B7F /* outlier_detection.upb.h */; };
 		30A0060F8B8BBAECB029B446129CF03E /* random.c in Sources */ = {isa = PBXBuildFile; fileRef = 677D9F899C89D1F1A73CC5B5A0AD6F7E /* random.c */; settings = {COMPILER_FLAGS = "-DOPENSSL_NO_ASM -GCC_WARN_INHIBIT_ALL_WARNINGS -w -DBORINGSSL_PREFIX=GRPC -fno-objc-arc"; }; };
@@ -6243,7 +6243,7 @@
 		E7E377816D7ED21CE377F8A60C259D34 /* timer_manager.h in Headers */ = {isa = PBXBuildFile; fileRef = 67E62283DE6CB63F24BC126C7CE9115C /* timer_manager.h */; };
 		E7ED43C016E400A8188DE76BCCC28377 /* cipher.c in Sources */ = {isa = PBXBuildFile; fileRef = C0FF81D7692F98619FEECDD590BB86AE /* cipher.c */; settings = {COMPILER_FLAGS = "-DOPENSSL_NO_ASM -GCC_WARN_INHIBIT_ALL_WARNINGS -w -DBORINGSSL_PREFIX=GRPC -fno-objc-arc"; }; };
 		E7EDC5A41037D8255EFE74BF7D27F5B0 /* alts_tsi_handshaker.h in Copy src/core/tsi/alts/handshaker Private Headers */ = {isa = PBXBuildFile; fileRef = 44DAB0C0DB7813D20A6FB0553C14AA9C /* alts_tsi_handshaker.h */; };
-		E8137D5998AD2C7469F9AF4A01E9CE1A /* ESPullToRefresh-ESPullToRefresh in Resources */ = {isa = PBXBuildFile; fileRef = BADAA893FFBF2C0B3B1CC6468C1C685F /* ESPullToRefresh-ESPullToRefresh */; };
+		E8137D5998AD2C7469F9AF4A01E9CE1A /* ESPullToRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BADAA893FFBF2C0B3B1CC6468C1C685F /* ESPullToRefresh.bundle */; };
 		E814D40BF14ECF90C3FD00578C2BCA23 /* FIRCLSProfiling.h in Headers */ = {isa = PBXBuildFile; fileRef = 6851A7821C6D1D5CAF120CB996A65A51 /* FIRCLSProfiling.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		E81EB352937CD0BBAE6B063C63CD1960 /* hash_function_defaults.h in Headers */ = {isa = PBXBuildFile; fileRef = AB61EB315A7518B8256E141CB1608222 /* hash_function_defaults.h */; };
 		E82E6B812E27C1D0EC5CA37D91F3234A /* safestack.h in Copy . Public Headers */ = {isa = PBXBuildFile; fileRef = 47078B403DD25C791BFBAEC7C3CA8CDE /* safestack.h */; };
@@ -17014,7 +17014,7 @@
 		9C63AB766D1F12CE6334BA1EA40A0570 /* alts_record_protocol_crypter_common.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = alts_record_protocol_crypter_common.h; path = src/core/tsi/alts/frame_protector/alts_record_protocol_crypter_common.h; sourceTree = "<group>"; };
 		9C65FE2C0A4FD92CC4C35663D62DD2D1 /* Box.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Box.swift; path = Sources/Utility/Box.swift; sourceTree = "<group>"; };
 		9C7313C9E984BD778C405A0BBCAA7A21 /* FIRCLSInternalLogging.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = FIRCLSInternalLogging.c; path = Crashlytics/Crashlytics/Helpers/FIRCLSInternalLogging.c; sourceTree = "<group>"; };
-		9C7C87B5D0A6752AFA2642F1BCA967A3 /* gRPC-C++-gRPCCertificates-Cpp */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "gRPC-C++-gRPCCertificates-Cpp"; path = "gRPCCertificates-Cpp.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C7C87B5D0A6752AFA2642F1BCA967A3 /* gRPCCertificates-Cpp.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "gRPCCertificates-Cpp.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C80670A30C426FD317E85B526DC6424 /* transport_security.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = transport_security.h; path = src/core/tsi/transport_security.h; sourceTree = "<group>"; };
 		9C8D24A5FDE28DF0885BF9E91EAC60C1 /* tls_credentials_options.cc */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = tls_credentials_options.cc; path = src/cpp/common/tls_credentials_options.cc; sourceTree = "<group>"; };
 		9C91B501603CE14B3812ECBFF5D54A92 /* cluster.upb.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = cluster.upb.c; path = "src/core/ext/upb-generated/envoy/config/cluster/v3/cluster.upb.c"; sourceTree = "<group>"; };
@@ -17642,7 +17642,7 @@
 		BABE5E30FDA036B4B2EB22A497E3BC13 /* unicode.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = unicode.c; path = src/crypto/bytestring/unicode.c; sourceTree = "<group>"; };
 		BABFB610219474CF93516FCEE351A4C5 /* HeroStringConvertible.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HeroStringConvertible.swift; path = Sources/Parser/HeroStringConvertible.swift; sourceTree = "<group>"; };
 		BAD4D31E637B75C05BD7E6A81958F5DF /* internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = internal.h; path = src/crypto/fipsmodule/ec/internal.h; sourceTree = "<group>"; };
-		BADAA893FFBF2C0B3B1CC6468C1C685F /* ESPullToRefresh-ESPullToRefresh */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "ESPullToRefresh-ESPullToRefresh"; path = ESPullToRefresh.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		BADAA893FFBF2C0B3B1CC6468C1C685F /* ESPullToRefresh.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ESPullToRefresh.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAED6B0A1962D279D557604DF325FDE1 /* tls_credentials.cc */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; name = tls_credentials.cc; path = src/core/lib/security/credentials/tls/tls_credentials.cc; sourceTree = "<group>"; };
 		BB07343AEF3BAB6E1C7D5A34D226809B /* slice_refcount.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = slice_refcount.h; path = src/core/lib/slice/slice_refcount.h; sourceTree = "<group>"; };
 		BB0BFBB66C1C00794BBA0F78EF713040 /* cmp.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = cmp.c; path = src/crypto/fipsmodule/bn/cmp.c; sourceTree = "<group>"; };
@@ -26284,7 +26284,7 @@
 				A5CF16B4996DB7D0E4981082FB86ED82 /* BlueRSA */,
 				514D7742C6CBB0BDBD9984AEE97DDFDE /* BoringSSL-GRPC */,
 				876C4141D6ADC72BFBD0854AD5DD3DC5 /* ESPullToRefresh */,
-				BADAA893FFBF2C0B3B1CC6468C1C685F /* ESPullToRefresh-ESPullToRefresh */,
+				BADAA893FFBF2C0B3B1CC6468C1C685F /* ESPullToRefresh.bundle */,
 				81418C93A311F0492F62A8F88C3BD66B /* FirebaseAppCheckInterop */,
 				43B1E4CD7B30B9FD278100133C2AC788 /* FirebaseAuth */,
 				09D8B108F8926BC5DC78684FF235123E /* FirebaseAuthInterop */,
@@ -26302,7 +26302,7 @@
 				856B5CD56F194FAD26EA91620B66D614 /* GoogleDataTransport */,
 				B43874C6CBB50E7134FBEC24BABFE14F /* GoogleUtilities */,
 				1911113E0FBF13CFF9132E5FF7685228 /* gRPC-C++ */,
-				9C7C87B5D0A6752AFA2642F1BCA967A3 /* gRPC-C++-gRPCCertificates-Cpp */,
+				9C7C87B5D0A6752AFA2642F1BCA967A3 /* gRPCCertificates-Cpp.bundle */,
 				B471867C535B02FA55D87E260F6480F8 /* gRPC-Core */,
 				C1998E0D8085221AD87F89B614C10E52 /* GTMSessionFetcher */,
 				13E778F4B833EE5D7ABE882406A8215E /* Hero */,
@@ -29735,7 +29735,7 @@
 			);
 			name = "gRPC-C++-gRPCCertificates-Cpp";
 			productName = "gRPCCertificates-Cpp";
-			productReference = 9C7C87B5D0A6752AFA2642F1BCA967A3 /* gRPC-C++-gRPCCertificates-Cpp */;
+			productReference = 9C7C87B5D0A6752AFA2642F1BCA967A3 /* gRPCCertificates-Cpp.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		3CA5FD5A45C3F901A76060FE0F4A9B5F /* BlueRSA */ = {
@@ -29868,7 +29868,7 @@
 			);
 			name = "ESPullToRefresh-ESPullToRefresh";
 			productName = ESPullToRefresh;
-			productReference = BADAA893FFBF2C0B3B1CC6468C1C685F /* ESPullToRefresh-ESPullToRefresh */;
+			productReference = BADAA893FFBF2C0B3B1CC6468C1C685F /* ESPullToRefresh.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		50F380A87A4FC4EC7EE3AC9BDADB6D2D /* gRPC-Core */ = {
@@ -30808,7 +30808,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				308C4A9BD8A248144C8959B362395245 /* gRPC-C++-gRPCCertificates-Cpp in Resources */,
+				308C4A9BD8A248144C8959B362395245 /* gRPCCertificates-Cpp.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -30972,7 +30972,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8137D5998AD2C7469F9AF4A01E9CE1A /* ESPullToRefresh-ESPullToRefresh in Resources */,
+				E8137D5998AD2C7469F9AF4A01E9CE1A /* ESPullToRefresh.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -35011,6 +35011,7 @@
 			baseConfigurationReference = 02C3C1811CDEBDF1B805F5C08B589CDC /* gRPC-C++.debug.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/gRPC-C++";
+				DEVELOPMENT_TEAM = PDRVZ7DT2S;
 				IBSC_MODULE = grpcpp;
 				INFOPLIST_FILE = "Target Support Files/gRPC-C++/ResourceBundle-gRPCCertificates-Cpp-gRPC-C++-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -35609,6 +35610,7 @@
 			baseConfigurationReference = D7B4BC209CDCE26751EFAEB22FD00A4D /* gRPC-C++.release.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/gRPC-C++";
+				DEVELOPMENT_TEAM = PDRVZ7DT2S;
 				IBSC_MODULE = grpcpp;
 				INFOPLIST_FILE = "Target Support Files/gRPC-C++/ResourceBundle-gRPCCertificates-Cpp-gRPC-C++-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -36205,6 +36207,7 @@
 			baseConfigurationReference = 06ED46141320594FF3295ACE01FFC13E /* ESPullToRefresh.debug.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/ESPullToRefresh";
+				DEVELOPMENT_TEAM = PDRVZ7DT2S;
 				IBSC_MODULE = ESPullToRefresh;
 				INFOPLIST_FILE = "Target Support Files/ESPullToRefresh/ResourceBundle-ESPullToRefresh-ESPullToRefresh-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -36985,6 +36988,7 @@
 			baseConfigurationReference = CA67C8CE68AB1984AEAF0094CCDFF2BD /* ESPullToRefresh.release.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/ESPullToRefresh";
+				DEVELOPMENT_TEAM = PDRVZ7DT2S;
 				IBSC_MODULE = ESPullToRefresh;
 				INFOPLIST_FILE = "Target Support Files/ESPullToRefresh/ResourceBundle-ESPullToRefresh-ESPullToRefresh-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
