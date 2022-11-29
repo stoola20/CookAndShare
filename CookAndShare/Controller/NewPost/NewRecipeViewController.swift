@@ -14,7 +14,19 @@ class NewRecipeViewController: UIViewController {
 // MARK: - Property
     @IBOutlet weak var tableView: UITableView!
     var firestoreManager = FirestoreManager.shared
-    var recipe = Recipe()
+    var recipe = Recipe() {
+        didSet {
+            for index in 0..<recipe.ingredients.count {
+                let ingredient = recipe.ingredients[index]
+                ingredientDict[index] = ingredient
+            }
+
+            for index in 0..<recipe.procedures.count {
+                let procedure = recipe.procedures[index]
+                procedureDict[index] = procedure
+            }
+        }
+    }
     var imageCell: UITableViewCell?
     var indexPathForImage: IndexPath?
     var numOfIngredients = 1
@@ -252,7 +264,6 @@ extension NewRecipeViewController: NewRecipeIngredientDelegate {
         numOfIngredients -= 1
 
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
-        tableView.deleteRows(at: [indexPath], with: .left)
         self.recipe.ingredients.remove(at: indexPath.row)
         self.ingredientDict.removeValue(forKey: indexPath.row)
 
@@ -271,6 +282,7 @@ extension NewRecipeViewController: NewRecipeIngredientDelegate {
 
         self.recipe.ingredientNames = newIngredientNames
         self.ingredientDict = newIngredientDict
+        tableView.deleteRows(at: [indexPath], with: .left)
     }
 
     func didAddIngredient(_ cell: NewRecipeIngredientCell, _ ingredient: Ingredient) {
@@ -307,7 +319,6 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
     func didDelete(_ cell: NewRecipeProcedureCell) {
         numOfProcedures -= 1
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
-        tableView.reloadData()
         self.procedureDict.removeValue(forKey: indexPath.row)
 
         let sortedProcedure = procedureDict.sorted { $0.key < $1.key }
@@ -327,6 +338,7 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
         }
         self.recipe.procedures = newProcedures
         self.procedureDict = newProcedureDict
+        tableView.reloadData()
     }
 
     func didAddProcedure(_ cell: NewRecipeProcedureCell, description: String) {
