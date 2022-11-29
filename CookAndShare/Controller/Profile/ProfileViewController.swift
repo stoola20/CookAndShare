@@ -35,7 +35,7 @@ class ProfileViewController: UIViewController {
     private let firestoreManager = FirestoreManager.shared
     private let coredataManager = CoreDataManager.shared
     let imagePicker = UIImagePickerController()
-    private let editNameAlert = UIAlertController(title: "請輸入暱稱", message: "(0 / 9)", preferredStyle: .alert)
+    private var editNameAlert: UIAlertController!
     private var currentNonce: String?
 
     @IBOutlet weak var tableView: UITableView!
@@ -312,6 +312,7 @@ extension ProfileViewController: UITableViewDelegate {
 
 extension ProfileViewController: ProfileUserCellDelegate {
     func willEditName() {
+        editNameAlert = UIAlertController(title: "請輸入暱稱", message: "(0 / 9)", preferredStyle: .alert)
         editNameAlert.addTextField { [weak self] textField in
             guard let self = self else { return }
             textField.delegate = self
@@ -325,6 +326,7 @@ extension ProfileViewController: ProfileUserCellDelegate {
             else { return }
             self.firestoreManager.updateUserName(userId: Constant.getUserId(), name: name)
             cell.userName.text = name
+            self.editNameAlert = nil
         }
         let cancelAction = UIAlertAction(title: Constant.cancel, style: .cancel, handler: nil)
         editNameAlert.addAction(okAction)
