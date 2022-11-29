@@ -74,7 +74,7 @@ class LoginViewController: UIViewController {
         signInWithAppleBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
         signInWithAppleBtn.widthAnchor.constraint(equalToConstant: 280).isActive = true
         signInWithAppleBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        signInWithAppleBtn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50).isActive = true
+        signInWithAppleBtn.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30).isActive = true
     }
 
     @objc func signInWithApple() {
