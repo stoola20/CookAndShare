@@ -34,8 +34,8 @@ class ProfileViewController: UIViewController {
     var allUsers: [User] = []
     private let firestoreManager = FirestoreManager.shared
     private let coredataManager = CoreDataManager.shared
-    let imagePicker = UIImagePickerController()
-    private var editNameAlert: UIAlertController!
+    private let imagePicker = UIImagePickerController()
+    private var userName = ""
     private var currentNonce: String?
 
     @IBOutlet weak var tableView: UITableView!
@@ -243,6 +243,7 @@ extension ProfileViewController: UITableViewDataSource {
                 switch result {
                 case .success(let user):
                     self.user = user
+                    self.userName = user.name
                     cell.layoutCell(with: user)
                 case .failure(let error):
                     print(error)
@@ -312,21 +313,21 @@ extension ProfileViewController: UITableViewDelegate {
 
 extension ProfileViewController: ProfileUserCellDelegate {
     func willEditName() {
-        editNameAlert = UIAlertController(title: "請輸入暱稱", message: "(0 / 9)", preferredStyle: .alert)
+        let editNameAlert = UIAlertController(title: "編輯暱稱", message: nil, preferredStyle: .alert)
         editNameAlert.addTextField { [weak self] textField in
             guard let self = self else { return }
-            textField.delegate = self
+            textField.text = self.userName
         }
         let okAction = UIAlertAction(title: Constant.confirm, style: .default) { [weak self] _ in
             guard
                 let self = self,
-                let name = self.editNameAlert.textFields?[0].text,
+                let name = editNameAlert.textFields?[0].text,
                 !name.isEmpty,
                 let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ProfileUserCell
             else { return }
             self.firestoreManager.updateUserName(userId: Constant.getUserId(), name: name)
             cell.userName.text = name
-            self.editNameAlert = nil
+            self.userName = name
         }
         let cancelAction = UIAlertAction(title: Constant.cancel, style: .cancel, handler: nil)
         editNameAlert.addAction(okAction)
@@ -351,6 +352,18 @@ extension ProfileViewController: ProfileUserCellDelegate {
         controller.addAction(cameraAction)
         controller.addAction(photoLibraryAction)
         controller.addAction(cancelAction)
+
+        if let popoverController = controller.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(
+                x: self.view.bounds.midX,
+                y: self.view.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            popoverController.permittedArrowDirections = []
+        }
+
         present(controller, animated: true, completion: nil)
     }
 }
@@ -469,17 +482,5 @@ extension ProfileViewController: ASAuthorizationControllerDelegate {
 extension ProfileViewController: ASAuthorizationControllerPresentationContextProviding {
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return view.window!
-    }
-}
-
-extension ProfileViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let currentText = textField.text ?? ""
-        let maxNumber = 9
-        guard let stringRange = Range(range, in: currentText) else { return false }
-        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
-        let characterCount = updatedText.count <= maxNumber ? updatedText.count : maxNumber
-        editNameAlert.message = "(\(characterCount) / \(maxNumber))"
-        return updatedText.count <= maxNumber
     }
 }

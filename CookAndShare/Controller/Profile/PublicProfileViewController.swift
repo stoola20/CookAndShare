@@ -20,6 +20,7 @@ class PublicProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpCollectionView()
+        navigationItem.backButtonTitle = ""
     }
 
     override func viewWillAppear(_ animated: Bool) {

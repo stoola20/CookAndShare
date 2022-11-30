@@ -17,7 +17,6 @@ class PreviewViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(#function)
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(back)))
         self.hero.isEnabled = true
         scrollView.delegate = self
@@ -27,18 +26,19 @@ class PreviewViewController: UIViewController {
         imageView.hero.id = heroId
 
         imageView.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
         guard let image = imageView.image else { return }
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalToConstant: image.size.width),
             imageView.heightAnchor.constraint(equalToConstant: image.size.height)
         ])
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         let widthScale = view.bounds.width / imageView.bounds.width
         scrollView.minimumZoomScale = widthScale
         scrollView.zoomScale = widthScale
+        updateContentInset()
     }
 
     @IBAction func back(_ sender: UIButton) {

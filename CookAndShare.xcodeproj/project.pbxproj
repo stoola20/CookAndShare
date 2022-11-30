@@ -73,6 +73,10 @@
 		37A31314292E4DB8007E5E8C /* JWTClaims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31313292E4DB8007E5E8C /* JWTClaims.swift */; };
 		37A31316292E6FF6007E5E8C /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31315292E6FF6007E5E8C /* Params.swift */; };
 		37B2E10C293497E6008BF0B8 /* Pods_CookAndShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */; };
+		37BA15942936F01E00A7D00B /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA15932936F01E00A7D00B /* UIImage+Ext.swift */; };
+		37BA15982937132900A7D00B /* voiceVisualization.json in Resources */ = {isa = PBXBuildFile; fileRef = 37BA15972937132900A7D00B /* voiceVisualization.json */; };
+		37BA159A293728B700A7D00B /* VoiceAnimateKeyFrames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA1599293728B700A7D00B /* VoiceAnimateKeyFrames.swift */; };
+		37BA159C2937847800A7D00B /* yellowVoiceVisualization.json in Resources */ = {isa = PBXBuildFile; fileRef = 37BA159B2937847800A7D00B /* yellowVoiceVisualization.json */; };
 		37BA50AC292FB6E500E88C57 /* JWTid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA50AB292FB6E500E88C57 /* JWTid.swift */; };
 		37C622E72919FB4600A84263 /* FoodRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */; };
 		37C622E9291A09E500A84263 /* SeeFood.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E8291A09E400A84263 /* SeeFood.mlmodel */; };
@@ -215,6 +219,10 @@
 		378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Ext.swift"; sourceTree = "<group>"; };
 		37A31313292E4DB8007E5E8C /* JWTClaims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTClaims.swift; sourceTree = "<group>"; };
 		37A31315292E6FF6007E5E8C /* Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Params.swift; sourceTree = "<group>"; };
+		37BA15932936F01E00A7D00B /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
+		37BA15972937132900A7D00B /* voiceVisualization.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = voiceVisualization.json; sourceTree = "<group>"; };
+		37BA1599293728B700A7D00B /* VoiceAnimateKeyFrames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAnimateKeyFrames.swift; sourceTree = "<group>"; };
+		37BA159B2937847800A7D00B /* yellowVoiceVisualization.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = yellowVoiceVisualization.json; sourceTree = "<group>"; };
 		37BA50AB292FB6E500E88C57 /* JWTid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTid.swift; sourceTree = "<group>"; };
 		37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRecognitionViewController.swift; sourceTree = "<group>"; };
 		37C622E8291A09E400A84263 /* SeeFood.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SeeFood.mlmodel; sourceTree = "<group>"; };
@@ -416,6 +424,8 @@
 				37233C64292A56AC0093A2E6 /* taskList.json */,
 				37233C5F292A56AC0093A2E6 /* travelingCamera.json */,
 				378C1C2C291F895A00CF8D38 /* successGold.json */,
+				37BA15972937132900A7D00B /* voiceVisualization.json */,
+				37BA159B2937847800A7D00B /* yellowVoiceVisualization.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -519,6 +529,7 @@
 				37D69C5E290BCF970034D8E1 /* Main.storyboard */,
 				37D69C63290BCF980034D8E1 /* LaunchScreen.storyboard */,
 				378EA507291CD033004200F9 /* UserInputTextField.swift */,
+				37BA1599293728B700A7D00B /* VoiceAnimateKeyFrames.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -638,6 +649,7 @@
 				37E63625290E598000D516D4 /* UIImageView+Ext.swift */,
 				37FE7986291B935D005A3E3E /* UIColor+Ext.swift */,
 				378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */,
+				37BA15932936F01E00A7D00B /* UIImage+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -806,6 +818,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37D69C65290BCF980034D8E1 /* LaunchScreen.storyboard in Resources */,
+				37BA15982937132900A7D00B /* voiceVisualization.json in Resources */,
 				37233C65292A56AD0093A2E6 /* travelingCamera.json in Resources */,
 				372E3AB92916560600250DAA /* OtherVoiceCell.xib in Resources */,
 				37D69CAD290CBE050034D8E1 /* NewRecipeDescriptionCell.xib in Resources */,
@@ -845,6 +858,7 @@
 				37D7C19929128E6D005B8781 /* Map.storyboard in Resources */,
 				372E3AA92916551C00250DAA /* OtherLocationCell.xib in Resources */,
 				3787537C290F999000F06F4C /* Profile.storyboard in Resources */,
+				37BA159C2937847800A7D00B /* yellowVoiceVisualization.json in Resources */,
 				37E6361C290E496300D516D4 /* HotRecipeCell.xib in Resources */,
 				37D69CB1290CBE1C0034D8E1 /* NewRecipeIngredientCell.xib in Resources */,
 				37CBEC9D291155F200A62EF2 /* PublicProfileHeaderCell.xib in Resources */,
@@ -978,6 +992,7 @@
 				37489AF82930B2E600B144D9 /* AuthManager.swift in Sources */,
 				37D69C8C290C11C40034D8E1 /* Constant.swift in Sources */,
 				3729FE1D292CD7A600F7E2F3 /* BLockListCell.swift in Sources */,
+				37BA159A293728B700A7D00B /* VoiceAnimateKeyFrames.swift in Sources */,
 				37CBEC952911110900A62EF2 /* PublicProfileViewController.swift in Sources */,
 				37D69C5B290BCF970034D8E1 /* SceneDelegate.swift in Sources */,
 				37E6362D290E60D500D516D4 /* DetailBannerCell.swift in Sources */,
@@ -1040,6 +1055,7 @@
 				37D7C1A72913579D005B8781 /* APIKey.swift in Sources */,
 				37E63631290E60E800D516D4 /* DetailIngredientCell.swift in Sources */,
 				370B2002291AB6560092F502 /* PushNotificationManager.swift in Sources */,
+				37BA15942936F01E00A7D00B /* UIImage+Ext.swift in Sources */,
 				37D69CA7290C1A0B0034D8E1 /* NewPostSupplementaryView.swift in Sources */,
 				37D69CAC290CBE050034D8E1 /* NewRecipeDescriptionCell.swift in Sources */,
 				37875370290F824400F06F4C /* CookAndShare.xcdatamodeld in Sources */,
@@ -1234,7 +1250,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CookAndShare/CookAndShare.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1251,18 +1267,18 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CookAndShare Distribution";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Sign In";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "CookAndShare Distribution";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1277,7 +1293,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CookAndShare/CookAndShareRelease.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
@@ -1292,18 +1308,18 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "CookAndShare Distribution";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Sign In";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "CookAndShare Distribution";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

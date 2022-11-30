@@ -19,7 +19,7 @@ protocol DetailBannerCellDelegate: AnyObject {
 class DetailBannerCell: UITableViewCell {
     let firestoreManager = FirestoreManager.shared
     var user: User?
-    
+
     weak var delegate: DetailBannerCellDelegate!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!

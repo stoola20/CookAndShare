@@ -65,7 +65,7 @@ class NewRecipeViewController: UIViewController {
         )
     }
 
-    func presentPHPicker() {
+    func presentImagePicker() {
         let controller = UIAlertController(title: "請選擇照片來源", message: nil, preferredStyle: .actionSheet)
 
         let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
@@ -80,6 +80,18 @@ class NewRecipeViewController: UIViewController {
         controller.addAction(cameraAction)
         controller.addAction(photoLibraryAction)
         controller.addAction(cancelAction)
+
+        if let popoverController = controller.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(
+                x: self.view.bounds.midX,
+                y: self.view.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            popoverController.permittedArrowDirections = []
+        }
+
         present(controller, animated: true, completion: nil)
     }
 
@@ -132,7 +144,11 @@ class NewRecipeViewController: UIViewController {
                 recipe.authorId = Constant.getUserId()
                 recipe.time = Timestamp(date: Date())
                 firestoreManager.addNewRecipe(recipe, to: document)
-                firestoreManager.updateUserRecipePost(recipeId: document.documentID, userId: Constant.getUserId(), isNewPost: true)
+                firestoreManager.updateUserRecipePost(
+                    recipeId: document.documentID,
+                    userId: Constant.getUserId(),
+                    isNewPost: true
+                )
             } else {
                 try? firestoreManager.recipesCollection.document(recipe.recipeId).setData(from: recipe, merge: true)
             }
@@ -214,7 +230,10 @@ extension NewRecipeViewController: UITableViewDataSource {
 
             if indexPath.row < self.recipe.procedures.count {
                 cell.procedureTextField.text = self.recipe.procedures[indexPath.row].description
-                cell.procedureImageView.loadImage(self.recipe.procedures[indexPath.row].imageURL, placeHolder: UIImage(named: "takePhoto"))
+                cell.procedureImageView.loadImage(
+                    self.recipe.procedures[indexPath.row].imageURL,
+                    placeHolder: UIImage(named: "takePhoto")
+                )
                 cell.deleteButton.isHidden = false
             } else {
                 cell.procedureTextField.text = nil
@@ -254,7 +273,7 @@ extension NewRecipeViewController: NewRecipeDescriptionDelegate {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         self.indexPathForImage = indexPath
 
-        presentPHPicker()
+        presentImagePicker()
     }
 }
 
@@ -313,7 +332,7 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         self.indexPathForImage = indexPath
 
-        presentPHPicker()
+        presentImagePicker()
     }
 
     func didDelete(_ cell: NewRecipeProcedureCell) {

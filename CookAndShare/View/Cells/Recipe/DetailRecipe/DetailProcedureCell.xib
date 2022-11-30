@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,55 +17,47 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOV-22-geo">
-                        <rect key="frame" x="16" y="16" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOV-22-geo">
+                        <rect key="frame" x="16" y="8" width="47" height="21.5"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CXu-lj-HCx">
-                        <rect key="frame" x="66" y="16" width="120" height="90"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="120" id="UMS-rV-ih9"/>
-                            <constraint firstAttribute="height" constant="90" id="xJg-DV-7zT"/>
-                        </constraints>
-                    </imageView>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Uvx-Y4-CmV">
-                        <rect key="frame" x="194" y="16" width="204" height="90"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                        <color key="textColor" systemColor="labelColor"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    </textView>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YrK-4T-T5l">
+                        <rect key="frame" x="71" y="8" width="327" height="105"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CXu-lj-HCx">
+                                <rect key="frame" x="0.0" y="0.0" width="120" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="UMS-rV-ih9"/>
+                                    <constraint firstAttribute="height" constant="90" id="xJg-DV-7zT"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkj-nf-Qzr">
+                                <rect key="frame" x="128" y="0.0" width="199" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="CXu-lj-HCx" secondAttribute="bottom" constant="15" id="Hel-4R-Jou"/>
+                    <constraint firstAttribute="trailing" secondItem="YrK-4T-T5l" secondAttribute="trailing" constant="16" id="CAh-Mt-uLy"/>
                     <constraint firstItem="uOV-22-geo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="IDR-2Q-fKp"/>
-                    <constraint firstItem="CXu-lj-HCx" firstAttribute="leading" secondItem="uOV-22-geo" secondAttribute="trailing" constant="8" id="LmT-rv-iaV"/>
-                    <constraint firstItem="Uvx-Y4-CmV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="NRk-k6-06K"/>
-                    <constraint firstItem="Uvx-Y4-CmV" firstAttribute="bottom" secondItem="CXu-lj-HCx" secondAttribute="bottom" id="WXx-vB-v1Z"/>
-                    <constraint firstAttribute="trailing" secondItem="Uvx-Y4-CmV" secondAttribute="trailing" constant="16" id="Zgc-l0-HRh"/>
-                    <constraint firstItem="uOV-22-geo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="ZoN-Mk-stf"/>
-                    <constraint firstItem="CXu-lj-HCx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="aDD-nU-8MI"/>
-                    <constraint firstItem="Uvx-Y4-CmV" firstAttribute="leading" secondItem="CXu-lj-HCx" secondAttribute="trailing" constant="8" id="m1q-Q7-d15"/>
+                    <constraint firstItem="YrK-4T-T5l" firstAttribute="leading" secondItem="uOV-22-geo" secondAttribute="trailing" constant="8" id="JbZ-tv-B2C"/>
+                    <constraint firstItem="uOV-22-geo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="ZoN-Mk-stf"/>
+                    <constraint firstAttribute="bottom" secondItem="YrK-4T-T5l" secondAttribute="bottom" constant="8" id="duB-X4-d4W"/>
+                    <constraint firstItem="YrK-4T-T5l" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="qam-mN-3Mx"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="descriptionTextVIew" destination="Uvx-Y4-CmV" id="Rxn-Cz-As8"/>
+                <outlet property="descriptionLabel" destination="hkj-nf-Qzr" id="WOY-rv-Jck"/>
                 <outlet property="procedureImageView" destination="CXu-lj-HCx" id="hb7-zP-EVe"/>
                 <outlet property="stepLabel" destination="uOV-22-geo" id="ceW-M1-fE7"/>
             </connections>
             <point key="canvasLocation" x="205.79710144927537" y="146.31696428571428"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

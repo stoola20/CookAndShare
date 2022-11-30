@@ -44,6 +44,7 @@ class SavedRecipeViewController: UIViewController {
         super.viewDidLoad()
         setUpCollectionView()
         title = "我的收藏"
+        navigationItem.backButtonTitle = ""
     }
 
     override func viewWillAppear(_ animated: Bool) {

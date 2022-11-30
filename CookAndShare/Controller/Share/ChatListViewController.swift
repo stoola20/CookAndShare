@@ -31,6 +31,16 @@ class ChatListViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
         title = "訊息"
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.darkBrown as Any,
+            .font: UIFont.boldSystemFont(ofSize: 28)
+        ]
+        barAppearance.titlePositionAdjustment = UIOffset(horizontal: -200, vertical: 0)
+        barAppearance.shadowColor = nil
+        barAppearance.backgroundColor = .lightOrange
+        navigationItem.standardAppearance = barAppearance
+        navigationItem.scrollEdgeAppearance = barAppearance
         tableView.es.addPullToRefresh(animator: header) { [weak self] in
             guard let self = self else { return }
             self.fetchChatList()
