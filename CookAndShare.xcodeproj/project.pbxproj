@@ -73,6 +73,7 @@
 		37A31314292E4DB8007E5E8C /* JWTClaims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31313292E4DB8007E5E8C /* JWTClaims.swift */; };
 		37A31316292E6FF6007E5E8C /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31315292E6FF6007E5E8C /* Params.swift */; };
 		37B2E10C293497E6008BF0B8 /* Pods_CookAndShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */; };
+		37BA15942936F01E00A7D00B /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA15932936F01E00A7D00B /* UIImage+Ext.swift */; };
 		37BA50AC292FB6E500E88C57 /* JWTid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA50AB292FB6E500E88C57 /* JWTid.swift */; };
 		37C622E72919FB4600A84263 /* FoodRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */; };
 		37C622E9291A09E500A84263 /* SeeFood.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E8291A09E400A84263 /* SeeFood.mlmodel */; };
@@ -215,6 +216,7 @@
 		378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Ext.swift"; sourceTree = "<group>"; };
 		37A31313292E4DB8007E5E8C /* JWTClaims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTClaims.swift; sourceTree = "<group>"; };
 		37A31315292E6FF6007E5E8C /* Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Params.swift; sourceTree = "<group>"; };
+		37BA15932936F01E00A7D00B /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		37BA50AB292FB6E500E88C57 /* JWTid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTid.swift; sourceTree = "<group>"; };
 		37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRecognitionViewController.swift; sourceTree = "<group>"; };
 		37C622E8291A09E400A84263 /* SeeFood.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SeeFood.mlmodel; sourceTree = "<group>"; };
@@ -638,6 +640,7 @@
 				37E63625290E598000D516D4 /* UIImageView+Ext.swift */,
 				37FE7986291B935D005A3E3E /* UIColor+Ext.swift */,
 				378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */,
+				37BA15932936F01E00A7D00B /* UIImage+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1040,6 +1043,7 @@
 				37D7C1A72913579D005B8781 /* APIKey.swift in Sources */,
 				37E63631290E60E800D516D4 /* DetailIngredientCell.swift in Sources */,
 				370B2002291AB6560092F502 /* PushNotificationManager.swift in Sources */,
+				37BA15942936F01E00A7D00B /* UIImage+Ext.swift in Sources */,
 				37D69CA7290C1A0B0034D8E1 /* NewPostSupplementaryView.swift in Sources */,
 				37D69CAC290CBE050034D8E1 /* NewRecipeDescriptionCell.swift in Sources */,
 				37875370290F824400F06F4C /* CookAndShare.xcdatamodeld in Sources */,

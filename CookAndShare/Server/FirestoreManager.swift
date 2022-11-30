@@ -23,8 +23,9 @@ struct FirestoreManager {
 
 // MARK: - Upload Photo
     func uploadPhoto(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
+        guard let resizedImage = image.resizeWithWidth(width: 1200) else { return }
         let fileReference = storage.reference().child(UUID().uuidString + ".jpg")
-        if let data = image.jpegData(compressionQuality: 0.5) {
+        if let data = resizedImage.jpegData(compressionQuality: 0.5) {
             fileReference.putData(data, metadata: nil) { result in
                 switch result {
                 case .success:
