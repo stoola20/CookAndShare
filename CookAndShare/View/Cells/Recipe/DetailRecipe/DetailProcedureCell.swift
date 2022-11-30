@@ -11,7 +11,7 @@ import Hero
 class DetailProcedureCell: UITableViewCell {
     @IBOutlet weak var stepLabel: UILabel!
     @IBOutlet weak var procedureImageView: UIImageView!
-    @IBOutlet weak var descriptionTextVIew: UITextView!
+    @IBOutlet weak var descriptionLabel: UILabel!
     weak var viewController: DetailRecipeViewController?
     var foodImageURL = ""
 
@@ -24,8 +24,8 @@ class DetailProcedureCell: UITableViewCell {
 
     func setUpUI() {
         stepLabel.textColor = UIColor.darkBrown
-        descriptionTextVIew.textColor = UIColor.darkBrown
-        descriptionTextVIew.font = UIFont.systemFont(ofSize: 17)
+        descriptionLabel.textColor = UIColor.darkBrown
+        descriptionLabel.font = UIFont.systemFont(ofSize: 17)
         procedureImageView.contentMode = .scaleAspectFill
         procedureImageView.layer.cornerRadius = 15
     }
@@ -33,7 +33,7 @@ class DetailProcedureCell: UITableViewCell {
     func layoutCell(with procedure: Procedure, at indexPath: IndexPath) {
         stepLabel.text = String(indexPath.row + 1)
         procedureImageView.loadImage(procedure.imageURL, placeHolder: UIImage(named: Constant.friedRice))
-        descriptionTextVIew.text = procedure.description
+        descriptionLabel.text = procedure.description
         foodImageURL = procedure.imageURL
     }
 

@@ -233,7 +233,7 @@
                                     <constraint firstAttribute="width" constant="150" id="Z4S-gT-sZH"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="相機辨識"/>
+                                <buttonConfiguration key="configuration" style="plain" title="食物辨識"/>
                                 <connections>
                                     <action selector="showFoodRecognition:" destination="BPY-cx-df1" eventType="touchUpInside" id="QxE-Vm-R0c"/>
                                 </connections>
@@ -470,9 +470,6 @@
             <point key="canvasLocation" x="-397" y="1769"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="z0v-FM-mRJ"/>
-    </designables>
     <color key="tintColor" name="DarkBrown"/>
     <resources>
         <image name="bookmark" catalog="system" width="112" height="128"/>
