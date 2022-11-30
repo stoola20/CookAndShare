@@ -75,73 +75,22 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQQ-x6-nyo">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uyg-co-ZLC">
-                                <rect key="frame" x="16" y="60" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="LqQ-wR-EdB"/>
-                                    <constraint firstAttribute="width" constant="30" id="naI-hR-Qjp"/>
-                                </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="chevron.backward.circle.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
-                                </state>
-                                <connections>
-                                    <action selector="backToLobby:" destination="7EN-Bi-SEi" eventType="touchUpInside" id="KYu-HB-d3j"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZB3-7t-De2">
-                                <rect key="frame" x="368" y="60" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="0nI-4a-aYS"/>
-                                    <constraint firstAttribute="width" constant="30" id="Lov-r6-Xut"/>
-                                </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="heart" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
-                                </state>
-                                <connections>
-                                    <action selector="likeRecipe:" destination="7EN-Bi-SEi" eventType="touchUpInside" id="TEJ-B0-p2Y"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUE-jO-iC9">
-                                <rect key="frame" x="322" y="60" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="ZZE-bz-Bjr"/>
-                                    <constraint firstAttribute="height" constant="30" id="u3g-uh-hKk"/>
-                                </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="bookmark" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25"/>
-                                </state>
-                                <connections>
-                                    <action selector="saveRecipe:" destination="7EN-Bi-SEi" eventType="touchUpInside" id="pFt-Al-9AO"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="aIK-Mk-wOh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="VQQ-x6-nyo" secondAttribute="trailing" id="2UF-7x-bzo"/>
-                            <constraint firstItem="uyg-co-ZLC" firstAttribute="top" secondItem="aIK-Mk-wOh" secondAttribute="top" constant="16" id="4a1-ol-3YA"/>
                             <constraint firstAttribute="bottom" secondItem="VQQ-x6-nyo" secondAttribute="bottom" id="7L1-kQ-PdG"/>
-                            <constraint firstItem="ZB3-7t-De2" firstAttribute="leading" secondItem="YUE-jO-iC9" secondAttribute="trailing" constant="16" id="H9X-2y-Q1p"/>
                             <constraint firstItem="6cd-hy-wNy" firstAttribute="top" secondItem="igR-m5-Moi" secondAttribute="top" id="TGz-K0-vyL"/>
                             <constraint firstAttribute="trailing" secondItem="6cd-hy-wNy" secondAttribute="trailing" constant="-2" id="WMa-Nx-PMY"/>
-                            <constraint firstItem="uyg-co-ZLC" firstAttribute="leading" secondItem="aIK-Mk-wOh" secondAttribute="leading" constant="16" id="bP9-wZ-fbO"/>
-                            <constraint firstItem="ZB3-7t-De2" firstAttribute="top" secondItem="aIK-Mk-wOh" secondAttribute="top" constant="16" id="jMF-Th-uOY"/>
                             <constraint firstItem="6cd-hy-wNy" firstAttribute="leading" secondItem="igR-m5-Moi" secondAttribute="leading" constant="-2" id="oyG-Fi-DgD"/>
-                            <constraint firstItem="aIK-Mk-wOh" firstAttribute="trailing" secondItem="ZB3-7t-De2" secondAttribute="trailing" constant="16" id="rU7-BP-fpE"/>
-                            <constraint firstItem="YUE-jO-iC9" firstAttribute="top" secondItem="aIK-Mk-wOh" secondAttribute="top" constant="16" id="t3x-qM-uxr"/>
                             <constraint firstItem="VQQ-x6-nyo" firstAttribute="top" secondItem="igR-m5-Moi" secondAttribute="top" id="xIZ-VZ-42m"/>
                             <constraint firstItem="VQQ-x6-nyo" firstAttribute="leading" secondItem="igR-m5-Moi" secondAttribute="leading" id="zgh-ua-as8"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="backButton" destination="uyg-co-ZLC" id="A56-Mk-isK"/>
                         <outlet property="imgHeightConstraint" destination="bfq-tY-YBC" id="zdK-HS-S74"/>
                         <outlet property="imgView" destination="6cd-hy-wNy" id="ErH-WQ-FwK"/>
-                        <outlet property="likeButton" destination="ZB3-7t-De2" id="DhZ-fP-9Xe"/>
-                        <outlet property="saveButton" destination="YUE-jO-iC9" id="GMR-tM-KaU"/>
                         <outlet property="tableView" destination="VQQ-x6-nyo" id="glD-H9-D8Q"/>
                     </connections>
                 </viewController>
@@ -233,7 +182,7 @@
                                     <constraint firstAttribute="width" constant="150" id="Z4S-gT-sZH"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="相機辨識"/>
+                                <buttonConfiguration key="configuration" style="plain" title="食物辨識"/>
                                 <connections>
                                     <action selector="showFoodRecognition:" destination="BPY-cx-df1" eventType="touchUpInside" id="QxE-Vm-R0c"/>
                                 </connections>
@@ -470,15 +419,9 @@
             <point key="canvasLocation" x="-397" y="1769"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="z0v-FM-mRJ"/>
-    </designables>
     <color key="tintColor" name="DarkBrown"/>
     <resources>
-        <image name="bookmark" catalog="system" width="112" height="128"/>
-        <image name="chevron.backward.circle.fill" catalog="system" width="128" height="121"/>
         <image name="empty-bowl" width="256" height="256"/>
-        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="shakePhone_100" width="100" height="100"/>
         <image name="takePhoto" width="256" height="256"/>
         <namedColor name="DarkBrown">
