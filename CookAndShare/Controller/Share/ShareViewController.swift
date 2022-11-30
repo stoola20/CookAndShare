@@ -215,6 +215,18 @@ extension ShareViewController: ShareCellDelegate {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
         alert.addAction(confirmAction)
         alert.addAction(cancelAction)
+
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(
+                x: self.view.bounds.midX,
+                y: self.view.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            popoverController.permittedArrowDirections = []
+        }
+
         present(alert, animated: true)
     }
 
@@ -235,6 +247,18 @@ extension ShareViewController: ShareCellDelegate {
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
         alert.addAction(confirmAction)
         alert.addAction(cancelAction)
+
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(
+                x: self.view.bounds.midX,
+                y: self.view.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            popoverController.permittedArrowDirections = []
+        }
+
         present(alert, animated: true)
     }
 }
