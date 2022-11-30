@@ -35010,6 +35010,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 02C3C1811CDEBDF1B805F5C08B589CDC /* gRPC-C++.debug.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/gRPC-C++";
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
 				IBSC_MODULE = grpcpp;
@@ -35609,6 +35610,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D7B4BC209CDCE26751EFAEB22FD00A4D /* gRPC-C++.release.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/gRPC-C++";
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
 				IBSC_MODULE = grpcpp;
@@ -36206,6 +36208,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 06ED46141320594FF3295ACE01FFC13E /* ESPullToRefresh.debug.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/ESPullToRefresh";
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
 				IBSC_MODULE = ESPullToRefresh;
@@ -36987,6 +36990,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CA67C8CE68AB1984AEAF0094CCDFF2BD /* ESPullToRefresh.release.xcconfig */;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/ESPullToRefresh";
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
 				IBSC_MODULE = ESPullToRefresh;
