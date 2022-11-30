@@ -9,6 +9,7 @@ import UIKit
 import FirebaseAuth
 import ESPullToRefresh
 import CoreData
+import SPAlert
 
 enum RecipeSection: String, CaseIterable {
     case hot = "熱門食譜🔥"
@@ -32,6 +33,10 @@ class RecipeViewController: UIViewController {
     var allRecipes: [Recipe]?
     var filterdRecipes: [Recipe]? {
         didSet {
+            if let filterdRecipes = filterdRecipes,
+                filterdRecipes.isEmpty {
+                SPAlert.present(message: "找不到符合的食譜結果", haptic: .warning)
+            }
             DispatchQueue.main.async {
                 self.collectionView.reloadSections(IndexSet(integer: 2))
             }
