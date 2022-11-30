@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 import AVFoundation
 
 class MineVoiceCell: UITableViewCell {
@@ -17,7 +18,8 @@ class MineVoiceCell: UITableViewCell {
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var chatBubble: UIView!
-
+    @IBOutlet weak var animationView: LottieAnimationView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpUI()
@@ -31,6 +33,10 @@ class MineVoiceCell: UITableViewCell {
         timeLabel.font = UIFont.systemFont(ofSize: 13)
         durationLabel.textColor = UIColor.darkBrown
         durationLabel.font = UIFont.systemFont(ofSize: 15)
+
+        animationView.contentMode = .scaleAspectFill
+        animationView.loopMode = .loop
+        animationView.currentFrame = VoiceAnimateKeyFrames.prepare.rawValue
     }
 
     func layoutCell(with message: Message) {
@@ -48,11 +54,22 @@ class MineVoiceCell: UITableViewCell {
             playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             player.pause()
             player.seek(to: .zero)
+            timer.invalidate()
+            duration = totalDuration
+            durationLabel.text = duration.audioDurationString()
+            animationView.stop()
+            animationView.currentFrame = VoiceAnimateKeyFrames.prepare.rawValue
         } else {
             playButton.setImage(UIImage(systemName: "stop.fill"), for: .normal)
             player.volume = 1
             player.seek(to: .zero)
             player.play()
+            animationView.play(
+                fromFrame: VoiceAnimateKeyFrames.start.rawValue,
+                toFrame: VoiceAnimateKeyFrames.end.rawValue,
+                loopMode: .none,
+                completion: nil
+            )
             timer = Timer.scheduledTimer(
                 timeInterval: 1,
                 target: self,
@@ -65,12 +82,13 @@ class MineVoiceCell: UITableViewCell {
 
     @objc func resetPlayingStatus() {
         if player.timeControlStatus == .playing {
-            playButton.setImage(UIImage(systemName: "stop.fill"), for: .normal)
             duration -= 1
         } else {
             playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
             duration = totalDuration
             timer.invalidate()
+            animationView.stop()
+            animationView.currentFrame = VoiceAnimateKeyFrames.prepare.rawValue
         }
         durationLabel.text = duration.audioDurationString()
     }
