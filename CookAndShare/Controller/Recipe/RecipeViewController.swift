@@ -91,6 +91,7 @@ class RecipeViewController: UIViewController {
         barAppearance.backgroundColor = .lightOrange
         navigationItem.standardAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.backButtonTitle = ""
     }
 
     @objc func searchRecipes() {

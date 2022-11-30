@@ -30,6 +30,7 @@ class ResultViewController: UIViewController {
         setUpCollectionView()
         title = Constant.searchResult
         setUpUI()
+        navigationItem.backButtonTitle = ""
     }
 
     override func viewWillAppear(_ animated: Bool) {

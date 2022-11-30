@@ -18,9 +18,6 @@ enum DetailRecipeSection: CaseIterable {
 
 class DetailRecipeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var imgHeightConstraint: NSLayoutConstraint!
     var imageOriginalHeight = CGFloat()
@@ -49,7 +46,20 @@ class DetailRecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
-        setUpUI()
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(
+                image: UIImage(systemName: "heart"),
+                style: .plain,
+                target: self,
+                action: #selector(likeRecipe)
+            ),
+            UIBarButtonItem(
+                image: UIImage(systemName: "bookmark"),
+                style: .plain,
+                target: self,
+                action: #selector(saveRecipe)
+            )
+        ]
     }
 
     override func viewDidLayoutSubviews() {
@@ -58,15 +68,17 @@ class DetailRecipeViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: imageOriginalHeight - 50, left: 0, bottom: 0, right: 0)
     }
 
-    func setUpUI() {
-        saveButton.tintColor = UIColor.lightOrange
-        likeButton.tintColor = UIColor.lightOrange
-        backButton.tintColor = UIColor.lightOrange
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        let barAppearance = UINavigationBarAppearance()
+        let backImage = UIImage(systemName: "chevron.backward.circle.fill")
+        barAppearance.configureWithTransparentBackground()
+        barAppearance.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
+        navigationController?.navigationBar.standardAppearance = barAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
+        navigationController?.navigationBar.tintColor = .lightOrange
+        navigationController?.hidesBarsOnSwipe = true
+
         firestoreManager.fetchRecipeBy(recipeId) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -80,21 +92,42 @@ class DetailRecipeViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        let barAppearance = UINavigationBarAppearance()
+        let backImage = UIImage(systemName: "chevron.backward")
+        barAppearance.configureWithOpaqueBackground()
+        barAppearance.backgroundColor = .lightOrange
+        barAppearance.shadowColor = nil
+        barAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.darkBrown as Any
+        ]
+        barAppearance.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
+        navigationController?.navigationBar.standardAppearance = barAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
+        navigationController?.navigationBar.tintColor = .darkBrown
+        navigationController?.hidesBarsOnSwipe = false
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
     func updateLikeButton() {
-        let likeImage = hasLiked
+        guard var rightBarButtonItems = navigationItem.rightBarButtonItems
+        else { return }
+        let heartButton = rightBarButtonItems[0]
+        heartButton.image = hasLiked
         ? UIImage(systemName: "heart.fill")
         : UIImage(systemName: "heart")
-        likeButton.setImage(likeImage, for: .normal)
+        rightBarButtonItems[0] = heartButton
+        navigationItem.rightBarButtonItems = rightBarButtonItems
     }
 
     func updateSaveButton() {
-        let saveImage = hasSaved
+        guard var rightBarButtonItems = navigationItem.rightBarButtonItems
+        else { return }
+        let saveButton = rightBarButtonItems[1]
+        saveButton.image = hasSaved
         ? UIImage(systemName: "bookmark.fill")
         : UIImage(systemName: "bookmark")
-        saveButton.setImage(saveImage, for: .normal)
+        rightBarButtonItems[1] = saveButton
+        navigationItem.rightBarButtonItems = rightBarButtonItems
     }
 
     func setUpTableView() {
@@ -111,7 +144,7 @@ class DetailRecipeViewController: UIViewController {
         tableView.registerCellWithNib(identifier: ProcedureHeaderCell.identifier, bundle: nil)
     }
 
-    @IBAction func saveRecipe(_ sender: UIButton) {
+    @objc func saveRecipe() {
         if Auth.auth().currentUser == nil {
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
             guard
@@ -129,7 +162,7 @@ class DetailRecipeViewController: UIViewController {
         }
     }
 
-    @IBAction func likeRecipe(_ sender: UIButton) {
+    @objc func likeRecipe() {
         if Auth.auth().currentUser == nil {
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
             guard
@@ -144,10 +177,6 @@ class DetailRecipeViewController: UIViewController {
             hasLiked.toggle()
             updateLikeButton()
         }
-    }
-
-    @IBAction func backToLobby(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -213,6 +242,9 @@ extension DetailRecipeViewController: UITableViewDataSource {
 extension DetailRecipeViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let originalOffsetY = -(imageOriginalHeight - 50)
+        if scrollView.contentOffset.y <= originalOffsetY {
+            navigationController?.setNavigationBarHidden(false, animated: true)
+        }
         let moveDistance = abs(scrollView.contentOffset.y - originalOffsetY)
         if scrollView.contentOffset.y < originalOffsetY {
             self.imgHeightConstraint.constant = imageOriginalHeight + moveDistance
