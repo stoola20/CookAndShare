@@ -25,13 +25,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHt-UX-NzP">
-                        <rect key="frame" x="218" y="43.5" width="41.5" height="20.5"/>
+                        <rect key="frame" x="222" y="43.5" width="41.5" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0wX-Ha-2qt">
-                        <rect key="frame" x="64" y="8" width="146" height="56"/>
+                        <rect key="frame" x="64" y="8" width="150" height="56"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5qK-wG-yBt">
                                 <rect key="frame" x="10" y="17" width="20" height="22"/>
@@ -46,7 +46,10 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsn-x3-OJ1">
-                                <rect key="frame" x="90" y="10" width="46" height="36"/>
+                                <rect key="frame" x="90" y="10" width="50" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="dPR-fJ-KmU"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -58,7 +61,7 @@
                                     <constraint firstAttribute="width" constant="50" id="pht-kF-CAJ"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="voiceVisualization"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="yellowVoiceVisualization"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>

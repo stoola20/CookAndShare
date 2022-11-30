@@ -20,7 +20,7 @@ class OtherVoiceCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var chatBubble: UIView!
     @IBOutlet weak var animationView: LottieAnimationView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpUI()
@@ -50,7 +50,6 @@ class OtherVoiceCell: UITableViewCell {
         durationLabel.text = self.duration.audioDurationString()
 
         let playerItem = AVPlayerItem(url: URL(string: message.content)!)
-
         player.replaceCurrentItem(with: playerItem)
     }
 

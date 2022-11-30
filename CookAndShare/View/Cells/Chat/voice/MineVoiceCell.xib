@@ -18,18 +18,18 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fyk-Uf-HYg">
-                        <rect key="frame" x="202.5" y="43.5" width="41.5" height="20.5"/>
+                        <rect key="frame" x="198.5" y="43.5" width="41.5" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zuj-pK-6Nc">
-                        <rect key="frame" x="252" y="8" width="146" height="56"/>
+                        <rect key="frame" x="248" y="8" width="150" height="56"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTy-oE-zHQ">
-                                <rect key="frame" x="90" y="10" width="46" height="36"/>
+                                <rect key="frame" x="90" y="10" width="50" height="36"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="0RB-T2-cdc"/>
+                                    <constraint firstAttribute="width" constant="50" id="0RB-T2-cdc"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>

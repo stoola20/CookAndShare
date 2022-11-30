@@ -76,6 +76,7 @@
 		37BA15942936F01E00A7D00B /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA15932936F01E00A7D00B /* UIImage+Ext.swift */; };
 		37BA15982937132900A7D00B /* voiceVisualization.json in Resources */ = {isa = PBXBuildFile; fileRef = 37BA15972937132900A7D00B /* voiceVisualization.json */; };
 		37BA159A293728B700A7D00B /* VoiceAnimateKeyFrames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA1599293728B700A7D00B /* VoiceAnimateKeyFrames.swift */; };
+		37BA159C2937847800A7D00B /* yellowVoiceVisualization.json in Resources */ = {isa = PBXBuildFile; fileRef = 37BA159B2937847800A7D00B /* yellowVoiceVisualization.json */; };
 		37BA50AC292FB6E500E88C57 /* JWTid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA50AB292FB6E500E88C57 /* JWTid.swift */; };
 		37C622E72919FB4600A84263 /* FoodRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */; };
 		37C622E9291A09E500A84263 /* SeeFood.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E8291A09E400A84263 /* SeeFood.mlmodel */; };
@@ -221,6 +222,7 @@
 		37BA15932936F01E00A7D00B /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		37BA15972937132900A7D00B /* voiceVisualization.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = voiceVisualization.json; sourceTree = "<group>"; };
 		37BA1599293728B700A7D00B /* VoiceAnimateKeyFrames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAnimateKeyFrames.swift; sourceTree = "<group>"; };
+		37BA159B2937847800A7D00B /* yellowVoiceVisualization.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = yellowVoiceVisualization.json; sourceTree = "<group>"; };
 		37BA50AB292FB6E500E88C57 /* JWTid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTid.swift; sourceTree = "<group>"; };
 		37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRecognitionViewController.swift; sourceTree = "<group>"; };
 		37C622E8291A09E400A84263 /* SeeFood.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SeeFood.mlmodel; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 				37233C5F292A56AC0093A2E6 /* travelingCamera.json */,
 				378C1C2C291F895A00CF8D38 /* successGold.json */,
 				37BA15972937132900A7D00B /* voiceVisualization.json */,
+				37BA159B2937847800A7D00B /* yellowVoiceVisualization.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -855,6 +858,7 @@
 				37D7C19929128E6D005B8781 /* Map.storyboard in Resources */,
 				372E3AA92916551C00250DAA /* OtherLocationCell.xib in Resources */,
 				3787537C290F999000F06F4C /* Profile.storyboard in Resources */,
+				37BA159C2937847800A7D00B /* yellowVoiceVisualization.json in Resources */,
 				37E6361C290E496300D516D4 /* HotRecipeCell.xib in Resources */,
 				37D69CB1290CBE1C0034D8E1 /* NewRecipeIngredientCell.xib in Resources */,
 				37CBEC9D291155F200A62EF2 /* PublicProfileHeaderCell.xib in Resources */,

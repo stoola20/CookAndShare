@@ -19,7 +19,7 @@ class MineVoiceCell: UITableViewCell {
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var chatBubble: UIView!
     @IBOutlet weak var animationView: LottieAnimationView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpUI()
@@ -44,8 +44,8 @@ class MineVoiceCell: UITableViewCell {
         duration = message.duration
         totalDuration = message.duration
         durationLabel.text = self.duration.audioDurationString()
-        let playerItem = AVPlayerItem(url: URL(string: message.content)!)
 
+        let playerItem = AVPlayerItem(url: URL(string: message.content)!)
         player.replaceCurrentItem(with: playerItem)
     }
 
