@@ -167,7 +167,17 @@ class ChatRoomViewController: UIViewController {
 
     func uploadMessage(contentType: ContentType, content: String, duration: Double = 0) {
         guard let friend = friend else { return }
-        guard let conversation = conversation else {
+        if let conversation = conversation {
+            let message: [String: Any] = [
+                "senderId": Constant.getUserId(),
+                "content": content,
+                "contentType": contentType.rawValue,
+                "time": Timestamp(date: Date()),
+                "duration": duration
+            ]
+
+            firestoreManager.updateConversation(channelId: conversation.channelId, message: message)
+        } else {
             let document = firestoreManager.conversationsCollection.document()
             var newConversation = Conversation()
             newConversation.channelId = document.documentID
@@ -195,18 +205,8 @@ class ChatRoomViewController: UIViewController {
                     print(error)
                 }
             }
-            return
         }
 
-        let message: [String: Any] = [
-            "senderId": Constant.getUserId(),
-            "content": content,
-            "contentType": contentType.rawValue,
-            "time": Timestamp(date: Date()),
-            "duration": duration
-        ]
-
-        firestoreManager.updateConversation(channelId: conversation.channelId, message: message)
         if !friend.blockList.contains(Constant.getUserId()) {
             firestoreManager.fetchUserData(userId: Constant.getUserId()) { result in
                 switch result {

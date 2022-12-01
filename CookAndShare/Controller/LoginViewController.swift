@@ -196,12 +196,12 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
             parameters: paramString,
             headers: headers
         )
-        .responseDecodable(of: RefreshResponse.self, completionHandler: { response in
+        .responseDecodable(of: RefreshResponse.self) { response in
             if let data = response.value {
                 let keychain = KeychainSwift()
                 keychain.set(data.refreshToken, forKey: "refreshToken")
             }
-        })
+        }
     }
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
