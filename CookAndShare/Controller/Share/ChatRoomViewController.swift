@@ -60,6 +60,19 @@ class ChatRoomViewController: UIViewController {
         }
         sendVoiceButton.isHidden = true
         configRecordSession()
+
+        let menu = UIMenu(
+            children: [
+                UIAction(
+                    title: "封鎖用戶",
+                    image: UIImage(systemName: "hand.raised.slash"),
+                    attributes: .destructive) { [weak self] _ in
+                        guard let self = self else { return }
+                        self.blockUser()
+                }
+            ]
+        )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), menu: menu)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -120,6 +133,36 @@ class ChatRoomViewController: UIViewController {
         sendVoiceButton.backgroundColor = UIColor.darkBrown
         sendVoiceButton.layer.cornerRadius = 25
         sendVoiceButton.tintColor = UIColor.background
+    }
+
+    @objc func blockUser() {
+        guard let friend = friend else { return }
+        let alert = UIAlertController(
+            title: "封鎖\(friend.name)？",
+            message: "你將不會看到他的貼文、個人檔案或來自他的訊息。你封鎖用戶時，對方不會收到通知。",
+            preferredStyle: .actionSheet
+        )
+        let confirmAction = UIAlertAction(title: "確定封鎖", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            self.firestoreManager.updateUserBlocklist(userId: Constant.getUserId(), blockId: friend.id, hasBlocked: false)
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(
+                x: self.view.bounds.midX,
+                y: self.view.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            popoverController.permittedArrowDirections = []
+        }
+
+        present(alert, animated: true)
     }
 
     func uploadMessage(contentType: ContentType, content: String, duration: Double = 0) {
