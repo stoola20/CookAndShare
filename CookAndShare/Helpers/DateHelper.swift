@@ -85,10 +85,10 @@ extension Date {
             return "\(calendar.component(.month, from: messageTime))/\(calendar.component(.day, from: messageTime))"
         }
     }
-}
 
-extension TimeInterval {
-    func convertToString(from timeInterval: TimeInterval) -> String {
+    func getSharePostTime(from date: Date) -> String {
+        let calendar = Calendar.current
+        let timeInterval = Date() - date
         if timeInterval < 60 {
             return "\(Int(timeInterval)) 秒前"
         } else if timeInterval < 60.0 * 60.0 {
@@ -97,21 +97,16 @@ extension TimeInterval {
             return "\(timeInterval.asHours()) 小時前"
         } else if timeInterval < 60.0 * 60.0 * 24.0 * 7.0 {
             return "\(timeInterval.asDays()) 天前"
-        } else if timeInterval < 60.0 * 60.0 * 24.0 * 30.4369 {
-            return "\(timeInterval.asWeeks()) 星期前"
-        } else if timeInterval < 60.0 * 60.0 * 24.0 * 365.2422 {
-            return "\(timeInterval.asMonths()) 月前"
         } else {
-            return "\(timeInterval.asYears()) 年前"
+            return "\(calendar.component(.month, from: date))月\(calendar.component(.day, from: date))日"
         }
     }
+}
 
+extension TimeInterval {
     func asMinutes() -> Int { return Int(self / (60.0)) }
     func asHours() -> Int { return Int(self / (60.0 * 60.0)) }
     func asDays() -> Int { return Int(self / (60.0 * 60.0 * 24.0)) }
-    func asWeeks() -> Int { return Int(self / (60.0 * 60.0 * 24.0 * 7.0)) }
-    func asMonths() -> Int { return Int(self / (60.0 * 60.0 * 24.0 * 30.4369)) }
-    func asYears() -> Int { return Int(self / (60.0 * 60.0 * 24.0 * 365.2422)) }
 
     func audioDurationString() -> String {
         let sec = Int(self.truncatingRemainder(dividingBy: 60.0))

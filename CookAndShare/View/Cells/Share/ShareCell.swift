@@ -131,8 +131,8 @@ class ShareCell: UITableViewCell {
                 print(error)
             }
         }
-        let timeInterval = Date() - Date(timeIntervalSince1970: Double(share.postTime.seconds))
-        postTimeLabel.text = timeInterval.convertToString(from: timeInterval)
+
+        postTimeLabel.text = Date().getSharePostTime(from: Date(timeIntervalSince1970: Double(share.postTime.seconds)))
         titleLabel.text = "\(share.title)"
         descriptionLabel.text = "\(share.description)"
         bestBeforeLabel.text = "\(Date.dateFormatter.string(from: Date(timeIntervalSince1970: Double(share.bestBefore.seconds))))"
