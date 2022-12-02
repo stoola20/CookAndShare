@@ -111,6 +111,12 @@ class ChatRoomViewController: UIViewController {
         let menu = UIMenu(
             children: [
                 UIAction(
+                    title: "查看個人頁面",
+                    image: UIImage(systemName: "person")) { [weak self] _ in
+                        guard let self = self else { return }
+                        self.goToProfile()
+                },
+                UIAction(
                     title: "封鎖用戶",
                     image: UIImage(systemName: "hand.raised.slash"),
                     attributes: .destructive) { [weak self] _ in
@@ -159,6 +165,17 @@ class ChatRoomViewController: UIViewController {
             let values = groupedMessages[dateComponents]
             messages.append(values ?? [])
         }
+    }
+
+    @objc func goToProfile() {
+        let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+        guard
+            let publicProfileVC = storyboard.instantiateViewController(withIdentifier: String(describing: PublicProfileViewController.self))
+                as? PublicProfileViewController,
+            let friend = friend
+        else { fatalError("Could not create publicProfileVC") }
+        publicProfileVC.userId = friend.id
+        navigationController?.pushViewController(publicProfileVC, animated: true)
     }
 
     @objc func blockUser() {
