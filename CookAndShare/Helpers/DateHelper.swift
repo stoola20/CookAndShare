@@ -22,7 +22,6 @@ extension Date {
 
     static func getMessageTimeString(from messageTime: Date) -> String {
         let calendar = Calendar.current
-        let dayComponent = calendar.component(.day, from: messageTime)
 
         var hour = calendar.component(.hour, from: messageTime)
         let minute = calendar.component(.minute, from: messageTime)
@@ -31,23 +30,16 @@ extension Date {
 
         if hour < 12 {
             zone = "上午"
+        } else if hour == 12 {
+            zone = "下午"
         } else {
             zone = "下午"
             hour -= 12
         }
 
         minutesString = minute < 10 ? "0\(minute)" : "\(minute)"
-        // 同一天的話顯示上午、下午
-        if dayComponent == calendar.component(.day, from: Date()) {
-            return "\(zone) \(hour):\(minutesString)"
 
-        // 七天內顯示星期幾
-        } else {
-            return """
-            \(calendar.component(.month, from: messageTime))/\(calendar.component(.day, from: messageTime))
-            \(zone) \(hour):\(minutesString)
-            """
-        }
+        return "\(zone) \(hour):\(minutesString)"
     }
 
     static func getChatRoomTimeString(from messageTime: Date) -> String {

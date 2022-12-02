@@ -13,19 +13,24 @@ import AVFoundation
 import Hero
 
 class ChatRoomViewController: UIViewController {
-    var timer: Timer?
-    var recordingSession: AVAudioSession!
-    var audioRecorder: AVAudioRecorder!
-    var audioPlayer: AVAudioPlayer!
-    var numOfRecorder: Int = 0
-    var playingRecord = false
+    private var timer: Timer?
+    private var recordingSession: AVAudioSession!
+    private var audioRecorder: AVAudioRecorder!
+    private var audioPlayer: AVAudioPlayer!
+    private var numOfRecorder: Int = 0
+    private var playingRecord = false
     var friend: User?
-    var conversation: Conversation? {
+    private var messages: [[Message]] = [] {
         didSet {
-            guard let conversation = conversation else { return }
+            guard let lastSection = messages.last else { return }
             tableView.reloadData()
-            let indexPath = IndexPath(row: conversation.messages.count - 1, section: 0)
+            let indexPath = IndexPath(row: lastSection.count - 1, section: messages.count - 1)
             tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
+    }
+    private var conversation: Conversation? {
+        didSet {
+            assembleGroupedMessages()
         }
     }
     private let firestoreManager = FirestoreManager.shared
@@ -60,47 +65,16 @@ class ChatRoomViewController: UIViewController {
         }
         sendVoiceButton.isHidden = true
         configRecordSession()
-
-        let menu = UIMenu(
-            children: [
-                UIAction(
-                    title: "封鎖用戶",
-                    image: UIImage(systemName: "hand.raised.slash"),
-                    attributes: .destructive) { [weak self] _ in
-                        guard let self = self else { return }
-                        self.blockUser()
-                }
-            ]
-        )
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), menu: menu)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let friend = friend else {
-            return
-        }
-        firestoreManager.fetchConversation(with: friend.id) { result in
-            switch result {
-            case .success(let conversation):
-                self.conversation = conversation
-                guard let myConversation = self.conversation else { return }
-                self.firestoreManager.addListener(channelId: myConversation.channelId) { result in
-                    switch result {
-                    case .success(let conversation):
-                        self.conversation = conversation
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
-            case .failure(let error):
-                print(error)
-            }
-        }
+        fetchConversation()
     }
 
     func setUpTableView() {
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.registerCellWithNib(identifier: MineMessageCell.identifier, bundle: nil)
@@ -133,6 +107,58 @@ class ChatRoomViewController: UIViewController {
         sendVoiceButton.backgroundColor = UIColor.darkBrown
         sendVoiceButton.layer.cornerRadius = 25
         sendVoiceButton.tintColor = UIColor.background
+
+        let menu = UIMenu(
+            children: [
+                UIAction(
+                    title: "封鎖用戶",
+                    image: UIImage(systemName: "hand.raised.slash"),
+                    attributes: .destructive) { [weak self] _ in
+                        guard let self = self else { return }
+                        self.blockUser()
+                }
+            ]
+        )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), menu: menu)
+    }
+
+    func fetchConversation() {
+        guard let friend = friend else {
+            return
+        }
+        firestoreManager.fetchConversation(with: friend.id) { result in
+            switch result {
+            case .success(let conversation):
+                self.conversation = conversation
+                guard let myConversation = self.conversation else { return }
+                self.firestoreManager.addListener(channelId: myConversation.channelId) { result in
+                    switch result {
+                    case .success(let conversation):
+                        self.conversation = conversation
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+
+    func assembleGroupedMessages() {
+        messages = []
+        guard let conversation = conversation else { return }
+
+        let groupedMessages = Dictionary(grouping: conversation.messages) { element -> DateComponents in
+            let date = Calendar.current.dateComponents([.year, .month, .day], from: Date(timeIntervalSince1970: Double(element.time.seconds)))
+            return date
+        }
+
+        let sortedKeys = groupedMessages.keys.sorted(by: <)
+        sortedKeys.forEach { dateComponents in
+            let values = groupedMessages[dateComponents]
+            messages.append(values ?? [])
+        }
     }
 
     @objc func blockUser() {
@@ -409,14 +435,16 @@ class ChatRoomViewController: UIViewController {
 }
 
 extension ChatRoomViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        messages.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let conversation = conversation else { return 0 }
-        return conversation.messages.count
+        return messages[section].count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let conversation = conversation else { return UITableViewCell() }
-        let message = conversation.messages[indexPath.row]
+        let message = messages[indexPath.section][indexPath.row]
         if message.senderId == Constant.getUserId() {
             switch message.contentType {
             case Constant.text:
@@ -516,6 +544,40 @@ extension ChatRoomViewController: PHPickerViewControllerDelegate {
                 }
             }
         }
+    }
+}
+
+extension ChatRoomViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let conversation = conversation else { return UIView() }
+
+        let groupedMessages = Dictionary(grouping: conversation.messages) { element -> DateComponents in
+            let date = Calendar.current.dateComponents([.year, .month, .day], from: Date(timeIntervalSince1970: Double(element.time.seconds)))
+            return date
+        }
+
+        let sortedKeys = groupedMessages.keys.sorted(by: <)
+        guard
+            let year = sortedKeys[section].year,
+            let month = sortedKeys[section].month,
+            let day = sortedKeys[section].day
+        else { fatalError("Wrong sorted keys") }
+
+        let label = DateHeaderLabel()
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.textColor = UIColor.darkBrown
+        label.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "\(year)/\(month)/\(day)"
+        let containerView = UIView()
+
+        containerView.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
+        ])
+        return containerView
     }
 }
 
