@@ -22,16 +22,8 @@ class DetailRecipeViewController: UIViewController {
     @IBOutlet weak var imgHeightConstraint: NSLayoutConstraint!
     var imageOriginalHeight = CGFloat()
     let firestoreManager = FirestoreManager.shared
-    var hasLiked = false {
-        didSet {
-            updateLikeButton()
-        }
-    }
-    var hasSaved = false {
-        didSet {
-            updateSaveButton()
-        }
-    }
+    var hasLiked = false
+    var hasSaved = false
     var recipeId = ""
     var recipe: Recipe? {
         didSet {
@@ -46,20 +38,6 @@ class DetailRecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(
-                image: UIImage(systemName: "heart"),
-                style: .plain,
-                target: self,
-                action: #selector(likeRecipe)
-            ),
-            UIBarButtonItem(
-                image: UIImage(systemName: "bookmark"),
-                style: .plain,
-                target: self,
-                action: #selector(saveRecipe)
-            )
-        ]
     }
 
     override func viewDidLayoutSubviews() {
@@ -71,14 +49,11 @@ class DetailRecipeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let barAppearance = UINavigationBarAppearance()
-        let backImage = UIImage(systemName: "chevron.backward.circle.fill")
         barAppearance.configureWithTransparentBackground()
-        barAppearance.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
-        navigationController?.navigationBar.standardAppearance = barAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
-        navigationController?.navigationBar.tintColor = .lightOrange
-        navigationController?.hidesBarsOnSwipe = true
-
+        navigationItem.standardAppearance = barAppearance
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.compactAppearance = barAppearance
+        navigationController?.navigationBar.tintColor = .background
         firestoreManager.fetchRecipeBy(recipeId) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -104,30 +79,6 @@ class DetailRecipeViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = barAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
         navigationController?.navigationBar.tintColor = .darkBrown
-        navigationController?.hidesBarsOnSwipe = false
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-
-    func updateLikeButton() {
-        guard var rightBarButtonItems = navigationItem.rightBarButtonItems
-        else { return }
-        let heartButton = rightBarButtonItems[0]
-        heartButton.image = hasLiked
-        ? UIImage(systemName: "heart.fill")
-        : UIImage(systemName: "heart")
-        rightBarButtonItems[0] = heartButton
-        navigationItem.rightBarButtonItems = rightBarButtonItems
-    }
-
-    func updateSaveButton() {
-        guard var rightBarButtonItems = navigationItem.rightBarButtonItems
-        else { return }
-        let saveButton = rightBarButtonItems[1]
-        saveButton.image = hasSaved
-        ? UIImage(systemName: "bookmark.fill")
-        : UIImage(systemName: "bookmark")
-        rightBarButtonItems[1] = saveButton
-        navigationItem.rightBarButtonItems = rightBarButtonItems
     }
 
     func setUpTableView() {
@@ -158,7 +109,6 @@ class DetailRecipeViewController: UIViewController {
             firestoreManager.updateRecipeSaves(recipeId: recipe.recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
             firestoreManager.updateUserSaves(recipeId: recipe.recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
             hasSaved.toggle()
-            updateSaveButton()
         }
     }
 
@@ -175,7 +125,6 @@ class DetailRecipeViewController: UIViewController {
             guard let recipe = recipe else { return }
             firestoreManager.updateRecipeLikes(recipeId: recipe.recipeId, userId: Constant.getUserId(), hasLiked: hasLiked)
             hasLiked.toggle()
-            updateLikeButton()
         }
     }
 }
@@ -242,9 +191,6 @@ extension DetailRecipeViewController: UITableViewDataSource {
 extension DetailRecipeViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let originalOffsetY = -(imageOriginalHeight - 50)
-        if scrollView.contentOffset.y <= originalOffsetY {
-            navigationController?.setNavigationBarHidden(false, animated: true)
-        }
         let moveDistance = abs(scrollView.contentOffset.y - originalOffsetY)
         if scrollView.contentOffset.y < originalOffsetY {
             self.imgHeightConstraint.constant = imageOriginalHeight + moveDistance

@@ -29,8 +29,6 @@ class NewRecipeViewController: UIViewController {
     }
     var imageCell: UITableViewCell?
     var indexPathForImage: IndexPath?
-    var numOfIngredients = 1
-    var numOfProcedures = 1
     var ingredientDict: [Int: Ingredient] = [:]
     var procedureDict: [Int: Procedure] = [:]
     let imagePicker = UIImagePickerController()
@@ -59,10 +57,6 @@ class NewRecipeViewController: UIViewController {
         tableView.registerCellWithNib(identifier: NewRecipeDescriptionCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: NewRecipeIngredientCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: NewRecipeProcedureCell.identifier, bundle: nil)
-        tableView.register(
-            NewRecipeHeaderView.self,
-            forHeaderFooterViewReuseIdentifier: NewRecipeHeaderView.reuseIdentifier
-        )
     }
 
     func presentImagePicker() {
@@ -107,7 +101,6 @@ class NewRecipeViewController: UIViewController {
         if nameText.isEmpty || quantityText.isEmpty {
             return
         } else {
-            numOfIngredients += 1
             tableView.insertRows(at: [IndexPath(row: rowNum, section: 1)], with: .automatic)
         }
     }
@@ -121,7 +114,6 @@ class NewRecipeViewController: UIViewController {
         else { return }
 
         if !procedureText.isEmpty {
-            numOfProcedures += 1
             tableView.insertRows(at: [IndexPath(row: rowNum, section: 2)], with: .automatic)
             tableView.scrollToRow(at: IndexPath(row: rowNum, section: 2), at: .top, animated: true)
         }
@@ -248,21 +240,32 @@ extension NewRecipeViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension NewRecipeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard
-            let headerView = tableView.dequeueReusableHeaderFooterView(
-                withIdentifier: NewRecipeHeaderView.reuseIdentifier
-            )
-            as? NewRecipeHeaderView
-        else { fatalError("Could not create header view.") }
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.textColor = UIColor.darkBrown
+        label.translatesAutoresizingMaskIntoConstraints = false
+
+        let containerView = UIView()
+        containerView.backgroundColor = .white
+        containerView.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            label.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
+        ])
+
         switch section {
         case 0:
-            headerView.label.text = "簡介"
+            label.text = "簡介"
         case 1:
-            headerView.label.text = Constant.ingredient
+            label.text = Constant.ingredient
         default:
-            headerView.label.text = Constant.procedure
+            label.text = Constant.procedure
         }
-        return headerView
+        return containerView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        50
     }
 }
 
@@ -280,7 +283,6 @@ extension NewRecipeViewController: NewRecipeDescriptionDelegate {
 // MARK: - NewRecipeIngredientDelegate
 extension NewRecipeViewController: NewRecipeIngredientDelegate {
     func didDelete(_ cell: NewRecipeIngredientCell, _ ingredient: Ingredient) {
-        numOfIngredients -= 1
 
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
         self.recipe.ingredients.remove(at: indexPath.row)
@@ -336,7 +338,6 @@ extension NewRecipeViewController: NewRecipeProcedureDelegate {
     }
 
     func didDelete(_ cell: NewRecipeProcedureCell) {
-        numOfProcedures -= 1
         guard let indexPath = tableView.indexPath(for: cell) else { fatalError("Wrong indexPath") }
         self.procedureDict.removeValue(forKey: indexPath.row)
 
