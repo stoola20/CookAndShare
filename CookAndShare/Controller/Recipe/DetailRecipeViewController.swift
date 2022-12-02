@@ -50,10 +50,10 @@ class DetailRecipeViewController: UIViewController {
         super.viewWillAppear(animated)
         let barAppearance = UINavigationBarAppearance()
         barAppearance.configureWithTransparentBackground()
-        navigationController?.navigationBar.standardAppearance = barAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
-        navigationController?.navigationBar.tintColor = .lightOrange
-
+        navigationItem.standardAppearance = barAppearance
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.compactAppearance = barAppearance
+        navigationController?.navigationBar.tintColor = .background
         firestoreManager.fetchRecipeBy(recipeId) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -79,8 +79,6 @@ class DetailRecipeViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = barAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
         navigationController?.navigationBar.tintColor = .darkBrown
-        navigationController?.hidesBarsOnSwipe = false
-        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
     func setUpTableView() {
