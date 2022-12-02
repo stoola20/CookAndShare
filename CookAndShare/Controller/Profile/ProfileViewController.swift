@@ -312,13 +312,14 @@ extension ProfileViewController: UITableViewDelegate {
         case 4:
             deleteAccount()
         default:
-            firestoreManager.updateFCMToken(userId: Constant.getUserId(), fcmToken: "")
+            guard let user = user else { return }
             do {
+                firestoreManager.updateFCMToken(userId: user.id, fcmToken: "")
                 try Auth.auth().signOut()
+                showLoginVC()
             } catch let signOutError as NSError {
                 print("Error signing out: %@", signOutError)
             }
-            showLoginVC()
         }
     }
 }

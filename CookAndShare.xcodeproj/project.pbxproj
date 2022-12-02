@@ -72,6 +72,8 @@
 		378EA50A291CEAF8004200F9 /* UIDatePicker+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */; };
 		37A31314292E4DB8007E5E8C /* JWTClaims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31313292E4DB8007E5E8C /* JWTClaims.swift */; };
 		37A31316292E6FF6007E5E8C /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31315292E6FF6007E5E8C /* Params.swift */; };
+		37AE892329399EC400199C34 /* DateComponent+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AE892229399EC400199C34 /* DateComponent+Ext.swift */; };
+		37AE89252939A95900199C34 /* DateHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AE89242939A95900199C34 /* DateHeaderView.swift */; };
 		37B2E10C293497E6008BF0B8 /* Pods_CookAndShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */; };
 		37BA15942936F01E00A7D00B /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA15932936F01E00A7D00B /* UIImage+Ext.swift */; };
 		37BA15982937132900A7D00B /* voiceVisualization.json in Resources */ = {isa = PBXBuildFile; fileRef = 37BA15972937132900A7D00B /* voiceVisualization.json */; };
@@ -219,6 +221,8 @@
 		378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Ext.swift"; sourceTree = "<group>"; };
 		37A31313292E4DB8007E5E8C /* JWTClaims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTClaims.swift; sourceTree = "<group>"; };
 		37A31315292E6FF6007E5E8C /* Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Params.swift; sourceTree = "<group>"; };
+		37AE892229399EC400199C34 /* DateComponent+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponent+Ext.swift"; sourceTree = "<group>"; };
+		37AE89242939A95900199C34 /* DateHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeaderView.swift; sourceTree = "<group>"; };
 		37BA15932936F01E00A7D00B /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		37BA15972937132900A7D00B /* voiceVisualization.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = voiceVisualization.json; sourceTree = "<group>"; };
 		37BA1599293728B700A7D00B /* VoiceAnimateKeyFrames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAnimateKeyFrames.swift; sourceTree = "<group>"; };
@@ -325,6 +329,7 @@
 		372E3A9B29162B7500250DAA /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				37AE89242939A95900199C34 /* DateHeaderView.swift */,
 				372E3A912913E0E200250DAA /* ChatListCell.swift */,
 				372E3AA12916544F00250DAA /* voice */,
 				372E3AA02916544900250DAA /* location */,
@@ -650,6 +655,7 @@
 				37FE7986291B935D005A3E3E /* UIColor+Ext.swift */,
 				378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */,
 				37BA15932936F01E00A7D00B /* UIImage+Ext.swift */,
+				37AE892229399EC400199C34 /* DateComponent+Ext.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -983,6 +989,7 @@
 				37A31314292E4DB8007E5E8C /* JWTClaims.swift in Sources */,
 				372E3A8E2913DCA200250DAA /* ChatListViewController.swift in Sources */,
 				37D69CB0290CBE1C0034D8E1 /* NewRecipeIngredientCell.swift in Sources */,
+				37AE89252939A95900199C34 /* DateHeaderView.swift in Sources */,
 				37233C71292A608D0093A2E6 /* ShoppingList+CoreDataClass.swift in Sources */,
 				37CBEC872910EF0300A62EF2 /* ShareViewController.swift in Sources */,
 				37D69C7E290BDF120034D8E1 /* Share.swift in Sources */,
@@ -1052,6 +1059,7 @@
 				37875376290F96E600F06F4C /* CoreDataManager.swift in Sources */,
 				37D69C77290BDCEA0034D8E1 /* Recipe.swift in Sources */,
 				378EA50A291CEAF8004200F9 /* UIDatePicker+Ext.swift in Sources */,
+				37AE892329399EC400199C34 /* DateComponent+Ext.swift in Sources */,
 				37D7C1A72913579D005B8781 /* APIKey.swift in Sources */,
 				37E63631290E60E800D516D4 /* DetailIngredientCell.swift in Sources */,
 				370B2002291AB6560092F502 /* PushNotificationManager.swift in Sources */,
@@ -1250,7 +1258,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CookAndShare/CookAndShare.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1274,11 +1282,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "CookAndShare Distribution";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "CookAndShare Distribution";
+				PROVISIONING_PROFILE_SPECIFIER = "Sign In";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Sign In";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1293,7 +1301,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CookAndShare/CookAndShareRelease.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PDRVZ7DT2S;
@@ -1315,11 +1323,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "CookAndShare Distribution";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "CookAndShare Distribution";
+				PROVISIONING_PROFILE_SPECIFIER = "Sign In";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Sign In";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -24,6 +24,11 @@ class BLockListCell: UITableViewCell {
         profileImageView.contentMode = .scaleAspectFill
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        profileImageView.image = UIImage(named: Constant.chefMan)
+    }
+
     func layoutCell(with user: User) {
         nameLabel.text = user.name
         profileImageView.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
