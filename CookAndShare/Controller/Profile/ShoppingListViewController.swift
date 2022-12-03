@@ -13,8 +13,10 @@ class ShoppingListViewController: UIViewController {
     var items: [ShoppingList] = [] {
         didSet {
             tableView.reloadData()
+            alertStackView.isHidden = items.isEmpty ? false : true
         }
     }
+    @IBOutlet weak var alertStackView: UIStackView!
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
@@ -32,6 +34,7 @@ class ShoppingListViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        alertStackView.isHidden = true
         guard let items = coreDataManager.fetchItem() else { return }
         self.items = items
     }

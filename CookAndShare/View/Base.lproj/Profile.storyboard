@@ -194,6 +194,12 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 你尚未封鎖任何人 -" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBx-WY-bDg">
+                                <rect key="frame" x="112" y="436" width="190" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" name="DarkBrown"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7Fm-Lr-ahg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -202,9 +208,12 @@
                             <constraint firstItem="gDk-dF-lD6" firstAttribute="leading" secondItem="7Fm-Lr-ahg" secondAttribute="leading" id="Cbk-Fe-7Rg"/>
                             <constraint firstItem="7Fm-Lr-ahg" firstAttribute="trailing" secondItem="gDk-dF-lD6" secondAttribute="trailing" id="T65-v6-N7t"/>
                             <constraint firstItem="7Fm-Lr-ahg" firstAttribute="bottom" secondItem="gDk-dF-lD6" secondAttribute="bottom" id="akW-w4-h8F"/>
+                            <constraint firstItem="UBx-WY-bDg" firstAttribute="centerY" secondItem="sdl-yf-ZwR" secondAttribute="centerY" id="b3M-yY-uQl"/>
+                            <constraint firstItem="UBx-WY-bDg" firstAttribute="centerX" secondItem="sdl-yf-ZwR" secondAttribute="centerX" id="dDt-ba-kzm"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="alertLabel" destination="UBx-WY-bDg" id="HQ3-gD-IeY"/>
                         <outlet property="tableView" destination="gDk-dF-lD6" id="Bse-BK-aFl"/>
                     </connections>
                 </viewController>
@@ -255,6 +264,23 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="S4b-Qa-LVb">
+                                <rect key="frame" x="68.5" y="422.5" width="277.5" height="51.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 你尚未建立採買清單 -" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e88-rH-Szx">
+                                        <rect key="frame" x="33.5" y="0.0" width="210.5" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" name="DarkBrown"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可從食譜自動帶入，或按右上角＋新增" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puV-QU-O6Y">
+                                        <rect key="frame" x="0.0" y="32" width="277.5" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" name="DarkBrown"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="T4I-3h-hcT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -263,9 +289,12 @@
                             <constraint firstItem="T4I-3h-hcT" firstAttribute="trailing" secondItem="QB4-9m-H11" secondAttribute="trailing" id="8mh-OD-18K"/>
                             <constraint firstItem="QB4-9m-H11" firstAttribute="leading" secondItem="T4I-3h-hcT" secondAttribute="leading" id="bfJ-MG-ndI"/>
                             <constraint firstItem="T4I-3h-hcT" firstAttribute="bottom" secondItem="QB4-9m-H11" secondAttribute="bottom" id="klo-ZV-Onp"/>
+                            <constraint firstItem="S4b-Qa-LVb" firstAttribute="centerX" secondItem="yxX-hG-bzg" secondAttribute="centerX" id="nG6-vC-VSV"/>
+                            <constraint firstItem="S4b-Qa-LVb" firstAttribute="centerY" secondItem="yxX-hG-bzg" secondAttribute="centerY" id="v5g-nV-hoi"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="alertStackView" destination="S4b-Qa-LVb" id="gbo-tC-gKz"/>
                         <outlet property="tableView" destination="QB4-9m-H11" id="cOJ-br-BE2"/>
                     </connections>
                 </viewController>
@@ -301,18 +330,57 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fvg-pQ-Zm6">
+                                <rect key="frame" x="-20" y="419" width="454" height="58"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- 目前尚無收藏 - " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Htk-MK-YA1">
+                                        <rect key="frame" x="150" y="0.0" width="154" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" name="DarkBrown"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="從食譜列表收藏喜愛的食譜" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Azo-ke-kiA">
+                                        <rect key="frame" x="129" y="8" width="196" height="11"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" name="DarkBrown"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qlH-ex-g6w">
+                                        <rect key="frame" x="191" y="27" width="72" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="31" id="qyp-d8-dM3"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="去逛逛"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="去逛逛">
+                                                    <attributes>
+                                                        <font key="NSFont" size="16" name="PingFangTC-Semibold"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </buttonConfiguration>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cVa-Lv-Jp5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="fvg-pQ-Zm6" firstAttribute="centerY" secondItem="8L5-Yl-81S" secondAttribute="centerY" id="4Ci-v9-ZFh"/>
                             <constraint firstItem="cVa-Lv-Jp5" firstAttribute="trailing" secondItem="kDx-75-c3k" secondAttribute="trailing" id="7K0-eb-VO7"/>
                             <constraint firstItem="cVa-Lv-Jp5" firstAttribute="bottom" secondItem="kDx-75-c3k" secondAttribute="bottom" id="8MX-50-ekh"/>
                             <constraint firstItem="kDx-75-c3k" firstAttribute="top" secondItem="cVa-Lv-Jp5" secondAttribute="top" id="Xs7-6h-1cs"/>
                             <constraint firstItem="kDx-75-c3k" firstAttribute="leading" secondItem="cVa-Lv-Jp5" secondAttribute="leading" id="mii-oG-Y1K"/>
+                            <constraint firstItem="fvg-pQ-Zm6" firstAttribute="centerX" secondItem="8L5-Yl-81S" secondAttribute="centerX" id="zuE-wv-2JY"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="alertStackView" destination="fvg-pQ-Zm6" id="WZq-H0-HdS"/>
                         <outlet property="collectionView" destination="kDx-75-c3k" id="RYU-fz-KP5"/>
+                        <outlet property="seeRecipeButton" destination="qlH-ex-g6w" id="FBW-Zi-JuZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="97X-GE-Pad" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
