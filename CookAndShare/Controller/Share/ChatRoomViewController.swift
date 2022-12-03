@@ -25,7 +25,7 @@ class ChatRoomViewController: UIViewController {
             guard let lastSection = messages.last else { return }
             tableView.reloadData()
             let indexPath = IndexPath(row: lastSection.count - 1, section: messages.count - 1)
-            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            tableView.scrollToRow(at: indexPath, at: .top, animated: false)
         }
     }
     private var conversation: Conversation? {

@@ -11,7 +11,8 @@ class BlockListViewController: UIViewController {
     var blockedUsers: [User] = []
     let firestoreManager = FirestoreManager.shared
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var alertLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
@@ -20,6 +21,7 @@ class BlockListViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        alertLabel.isHidden = true
         fetchBlockUsers()
     }
 
@@ -39,6 +41,9 @@ class BlockListViewController: UIViewController {
             guard let self = self else { return }
             switch result {
             case .success(let user):
+                if user.blockList.isEmpty {
+                    self.alertLabel.isHidden = false
+                }
                 user.blockList.forEach { blockId in
                     group.enter()
                     self.firestoreManager.fetchUserData(userId: blockId) { result in

@@ -130,6 +130,11 @@ class NewRecipeViewController: UIViewController {
             alert.addAction(okAction)
             present(alert, animated: true)
         } else {
+            let alertView = SPAlertView(message: "成功上傳食譜")
+            alertView.duration = 1.3
+            alertView.present(haptic: .warning) {
+                self.navigationController?.popViewController(animated: true)
+            }
             if recipe.recipeId.isEmpty {
                 let document = firestoreManager.recipesCollection.document()
                 recipe.recipeId = document.documentID
@@ -144,7 +149,6 @@ class NewRecipeViewController: UIViewController {
             } else {
                 try? firestoreManager.recipesCollection.document(recipe.recipeId).setData(from: recipe, merge: true)
             }
-            navigationController?.popViewController(animated: true)
         }
     }
 }

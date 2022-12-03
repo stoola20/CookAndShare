@@ -47,10 +47,8 @@ class ResultViewController: UIViewController {
         alertMessageLabel.textColor = UIColor.darkBrown
         alertMessageLabel.text = Constant.beTheFirstOne
 
-        addRecipeButton.backgroundColor = UIColor.darkBrown
-        addRecipeButton.tintColor = UIColor.background
+        addRecipeButton.backgroundColor = UIColor.lightOrange
         addRecipeButton.setTitle(Constant.addNewRecipe, for: .normal)
-        addRecipeButton.setImage(UIImage(systemName: "plus"), for: .normal)
         addRecipeButton.layer.cornerRadius = 20
         addRecipeButton.addTarget(self, action: #selector(presentNewRecipeVC), for: .touchUpInside)
     }
