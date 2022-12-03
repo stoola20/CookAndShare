@@ -20,7 +20,7 @@ protocol DetailBannerCellDelegate: AnyObject {
 
 class DetailBannerCell: UITableViewCell {
     let firestoreManager = FirestoreManager.shared
-    var user: User?
+    var author: User?
 
     weak var delegate: DetailBannerCellDelegate!
     @IBOutlet weak var containerView: UIView!
@@ -34,7 +34,7 @@ class DetailBannerCell: UITableViewCell {
     @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = .clear
@@ -75,10 +75,10 @@ class DetailBannerCell: UITableViewCell {
     }
 
     @objc func goToProfile() {
-        guard let user = user else {
+        guard let author = author else {
             return
         }
-        delegate.goToProfile(user.id)
+        delegate.goToProfile(author.id)
     }
 
     @objc func editPost() {
@@ -90,10 +90,10 @@ class DetailBannerCell: UITableViewCell {
     }
 
     @objc func blockList() {
-        guard let user = user else {
+        guard let author = author else {
             return
         }
-        delegate.block(user: user)
+        delegate.block(user: author)
     }
 
     @objc func report() {
@@ -108,21 +108,13 @@ class DetailBannerCell: UITableViewCell {
         delegate.saveRecipe()
     }
 
-    func layoutCell(with recipe: Recipe) {
-        firestoreManager.fetchUserData(userId: recipe.authorId) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let user):
-                self.profileImage.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
-                self.authorLabel.text = user.name
-                self.user = user
-            case .failure(let error):
-                print(error)
-            }
-        }
+    func layoutCell(with recipe: Recipe, author: User) {
+        profileImage.loadImage(author.imageURL, placeHolder: UIImage(named: Constant.chefMan))
+        authorLabel.text = author.name
+        self.author = author
+
         titleLabel.text = recipe.title
         durationLabel.text = "⌛️ 烹調時間： \(recipe.cookDuration) 分鐘"
-        authorLabel.text = recipe.authorId
         storyLabel.text = recipe.description
 
         if recipe.authorId == Constant.getUserId() {
