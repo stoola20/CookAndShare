@@ -26,8 +26,6 @@ class SearchViewController: UIViewController {
         textLabel.text = Constant.searchByText
         cameraLabel.text = Constant.searchByPhoto
         randomLabel.text = Constant.searchRandomly
-        let button = UIButton(type: .custom)
-        
 
         titleTextField.placeholder = Constant.typeInTitle
         titleTextField.delegate = self
@@ -47,9 +45,8 @@ class SearchViewController: UIViewController {
         cameraLabel.textColor = UIColor.darkBrown
         randomLabel.textColor = UIColor.darkBrown
 
-        foodRecognitionButton.backgroundColor = UIColor.darkBrown
-        foodRecognitionButton.setTitleColor(UIColor.background, for: .normal)
-        foodRecognitionButton.layer.cornerRadius = 25
+        foodRecognitionButton.backgroundColor = UIColor.lightOrange
+        foodRecognitionButton.layer.cornerRadius = 20
     }
 
     override func becomeFirstResponder() -> Bool {
