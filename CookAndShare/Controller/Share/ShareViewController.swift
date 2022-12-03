@@ -13,7 +13,26 @@ import SPAlert
 
 class ShareViewController: UIViewController {
     let firestoreManager = FirestoreManager.shared
-    var shares: [Share] = []
+    let group = DispatchGroup()
+    var shares: [Share] = [] {
+        didSet {
+            shares.forEach { share in
+                group.enter()
+                self.firestoreManager.fetchUserData(userId: share.authorId) { [weak self] result in
+                    guard let self = self else { return }
+                    switch result {
+                    case .success(let author):
+                        self.authorDict[author.id] = author
+                        self.group.leave()
+                    case .failure(let error):
+                        print(error)
+                        self.group.leave()
+                    }
+                }
+            }
+        }
+    }
+    var authorDict: [String: User] = [:]
     var shareId = ""
     var fromPublicVC = false
     var header: ESRefreshHeaderAnimator {
@@ -77,34 +96,41 @@ class ShareViewController: UIViewController {
     }
 
     func fetchSharePost() {
+        group.enter()
         firestoreManager.fetchSharePost { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let shares):
-                self.shares = shares
-                self.shares.sort { $0.postTime.seconds > $1.postTime.seconds }
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.tableView.es.stopPullToRefresh()
-                }
+                self.shares = shares.sorted { $0.postTime.seconds > $1.postTime.seconds }
+                self.group.leave()
             case .failure(let error):
                 print(error)
+                self.group.leave()
             }
+        }
+        group.notify(queue: DispatchQueue.main) { [weak self] in
+            guard let self = self else { return }
+            self.tableView.reloadData()
+            self.tableView.es.stopPullToRefresh()
         }
     }
 
     func fetchShareById() {
-        firestoreManager.fetchShareBy(shareId) { result in
+        group.enter()
+        firestoreManager.fetchShareBy(shareId) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let share):
                 self.shares = [share]
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.tableView.es.stopPullToRefresh()
-                }
+                self.group.leave()
             case .failure(let error):
                 print(error)
+                self.group.leave()
             }
+        }
+        group.notify(queue: DispatchQueue.main) { [weak self] in
+            guard let self = self else { return }
+            self.tableView.reloadData()
         }
     }
 
@@ -140,9 +166,11 @@ extension ShareViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: ShareCell.identifier, for: indexPath)
             as? ShareCell
         else { fatalError("Could not create share cell") }
+        let share = shares[indexPath.row]
+        guard let author = authorDict[share.authorId] else { fatalError("Failed to fetch author") }
         cell.foodImageView.hero.id = "\(indexPath.section)\(indexPath.row)"
         cell.delegate = self
-        cell.layoutCell(with: shares[indexPath.row])
+        cell.layoutCell(with: share, author: author)
         return cell
     }
 }
