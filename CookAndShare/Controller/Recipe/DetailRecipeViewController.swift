@@ -106,6 +106,11 @@ class DetailRecipeViewController: UIViewController {
             present(loginVC, animated: true)
         } else {
             guard let recipe = recipe else { return }
+            if !hasSaved {
+                let alertView = SPAlertView(message: "收藏成功")
+                alertView.duration = 0.8
+                alertView.present()
+            }
             firestoreManager.updateRecipeSaves(recipeId: recipe.recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
             firestoreManager.updateUserSaves(recipeId: recipe.recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
             hasSaved.toggle()
@@ -237,7 +242,9 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
     func deletePost() {
         let alert = UIAlertController(title: "確定刪除此貼文？", message: "此動作將無法回復！", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "確定刪除", style: .destructive) { [weak self] _ in
-            SPAlert.present(message: "刪除中...", haptic: .warning)
+            let alertView = SPAlertView(message: "刪除中")
+            alertView.duration = 0.8
+            alertView.present()
             guard
                 let self = self,
                 let recipe = self.recipe

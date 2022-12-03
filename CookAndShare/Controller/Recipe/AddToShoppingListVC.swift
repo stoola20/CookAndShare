@@ -51,16 +51,16 @@ class AddToShoppingListVC: UIViewController {
     }
 
     @IBAction func addToShoppingList(_ sender: UIButton) {
-        let alertView = SPAlertView(title: "成功加入", preset: .done)
-        alertView.iconView?.tintColor = .myOrange
+        let alertView = SPAlertView(message: "已加入採買清單")
         alertView.duration = 1
-        alertView.present()
+        alertView.present(haptic: .warning) {
+            self.dismiss(animated: true)
+        }
 
         for index in selectedIndex {
             let ingredient = initialIngredients[index]
             coreDataManager.addItem(name: ingredient.name, quantity: ingredient.quantity)
         }
-        dismiss(animated: true)
     }
 }
 

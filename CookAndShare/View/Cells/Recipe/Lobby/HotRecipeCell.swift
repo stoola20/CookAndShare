@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import SPAlert
 
 class HotRecipeCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
@@ -97,6 +98,11 @@ class HotRecipeCell: UICollectionViewCell {
             loginVC.isPresented = true
             viewController?.present(loginVC, animated: true)
         } else {
+            if !hasSaved {
+                let alertView = SPAlertView(message: "收藏成功")
+                alertView.duration = 0.8
+                alertView.present()
+            }
             firestoreManager.updateRecipeSaves(recipeId: recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
             firestoreManager.updateUserSaves(recipeId: recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
             hasSaved.toggle()
