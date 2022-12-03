@@ -10,6 +10,7 @@ import ESPullToRefresh
 
 class ChatListViewController: UIViewController {
     var conversations: [Conversation] = []
+    var friendsDict: [String: User] = [:]
     let firestoreManager = FirestoreManager.shared
     var header: ESRefreshHeaderAnimator {
         let header = ESRefreshHeaderAnimator.init(frame: CGRect.zero)
@@ -63,7 +64,8 @@ class ChatListViewController: UIViewController {
         var tempConversations: [Conversation] = []
         let group = DispatchGroup()
         group.enter()
-        firestoreManager.fetchUserData(userId: Constant.getUserId()) { result in
+        firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let user):
                 user.conversationId.forEach { conversationId in
@@ -73,6 +75,20 @@ class ChatListViewController: UIViewController {
                         case .success(let conversation):
                             if Set(user.blockList).isDisjoint(with: Set(conversation.friendIds)) {
                                 tempConversations.append(conversation)
+                                if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.getUserId()) {
+                                    let friendId = myIdIndex == 0 ? conversation.friendIds[1] : conversation.friendIds[0]
+                                    group.enter()
+                                    self.firestoreManager.fetchUserData(userId: friendId) { result in
+                                        switch result {
+                                        case .success(let friend):
+                                            self.friendsDict[friendId] = friend
+                                            group.leave()
+                                        case .failure(let error):
+                                            print(error)
+                                            group.leave()
+                                        }
+                                    }
+                                }
                             }
                             group.leave()
                         case .failure(let error):
@@ -118,14 +134,8 @@ extension ChatListViewController: UITableViewDataSource {
         if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.getUserId()),
             let lastMessage = conversation.messages.last {
             let friendId = myIdIndex == 0 ? conversation.friendIds[1] : conversation.friendIds[0]
-            firestoreManager.fetchUserData(userId: friendId) { result in
-                switch result {
-                case .success(let user):
-                    cell.layoutCell(with: user.name, imageURL: user.imageURL, lastMessage: lastMessage)
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            guard let friend = friendsDict[friendId] else { fatalError("Fetch friend data error") }
+            cell.layoutCell(with: friend.name, imageURL: friend.imageURL, lastMessage: lastMessage)
         }
         cell.selectedBackgroundView = selectedBackground
         return cell

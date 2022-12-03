@@ -19,7 +19,7 @@ protocol ShareCellDelegate: AnyObject {
 
 class ShareCell: UITableViewCell {
     let firestoreManager = FirestoreManager.shared
-    var user: User?
+    var author: User?
     var foodImageURL = ""
     weak var delegate: ShareCellDelegate!
     @IBOutlet weak var userImageView: UIImageView!
@@ -83,7 +83,7 @@ class ShareCell: UITableViewCell {
     }
 
     @objc func goToProfile() {
-        guard let user = user else {
+        guard let user = author else {
             return
         }
 
@@ -103,10 +103,10 @@ class ShareCell: UITableViewCell {
     }
 
     @objc func blockList() {
-        guard let user = user else {
+        guard let author = author else {
             return
         }
-        delegate.block(user: user)
+        delegate.block(user: author)
     }
 
     @objc func report() {
@@ -119,18 +119,10 @@ class ShareCell: UITableViewCell {
         userNameLabel.text = ""
     }
 
-    func layoutCell(with share: Share) {
-        firestoreManager.fetchUserData(userId: share.authorId) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let user):
-                self.userImageView.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
-                self.userNameLabel.text = user.name
-                self.user = user
-            case .failure(let error):
-                print(error)
-            }
-        }
+    func layoutCell(with share: Share, author: User) {
+        userImageView.loadImage(author.imageURL, placeHolder: UIImage(named: Constant.chefMan))
+        userNameLabel.text = author.name
+        self.author = author
 
         postTimeLabel.text = Date().getSharePostTime(from: Date(timeIntervalSince1970: Double(share.postTime.seconds)))
         titleLabel.text = "\(share.title)"
