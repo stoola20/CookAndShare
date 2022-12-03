@@ -240,7 +240,7 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
     }
 
     func deletePost() {
-        let alert = UIAlertController(title: "確定刪除此貼文？", message: "此動作將無法回復！", preferredStyle: .alert)
+        let alert = UIAlertController(title: "確定刪除此貼文？", message: "此動作將無法回復。", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "確定刪除", style: .destructive) { [weak self] _ in
             let alertView = SPAlertView(message: "刪除中")
             alertView.duration = 0.8
