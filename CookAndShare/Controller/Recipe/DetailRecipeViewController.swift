@@ -20,46 +20,34 @@ class DetailRecipeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var imgHeightConstraint: NSLayoutConstraint!
-    var imageOriginalHeight = CGFloat()
-    let firestoreManager = FirestoreManager.shared
-    var hasLiked = false {
-        didSet {
-            updateLikeButton()
-        }
-    }
-    var hasSaved = false {
-        didSet {
-            updateSaveButton()
-        }
-    }
     var recipeId = ""
-    var recipe: Recipe? {
+    private var imageOriginalHeight = CGFloat()
+    private let firestoreManager = FirestoreManager.shared
+    private var hasLiked = false
+    private var hasSaved = false
+    private var author: User?
+    private var recipe: Recipe? {
         didSet {
             guard let recipe = recipe else { return }
+            firestoreManager.fetchUserData(userId: recipe.authorId) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let author):
+                    self.author = author
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print(error)
+                }
+            }
             hasLiked = recipe.likes.contains(Constant.getUserId())
             hasSaved = recipe.saves.contains(Constant.getUserId())
             imgView.loadImage(recipe.mainImageURL, placeHolder: UIImage(named: Constant.friedRice))
-            tableView.reloadData()
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(
-                image: UIImage(systemName: "heart"),
-                style: .plain,
-                target: self,
-                action: #selector(likeRecipe)
-            ),
-            UIBarButtonItem(
-                image: UIImage(systemName: "bookmark"),
-                style: .plain,
-                target: self,
-                action: #selector(saveRecipe)
-            )
-        ]
     }
 
     override func viewDidLayoutSubviews() {
@@ -71,14 +59,11 @@ class DetailRecipeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let barAppearance = UINavigationBarAppearance()
-        let backImage = UIImage(systemName: "chevron.backward.circle.fill")
         barAppearance.configureWithTransparentBackground()
-        barAppearance.setBackIndicatorImage(backImage, transitionMaskImage: backImage)
-        navigationController?.navigationBar.standardAppearance = barAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
-        navigationController?.navigationBar.tintColor = .lightOrange
-        navigationController?.hidesBarsOnSwipe = true
-
+        navigationItem.standardAppearance = barAppearance
+        navigationItem.scrollEdgeAppearance = barAppearance
+        navigationItem.compactAppearance = barAppearance
+        navigationController?.navigationBar.tintColor = .background
         firestoreManager.fetchRecipeBy(recipeId) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -104,30 +89,6 @@ class DetailRecipeViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = barAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = barAppearance
         navigationController?.navigationBar.tintColor = .darkBrown
-        navigationController?.hidesBarsOnSwipe = false
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-
-    func updateLikeButton() {
-        guard var rightBarButtonItems = navigationItem.rightBarButtonItems
-        else { return }
-        let heartButton = rightBarButtonItems[0]
-        heartButton.image = hasLiked
-        ? UIImage(systemName: "heart.fill")
-        : UIImage(systemName: "heart")
-        rightBarButtonItems[0] = heartButton
-        navigationItem.rightBarButtonItems = rightBarButtonItems
-    }
-
-    func updateSaveButton() {
-        guard var rightBarButtonItems = navigationItem.rightBarButtonItems
-        else { return }
-        let saveButton = rightBarButtonItems[1]
-        saveButton.image = hasSaved
-        ? UIImage(systemName: "bookmark.fill")
-        : UIImage(systemName: "bookmark")
-        rightBarButtonItems[1] = saveButton
-        navigationItem.rightBarButtonItems = rightBarButtonItems
     }
 
     func setUpTableView() {
@@ -148,17 +109,31 @@ class DetailRecipeViewController: UIViewController {
         if Auth.auth().currentUser == nil {
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
             guard
-                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
-                    as? LoginViewController
+                let loginVC = storyboard.instantiateViewController(
+                    withIdentifier: String(describing: LoginViewController.self)
+                )
+                as? LoginViewController
             else { fatalError("Could not create loginVC") }
             loginVC.isPresented = true
             present(loginVC, animated: true)
         } else {
             guard let recipe = recipe else { return }
-            firestoreManager.updateRecipeSaves(recipeId: recipe.recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
-            firestoreManager.updateUserSaves(recipeId: recipe.recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
+            if !hasSaved {
+                let alertView = SPAlertView(message: "收藏成功")
+                alertView.duration = 0.8
+                alertView.present()
+            }
+            firestoreManager.updateRecipeSaves(
+                recipeId: recipe.recipeId,
+                userId: Constant.getUserId(),
+                hasSaved: hasSaved
+            )
+            firestoreManager.updateUserSaves(
+                recipeId: recipe.recipeId,
+                userId: Constant.getUserId(),
+                hasSaved: hasSaved
+            )
             hasSaved.toggle()
-            updateSaveButton()
         }
     }
 
@@ -175,7 +150,6 @@ class DetailRecipeViewController: UIViewController {
             guard let recipe = recipe else { return }
             firestoreManager.updateRecipeLikes(recipeId: recipe.recipeId, userId: Constant.getUserId(), hasLiked: hasLiked)
             hasLiked.toggle()
-            updateLikeButton()
         }
     }
 }
@@ -203,12 +177,14 @@ extension DetailRecipeViewController: UITableViewDataSource {
 
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailBannerCell.identifier, for: indexPath) as? DetailBannerCell
+            guard
+                let cell = tableView.dequeueReusableCell(withIdentifier: DetailBannerCell.identifier, for: indexPath)
+                    as? DetailBannerCell,
+                let author = author
             else { fatalError("Could not create banner cell") }
             cell.delegate = self
-            cell.layoutCell(with: recipe)
+            cell.layoutCell(with: recipe, author: author)
             return cell
-
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: IngredientHeaderCell.identifier, for: indexPath) as? IngredientHeaderCell
             else { fatalError("Could not create header cell") }
@@ -217,18 +193,25 @@ extension DetailRecipeViewController: UITableViewDataSource {
             return cell
 
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailIngredientCell.identifier, for: indexPath) as? DetailIngredientCell
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: DetailIngredientCell.identifier, for: indexPath
+            )
+                as? DetailIngredientCell
             else { fatalError("Could not create ingredient cell") }
             cell.layoutCell(with: recipe.ingredients[indexPath.row])
             return cell
 
         case 3:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ProcedureHeaderCell.identifier) as? ProcedureHeaderCell
+            guard
+                let cell = tableView.dequeueReusableCell(withIdentifier: ProcedureHeaderCell.identifier)
+                    as? ProcedureHeaderCell
             else { fatalError("Could not create header cell") }
             return cell
 
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailProcedureCell.identifier, for: indexPath) as? DetailProcedureCell
+            guard
+                let cell = tableView.dequeueReusableCell(withIdentifier: DetailProcedureCell.identifier, for: indexPath)
+                    as? DetailProcedureCell
             else { fatalError("Could not create procedure cell") }
             cell.viewController = self
             cell.procedureImageView.hero.id = "\(indexPath.section)\(indexPath.row)"
@@ -242,9 +225,6 @@ extension DetailRecipeViewController: UITableViewDataSource {
 extension DetailRecipeViewController: UITableViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let originalOffsetY = -(imageOriginalHeight - 50)
-        if scrollView.contentOffset.y <= originalOffsetY {
-            navigationController?.setNavigationBarHidden(false, animated: true)
-        }
         let moveDistance = abs(scrollView.contentOffset.y - originalOffsetY)
         if scrollView.contentOffset.y < originalOffsetY {
             self.imgHeightConstraint.constant = imageOriginalHeight + moveDistance
@@ -259,7 +239,9 @@ extension DetailRecipeViewController: UITableViewDelegate {
         if Auth.auth().currentUser == nil {
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
             guard
-                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
+                let loginVC = storyboard.instantiateViewController(
+                    withIdentifier: String(describing: LoginViewController.self)
+                )
                     as? LoginViewController
             else { fatalError("Could not create loginVC") }
             loginVC.isPresented = true
@@ -267,7 +249,9 @@ extension DetailRecipeViewController: UITableViewDelegate {
         } else {
             let storyboard = UIStoryboard(name: Constant.recipe, bundle: nil)
             guard
-                let addToListVC = storyboard.instantiateViewController(withIdentifier: String(describing: AddToShoppingListVC.self))
+                let addToListVC = storyboard.instantiateViewController(
+                    withIdentifier: String(describing: AddToShoppingListVC.self)
+                )
                     as? AddToShoppingListVC,
                 let recipe = recipe
             else { fatalError("Could not create AddToShoppingListVC") }
@@ -281,7 +265,9 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
     func goToProfile(_ userId: String) {
         let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
         guard
-            let publicProfileVC = storyboard.instantiateViewController(withIdentifier: String(describing: PublicProfileViewController.self))
+            let publicProfileVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: PublicProfileViewController.self)
+            )
             as? PublicProfileViewController
         else { fatalError("Could not create publicProfileVC") }
         publicProfileVC.userId = userId
@@ -289,15 +275,21 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
     }
 
     func deletePost() {
-        let alert = UIAlertController(title: "確定刪除此貼文？", message: "此動作將無法回復！", preferredStyle: .alert)
+        let alert = UIAlertController(title: "確定刪除此貼文？", message: "此動作將無法回復。", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "確定刪除", style: .destructive) { [weak self] _ in
-            SPAlert.present(message: "刪除中...", haptic: .warning)
+            let alertView = SPAlertView(message: "刪除中")
+            alertView.duration = 0.8
+            alertView.present()
             guard
                 let self = self,
                 let recipe = self.recipe
             else { return }
             self.firestoreManager.deleteRecipePost(recipeId: self.recipeId)
-            self.firestoreManager.updateUserRecipePost(recipeId: self.recipeId, userId: recipe.authorId, isNewPost: false)
+            self.firestoreManager.updateUserRecipePost(
+                recipeId: self.recipeId,
+                userId: recipe.authorId,
+                isNewPost: false
+            )
             self.firestoreManager.searchAllUsers { result in
                 switch result {
                 case .success(let users):
@@ -319,7 +311,9 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
     func editPost() {
         let storyboard = UIStoryboard(name: Constant.newpost, bundle: nil)
         guard
-            let newRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: NewRecipeViewController.self))
+            let newRecipeVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: NewRecipeViewController.self)
+            )
                 as? NewRecipeViewController,
             let recipe = recipe
         else { fatalError("Cpuld not instantiate newRecipeVC") }

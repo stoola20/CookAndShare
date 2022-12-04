@@ -9,6 +9,8 @@ import UIKit
 
 class SavedRecipeViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var alertStackView: UIStackView!
+    @IBOutlet weak var seeRecipeButton: UIButton!
     let firestoreManager = FirestoreManager.shared
     var user: User?
     var savedRecipes: [Recipe] = []
@@ -45,16 +47,24 @@ class SavedRecipeViewController: UIViewController {
         setUpCollectionView()
         title = "我的收藏"
         navigationItem.backButtonTitle = ""
+        seeRecipeButton.tintColor = .darkBrown
+        seeRecipeButton.backgroundColor = .lightOrange
+        seeRecipeButton.layer.cornerRadius = 15
+        seeRecipeButton.addTarget(self, action: #selector(seeRecipe), for: .touchUpInside)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        alertStackView.isHidden = true
         firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
-            guard let self = self else { return}
+            guard let self = self else { return }
             switch result {
             case .success(let user):
                 self.user = user
                 self.savedRecipsId = user.savedRecipesId
+                if user.savedRecipesId.isEmpty {
+                    self.alertStackView.isHidden = false
+                }
             case .failure(let error):
                 print(error)
             }
@@ -66,6 +76,10 @@ class SavedRecipeViewController: UIViewController {
         collectionView.delegate = self
         collectionView.collectionViewLayout = configureCollectionViewLayout()
         collectionView.registerCellWithNib(identifier: HotRecipeCell.identifier, bundle: nil)
+    }
+
+    @objc func seeRecipe() {
+        self.tabBarController?.selectedIndex = 0
     }
 }
 

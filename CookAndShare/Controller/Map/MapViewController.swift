@@ -40,6 +40,24 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "地圖"
+
+        marketButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
+        foodBankButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
+        setUpUI()
+
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 50
+        locationManager.delegate = self
+        mapView.delegate = self
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchThisAreaButton.isHidden = true
+        startLocationServices()
+    }
+
+    func setUpUI() {
         let barAppearance = UINavigationBarAppearance()
         barAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.darkBrown as Any,
@@ -51,33 +69,6 @@ class MapViewController: UIViewController {
         navigationItem.standardAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
 
-        locationManager.startUpdatingLocation()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 50
-        locationManager.delegate = self
-        mapView.delegate = self
-
-        marketButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
-        foodBankButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
-        setUpUI()
-
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.requestLocation()
-            mapView.isMyLocationEnabled = true
-            mapView.settings.myLocationButton = true
-        } else {
-            locationManager.requestWhenInUseAuthorization()
-        }
-
-        configSearchAreaButton()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        searchThisAreaButton.isHidden = true
-    }
-
-    func setUpUI() {
         marketButton.isSelected = true
         marketButton.setTitleColor(UIColor.background, for: .selected)
         marketButton.setTitleColor(UIColor.myOrange, for: .normal)
@@ -91,6 +82,7 @@ class MapViewController: UIViewController {
         bannerBackground.layer.shadowOpacity = 0.6
         bannerBackground.layer.shadowOffset = CGSize(width: 1, height: 2)
         bannerBackground.layer.shadowRadius = 1
+        configSearchAreaButton()
     }
 
     func configSearchAreaButton() {
@@ -120,6 +112,44 @@ class MapViewController: UIViewController {
 
         searchThisAreaButton.clipsToBounds = true
         searchThisAreaButton.layer.cornerRadius = 20
+    }
+
+    func startLocationServices() {
+        let locationAuthorizationStatus = CLLocationManager.authorizationStatus()
+
+        switch locationAuthorizationStatus {
+        case .notDetermined:
+            self.locationManager.requestWhenInUseAuthorization()
+        case .authorizedWhenInUse, .authorizedAlways:
+            if CLLocationManager.locationServicesEnabled() {
+                self.locationManager.startUpdatingLocation()
+                mapView.isMyLocationEnabled = true
+                mapView.settings.myLocationButton = true
+            }
+        case .restricted, .denied:
+            self.alertLocationAccessNeeded()
+        @unknown default:
+            print("@unknown default")
+        }
+    }
+
+    func alertLocationAccessNeeded() {
+        guard let settingsAppURL = URL(string: UIApplication.openSettingsURLString) else { return }
+
+        let alert = UIAlertController(
+            title: "您的定位服務目前設為關閉",
+            message: "您可以前往設定頁面，並選擇「使用 App 期間」來允許好享煮飯取用您的位置。",
+            preferredStyle: .alert
+        )
+        let allowAction = UIAlertAction(
+            title: "前往設定頁面",
+            style: .cancel) { _ in
+                UIApplication.shared.open(settingsAppURL, options: [:], completionHandler: nil)
+        }
+        alert.addAction(UIAlertAction(title: "不用了，謝謝", style: .default))
+        alert.addAction(allowAction)
+
+        present(alert, animated: true)
     }
 
     func fetchNearbyPlace(keyword: String, location: CLLocation) {
@@ -181,8 +211,17 @@ class MapViewController: UIViewController {
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        guard status == .authorizedWhenInUse else {
-            return
+        switch status {
+        case .notDetermined:
+            manager.requestWhenInUseAuthorization()
+        case .authorizedWhenInUse, .authorizedAlways:
+            manager.startUpdatingLocation()
+            mapView.isMyLocationEnabled = true
+            mapView.settings.myLocationButton = true
+        case .restricted, .denied:
+            alertLocationAccessNeeded()
+        @unknown default:
+            print("@unknown default")
         }
     }
 

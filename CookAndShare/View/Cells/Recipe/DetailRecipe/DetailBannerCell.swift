@@ -14,11 +14,13 @@ protocol DetailBannerCellDelegate: AnyObject {
     func editPost()
     func block(user: User)
     func reportRecipe()
+    func likeRecipe()
+    func saveRecipe()
 }
 
 class DetailBannerCell: UITableViewCell {
     let firestoreManager = FirestoreManager.shared
-    var user: User?
+    var author: User?
 
     weak var delegate: DetailBannerCellDelegate!
     @IBOutlet weak var containerView: UIView!
@@ -27,10 +29,11 @@ class DetailBannerCell: UITableViewCell {
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var storyLabel: UILabel!
-    @IBOutlet weak var heartImageView: UIImageView!
     @IBOutlet weak var likesLabel: UILabel!
     @IBOutlet weak var seeProfileButton: UIButton!
     @IBOutlet weak var moreButton: UIButton!
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,6 +45,8 @@ class DetailBannerCell: UITableViewCell {
         authorLabel.addGestureRecognizer(setGestureRecognizer())
         seeProfileButton.addTarget(self, action: #selector(goToProfile), for: .touchUpInside)
         moreButton.showsMenuAsPrimaryAction = true
+        likeButton.addTarget(self, action: #selector(likeRecipe), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(saveRecipe), for: .touchUpInside)
     }
 
     func setUpUI() {
@@ -55,8 +60,9 @@ class DetailBannerCell: UITableViewCell {
         storyLabel.textColor = UIColor.darkBrown
         titleLabel.font = UIFont.boldSystemFont(ofSize: 22)
         likesLabel.textColor = UIColor.darkBrown
-        likesLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        heartImageView.tintColor = UIColor.myOrange
+        likesLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        saveButton.tintColor = .myOrange
+        likeButton.tintColor = .myOrange
         seeProfileButton.tintColor = .darkBrown
         seeProfileButton.layer.cornerRadius = 15
         seeProfileButton.backgroundColor = .lightOrange
@@ -69,10 +75,10 @@ class DetailBannerCell: UITableViewCell {
     }
 
     @objc func goToProfile() {
-        guard let user = user else {
+        guard let author = author else {
             return
         }
-        delegate.goToProfile(user.id)
+        delegate.goToProfile(author.id)
     }
 
     @objc func editPost() {
@@ -84,31 +90,31 @@ class DetailBannerCell: UITableViewCell {
     }
 
     @objc func blockList() {
-        guard let user = user else {
+        guard let author = author else {
             return
         }
-        delegate.block(user: user)
+        delegate.block(user: author)
     }
 
     @objc func report() {
         delegate.reportRecipe()
     }
 
-    func layoutCell(with recipe: Recipe) {
-        firestoreManager.fetchUserData(userId: recipe.authorId) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let user):
-                self.profileImage.loadImage(user.imageURL, placeHolder: UIImage(named: Constant.chefMan))
-                self.authorLabel.text = user.name
-                self.user = user
-            case .failure(let error):
-                print(error)
-            }
-        }
+    @objc func likeRecipe() {
+        delegate.likeRecipe()
+    }
+
+    @objc func saveRecipe() {
+        delegate.saveRecipe()
+    }
+
+    func layoutCell(with recipe: Recipe, author: User) {
+        profileImage.loadImage(author.imageURL, placeHolder: UIImage(named: Constant.chefMan))
+        authorLabel.text = author.name
+        self.author = author
+
         titleLabel.text = recipe.title
         durationLabel.text = "⌛️ 烹調時間： \(recipe.cookDuration) 分鐘"
-        authorLabel.text = recipe.authorId
         storyLabel.text = recipe.description
 
         if recipe.authorId == Constant.getUserId() {
@@ -163,10 +169,16 @@ class DetailBannerCell: UITableViewCell {
                 return
             }
             self.likesLabel.text = String(newRecipe.likes.count)
-            if newRecipe.likes.isEmpty {
-                self.heartImageView.image = UIImage(systemName: "heart")
+            if newRecipe.likes.contains(Constant.getUserId()) {
+                self.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             } else {
-                self.heartImageView.image = UIImage(systemName: "heart.fill")
+                self.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            }
+
+            if newRecipe.saves.contains(Constant.getUserId()) {
+                self.saveButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+            } else {
+                self.saveButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
             }
         }
     }

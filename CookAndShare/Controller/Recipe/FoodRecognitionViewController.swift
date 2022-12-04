@@ -46,15 +46,11 @@ class FoodRecognitionViewController: UIViewController {
         resultLabel.textColor = UIColor.darkBrown
         resultLabel.font = UIFont.boldSystemFont(ofSize: 20)
 
-        retakeButton.layer.cornerRadius = 25
-        retakeButton.backgroundColor = UIColor.darkBrown
-        retakeButton.setTitleColor(UIColor.background, for: .normal)
-        retakeButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        retakeButton.layer.cornerRadius = retakeButton.bounds.height / 2
+        retakeButton.backgroundColor = UIColor.lightOrange
 
-        searchButton.layer.cornerRadius = 25
-        searchButton.backgroundColor = UIColor.darkBrown
-        searchButton.setTitleColor(UIColor.background, for: .normal)
-        searchButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        searchButton.layer.cornerRadius = searchButton.bounds.height / 2
+        searchButton.backgroundColor = UIColor.lightOrange
     }
 
     @objc func chooseSourceType() {
@@ -114,8 +110,7 @@ class FoodRecognitionViewController: UIViewController {
             else { fatalError("Model failed to process image") }
             if let firstResult = results.first {
                 if firstResult.confidence > 0.5 {
-                    let alertView = SPAlertView(title: "辨識完成", preset: .done)
-                    alertView.iconView?.tintColor = .myOrange
+                    let alertView = SPAlertView(message: "辨識成功")
                     alertView.duration = 1
                     alertView.present()
                     TranslationManager.shared.textToTranslate = firstResult.identifier
@@ -132,6 +127,7 @@ class FoodRecognitionViewController: UIViewController {
                 } else {
                     SPAlert.present(message: "無法辨識", haptic: .error)
                     self.resultLabel.text = "照片無法被辨識，請嘗試重新拍攝"
+                    self.searchButton.isHidden = true
                 }
                 self.retakeButton.isHidden = false
             }

@@ -19,7 +19,7 @@ class NewRecipeHeaderView: UITableViewHeaderFooterView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     private func configureHeader() {
         addSubview(label)
         label.font = UIFont.boldSystemFont(ofSize: 22)

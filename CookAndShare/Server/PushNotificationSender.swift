@@ -25,7 +25,9 @@ class PushNotificationSender {
             do {
                 if let jsonData = data {
                     print(jsonData)
-                    if let jsonDataDict = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
+                    if let jsonDataDict = try JSONSerialization.jsonObject(
+                        with: jsonData,
+                        options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
                         NSLog("Received data:\n\(jsonDataDict))")
                     }
                 }

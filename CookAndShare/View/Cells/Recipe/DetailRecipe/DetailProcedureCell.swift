@@ -22,6 +22,11 @@ class DetailProcedureCell: UITableViewCell {
         procedureImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(presentLargePhoto)))
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        procedureImageView.image = UIImage(named: Constant.friedRice)
+    }
+
     func setUpUI() {
         stepLabel.textColor = UIColor.darkBrown
         descriptionLabel.textColor = UIColor.darkBrown

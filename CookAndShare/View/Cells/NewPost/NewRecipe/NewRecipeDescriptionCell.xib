@@ -11,11 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="755" id="KGk-i7-Jjw" customClass="NewRecipeDescriptionCell" customModule="CookAndShare" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="743"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="772" id="KGk-i7-Jjw" customClass="NewRecipeDescriptionCell" customModule="CookAndShare" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="760"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="743"/>
+                <rect key="frame" x="0.0" y="0.0" width="414" height="760"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fef-cf-mqc">
@@ -67,7 +67,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RRv-sg-gkp" customClass="UserInputTextField" customModule="CookAndShare" customModuleProvider="target">
-                        <rect key="frame" x="16" y="677" width="382" height="50"/>
+                        <rect key="frame" x="16" y="694" width="382" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="qrt-Hb-fqq"/>
                         </constraints>
@@ -75,7 +75,7 @@
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="h8F-0B-ti3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="325"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="342"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="takePhoto" translatesAutoresizingMaskIntoConstraints="NO" id="2rS-Bb-V5O">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="310.5"/>
@@ -84,7 +84,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="上傳食譜主圖片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cVW-ab-Dv4">
-                                <rect key="frame" x="135.5" y="318.5" width="143" height="6.5"/>
+                                <rect key="frame" x="135.5" y="318.5" width="143" height="23.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" name="DarkBrown"/>
                                 <nil key="highlightedColor"/>
@@ -140,11 +140,11 @@
                 <outlet property="quantityLabel" destination="AEE-e1-GDD" id="2o9-r0-NeD"/>
                 <outlet property="quantityTextField" destination="RRv-sg-gkp" id="6nn-bh-jI8"/>
             </connections>
-            <point key="canvasLocation" x="204.34782608695653" y="136.94196428571428"/>
+            <point key="canvasLocation" x="204.34782608695653" y="142.63392857142856"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="takePhoto" width="512" height="512"/>
+        <image name="takePhoto" width="256" height="256"/>
         <namedColor name="DarkBrown">
             <color red="0.3411764705882353" green="0.24313725490196078" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

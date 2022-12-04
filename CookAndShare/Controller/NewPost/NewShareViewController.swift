@@ -8,6 +8,7 @@
 import UIKit
 import PhotosUI
 import FirebaseFirestore
+import SPAlert
 
 class NewShareViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -46,6 +47,11 @@ class NewShareViewController: UIViewController {
             alert.addAction(okAction)
             present(alert, animated: true)
         } else {
+            let alertView = SPAlertView(message: "上傳成功\n謝謝你拯救美食")
+            alertView.duration = 1.3
+            alertView.present(haptic: .warning) {
+                self.navigationController?.popViewController(animated: true)
+            }
             if share.shareId.isEmpty {
                 let document = firestoreManager.sharesCollection.document()
                 share.postTime = Timestamp(date: Date())
@@ -56,7 +62,6 @@ class NewShareViewController: UIViewController {
             } else {
                 try? firestoreManager.sharesCollection.document(share.shareId).setData(from: share, merge: true)
             }
-            navigationController?.popViewController(animated: true)
         }
     }
 }

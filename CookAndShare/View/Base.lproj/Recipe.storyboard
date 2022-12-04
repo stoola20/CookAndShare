@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -167,22 +168,31 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y71-1Z-s8y">
-                                <rect key="frame" x="24" y="376" width="366" height="24"/>
+                                <rect key="frame" x="24" y="366" width="366" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" name="DarkBrown"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shakePhone_100" translatesAutoresizingMaskIntoConstraints="NO" id="akt-NB-hkM">
-                                <rect key="frame" x="157" y="415" width="100" height="100"/>
+                                <rect key="frame" x="157" y="405" width="100" height="100"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ywm-U1-7C5">
-                                <rect key="frame" x="132" y="276" width="150" height="50"/>
+                                <rect key="frame" x="132" y="276" width="150" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Xcu-RM-44x"/>
+                                    <constraint firstAttribute="height" constant="40" id="Xcu-RM-44x"/>
                                     <constraint firstAttribute="width" constant="150" id="Z4S-gT-sZH"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="食物辨識"/>
+                                <buttonConfiguration key="configuration" style="plain" imagePlacement="trailing" imagePadding="8">
+                                    <imageReference key="image" image="arrow.right" catalog="system" symbolScale="medium"/>
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="食物辨識">
+                                            <attributes>
+                                                <font key="NSFont" size="18" name="PingFangTC-Semibold"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="showFoodRecognition:" destination="BPY-cx-df1" eventType="touchUpInside" id="QxE-Vm-R0c"/>
                                 </connections>
@@ -249,7 +259,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="AY5-R8-dvc">
-                                <rect key="frame" x="0.0" y="186" width="414" height="524.5"/>
+                                <rect key="frame" x="0.0" y="191" width="414" height="514.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="takePhoto" translatesAutoresizingMaskIntoConstraints="NO" id="ddP-cC-GVS">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
@@ -257,37 +267,64 @@
                                             <constraint firstAttribute="width" secondItem="ddP-cC-GVS" secondAttribute="height" multiplier="1:1" id="WSy-su-p5C"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="點選上方框框即可選取照片來源" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUH-Es-wnH">
-                                        <rect key="frame" x="85.5" y="434" width="243" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="點選上方即可選取照片來源" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUH-Es-wnH">
+                                        <rect key="frame" x="103" y="434" width="208" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="oWS-39-JCO">
-                                        <rect key="frame" x="75" y="474.5" width="264" height="50"/>
+                                        <rect key="frame" x="75" y="474.5" width="264" height="40"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNd-R3-Tgo">
-                                                <rect key="frame" x="0.0" y="0.0" width="120" height="50"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNd-R3-Tgo">
+                                                <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="yQ6-pO-T9C"/>
                                                 </constraints>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="重新拍攝"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Button">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="重新拍攝">
+                                                            <attributes>
+                                                                <font key="NSFont" size="16" name="PingFangTC-Regular"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </state>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="重新拍攝">
+                                                            <attributes>
+                                                                <font key="NSFont" size="17" name="PingFangTC-Semibold"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </buttonConfiguration>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sUw-ON-iTe">
-                                                <rect key="frame" x="144" y="0.0" width="120" height="50"/>
+                                                <rect key="frame" x="144" y="0.0" width="120" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="Fsh-9V-OUZ"/>
                                                 </constraints>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="搜尋食譜"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="搜尋食譜">
+                                                            <attributes>
+                                                                <font key="NSFont" size="17" name="PingFangTC-Semibold"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </buttonConfiguration>
                                                 <connections>
                                                     <action selector="searchRecipe:" destination="MFn-8d-C49" eventType="touchUpInside" id="Io0-ej-aMg"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="zCI-HZ-6Kq"/>
+                                            <constraint firstAttribute="height" constant="40" id="zCI-HZ-6Kq"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -299,7 +336,7 @@
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z0v-FM-mRJ" customClass="LottieAnimationView" customModule="Lottie">
-                                <rect key="frame" x="0.0" y="186" width="414" height="414"/>
+                                <rect key="frame" x="0.0" y="191" width="414" height="414"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="travelingCamera"/>
@@ -389,7 +426,17 @@
                                             <constraint firstAttribute="height" constant="40" id="mM6-nk-UoG"/>
                                         </constraints>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" imagePadding="8">
+                                            <imageReference key="image" image="plus" catalog="system" symbolScale="medium"/>
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="新增食譜">
+                                                    <attributes>
+                                                        <font key="NSFont" size="18" name="PingFangTC-Semibold"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </buttonConfiguration>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -421,7 +468,9 @@
     </scenes>
     <color key="tintColor" name="DarkBrown"/>
     <resources>
+        <image name="arrow.right" catalog="system" width="128" height="98"/>
         <image name="empty-bowl" width="256" height="256"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="shakePhone_100" width="100" height="100"/>
         <image name="takePhoto" width="256" height="256"/>
         <namedColor name="DarkBrown">
