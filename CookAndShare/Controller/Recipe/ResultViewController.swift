@@ -15,7 +15,15 @@ enum SearchType {
 }
 
 class ResultViewController: UIViewController {
-    var recipes: [Recipe]?
+    var recipes: [Recipe]? {
+        didSet {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                guard let recipes = self.recipes else { return }
+                self.stackView.isHidden = recipes.isEmpty ? false : true
+            }
+        }
+    }
     var searchType: SearchType = .title
     var searchString = String.empty
     let firestoreManager = FirestoreManager()
@@ -65,15 +73,36 @@ class ResultViewController: UIViewController {
         firestoreManager.searchRecipe(type: searchType, query: searchString) { result in
             switch result {
             case .success(let recipes):
-                if self.searchType == .random, let randomRecipe = recipes.randomElement() {
-                    self.recipes = [randomRecipe]
-                } else {
+                switch self.searchType {
+                case .title:
                     self.recipes = recipes
-                }
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                    guard let recipes = self.recipes else { return }
-                    self.stackView.isHidden = recipes.isEmpty ? false : true
+                case .ingredient:
+                    self.recipes = recipes.filter { recipe in
+                        var isMach = false
+                        recipe.ingredientNames.forEach { ingredientName in
+                            let ingredientIsMatch = ingredientName.localizedCaseInsensitiveContains(self.searchString)
+                            if !ingredientIsMatch { return }
+                            isMach = ingredientIsMatch
+                        }
+                        return isMach
+                    }
+                case .camera:
+                    self.recipes = recipes.filter { recipe in
+                        var isMach = false
+                        let titleIsMatch = recipe.title.localizedCaseInsensitiveContains(self.searchString)
+                        recipe.ingredientNames.forEach { ingredientName in
+                            let ingredientIsMatch = ingredientName.localizedCaseInsensitiveContains(self.searchString)
+                            if !ingredientIsMatch {
+                                isMach = titleIsMatch
+                            } else {
+                                isMach = ingredientIsMatch
+                            }
+                        }
+                        return isMach
+                    }
+                case .random:
+                    guard let randomRecipe = recipes.randomElement() else { return }
+                    self.recipes = [randomRecipe]
                 }
             case .failure(let error):
                 print(error)
@@ -105,7 +134,7 @@ extension ResultViewController: UICollectionViewDataSource {
             as? AllRecipeCell,
             let recipes = recipes
         else { fatalError("Could not create hot recipe cell") }
-
+        cell.viewController = self
         cell.layoutCell(with: recipes[indexPath.item])
         return cell
     }
