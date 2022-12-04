@@ -52,6 +52,7 @@ class ChatRoomViewController: UIViewController {
 
         setUpTableView()
         setUpUI()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.delegate = self
         inputTextField.delegate = self
         let tap = UITapGestureRecognizer(target: self, action: #selector(hideAudioRecordView))
@@ -281,21 +282,54 @@ class ChatRoomViewController: UIViewController {
     // MARK: - Location Message
     @IBAction func sendLocation(_ sender: UIButton) {
         hideAudioRecordView()
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.requestLocation()
-            locationManager.startUpdatingLocation()
-            let alert = UIAlertController(title: "是否傳送目前位置？", message: nil, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: Constant.confirm, style: .default) { _ in
-                let locationString = "\(self.location.coordinate.latitude),\(self.location.coordinate.longitude)"
-                self.uploadMessage(contentType: .location, content: locationString)
-            }
-            let cancelAction = UIAlertAction(title: Constant.cancel, style: .cancel, handler: nil)
-            alert.addAction(okAction)
-            alert.addAction(cancelAction)
-            present(alert, animated: true, completion: nil)
-        } else {
-            locationManager.requestWhenInUseAuthorization()
+        startLocationServices()
+    }
+
+    func startLocationServices() {
+        let locationAuthorizationStatus = CLLocationManager.authorizationStatus()
+
+        switch locationAuthorizationStatus {
+        case .notDetermined:
+            self.locationManager.requestWhenInUseAuthorization()
+        case .authorizedWhenInUse, .authorizedAlways:
+            self.locationManager.startUpdatingLocation()
+            alertSendingLocation()
+        case .restricted, .denied:
+            alertLocationAccessNeeded()
+        @unknown default:
+            print("@unknown default")
         }
+    }
+
+    func alertSendingLocation() {
+        let alert = UIAlertController(title: "是否傳送目前位置？", message: nil, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: Constant.confirm, style: .default) { _ in
+            let locationString = "\(self.location.coordinate.latitude),\(self.location.coordinate.longitude)"
+            self.uploadMessage(contentType: .location, content: locationString)
+        }
+        let cancelAction = UIAlertAction(title: Constant.cancel, style: .cancel, handler: nil)
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+
+    func alertLocationAccessNeeded() {
+        guard let settingsAppURL = URL(string: UIApplication.openSettingsURLString) else { return }
+
+        let alert = UIAlertController(
+            title: "您的定位服務目前設為關閉",
+            message: "您可以前往設定頁面，並選擇「使用 App 期間」來允許好享煮飯取用您的位置。",
+            preferredStyle: .alert
+        )
+        let allowAction = UIAlertAction(
+            title: "前往設定頁面",
+            style: .cancel) { _ in
+                UIApplication.shared.open(settingsAppURL, options: [:], completionHandler: nil)
+        }
+        alert.addAction(UIAlertAction(title: "不用了，謝謝", style: .default))
+        alert.addAction(allowAction)
+
+        present(alert, animated: true)
     }
 
     // MARK: - Audio Message
@@ -600,10 +634,16 @@ extension ChatRoomViewController: UITableViewDelegate {
 
 extension ChatRoomViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        guard status == .authorizedWhenInUse else {
-            return
+        switch status {
+        case .notDetermined:
+            manager.requestWhenInUseAuthorization()
+        case .authorizedWhenInUse, .authorizedAlways:
+            manager.startUpdatingLocation()
+        case .restricted, .denied:
+            alertLocationAccessNeeded()
+        @unknown default:
+            print("@unknown default")
         }
-        locationManager.requestLocation()
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
