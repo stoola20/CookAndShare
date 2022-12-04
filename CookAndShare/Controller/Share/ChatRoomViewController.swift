@@ -341,11 +341,8 @@ class ChatRoomViewController: UIViewController {
 
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) { self.view.layoutIfNeeded() }
 
-        guard let conversation = conversation else {
-            return
-        }
-
-        let indexPath = IndexPath(row: conversation.messages.count - 1, section: 0)
+        guard let lastSection = messages.last else { return }
+        let indexPath = IndexPath(row: lastSection.count - 1, section: messages.count - 1)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 
