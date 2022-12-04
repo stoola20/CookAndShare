@@ -94,7 +94,7 @@ class FoodRecognitionViewController: UIViewController {
                 as? ResultViewController
         else { fatalError("Could not instantiate resultVC") }
         resultVC.searchString = recognizedResult
-        resultVC.searchType = .title
+        resultVC.searchType = .camera
         navigationController?.pushViewController(resultVC, animated: true)
     }
 

@@ -82,9 +82,7 @@ struct FirestoreManager {
         switch type {
         case .title:
             searchRecipeTitle(query, completion: completion)
-        case .ingredient, .camera:
-            searchIngredientName(query, completion: completion)
-        case .random:
+        default:
             searchAllRecipes(completion: completion)
         }
     }
@@ -144,7 +142,9 @@ struct FirestoreManager {
                     querySnapshot.documents.forEach { document in
                         do {
                             let recipe = try document.data(as: Recipe.self)
-                            recipes.append(recipe)
+                            if recipe.title.contains(title) {
+                                recipes.append(recipe)
+                            }
                         } catch {
                             print(error)
                         }
@@ -172,50 +172,6 @@ struct FirestoreManager {
                 }
             }
         }
-    }
-
-    func searchIngredientName(_ name: String, completion: @escaping RecipeResponse) {
-        var recipes: [Recipe] = []
-        recipesCollection
-            .whereField(Constant.ingredientNames, arrayContains: name)
-            .getDocuments { querySnapshot, error in
-                if let error = error {
-                    print("Error getting documents: \(error)")
-                    completion(.failure(error))
-                } else {
-                    guard let querySnapshot = querySnapshot else { return }
-                    if Auth.auth().currentUser == nil {
-                        querySnapshot.documents.forEach { document in
-                            do {
-                                let recipe = try document.data(as: Recipe.self)
-                                recipes.append(recipe)
-                            } catch {
-                                print(error)
-                            }
-                        }
-                        completion(.success(recipes))
-                    } else {
-                        fetchUserData(userId: Constant.getUserId()) { result in
-                            switch result {
-                            case .success(let user):
-                                querySnapshot.documents.forEach { document in
-                                    do {
-                                        let recipe = try document.data(as: Recipe.self)
-                                        if !user.blockList.contains(recipe.authorId) {
-                                            recipes.append(recipe)
-                                        }
-                                    } catch {
-                                        print(error)
-                                    }
-                                }
-                                completion(.success(recipes))
-                            case .failure(let error):
-                                print(error)
-                            }
-                        }
-                    }
-                }
-            }
     }
 
     func fetchRecipeBy(_ id: String, completion: @escaping (Result<Recipe, Error>) -> Void) {
