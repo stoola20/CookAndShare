@@ -149,27 +149,6 @@ class FirestoreManager {
         }
     }
 
-    func fetchRecipeBy(_ id: String, completion: @escaping (Result<Recipe, Error>) -> Void) {
-        recipesCollection.whereField("recipeId", isEqualTo: id).getDocuments { querySnapshot, error in
-            if let error = error {
-                print("Error getting users: \(error)")
-                completion(.failure(error))
-            } else {
-                guard
-                    let querySnapshot = querySnapshot,
-                    let document = querySnapshot.documents.first
-                else { return }
-
-                do {
-                    let recipe = try document.data(as: Recipe.self)
-                    completion(.success(recipe))
-                } catch {
-                    completion(.failure(error))
-                }
-            }
-        }
-    }
-
     func updateRecipeLikes(recipeId: String, userId: String, hasLiked: Bool) {
         let recipeRef = recipesCollection.document(recipeId)
         if hasLiked {

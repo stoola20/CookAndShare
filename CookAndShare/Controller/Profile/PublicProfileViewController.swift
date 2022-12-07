@@ -53,15 +53,11 @@ class PublicProfileViewController: UIViewController {
                 self.user = user
                 user.recipesId.forEach { recipeId in
                     group.enter()
-                    self.firestoreManager.fetchRecipeBy(recipeId) { result in
-                        switch result {
-                        case .success(let recipe):
-                            tempRecipes.append(recipe)
-                            group.leave()
-                        case .failure(let error):
-                            print(error)
-                            group.leave()
-                        }
+                    let docRef = FirestoreEndpoint.recipes.collectionRef.document(recipeId)
+                    self.firestoreManager.getDocument(docRef) { [weak self] (recipe: Recipe?) in
+                        guard let self = self, let recipe = recipe else { return }
+                        tempRecipes.append(recipe)
+                        group.leave()
                     }
                 }
                 user.sharesId.forEach { shareId in

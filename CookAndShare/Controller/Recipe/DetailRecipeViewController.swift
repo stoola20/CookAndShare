@@ -64,15 +64,7 @@ class DetailRecipeViewController: UIViewController {
         navigationItem.scrollEdgeAppearance = barAppearance
         navigationItem.compactAppearance = barAppearance
         navigationController?.navigationBar.tintColor = .background
-        firestoreManager.fetchRecipeBy(recipeId) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let recipe):
-                self.recipe = recipe
-            case .failure(let error):
-                print(error)
-            }
-        }
+        fetchRecipe()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -103,6 +95,14 @@ class DetailRecipeViewController: UIViewController {
         tableView.registerCellWithNib(identifier: DetailProcedureCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: IngredientHeaderCell.identifier, bundle: nil)
         tableView.registerCellWithNib(identifier: ProcedureHeaderCell.identifier, bundle: nil)
+    }
+
+    func fetchRecipe() {
+        let docRef = FirestoreEndpoint.recipes.collectionRef.document(recipeId)
+        firestoreManager.getDocument(docRef) { [weak self] (recipe: Recipe?) in
+            guard let self = self, let recipe = recipe else { return }
+            self.recipe = recipe
+        }
     }
 
     @objc func saveRecipe() {

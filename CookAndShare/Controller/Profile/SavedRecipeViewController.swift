@@ -19,19 +19,15 @@ class SavedRecipeViewController: UIViewController {
             guard let user = user else { return }
             var tempRecipes: [Recipe] = []
             let group = DispatchGroup()
-            for id in self.savedRecipsId {
+            for recipeId in self.savedRecipsId {
                 group.enter()
-                self.firestoreManager.fetchRecipeBy(id) { result in
-                    switch result {
-                    case .success(let recipe):
-                        if !user.blockList.contains(recipe.authorId) {
-                            tempRecipes.append(recipe)
-                        }
-                        group.leave()
-                    case .failure(let error):
-                        print(error)
-                        group.leave()
+                let docRef = FirestoreEndpoint.recipes.collectionRef.document(recipeId)
+                self.firestoreManager.getDocument(docRef) { (recipe: Recipe?) in
+                    guard let recipe = recipe else { return }
+                    if !user.blockList.contains(recipe.authorId) {
+                        tempRecipes.append(recipe)
                     }
+                    group.leave()
                 }
             }
             group.notify(queue: DispatchQueue.main) { [weak self] in
