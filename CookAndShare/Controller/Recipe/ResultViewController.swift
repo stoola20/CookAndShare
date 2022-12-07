@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 enum SearchType {
     case title
@@ -70,43 +71,58 @@ class ResultViewController: UIViewController {
 
     func searchRecipes() {
         stackView.isHidden = true
-        firestoreManager.searchRecipe(type: searchType, query: searchString) { result in
-            switch result {
-            case .success(let recipes):
-                switch self.searchType {
-                case .title:
-                    self.recipes = recipes
-                case .ingredient:
-                    self.recipes = recipes.filter { recipe in
-                        var isMach = false
-                        recipe.ingredientNames.forEach { ingredientName in
-                            let ingredientIsMatch = ingredientName.localizedCaseInsensitiveContains(self.searchString)
-                            if !ingredientIsMatch { return }
-                            isMach = ingredientIsMatch
-                        }
-                        return isMach
-                    }
-                case .camera:
-                    self.recipes = recipes.filter { recipe in
-                        var isMach = false
-                        let titleIsMatch = recipe.title.localizedCaseInsensitiveContains(self.searchString)
-                        recipe.ingredientNames.forEach { ingredientName in
-                            let ingredientIsMatch = ingredientName.localizedCaseInsensitiveContains(self.searchString)
-                            if !ingredientIsMatch {
-                                isMach = titleIsMatch
-                            } else {
-                                isMach = ingredientIsMatch
-                            }
-                        }
-                        return isMach
-                    }
-                case .random:
-                    guard let randomRecipe = recipes.randomElement() else { return }
-                    self.recipes = [randomRecipe]
-                }
-            case .failure(let error):
-                print(error)
+        if Auth.auth().currentUser == nil {
+            let query = FirestoreEndpoint.recipes.collectionRef
+            self.firestoreManager.getDocuments(query) { (recipes: [Recipe]) in
+                self.filterRecipes(recipes: recipes)
             }
+        } else {
+            let docRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            firestoreManager.getDocument(docRef) { [weak self] (user: User?) in
+                guard let self = self, let user = user else { return }
+                let query = user.blockList.isEmpty
+                ? FirestoreEndpoint.recipes.collectionRef
+                : FirestoreEndpoint.recipes.collectionRef.whereField(Constant.authorId, notIn: user.blockList)
+                self.firestoreManager.getDocuments(query) { (recipes: [Recipe]) in
+                    self.filterRecipes(recipes: recipes)
+                }
+            }
+        }
+    }
+
+    func filterRecipes(recipes: [Recipe]) {
+        switch self.searchType {
+        case .title:
+            self.recipes = recipes.filter { recipe in
+                return recipe.title.localizedCaseInsensitiveContains(self.searchString)
+            }
+        case .ingredient:
+            self.recipes = recipes.filter { recipe in
+                var isMach = false
+                recipe.ingredientNames.forEach { ingredientName in
+                    let ingredientIsMatch = ingredientName.localizedCaseInsensitiveContains(self.searchString)
+                    if !ingredientIsMatch { return }
+                    isMach = ingredientIsMatch
+                }
+                return isMach
+            }
+        case .camera:
+            self.recipes = recipes.filter { recipe in
+                var isMach = false
+                let titleIsMatch = recipe.title.localizedCaseInsensitiveContains(self.searchString)
+                recipe.ingredientNames.forEach { ingredientName in
+                    let ingredientIsMatch = ingredientName.localizedCaseInsensitiveContains(self.searchString)
+                    if !ingredientIsMatch {
+                        isMach = titleIsMatch
+                    } else {
+                        isMach = ingredientIsMatch
+                    }
+                }
+                return isMach
+            }
+        case .random:
+            guard let randomRecipe = recipes.randomElement() else { return }
+            self.recipes = [randomRecipe]
         }
     }
 
