@@ -7,7 +7,7 @@
 
 import UIKit
 protocol PublicPostHeaderViewDelegate: AnyObject {
-    func headerView(didChange: Bool)
+    func headerViewDidChange(toRecipe: Bool)
 }
 
 class PublicPostHeaderView: UICollectionReusableView {
@@ -34,7 +34,7 @@ class PublicPostHeaderView: UICollectionReusableView {
 
     @IBAction func changeToRecipe(_ sender: UIButton) {
         toRecipe = true
-        delegate.headerView(didChange: toRecipe)
+        delegate.headerViewDidChange(toRecipe: toRecipe)
         animateUnderline(sender)
         recipeButton.isSelected = true
         shareButton.isSelected = false
@@ -42,10 +42,10 @@ class PublicPostHeaderView: UICollectionReusableView {
 
     @IBAction func changeToShare(_ sender: UIButton) {
         toRecipe = false
-        delegate.headerView(didChange: toRecipe)
-        animateUnderline(sender)
-        recipeButton.isSelected = false
-        shareButton.isSelected = true
+        delegate.headerViewDidChange(toRecipe: toRecipe)
+//        animateUnderline(sender)
+//        recipeButton.isSelected = false
+//        shareButton.isSelected = true
     }
 
     func animateUnderline(_ sender: UIButton) {

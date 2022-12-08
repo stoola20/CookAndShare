@@ -204,9 +204,9 @@ extension PublicProfileViewController {
 }
 
 extension PublicProfileViewController: PublicPostHeaderViewDelegate {
-    func headerView(didChange: Bool) {
-        self.toRecipe = didChange
-        self.recipeCollectionView.reloadData()
+    func headerViewDidChange(toRecipe: Bool) {
+        self.toRecipe = toRecipe
+//        self.recipeCollectionView.reloadData()
     }
 }
 
