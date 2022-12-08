@@ -11,7 +11,7 @@ class TranslationManager: NSObject {
     var textToTranslate: String?
     let targetLanguage = "zh-TW"
     let sourceLanguage = "en"
-    
+
     override init() {
         super.init()
     }
