@@ -137,27 +137,39 @@ class RecipeViewController: UIViewController {
     }
 
     func downloadRecipes() {
-        firestoreManager.searchAllRecipes { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let recipes):
-                let tempRecipes = recipes.sorted { $0.likes.count > $1.likes.count }
-                var tempHot: [Recipe] = []
-                for index in 0..<tempRecipes.count where index <= 9 {
-                    tempHot.append(tempRecipes[index])
-                }
-                self.hotRecipes = tempHot
-
-                self.allRecipes = recipes.sorted { $0.time.seconds > $1.time.seconds }
-                self.filterRecipe(byTag: self.selectedTag)
-
-                DispatchQueue.main.async {
-                    self.collectionView.reloadSections(IndexSet(integer: 0))
-                    self.collectionView.es.stopPullToRefresh()
-                }
-            case .failure(let error):
-                print(error)
+        if Auth.auth().currentUser == nil {
+            let query = FirestoreEndpoint.recipes.collectionRef
+            self.firestoreManager.getDocuments(query) { (recipes: [Recipe]) in
+                self.sortRecipes(recipes: recipes)
             }
+        } else {
+            let docRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            firestoreManager.getDocument(docRef) { [weak self] (user: User?) in
+                guard let self = self, let user = user else { return }
+                let query = user.blockList.isEmpty
+                ? FirestoreEndpoint.recipes.collectionRef
+                : FirestoreEndpoint.recipes.collectionRef.whereField(Constant.authorId, notIn: user.blockList)
+                self.firestoreManager.getDocuments(query) { (recipes: [Recipe]) in
+                    self.sortRecipes(recipes: recipes)
+                }
+            }
+        }
+    }
+
+    private func sortRecipes(recipes: [Recipe]) {
+        let tempRecipes = recipes.sorted { $0.likes.count > $1.likes.count }
+        var tempHot: [Recipe] = []
+        for index in 0..<tempRecipes.count where index <= 9 {
+            tempHot.append(tempRecipes[index])
+        }
+        self.hotRecipes = tempHot
+
+        self.allRecipes = recipes.sorted { $0.time.seconds > $1.time.seconds }
+        self.filterRecipe(byTag: self.selectedTag)
+
+        DispatchQueue.main.async {
+            self.collectionView.reloadSections(IndexSet(integer: 0))
+            self.collectionView.es.stopPullToRefresh()
         }
     }
 

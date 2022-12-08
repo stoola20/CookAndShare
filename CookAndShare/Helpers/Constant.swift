@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 
-struct Constant {
+enum Constant {
     // CoreData
     static let modelName = "CookAndShare"
     static let entityName = "ShoppingList"
@@ -18,6 +18,7 @@ struct Constant {
     static let firestoreUsers = "users"
     static let firestoreShares = "shares"
     static let firestoreConversations = "conversations"
+    static let authorId = "authorId"
 
     // storyboard
     static let newpost = "NewPost"
