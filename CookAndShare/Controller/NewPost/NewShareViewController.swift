@@ -37,7 +37,7 @@ class NewShareViewController: UIViewController {
     }
 
     @IBAction func post(_ sender: UIButton) {
-        if share.imageURL.isEmpty || share.title.isEmpty || share.description.isEmpty || share.meetTime.isEmpty || share.meetPlace.isEmpty {
+        if !canPost() {
             let alert = UIAlertController(
                 title: "請檢查是否有欄位空白！",
                 message: nil,
@@ -62,6 +62,14 @@ class NewShareViewController: UIViewController {
             } else {
                 try? firestoreManager.sharesCollection.document(share.shareId).setData(from: share, merge: true)
             }
+        }
+    }
+
+    func canPost() -> Bool {
+        if share.imageURL.isEmpty || share.title.isEmpty || share.description.isEmpty || share.meetTime.isEmpty || share.meetPlace.isEmpty {
+            return false
+        } else {
+            return true
         }
     }
 }

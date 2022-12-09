@@ -70,9 +70,9 @@
 		378C1C2D291F895A00CF8D38 /* successGold.json in Resources */ = {isa = PBXBuildFile; fileRef = 378C1C2C291F895A00CF8D38 /* successGold.json */; };
 		378EA508291CD033004200F9 /* UserInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378EA507291CD033004200F9 /* UserInputTextField.swift */; };
 		378EA50A291CEAF8004200F9 /* UIDatePicker+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */; };
-		37993BAE2942450F00D352A0 /* TogglePostTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37993BAD2942450F00D352A0 /* TogglePostTypeTests.swift */; };
 		37993BC829424CB100D352A0 /* TranslationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37993BC729424CB100D352A0 /* TranslationTests.swift */; };
 		37993BCF2942509300D352A0 /* TranslationAPITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37993BCE2942509300D352A0 /* TranslationAPITest.swift */; };
+		37993BE4294310DE00D352A0 /* CookAndShareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37993BE3294310DE00D352A0 /* CookAndShareTests.swift */; };
 		37A31314292E4DB8007E5E8C /* JWTClaims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31313292E4DB8007E5E8C /* JWTClaims.swift */; };
 		37A31316292E6FF6007E5E8C /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31315292E6FF6007E5E8C /* Params.swift */; };
 		37AE892329399EC400199C34 /* DateComponent+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AE892229399EC400199C34 /* DateComponent+Ext.swift */; };
@@ -156,14 +156,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		37993BAF2942450F00D352A0 /* PBXContainerItemProxy */ = {
+		37993BC929424CB100D352A0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 37D69C4D290BCF970034D8E1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 37D69C54290BCF970034D8E1;
 			remoteInfo = CookAndShare;
 		};
-		37993BC929424CB100D352A0 /* PBXContainerItemProxy */ = {
+		37993BE5294310DE00D352A0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 37D69C4D290BCF970034D8E1 /* Project object */;
 			proxyType = 1;
@@ -239,11 +239,11 @@
 		378C1C2C291F895A00CF8D38 /* successGold.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successGold.json; sourceTree = "<group>"; };
 		378EA507291CD033004200F9 /* UserInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputTextField.swift; sourceTree = "<group>"; };
 		378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Ext.swift"; sourceTree = "<group>"; };
-		37993BAB2942450F00D352A0 /* TogglePostTypeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TogglePostTypeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		37993BAD2942450F00D352A0 /* TogglePostTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglePostTypeTests.swift; sourceTree = "<group>"; };
 		37993BC529424CB100D352A0 /* TranslationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TranslationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37993BC729424CB100D352A0 /* TranslationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationTests.swift; sourceTree = "<group>"; };
 		37993BCE2942509300D352A0 /* TranslationAPITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationAPITest.swift; sourceTree = "<group>"; };
+		37993BE1294310DE00D352A0 /* CookAndShareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookAndShareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		37993BE3294310DE00D352A0 /* CookAndShareTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookAndShareTests.swift; sourceTree = "<group>"; };
 		37A31313292E4DB8007E5E8C /* JWTClaims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTClaims.swift; sourceTree = "<group>"; };
 		37A31315292E6FF6007E5E8C /* Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Params.swift; sourceTree = "<group>"; };
 		37AE892229399EC400199C34 /* DateComponent+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponent+Ext.swift"; sourceTree = "<group>"; };
@@ -330,14 +330,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		37993BA82942450F00D352A0 /* Frameworks */ = {
+		37993BC229424CB100D352A0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		37993BC229424CB100D352A0 /* Frameworks */ = {
+		37993BDE294310DE00D352A0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -474,14 +474,6 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
-		37993BAC2942450F00D352A0 /* TogglePostTypeTests */ = {
-			isa = PBXGroup;
-			children = (
-				37993BAD2942450F00D352A0 /* TogglePostTypeTests.swift */,
-			);
-			path = TogglePostTypeTests;
-			sourceTree = "<group>";
-		};
 		37993BC629424CB100D352A0 /* TranslationTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,6 +481,14 @@
 				37993BC729424CB100D352A0 /* TranslationTests.swift */,
 			);
 			path = TranslationTests;
+			sourceTree = "<group>";
+		};
+		37993BE2294310DE00D352A0 /* CookAndShareTests */ = {
+			isa = PBXGroup;
+			children = (
+				37993BE3294310DE00D352A0 /* CookAndShareTests.swift */,
+			);
+			path = CookAndShareTests;
 			sourceTree = "<group>";
 		};
 		37CBEC832910B60900A62EF2 /* NewShare */ = {
@@ -525,8 +525,8 @@
 			isa = PBXGroup;
 			children = (
 				37D69C57290BCF970034D8E1 /* CookAndShare */,
-				37993BAC2942450F00D352A0 /* TogglePostTypeTests */,
 				37993BC629424CB100D352A0 /* TranslationTests */,
+				37993BE2294310DE00D352A0 /* CookAndShareTests */,
 				37D69C56290BCF970034D8E1 /* Products */,
 				5A573818B45E4AF89687A7D9 /* Pods */,
 				95F592EFB962341C8D0C0E04 /* Frameworks */,
@@ -537,8 +537,8 @@
 			isa = PBXGroup;
 			children = (
 				37D69C55290BCF970034D8E1 /* CookAndShare.app */,
-				37993BAB2942450F00D352A0 /* TogglePostTypeTests.xctest */,
 				37993BC529424CB100D352A0 /* TranslationTests.xctest */,
+				37993BE1294310DE00D352A0 /* CookAndShareTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -814,24 +814,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		37993BAA2942450F00D352A0 /* TogglePostTypeTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 37993BB12942450F00D352A0 /* Build configuration list for PBXNativeTarget "TogglePostTypeTests" */;
-			buildPhases = (
-				37993BA72942450F00D352A0 /* Sources */,
-				37993BA82942450F00D352A0 /* Frameworks */,
-				37993BA92942450F00D352A0 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				37993BB02942450F00D352A0 /* PBXTargetDependency */,
-			);
-			name = TogglePostTypeTests;
-			productName = TogglePostTypeTests;
-			productReference = 37993BAB2942450F00D352A0 /* TogglePostTypeTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		37993BC429424CB100D352A0 /* TranslationTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 37993BCB29424CB100D352A0 /* Build configuration list for PBXNativeTarget "TranslationTests" */;
@@ -848,6 +830,24 @@
 			name = TranslationTests;
 			productName = TranslationTests;
 			productReference = 37993BC529424CB100D352A0 /* TranslationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		37993BE0294310DE00D352A0 /* CookAndShareTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37993BE7294310DE00D352A0 /* Build configuration list for PBXNativeTarget "CookAndShareTests" */;
+			buildPhases = (
+				37993BDD294310DE00D352A0 /* Sources */,
+				37993BDE294310DE00D352A0 /* Frameworks */,
+				37993BDF294310DE00D352A0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				37993BE6294310DE00D352A0 /* PBXTargetDependency */,
+			);
+			name = CookAndShareTests;
+			productName = CookAndShareTests;
+			productReference = 37993BE1294310DE00D352A0 /* CookAndShareTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		37D69C54290BCF970034D8E1 /* CookAndShare */ = {
@@ -882,11 +882,11 @@
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
-					37993BAA2942450F00D352A0 = {
+					37993BC429424CB100D352A0 = {
 						CreatedOnToolsVersion = 13.4;
 						TestTargetID = 37D69C54290BCF970034D8E1;
 					};
-					37993BC429424CB100D352A0 = {
+					37993BE0294310DE00D352A0 = {
 						CreatedOnToolsVersion = 13.4;
 						TestTargetID = 37D69C54290BCF970034D8E1;
 					};
@@ -910,21 +910,21 @@
 			projectRoot = "";
 			targets = (
 				37D69C54290BCF970034D8E1 /* CookAndShare */,
-				37993BAA2942450F00D352A0 /* TogglePostTypeTests */,
 				37993BC429424CB100D352A0 /* TranslationTests */,
+				37993BE0294310DE00D352A0 /* CookAndShareTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		37993BA92942450F00D352A0 /* Resources */ = {
+		37993BC329424CB100D352A0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		37993BC329424CB100D352A0 /* Resources */ = {
+		37993BDF294310DE00D352A0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1084,20 +1084,20 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		37993BA72942450F00D352A0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				37993BAE2942450F00D352A0 /* TogglePostTypeTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		37993BC129424CB100D352A0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				37993BCF2942509300D352A0 /* TranslationAPITest.swift in Sources */,
 				37993BC829424CB100D352A0 /* TranslationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37993BDD294310DE00D352A0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37993BE4294310DE00D352A0 /* CookAndShareTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1205,15 +1205,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		37993BB02942450F00D352A0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 37D69C54290BCF970034D8E1 /* CookAndShare */;
-			targetProxy = 37993BAF2942450F00D352A0 /* PBXContainerItemProxy */;
-		};
 		37993BCA29424CB100D352A0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 37D69C54290BCF970034D8E1 /* CookAndShare */;
 			targetProxy = 37993BC929424CB100D352A0 /* PBXContainerItemProxy */;
+		};
+		37993BE6294310DE00D352A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37D69C54290BCF970034D8E1 /* CookAndShare */;
+			targetProxy = 37993BE5294310DE00D352A0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1277,52 +1277,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		37993BB22942450F00D352A0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PDRVZ7DT2S;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.TogglePostTypeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CookAndShare.app/CookAndShare";
-			};
-			name = Debug;
-		};
-		37993BB32942450F00D352A0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PDRVZ7DT2S;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.TogglePostTypeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CookAndShare.app/CookAndShare";
-			};
-			name = Release;
-		};
 		37993BCC29424CB100D352A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1359,6 +1313,52 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.TranslationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CookAndShare.app/CookAndShare";
+			};
+			name = Release;
+		};
+		37993BE8294310DE00D352A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PDRVZ7DT2S;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShareTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CookAndShare.app/CookAndShare";
+			};
+			name = Debug;
+		};
+		37993BE9294310DE00D352A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PDRVZ7DT2S;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShareTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -1571,20 +1571,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		37993BB12942450F00D352A0 /* Build configuration list for PBXNativeTarget "TogglePostTypeTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				37993BB22942450F00D352A0 /* Debug */,
-				37993BB32942450F00D352A0 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		37993BCB29424CB100D352A0 /* Build configuration list for PBXNativeTarget "TranslationTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				37993BCC29424CB100D352A0 /* Debug */,
 				37993BCD29424CB100D352A0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37993BE7294310DE00D352A0 /* Build configuration list for PBXNativeTarget "CookAndShareTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37993BE8294310DE00D352A0 /* Debug */,
+				37993BE9294310DE00D352A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

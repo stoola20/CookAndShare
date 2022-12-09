@@ -43,9 +43,9 @@ class PublicPostHeaderView: UICollectionReusableView {
     @IBAction func changeToShare(_ sender: UIButton) {
         toRecipe = false
         delegate.headerViewDidChange(toRecipe: toRecipe)
-//        animateUnderline(sender)
-//        recipeButton.isSelected = false
-//        shareButton.isSelected = true
+        animateUnderline(sender)
+        recipeButton.isSelected = false
+        shareButton.isSelected = true
     }
 
     func animateUnderline(_ sender: UIButton) {
