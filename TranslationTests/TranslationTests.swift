@@ -14,7 +14,6 @@ class TranslationTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         sut = TranslationManager.shared
-        sut.textToTranslate = "sushi"
     }
 
     override func tearDownWithError() throws {
@@ -23,12 +22,17 @@ class TranslationTests: XCTestCase {
     }
 
     func testTextBeTranslated() {
-        let promise = expectation(description: "Completion handler invoked")
-
-        sut.translate { translations in
-            XCTAssertEqual(translations, "壽司")
-            promise.fulfill()
+        let result = [
+            "data": [
+                "translations": [
+                    ["translatedText": "\u{4ee4}\u{5091}"],
+                    ["translatedText": "\u{5b54}"],
+                    ["translatedText": "\u{6c23}\u{6b7b}"]
+                ]
+            ]
+        ]
+        sut.parseResult(result: result) { translationText in
+            XCTAssertEqual(translationText, "令傑")
         }
-        wait(for: [promise], timeout: 5)
     }
 }
