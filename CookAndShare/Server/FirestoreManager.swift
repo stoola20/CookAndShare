@@ -348,63 +348,6 @@ class FirestoreManager {
         }
     }
 
-    func fetchSharePost(completion: @escaping (Result<[Share], Error>) -> Void) {
-        var shares: [Share] = []
-
-        sharesCollection.getDocuments { querySnapshot, error in
-            if let error = error {
-                print("Error getting documents: \(error)")
-                completion(.failure(error))
-            } else {
-                guard let querySnapshot = querySnapshot else { return }
-                if Auth.auth().currentUser == nil {
-                    querySnapshot.documents.forEach { document in
-                        do {
-                            let share = try document.data(as: Share.self)
-                            let bbfTimeInterval = Double(share.bestBefore.seconds)
-                            let shareDayComponent = Calendar.current.component(.day, from: Date(timeIntervalSince1970: bbfTimeInterval))
-                            let today = Calendar.current.component(.day, from: Date())
-                            if bbfTimeInterval < Date().timeIntervalSince1970 && shareDayComponent != today {
-                                self.deleteSharePost(shareId: share.shareId)
-                                self.updateUserSharePost(shareId: share.shareId, userId: share.authorId, isNewPost: false)
-                            } else {
-                                shares.append(share)
-                            }
-                        } catch {
-                            completion(.failure(error))
-                        }
-                    }
-                    completion(.success(shares))
-                } else {
-                    self.fetchUserData(userId: Constant.getUserId()) { result in
-                        switch result {
-                        case .success(let user):
-                            querySnapshot.documents.forEach { document in
-                                do {
-                                    let share = try document.data(as: Share.self)
-                                    let bbfTimeInterval = Double(share.bestBefore.seconds)
-                                    let shareDayComponent = Calendar.current.component(.day, from: Date(timeIntervalSince1970: bbfTimeInterval))
-                                    let today = Calendar.current.component(.day, from: Date())
-                                    if bbfTimeInterval < Date().timeIntervalSince1970 && shareDayComponent != today {
-                                        self.deleteSharePost(shareId: share.shareId)
-                                        self.updateUserSharePost(shareId: share.shareId, userId: share.authorId, isNewPost: false)
-                                    } else if !user.blockList.contains(share.authorId) {
-                                        shares.append(share)
-                                    }
-                                } catch {
-                                    completion(.failure(error))
-                                }
-                            }
-                            completion(.success(shares))
-                        case .failure(let error):
-                            print(error)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     func fetchShareBy(_ id: String, completion: @escaping (Result<Share, Error>) -> Void) {
         sharesCollection.whereField("shareId", isEqualTo: id).getDocuments { querySnapshot, error in
             if let error = error {

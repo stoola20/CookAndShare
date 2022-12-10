@@ -7,14 +7,18 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 import Hero
 import ESPullToRefresh
 import SPAlert
 
 class ShareViewController: UIViewController {
-    let firestoreManager = FirestoreManager.shared
-    let group = DispatchGroup()
-    var shares: [Share] = [] {
+    private let firestoreManager = FirestoreManager.shared
+    private var authorDict: [String: User] = [:]
+    private let group = DispatchGroup()
+    var shareId = ""
+    var fromPublicVC = false
+    private var shares: [Share] = [] {
         didSet {
             shares.forEach { share in
                 group.enter()
@@ -30,12 +34,15 @@ class ShareViewController: UIViewController {
                     }
                 }
             }
+
+            group.notify(queue: DispatchQueue.main) { [weak self] in
+                guard let self = self else { return }
+                self.tableView.reloadData()
+                self.tableView.es.stopPullToRefresh()
+            }
         }
     }
-    var authorDict: [String: User] = [:]
-    var shareId = ""
-    var fromPublicVC = false
-    var header: ESRefreshHeaderAnimator {
+    private var header: ESRefreshHeaderAnimator {
         let header = ESRefreshHeaderAnimator.init(frame: CGRect.zero)
         header.pullToRefreshDescription = "下拉更新"
         header.releaseToRefreshDescription = ""
@@ -45,11 +52,40 @@ class ShareViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
+    // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "食物分享"
         setUpTableView()
+        setUpNavBar()
 
+        if !fromPublicVC {
+            tableView.es.addPullToRefresh(animator: header) { [weak self] in
+                guard let self = self else { return }
+                self.fetchSharePost()
+            }
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !fromPublicVC {
+            fetchSharePost()
+        } else {
+            getShare(by: shareId)
+        }
+    }
+
+    // MARK: - Private methods
+    private func setUpTableView() {
+        tableView.dataSource = self
+        tableView.allowsSelection = false
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        tableView.separatorColor = UIColor.lightOrange
+        tableView.registerCellWithNib(identifier: ShareCell.identifier, bundle: nil)
+    }
+
+    private func setUpNavBar() {
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(
                 image: UIImage(systemName: "plus.circle"),
@@ -69,71 +105,85 @@ class ShareViewController: UIViewController {
         barAppearance.backgroundColor = .lightOrange
         navigationItem.standardAppearance = barAppearance
         navigationItem.scrollEdgeAppearance = barAppearance
+    }
 
-        if !fromPublicVC {
-            tableView.es.addPullToRefresh(animator: header) { [weak self] in
-                guard let self = self else { return }
-                self.fetchSharePost()
+    private func fetchSharePost() {
+        if Auth.auth().currentUser == nil {
+            let query = FirestoreEndpoint.shares.collectionRef
+            getShares(query: query)
+        } else {
+            let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            firestoreManager.getDocument(userRef) { [weak self] (result: Result<User?, Error>) in
+                switch result {
+                case .success(let user):
+                    guard let self = self, let user = user else { return }
+
+                    let query = user.blockList.isEmpty
+                    ? FirestoreEndpoint.shares.collectionRef
+                    : FirestoreEndpoint.shares.collectionRef.whereField(Constant.authorId, notIn: user.blockList)
+
+                    self.getShares(query: query)
+                case .failure(let error):
+                    SPAlert.present(title: error.localizedDescription, preset: .error)
+                }
             }
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if !fromPublicVC {
-            fetchSharePost()
-        } else {
-            fetchShareById()
-        }
-    }
-
-    func setUpTableView() {
-        tableView.dataSource = self
-        tableView.allowsSelection = false
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        tableView.separatorColor = UIColor.lightOrange
-        tableView.registerCellWithNib(identifier: ShareCell.identifier, bundle: nil)
-    }
-
-    func fetchSharePost() {
+    private func getShares(query: Query) {
         group.enter()
-        firestoreManager.fetchSharePost { [weak self] result in
+        firestoreManager.getDocuments(query) { [weak self] (result: Result<[Share], Error>) in
             guard let self = self else { return }
             switch result {
             case .success(let shares):
-                self.shares = shares.sorted { $0.postTime.seconds > $1.postTime.seconds }
-                self.group.leave()
+                self.deleteExpiredShare(from: shares, manager: self.firestoreManager)
             case .failure(let error):
-                print(error)
-                self.group.leave()
+                SPAlert.present(title: error.localizedDescription, preset: .error)
             }
-        }
-        group.notify(queue: DispatchQueue.main) { [weak self] in
-            guard let self = self else { return }
-            self.tableView.reloadData()
-            self.tableView.es.stopPullToRefresh()
+            self.group.leave()
         }
     }
 
-    func fetchShareById() {
+    private func getShare(by id: String) {
+        let docRef = FirestoreEndpoint.shares.collectionRef.document(id)
         group.enter()
-        firestoreManager.fetchShareBy(shareId) { [weak self] result in
+        firestoreManager.getDocument(docRef) { [weak self] (result: Result<Share?, Error>) in
             guard let self = self else { return }
             switch result {
             case .success(let share):
+                guard let share = share else { return }
                 self.shares = [share]
-                self.group.leave()
             case .failure(let error):
-                print(error)
-                self.group.leave()
+                SPAlert.present(title: error.localizedDescription, preset: .error)
             }
-        }
-        group.notify(queue: DispatchQueue.main) { [weak self] in
-            guard let self = self else { return }
-            self.tableView.reloadData()
+            self.group.leave()
         }
     }
 
+    private func deleteExpiredShare(from shares: [Share], manager: FirestoreManager) {
+        var tempShares: [Share] = []
+        shares.forEach { share in
+            let bbfTimeInterval = Double(share.bestBefore.seconds)
+            let shareDayComponent = Calendar.current.component(
+                .day,
+                from: Date(timeIntervalSince1970: bbfTimeInterval)
+            )
+            let today = Calendar.current.component(.day, from: Date())
+            if bbfTimeInterval < Date().timeIntervalSince1970 && shareDayComponent != today {
+                manager.deleteSharePost(shareId: share.shareId)
+                manager.updateUserSharePost(
+                    shareId: share.shareId,
+                    userId: share.authorId,
+                    isNewPost: false
+                )
+            } else {
+                tempShares.append(share)
+            }
+        }
+        self.shares = tempShares.sorted { $0.postTime.seconds > $1.postTime.seconds }
+    }
+
+    // MARK: - Action
     @objc func addShare() {
         if Auth.auth().currentUser == nil {
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)

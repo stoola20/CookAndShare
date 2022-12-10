@@ -68,22 +68,22 @@ class PublicProfileViewController: UIViewController {
                 }
                 user.sharesId.forEach { shareId in
                     group.enter()
-                    self.firestoreManager.fetchShareBy(shareId) { result in
+                    let docRef = FirestoreEndpoint.shares.collectionRef.document(shareId)
+                    self.firestoreManager.getDocument(docRef) { (result: Result<Share?, Error>) in
                         switch result {
                         case .success(let share):
+                            guard let share = share else { return }
                             tempShares.append(share)
-                            group.leave()
                         case .failure(let error):
-                            print(error)
-                            group.leave()
+                            SPAlert.present(title: error.localizedDescription, preset: .error)
                         }
+                        group.leave()
                     }
                 }
-                group.leave()
             case .failure(let error):
                 print(error)
-                group.leave()
             }
+            group.leave()
         }
 
         group.notify(queue: DispatchQueue.main) { [weak self] in
