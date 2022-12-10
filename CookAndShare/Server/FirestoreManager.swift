@@ -106,6 +106,18 @@ class FirestoreManager {
         }
     }
 
+    func listenDocument<T: Codable>(_ docRef: DocumentReference, completion: @escaping (Result<T?, Error>) -> Void) {
+        docRef.addSnapshotListener { snapshot, error in
+            completion(self.parseDucument(snapshot: snapshot, error: error))
+        }
+    }
+
+    func listenDocuments<T: Codable>(_ query: Query, completion: @escaping (Result<[T], Error>) -> Void) {
+        query.addSnapshotListener { snapshot, error in
+            completion(self.parseDocuments(snapshot: snapshot, error: error))
+        }
+    }
+
 // MARK: - Upload Photo
     func uploadPhoto(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
         guard let resizedImage = image.resizeWithWidth(width: 1200) else { return }
@@ -141,25 +153,6 @@ class FirestoreManager {
             print("Document added with ID: \(document.documentID)")
         } catch let error {
             print("Error adding document: \(error)")
-        }
-    }
-
-    func addRecipeListener(completion: @escaping RecipeResponse) {
-        var recipes: [Recipe] = []
-
-        recipesCollection.addSnapshotListener { documentSnapshot, error in
-            guard let documentSnapshot = documentSnapshot else {
-                print("Error fetching document: \(String(describing: error))")
-                return
-            }
-            documentSnapshot.documents.forEach { document in
-                guard let recipe = try? document.data(as: Recipe.self) else {
-                    print("Document data was empty.")
-                    return
-                }
-                recipes.append(recipe)
-            }
-            completion(.success(recipes))
         }
     }
 
@@ -511,23 +504,5 @@ class FirestoreManager {
         conversationRef.updateData([
             "messages": FieldValue.arrayUnion([message])
         ])
-    }
-
-    func addListener(channelId: String, completion: @escaping (Result<Conversation, Error>) -> Void) {
-        let conversationRef = conversationsCollection.document(channelId)
-
-        conversationRef.addSnapshotListener { documentSnapshot, error in
-            guard let document = documentSnapshot else {
-                print("Error fetching document: \(error!)")
-                return
-            }
-
-            guard let newConversation = try? document.data(as: Conversation.self) else {
-                print("Document data was empty.")
-                return
-            }
-
-            completion(.success(newConversation))
-        }
     }
 }

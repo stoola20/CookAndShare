@@ -19,22 +19,14 @@ class AllRecipeCell: UICollectionViewCell {
     @IBOutlet weak var yellowBackground: UIView!
 
     weak var viewController: UIViewController?
-    let firestoreManager = FirestoreManager.shared
-    var listener: ListenerRegistration?
-    var hasSaved = false
-    var recipeId = String.empty
+    private let firestoreManager = FirestoreManager.shared
+    private var listener: ListenerRegistration?
+    private var hasSaved = false
+    private var recipeId = String.empty
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpUI()
-    }
-
-    func setUpUI() {
-        imageView.contentMode = .scaleAspectFill
-        titleLabel.textColor = UIColor.darkBrown
-        durationLabel.textColor = UIColor.darkBrown
-        yellowBackground.layer.cornerRadius = 20
-        storeButton.tintColor = UIColor.darkBrown
-        imageView.applyshadowWithCorner(containerView: containerView, cornerRadious: 50)
     }
 
     override func prepareForReuse() {
@@ -43,17 +35,31 @@ class AllRecipeCell: UICollectionViewCell {
     }
 
     func layoutCell(with recipe: Recipe) {
+        config(recipe)
+        recipeId = recipe.recipeId
+        listenTo(recipe: recipe)
+    }
+
+    // MARK: - Private methods
+    private func setUpUI() {
+        imageView.contentMode = .scaleAspectFill
+        titleLabel.textColor = UIColor.darkBrown
+        durationLabel.textColor = UIColor.darkBrown
+        yellowBackground.layer.cornerRadius = 20
+        storeButton.tintColor = UIColor.darkBrown
+        imageView.applyshadowWithCorner(containerView: containerView, cornerRadious: 50)
+    }
+
+    private func config(_ recipe: Recipe) {
         imageView.loadImage(recipe.mainImageURL, placeHolder: UIImage(named: Constant.friedRice))
         titleLabel.text = recipe.title
         durationLabel.text = "⌛️ \(recipe.cookDuration) 分鐘"
         hasSaved = recipe.saves.contains(Constant.getUserId())
-        recipeId = recipe.recipeId
-        updateButton()
+    }
 
-        listener = Firestore.firestore()
-            .collection(Constant.firestoreRecipes)
-            .document(recipeId)
-            .addSnapshotListener { [weak self] documentSnapshot, error in
+    private func listenTo(recipe: Recipe) {
+        let docRef = FirestoreEndpoint.recipes.collectionRef.document(recipe.recipeId)
+        listener = docRef.addSnapshotListener { [weak self] documentSnapshot, error in
             guard let self = self else { return }
             guard let document = documentSnapshot else {
                 print("Error fetching document: \(String(describing: error))")
@@ -67,22 +73,23 @@ class AllRecipeCell: UICollectionViewCell {
 
             self.hasSaved = newRecipe.saves.contains(Constant.getUserId())
             self.updateButton()
-            }
+        }
     }
 
-    func updateButton() {
+    private func updateButton() {
         let buttonImage = hasSaved
         ? UIImage(systemName: "bookmark.fill")
         : UIImage(systemName: "bookmark")
         storeButton.setImage(buttonImage, for: .normal)
     }
 
+    // MARK: - Action
     @IBAction func storeRecipe(_ sender: Any) {
         if Auth.auth().currentUser == nil {
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
-                    as? LoginViewController
+            guard let loginVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: LoginViewController.self)
+            ) as? LoginViewController
             else { fatalError("Could not create loginVC") }
             loginVC.isPresented = true
             viewController?.present(loginVC, animated: true)

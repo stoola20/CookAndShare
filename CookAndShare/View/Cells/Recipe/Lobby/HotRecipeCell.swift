@@ -18,15 +18,15 @@ class HotRecipeCell: UICollectionViewCell {
     @IBOutlet weak var storeButton: UIButton!
     @IBOutlet weak var heartImageView: UIImageView!
     @IBOutlet weak var containerView: UIView!
+
     weak var viewController: UIViewController?
-    var listener: ListenerRegistration?
-    var hasSaved = false
-    var recipeId = String.empty
-    let firestoreManager = FirestoreManager.shared
+    private var listener: ListenerRegistration?
+    private var hasSaved = false
+    private var recipeId = String.empty
+    private let firestoreManager = FirestoreManager.shared
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        imageView.contentMode = .scaleAspectFill
         setUpUI()
     }
 
@@ -35,7 +35,14 @@ class HotRecipeCell: UICollectionViewCell {
         listener?.remove()
     }
 
-    func setUpUI() {
+    func layoutCell(with recipe: Recipe) {
+        config(recipe)
+        self.recipeId = recipe.recipeId
+        listenTo(recipe: recipe)
+    }
+
+    // MARK: - Private methods
+    private func setUpUI() {
         storeButton.tintColor = UIColor.background
         heartImageView.tintColor = UIColor.background
         likesLabel.textColor = UIColor.background
@@ -50,20 +57,20 @@ class HotRecipeCell: UICollectionViewCell {
         containerView.layer.shadowRadius = 2
         containerView.layer.cornerRadius = 10
 
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
     }
 
-    func layoutCell(with recipe: Recipe) {
+    func config(_ recipe: Recipe) {
         imageView.loadImage(recipe.mainImageURL, placeHolder: UIImage(named: Constant.friedRice))
         titleLabel.text = recipe.title
         durationLabel.text = "⌛️ \(recipe.cookDuration) 分鐘"
-        recipeId = recipe.recipeId
+    }
 
-        listener = Firestore.firestore()
-            .collection(Constant.firestoreRecipes)
-            .document(recipeId)
-            .addSnapshotListener { [weak self] documentSnapshot, error in
+    private func listenTo(recipe: Recipe) {
+        let docRef = FirestoreEndpoint.recipes.collectionRef.document(recipe.recipeId)
+        listener = docRef.addSnapshotListener { [weak self] documentSnapshot, error in
             guard let self = self else { return }
             guard let document = documentSnapshot else {
                 print("Error fetching document: \(String(describing: error))")
@@ -78,22 +85,23 @@ class HotRecipeCell: UICollectionViewCell {
             self.likesLabel.text = String(recipe.likes.count)
             self.hasSaved = newRecipe.saves.contains(Constant.getUserId())
             self.updateButton()
-            }
+        }
     }
 
-    func updateButton() {
+    private func updateButton() {
         let buttonImage = hasSaved
         ? UIImage(systemName: "bookmark.fill")
         : UIImage(systemName: "bookmark")
         storeButton.setImage(buttonImage, for: .normal)
     }
 
+    // MARK: - Action
     @IBAction func storeRecipe(_ sender: UIButton) {
         if Auth.auth().currentUser == nil {
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
-                    as? LoginViewController
+            guard let loginVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: LoginViewController.self)
+            ) as? LoginViewController
             else { fatalError("Could not create loginVC") }
             loginVC.isPresented = true
             viewController?.present(loginVC, animated: true)

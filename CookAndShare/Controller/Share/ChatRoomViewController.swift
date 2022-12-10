@@ -129,30 +129,35 @@ class ChatRoomViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), menu: menu)
     }
 
-    func fetchConversation() {
+    private func fetchConversation() {
         guard let friend = friend else {
             return
         }
-        firestoreManager.fetchConversation(with: friend.id) { result in
+        firestoreManager.fetchConversation(with: friend.id) { [weak self] result in
             switch result {
             case .success(let conversation):
-                self.conversation = conversation
-                guard let myConversation = self.conversation else { return }
-                self.firestoreManager.addListener(channelId: myConversation.channelId) { result in
-                    switch result {
-                    case .success(let conversation):
-                        self.conversation = conversation
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
+                guard let self = self, let conversation = conversation else { return }
+                self.listen(to: conversation)
             case .failure(let error):
                 print(error)
             }
         }
     }
 
-    func assembleGroupedMessages() {
+    private func listen(to conversation: Conversation) {
+        let docRef = FirestoreEndpoint.conversations.collectionRef.document(conversation.channelId)
+        self.firestoreManager.listenDocument(docRef) { (result: Result<Conversation?, Error>) in
+            switch result {
+            case .success(let conversation):
+                guard let conversation = conversation else { return}
+                self.conversation = conversation
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+
+    private func assembleGroupedMessages() {
         messages = []
         guard let conversation = conversation else { return }
 
@@ -234,21 +239,13 @@ class ChatRoomViewController: UIViewController {
                 duration: duration
             )
             newConversation.messages = [message]
-            self.conversation = newConversation
             firestoreManager.createNewConversation(newConversation, to: document)
             firestoreManager.updateUserConversation(
                 userId: Constant.getUserId(),
                 friendId: friend.id,
                 channelId: document.documentID
             )
-            firestoreManager.addListener(channelId: document.documentID) { result in
-                switch result {
-                case .success(let conversation):
-                    self.conversation = conversation
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            listen(to: newConversation)
         }
 
         if !friend.blockList.contains(Constant.getUserId()) {
