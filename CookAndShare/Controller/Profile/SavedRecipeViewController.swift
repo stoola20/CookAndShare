@@ -58,10 +58,11 @@ class SavedRecipeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         alertStackView.isHidden = true
-        firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
-            guard let self = self else { return }
+        let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+        firestoreManager.getDocument(userRef) { [weak self] (result: Result<User?, Error>) in
             switch result {
             case .success(let user):
+                guard let self = self, let user = user else { return }
                 self.user = user
                 self.savedRecipsId = user.savedRecipesId
                 if user.savedRecipesId.isEmpty {

@@ -249,9 +249,11 @@ class ChatRoomViewController: UIViewController {
         }
 
         if !friend.blockList.contains(Constant.getUserId()) {
-            firestoreManager.fetchUserData(userId: Constant.getUserId()) { result in
+            let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            firestoreManager.getDocument(userRef) { (result: Result<User?, Error>) in
                 switch result {
                 case .success(let user):
+                    guard let user = user else { return }
                     let sender = PushNotificationSender()
                     sender.sendPushNotification(
                         to: friend.fcmToken,

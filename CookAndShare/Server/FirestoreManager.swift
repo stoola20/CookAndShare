@@ -222,28 +222,6 @@ class FirestoreManager {
         }
     }
 
-    func searchAllUsers(completion: @escaping (Result<[User], Error>) -> Void) {
-        var users: [User] = []
-
-        usersCollection.getDocuments { querySnapshot, error in
-            if let error = error {
-                print("Error getting documents: \(error)")
-                completion(.failure(error))
-            } else {
-                guard let querySnapshot = querySnapshot else { return }
-                querySnapshot.documents.forEach { document in
-                    do {
-                        let user = try document.data(as: User.self)
-                        users.append(user)
-                    } catch {
-                        print(error)
-                    }
-                }
-                completion(.success(users))
-            }
-        }
-    }
-
     func updateUserName(userId: String, name: String) {
         usersCollection.document(userId).setData(["name": name], merge: true)
     }
@@ -308,27 +286,6 @@ class FirestoreManager {
         }
     }
 
-    func fetchUserData(userId: String, completion: @escaping (Result<User, Error>) -> Void) {
-        usersCollection.whereField("id", isEqualTo: userId).getDocuments { querySnapshot, error in
-            if let error = error {
-                print("Error getting users: \(error)")
-                completion(.failure(error))
-            } else {
-                guard
-                    let querySnapshot = querySnapshot,
-                    let document = querySnapshot.documents.first
-                else { return }
-
-                do {
-                    let user = try document.data(as: User.self)
-                    completion(.success(user))
-                } catch {
-                    print(error)
-                }
-            }
-        }
-    }
-
     func updateUserConversation(userId: String, friendId: String, channelId: String) {
         usersCollection.document(userId).updateData([
             Constant.conversationId: FieldValue.arrayUnion([channelId])
@@ -345,27 +302,6 @@ class FirestoreManager {
             print("Document added with ID: \(document.documentID)")
         } catch let error {
             print("Error adding document: \(error)")
-        }
-    }
-
-    func fetchShareBy(_ id: String, completion: @escaping (Result<Share, Error>) -> Void) {
-        sharesCollection.whereField("shareId", isEqualTo: id).getDocuments { querySnapshot, error in
-            if let error = error {
-                print("Error getting users: \(error)")
-                completion(.failure(error))
-            } else {
-                guard
-                    let querySnapshot = querySnapshot,
-                    let document = querySnapshot.documents.first
-                else { return }
-
-                do {
-                    let share = try document.data(as: Share.self)
-                    completion(.success(share))
-                } catch {
-                    completion(.failure(error))
-                }
-            }
         }
     }
 

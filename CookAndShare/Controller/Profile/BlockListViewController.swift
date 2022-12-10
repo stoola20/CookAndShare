@@ -37,31 +37,32 @@ class BlockListViewController: UIViewController {
         let group = DispatchGroup()
         blockedUsers.removeAll()
         group.enter()
-        firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
-            guard let self = self else { return }
+        let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+        firestoreManager.getDocument(userRef) { [weak self] (result: Result<User?, Error>) in
             switch result {
             case .success(let user):
+                guard let self = self, let user = user else { return }
                 if user.blockList.isEmpty {
                     self.alertLabel.isHidden = false
                 }
                 user.blockList.forEach { blockId in
                     group.enter()
-                    self.firestoreManager.fetchUserData(userId: blockId) { result in
+                    let userRef = FirestoreEndpoint.users.collectionRef.document(blockId)
+                    self.firestoreManager.getDocument(userRef) { [weak self] (result: Result<User?, Error>) in
                         switch result {
-                        case .success(let user):
-                            self.blockedUsers.append(user)
-                            group.leave()
+                        case .success(let blockedUser):
+                            guard let self = self, let blockedUser = blockedUser else { return }
+                            self.blockedUsers.append(blockedUser)
                         case .failure(let error):
                             print(error)
-                            group.leave()
                         }
+                        group.leave()
                     }
                 }
-                group.leave()
             case .failure(let error):
                 print(error)
-                group.leave()
             }
+            group.leave()
         }
 
         group.notify(queue: DispatchQueue.main) {

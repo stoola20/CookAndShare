@@ -48,9 +48,11 @@ class PublicProfileViewController: UIViewController {
         var tempShares: [Share] = []
         let group = DispatchGroup()
         group.enter()
-        firestoreManager.fetchUserData(userId: userId) { result in
+        let userRef = FirestoreEndpoint.users.collectionRef.document(userId)
+        firestoreManager.getDocument(userRef) { [weak self] (result: Result<User?, Error>) in
             switch result {
             case .success(let user):
+                guard let self = self, let user = user else { return }
                 self.user = user
                 user.recipesId.forEach { recipeId in
                     group.enter()

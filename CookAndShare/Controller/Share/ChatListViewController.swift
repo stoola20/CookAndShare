@@ -64,10 +64,12 @@ class ChatListViewController: UIViewController {
         var tempConversations: [Conversation] = []
         let group = DispatchGroup()
         group.enter()
-        firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
+        let myRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+        firestoreManager.getDocument(myRef) { [weak self] (result: Result<User?, Error>) in
             guard let self = self else { return }
             switch result {
             case .success(let user):
+                guard let user = user else { return }
                 user.conversationId.forEach { conversationId in
                     group.enter()
                     self.firestoreManager.fetchConversationBy(conversationId) { result in
@@ -77,31 +79,32 @@ class ChatListViewController: UIViewController {
                                 tempConversations.append(conversation)
                                 if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.getUserId()) {
                                     let friendId = myIdIndex == 0 ? conversation.friendIds[1] : conversation.friendIds[0]
+
                                     group.enter()
-                                    self.firestoreManager.fetchUserData(userId: friendId) { result in
+                                    let friendRef = FirestoreEndpoint.users.collectionRef.document(friendId)
+
+                                    self.firestoreManager.getDocument(friendRef) { (result: Result<User?, Error>) in
                                         switch result {
                                         case .success(let friend):
+                                            guard let friend = friend else { return }
                                             self.friendsDict[friendId] = friend
-                                            group.leave()
                                         case .failure(let error):
                                             print(error)
-                                            group.leave()
                                         }
+                                        group.leave()
                                     }
                                 }
                             }
-                            group.leave()
                         case .failure(let error):
                             print(error)
-                            group.leave()
                         }
+                        group.leave()
                     }
                 }
-                group.leave()
             case .failure(let error):
                 print(error)
-                group.leave()
             }
+            group.leave()
         }
 
         group.notify(queue: DispatchQueue.main) { [weak self] in
@@ -146,25 +149,16 @@ extension ChatListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
-        guard
-            let chatRoomVC = storyboard.instantiateViewController(
-                withIdentifier: String(describing: ChatRoomViewController.self)
-            )
-                as? ChatRoomViewController
+        guard let chatRoomVC = storyboard.instantiateViewController(
+            withIdentifier: String(describing: ChatRoomViewController.self)
+        ) as? ChatRoomViewController
         else { return }
 
         let conversation = conversations[indexPath.row]
         if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.getUserId()) {
             let friendId = myIdIndex == 0 ? conversation.friendIds[1] : conversation.friendIds[0]
-            firestoreManager.fetchUserData(userId: friendId) { result in
-                switch result {
-                case .success(let friend):
-                    chatRoomVC.friend = friend
-                    self.navigationController?.pushViewController(chatRoomVC, animated: true)
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            chatRoomVC.friend = friendsDict[friendId]
+            self.navigationController?.pushViewController(chatRoomVC, animated: true)
         }
     }
 }

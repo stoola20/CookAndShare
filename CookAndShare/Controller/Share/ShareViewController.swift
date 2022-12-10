@@ -22,16 +22,17 @@ class ShareViewController: UIViewController {
         didSet {
             shares.forEach { share in
                 group.enter()
-                self.firestoreManager.fetchUserData(userId: share.authorId) { [weak self] result in
+                let docRef = FirestoreEndpoint.users.collectionRef.document(share.authorId)
+                firestoreManager.getDocument(docRef) { [weak self] (result: Result<User?, Error>) in
                     guard let self = self else { return }
                     switch result {
                     case .success(let author):
+                        guard let author = author else { return }
                         self.authorDict[author.id] = author
-                        self.group.leave()
                     case .failure(let error):
                         print(error)
-                        self.group.leave()
                     }
+                    self.group.leave()
                 }
             }
 

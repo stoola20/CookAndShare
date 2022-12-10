@@ -150,10 +150,11 @@ class ProfileViewController: UIViewController {
         let confirmAction = UIAlertAction(title: "確認刪除", style: .destructive) { [weak self] _ in
             guard let self = self else { return }
             self.signInWithApple()
-            self.firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
-                guard let self = self else { return }
+            let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            self.firestoreManager.getDocument(userRef) { [weak self] (result: Result<User?, Error>) in
                 switch result {
                 case .success(let user):
+                    guard let self = self, let user = user else { return }
                     self.user = user
                 case .failure(let error):
                     print(error)
@@ -181,7 +182,8 @@ class ProfileViewController: UIViewController {
 
     func deleteFirestoreDocument() {
         guard let mySelf = self.user else { return }
-        self.firestoreManager.searchAllUsers { [weak self] result in
+        let query = FirestoreEndpoint.users.collectionRef
+        self.firestoreManager.getDocuments(query) { [weak self] (result: Result<[User], Error>) in
             guard let self = self else { return }
             switch result {
             case .success(let users):
@@ -250,10 +252,11 @@ extension ProfileViewController: UITableViewDataSource {
 
             cell.delegate = self
             cell.selectedBackgroundView = selectedBackground
-            firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
-                guard let self = self else { return }
+            let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            firestoreManager.getDocument(userRef) { [weak self] (result: Result<User?, Error>) in
                 switch result {
                 case .success(let user):
+                    guard let self = self, let user = user else { return }
                     self.user = user
                     self.userName = user.name
                     cell.layoutCell(with: user)
@@ -280,33 +283,30 @@ extension ProfileViewController: UITableViewDelegate {
         switch indexPath.item {
         case 0:
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let savedRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: SavedRecipeViewController.self))
-                as? SavedRecipeViewController
+            guard let savedRecipeVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: SavedRecipeViewController.self)
+            ) as? SavedRecipeViewController
             else { fatalError("Could not instantiate ShoppingListViewController") }
             navigationController?.pushViewController(savedRecipeVC, animated: true)
         case 1:
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let shoppingListVC = storyboard.instantiateViewController(withIdentifier: String(describing: ShoppingListViewController.self))
-                as? ShoppingListViewController
+            guard let shoppingListVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: ShoppingListViewController.self)
+            ) as? ShoppingListViewController
             else { fatalError("Could not instantiate ShoppingListViewController") }
             navigationController?.pushViewController(shoppingListVC, animated: true)
         case 2:
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let publicProfileVC = storyboard.instantiateViewController(
-                    withIdentifier: String(describing: PublicProfileViewController.self)
-                )
-                as? PublicProfileViewController
+            guard let publicProfileVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: PublicProfileViewController.self)
+            ) as? PublicProfileViewController
             else { fatalError("Could not create publicProfileVC") }
             publicProfileVC.userId = Constant.getUserId()
             navigationController?.pushViewController(publicProfileVC, animated: true)
         case 3:
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let blockListVC = storyboard.instantiateViewController(withIdentifier: String(describing: BlockListViewController.self))
-                    as? BlockListViewController
+            guard let blockListVC = storyboard.instantiateViewController(withIdentifier: String(describing: BlockListViewController.self)
+            ) as? BlockListViewController
             else { fatalError("Could not instantiate blockListVC") }
             navigationController?.pushViewController(blockListVC, animated: true)
         case 4:
