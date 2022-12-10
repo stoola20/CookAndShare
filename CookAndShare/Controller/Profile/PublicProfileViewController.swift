@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SPAlert
 import FirebaseAuth
 
 class PublicProfileViewController: UIViewController {
@@ -54,9 +55,14 @@ class PublicProfileViewController: UIViewController {
                 user.recipesId.forEach { recipeId in
                     group.enter()
                     let docRef = FirestoreEndpoint.recipes.collectionRef.document(recipeId)
-                    self.firestoreManager.getDocument(docRef) { [weak self] (recipe: Recipe?) in
-                        guard let self = self, let recipe = recipe else { return }
-                        tempRecipes.append(recipe)
+                    self.firestoreManager.getDocument(docRef) { (result: Result<Recipe?, Error>) in
+                        switch result {
+                        case .success(let recipe):
+                            guard let recipe = recipe else { return }
+                            tempRecipes.append(recipe)
+                        case .failure(let error):
+                            SPAlert.present(title: error.localizedDescription, preset: .error)
+                        }
                         group.leave()
                     }
                 }

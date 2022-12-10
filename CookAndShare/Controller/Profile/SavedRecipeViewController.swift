@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SPAlert
 
 class SavedRecipeViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
@@ -22,10 +23,15 @@ class SavedRecipeViewController: UIViewController {
             for recipeId in self.savedRecipsId {
                 group.enter()
                 let docRef = FirestoreEndpoint.recipes.collectionRef.document(recipeId)
-                self.firestoreManager.getDocument(docRef) { (recipe: Recipe?) in
-                    guard let recipe = recipe else { return }
-                    if !user.blockList.contains(recipe.authorId) {
-                        tempRecipes.append(recipe)
+                self.firestoreManager.getDocument(docRef) { (result: Result<Recipe?, Error>) in
+                    switch result {
+                    case .success(let recipe):
+                        guard let recipe = recipe else { return }
+                        if !user.blockList.contains(recipe.authorId) {
+                            tempRecipes.append(recipe)
+                        }
+                    case .failure(let error):
+                        SPAlert.present(message: error.localizedDescription, haptic: .error)
                     }
                     group.leave()
                 }

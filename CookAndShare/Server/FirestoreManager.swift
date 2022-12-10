@@ -12,6 +12,17 @@ import FirebaseAuth
 
 typealias RecipeResponse = (Result<[Recipe], Error>) -> Void
 
+enum FirestoreError: Error, LocalizedError {
+    var errorDescription: String? {
+        switch self {
+        case .noDocument:
+            return "No document exists."
+        }
+    }
+
+    case noDocument
+}
+
 enum FirestoreEndpoint {
     case recipes
     case shares
@@ -44,49 +55,52 @@ class FirestoreManager {
     let storage = Storage.storage()
 
 // MARK: - Private
-    private func parseDucument<T: Codable>(snapshot: DocumentSnapshot?, error: Error?) -> T? {
-        guard let snapshot = snapshot, snapshot.exists else {
-            let errorMessage = error?.localizedDescription ?? ""
+    private func parseDucument<T: Codable>(snapshot: DocumentSnapshot?, error: Error?) -> Result<T?, Error> {
+        if let error = error {
+            let errorMessage = error.localizedDescription
             print("DEBUG: Nil document", errorMessage)
-            return nil
+            return .failure(error)
+        } else {
+            guard let snapshot = snapshot, snapshot.exists else { return .failure(FirestoreError.noDocument)}
+            var model: T?
+            do {
+                model = try snapshot.data(as: T.self)
+            } catch {
+                print("DEBUG: Error: decoding\(T.self) data -", error.localizedDescription)
+            }
+            return .success(model)
         }
-
-        var model: T?
-        do {
-            model = try snapshot.data(as: T.self)
-        } catch {
-            print("DEBUG: Error: decoding\(T.self) data -", error.localizedDescription)
-        }
-        return model
     }
 
-    private func parseDocuments<T: Codable>(snapshot: QuerySnapshot?, error: Error?) -> [T] {
-        guard let snapshot = snapshot else {
-            let errorMessage = error?.localizedDescription ?? ""
+    private func parseDocuments<T: Codable>(snapshot: QuerySnapshot?, error: Error?) -> Result<[T], Error> {
+        if let error = error {
+            let errorMessage = error.localizedDescription
             print("DEBUG: Error feat hing snapshot -", errorMessage)
-            return []
-        }
+            return .failure(error)
+        } else {
+            guard let snapshot = snapshot else { return .failure(FirestoreError.noDocument) }
 
-        var models: [T] = []
-        snapshot.documents.forEach { document in
-            do {
-                let item = try document.data(as: T.self)
-                models.append(item)
-            } catch {
-                print("DEBUG: Error decoding \(T.self) data -", error.localizedDescription)
+            var models: [T] = []
+            snapshot.documents.forEach { document in
+                do {
+                    let item = try document.data(as: T.self)
+                    models.append(item)
+                } catch {
+                    print("DEBUG: Error decoding \(T.self) data -", error.localizedDescription)
+                }
             }
+            return .success(models)
         }
-        return models
     }
 
 // MARK: - Methods
-    func getDocument<T: Codable>(_ docRef: DocumentReference, completion: @escaping (T?) -> Void) {
+    func getDocument<T: Codable>(_ docRef: DocumentReference, completion: @escaping (Result<T?, Error>) -> Void) {
         docRef.getDocument { snapshot, error in
             completion(self.parseDucument(snapshot: snapshot, error: error))
         }
     }
 
-    func getDocuments<T: Codable>(_ query: Query, completion: @escaping ([T]) -> Void) {
+    func getDocuments<T: Codable>(_ query: Query, completion: @escaping (Result<[T], Error>) -> Void) {
         query.getDocuments { snapshot, error in
             completion(self.parseDocuments(snapshot: snapshot, error: error))
         }

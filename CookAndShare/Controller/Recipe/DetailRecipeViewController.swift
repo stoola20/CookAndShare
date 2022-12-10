@@ -99,9 +99,14 @@ class DetailRecipeViewController: UIViewController {
 
     func fetchRecipe() {
         let docRef = FirestoreEndpoint.recipes.collectionRef.document(recipeId)
-        firestoreManager.getDocument(docRef) { [weak self] (recipe: Recipe?) in
-            guard let self = self, let recipe = recipe else { return }
-            self.recipe = recipe
+        firestoreManager.getDocument(docRef) { [weak self] (result: Result<Recipe?, Error>) in
+            switch result {
+            case .success(let recipe):
+                guard let self = self, let recipe = recipe else { return }
+                self.recipe = recipe
+            case .failure(let error):
+                SPAlert.present(title: error.localizedDescription, preset: .error)
+            }
         }
     }
 
