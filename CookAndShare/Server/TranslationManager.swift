@@ -11,7 +11,7 @@ class TranslationManager: NSObject {
     var textToTranslate: String?
     let targetLanguage = "zh-TW"
     let sourceLanguage = "en"
-    
+
     override init() {
         super.init()
     }
@@ -68,25 +68,35 @@ class TranslationManager: NSObject {
         urlParams["source"] = sourceLanguage
         urlParams["format"] = "text"
 
-        makeRequest(usingTranslationAPI: .translate, urlParams: urlParams) { results in
-            guard let results = results else { completion(nil); return }
-            if let data = results["data"] as? [String: Any],
-                let translations = data["translations"] as? [[String: Any]] {
-                var allTranslations: [String] = []
-                for translation in translations {
-                    if let translatedText = translation["translatedText"] as? String {
-                        allTranslations.append(translatedText)
-                    }
-                }
+        makeRequest(usingTranslationAPI: .translate, urlParams: urlParams) { [weak self] results in
+            guard let self = self else { return }
+            self.parseResult(result: results, completion: completion)
+        }
+    }
 
-                if !allTranslations.isEmpty {
-                    completion(allTranslations[0])
-                } else {
-                    completion(nil)
-                }
-            } else {
-                completion(nil)
-            }
+    func parseResult(result: [String: Any]?, completion: @escaping (_ translationText: String?) -> Void) {
+        guard let result = result
+        else {
+            completion(nil)
+            return
+        }
+
+        guard
+            let data = result["data"] as? [String: Any],
+            let translations = data["translations"] as? [[String: Any]]
+        else {
+            completion(nil)
+            return
+        }
+
+        var allTranslations: [String] = []
+        for translation in translations {
+            guard let translatedText = translation["translatedText"] as? String else { return }
+            allTranslations.append(translatedText)
+        }
+
+        if !allTranslations.isEmpty {
+            completion(allTranslations[0])
         }
     }
 }

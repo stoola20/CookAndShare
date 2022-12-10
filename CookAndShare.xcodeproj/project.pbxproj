@@ -70,6 +70,9 @@
 		378C1C2D291F895A00CF8D38 /* successGold.json in Resources */ = {isa = PBXBuildFile; fileRef = 378C1C2C291F895A00CF8D38 /* successGold.json */; };
 		378EA508291CD033004200F9 /* UserInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378EA507291CD033004200F9 /* UserInputTextField.swift */; };
 		378EA50A291CEAF8004200F9 /* UIDatePicker+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */; };
+		37993BC829424CB100D352A0 /* TranslationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37993BC729424CB100D352A0 /* TranslationTests.swift */; };
+		37993BCF2942509300D352A0 /* TranslationAPITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37993BCE2942509300D352A0 /* TranslationAPITest.swift */; };
+		37993BE4294310DE00D352A0 /* CookAndShareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37993BE3294310DE00D352A0 /* CookAndShareTests.swift */; };
 		37A31314292E4DB8007E5E8C /* JWTClaims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31313292E4DB8007E5E8C /* JWTClaims.swift */; };
 		37A31316292E6FF6007E5E8C /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31315292E6FF6007E5E8C /* Params.swift */; };
 		37AE892329399EC400199C34 /* DateComponent+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AE892229399EC400199C34 /* DateComponent+Ext.swift */; };
@@ -79,7 +82,6 @@
 		37BA15982937132900A7D00B /* voiceVisualization.json in Resources */ = {isa = PBXBuildFile; fileRef = 37BA15972937132900A7D00B /* voiceVisualization.json */; };
 		37BA159A293728B700A7D00B /* VoiceAnimateKeyFrames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA1599293728B700A7D00B /* VoiceAnimateKeyFrames.swift */; };
 		37BA159C2937847800A7D00B /* yellowVoiceVisualization.json in Resources */ = {isa = PBXBuildFile; fileRef = 37BA159B2937847800A7D00B /* yellowVoiceVisualization.json */; };
-		37BA50AC292FB6E500E88C57 /* JWTid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37BA50AB292FB6E500E88C57 /* JWTid.swift */; };
 		37C622E72919FB4600A84263 /* FoodRecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */; };
 		37C622E9291A09E500A84263 /* SeeFood.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 37C622E8291A09E400A84263 /* SeeFood.mlmodel */; };
 		37CBEC822910AE2B00A62EF2 /* NewShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBEC812910AE2B00A62EF2 /* NewShareViewController.swift */; };
@@ -133,7 +135,8 @@
 		37D7C19929128E6D005B8781 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37D7C19729128E6D005B8781 /* Map.storyboard */; };
 		37D7C1A129134F2E005B8781 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D7C1A029134F2E005B8781 /* Map.swift */; };
 		37D7C1A329135215005B8781 /* GoogleMapDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D7C1A229135215005B8781 /* GoogleMapDataProvider.swift */; };
-		37D7C1A72913579D005B8781 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D7C1A62913579D005B8781 /* APIKey.swift */; };
+		37E001AB294217A60090D8B7 /* JWTid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E001AA294217A60090D8B7 /* JWTid.swift */; };
+		37E001AD294217D20090D8B7 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E001AC294217D20090D8B7 /* APIKey.swift */; };
 		37E63617290E48FB00D516D4 /* Recipe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37E63615290E48FB00D516D4 /* Recipe.storyboard */; };
 		37E6361B290E496300D516D4 /* HotRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E63619290E496300D516D4 /* HotRecipeCell.swift */; };
 		37E6361C290E496300D516D4 /* HotRecipeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E6361A290E496300D516D4 /* HotRecipeCell.xib */; };
@@ -151,6 +154,23 @@
 		37E63636290E60F700D516D4 /* DetailProcedureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37E63634290E60F700D516D4 /* DetailProcedureCell.xib */; };
 		37FE7987291B935D005A3E3E /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FE7986291B935D005A3E3E /* UIColor+Ext.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		37993BC929424CB100D352A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37D69C4D290BCF970034D8E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37D69C54290BCF970034D8E1;
+			remoteInfo = CookAndShare;
+		};
+		37993BE5294310DE00D352A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37D69C4D290BCF970034D8E1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37D69C54290BCF970034D8E1;
+			remoteInfo = CookAndShare;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CookAndShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,6 +239,11 @@
 		378C1C2C291F895A00CF8D38 /* successGold.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = successGold.json; sourceTree = "<group>"; };
 		378EA507291CD033004200F9 /* UserInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInputTextField.swift; sourceTree = "<group>"; };
 		378EA509291CEAF8004200F9 /* UIDatePicker+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Ext.swift"; sourceTree = "<group>"; };
+		37993BC529424CB100D352A0 /* TranslationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TranslationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		37993BC729424CB100D352A0 /* TranslationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationTests.swift; sourceTree = "<group>"; };
+		37993BCE2942509300D352A0 /* TranslationAPITest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationAPITest.swift; sourceTree = "<group>"; };
+		37993BE1294310DE00D352A0 /* CookAndShareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookAndShareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		37993BE3294310DE00D352A0 /* CookAndShareTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookAndShareTests.swift; sourceTree = "<group>"; };
 		37A31313292E4DB8007E5E8C /* JWTClaims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTClaims.swift; sourceTree = "<group>"; };
 		37A31315292E6FF6007E5E8C /* Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Params.swift; sourceTree = "<group>"; };
 		37AE892229399EC400199C34 /* DateComponent+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponent+Ext.swift"; sourceTree = "<group>"; };
@@ -227,7 +252,6 @@
 		37BA15972937132900A7D00B /* voiceVisualization.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = voiceVisualization.json; sourceTree = "<group>"; };
 		37BA1599293728B700A7D00B /* VoiceAnimateKeyFrames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceAnimateKeyFrames.swift; sourceTree = "<group>"; };
 		37BA159B2937847800A7D00B /* yellowVoiceVisualization.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = yellowVoiceVisualization.json; sourceTree = "<group>"; };
-		37BA50AB292FB6E500E88C57 /* JWTid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTid.swift; sourceTree = "<group>"; };
 		37C622E62919FB4600A84263 /* FoodRecognitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRecognitionViewController.swift; sourceTree = "<group>"; };
 		37C622E8291A09E400A84263 /* SeeFood.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SeeFood.mlmodel; sourceTree = "<group>"; };
 		37CBEC812910AE2B00A62EF2 /* NewShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewShareViewController.swift; sourceTree = "<group>"; };
@@ -283,7 +307,8 @@
 		37D7C19829128E6D005B8781 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Map.storyboard; sourceTree = "<group>"; };
 		37D7C1A029134F2E005B8781 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		37D7C1A229135215005B8781 /* GoogleMapDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapDataProvider.swift; sourceTree = "<group>"; };
-		37D7C1A62913579D005B8781 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		37E001AA294217A60090D8B7 /* JWTid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JWTid.swift; sourceTree = "<group>"; };
+		37E001AC294217D20090D8B7 /* APIKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		37E63616290E48FB00D516D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Recipe.storyboard; sourceTree = "<group>"; };
 		37E63619290E496300D516D4 /* HotRecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotRecipeCell.swift; sourceTree = "<group>"; };
 		37E6361A290E496300D516D4 /* HotRecipeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HotRecipeCell.xib; sourceTree = "<group>"; };
@@ -305,6 +330,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		37993BC229424CB100D352A0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37993BDE294310DE00D352A0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		37D69C52290BCF970034D8E1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -435,6 +474,23 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
+		37993BC629424CB100D352A0 /* TranslationTests */ = {
+			isa = PBXGroup;
+			children = (
+				37993BCE2942509300D352A0 /* TranslationAPITest.swift */,
+				37993BC729424CB100D352A0 /* TranslationTests.swift */,
+			);
+			path = TranslationTests;
+			sourceTree = "<group>";
+		};
+		37993BE2294310DE00D352A0 /* CookAndShareTests */ = {
+			isa = PBXGroup;
+			children = (
+				37993BE3294310DE00D352A0 /* CookAndShareTests.swift */,
+			);
+			path = CookAndShareTests;
+			sourceTree = "<group>";
+		};
 		37CBEC832910B60900A62EF2 /* NewShare */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +525,8 @@
 			isa = PBXGroup;
 			children = (
 				37D69C57290BCF970034D8E1 /* CookAndShare */,
+				37993BC629424CB100D352A0 /* TranslationTests */,
+				37993BE2294310DE00D352A0 /* CookAndShareTests */,
 				37D69C56290BCF970034D8E1 /* Products */,
 				5A573818B45E4AF89687A7D9 /* Pods */,
 				95F592EFB962341C8D0C0E04 /* Frameworks */,
@@ -479,6 +537,8 @@
 			isa = PBXGroup;
 			children = (
 				37D69C55290BCF970034D8E1 /* CookAndShare.app */,
+				37993BC529424CB100D352A0 /* TranslationTests.xctest */,
+				37993BE1294310DE00D352A0 /* CookAndShareTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -501,8 +561,8 @@
 				37D69C66290BCF980034D8E1 /* Info.plist */,
 				370B1FFF291A5C5B0092F502 /* Entitlements.plist */,
 				37D69C6C290BD46D0034D8E1 /* GoogleService-Info.plist */,
-				37D7C1A62913579D005B8781 /* APIKey.swift */,
-				37BA50AB292FB6E500E88C57 /* JWTid.swift */,
+				37E001AC294217D20090D8B7 /* APIKey.swift */,
+				37E001AA294217A60090D8B7 /* JWTid.swift */,
 			);
 			path = CookAndShare;
 			sourceTree = "<group>";
@@ -754,6 +814,42 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		37993BC429424CB100D352A0 /* TranslationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37993BCB29424CB100D352A0 /* Build configuration list for PBXNativeTarget "TranslationTests" */;
+			buildPhases = (
+				37993BC129424CB100D352A0 /* Sources */,
+				37993BC229424CB100D352A0 /* Frameworks */,
+				37993BC329424CB100D352A0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				37993BCA29424CB100D352A0 /* PBXTargetDependency */,
+			);
+			name = TranslationTests;
+			productName = TranslationTests;
+			productReference = 37993BC529424CB100D352A0 /* TranslationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		37993BE0294310DE00D352A0 /* CookAndShareTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37993BE7294310DE00D352A0 /* Build configuration list for PBXNativeTarget "CookAndShareTests" */;
+			buildPhases = (
+				37993BDD294310DE00D352A0 /* Sources */,
+				37993BDE294310DE00D352A0 /* Frameworks */,
+				37993BDF294310DE00D352A0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				37993BE6294310DE00D352A0 /* PBXTargetDependency */,
+			);
+			name = CookAndShareTests;
+			productName = CookAndShareTests;
+			productReference = 37993BE1294310DE00D352A0 /* CookAndShareTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		37D69C54290BCF970034D8E1 /* CookAndShare */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 37D69C69290BCF980034D8E1 /* Build configuration list for PBXNativeTarget "CookAndShare" */;
@@ -786,6 +882,14 @@
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
 				TargetAttributes = {
+					37993BC429424CB100D352A0 = {
+						CreatedOnToolsVersion = 13.4;
+						TestTargetID = 37D69C54290BCF970034D8E1;
+					};
+					37993BE0294310DE00D352A0 = {
+						CreatedOnToolsVersion = 13.4;
+						TestTargetID = 37D69C54290BCF970034D8E1;
+					};
 					37D69C54290BCF970034D8E1 = {
 						CreatedOnToolsVersion = 13.4;
 					};
@@ -806,11 +910,27 @@
 			projectRoot = "";
 			targets = (
 				37D69C54290BCF970034D8E1 /* CookAndShare */,
+				37993BC429424CB100D352A0 /* TranslationTests */,
+				37993BE0294310DE00D352A0 /* CookAndShareTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		37993BC329424CB100D352A0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37993BDF294310DE00D352A0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		37D69C53290BCF970034D8E1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -964,6 +1084,23 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		37993BC129424CB100D352A0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37993BCF2942509300D352A0 /* TranslationAPITest.swift in Sources */,
+				37993BC829424CB100D352A0 /* TranslationTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37993BDD294310DE00D352A0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37993BE4294310DE00D352A0 /* CookAndShareTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		37D69C51290BCF970034D8E1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -997,7 +1134,6 @@
 				37E6362D290E60D500D516D4 /* DetailBannerCell.swift in Sources */,
 				37D7C1A329135215005B8781 /* GoogleMapDataProvider.swift in Sources */,
 				3787538A290FA61C00F06F4C /* AddToShoppingListVC.swift in Sources */,
-				37BA50AC292FB6E500E88C57 /* JWTid.swift in Sources */,
 				37D69CBE290CE49B0034D8E1 /* NewRecipeHeaderView.swift in Sources */,
 				3707F48E29227BF400618458 /* TabBarController.swift in Sources */,
 				37D69C80290BDF880034D8E1 /* Conversation.swift in Sources */,
@@ -1008,8 +1144,10 @@
 				37233C72292A608D0093A2E6 /* ShoppingList+CoreDataProperties.swift in Sources */,
 				37CBECA12912025A00A62EF2 /* PublicPostHeaderView.swift in Sources */,
 				37A31316292E6FF6007E5E8C /* Params.swift in Sources */,
+				37E001AD294217D20090D8B7 /* APIKey.swift in Sources */,
 				37D69CB7290CD9070034D8E1 /* NewRecipeViewController.swift in Sources */,
 				37C622E72919FB4600A84263 /* FoodRecognitionViewController.swift in Sources */,
+				37E001AB294217A60090D8B7 /* JWTid.swift in Sources */,
 				372E3AA82916551C00250DAA /* OtherLocationCell.swift in Sources */,
 				37D69CC2290D10AE0034D8E1 /* String+Ext.swift in Sources */,
 				372E3A992913E28100250DAA /* OthersMessageCell.swift in Sources */,
@@ -1052,7 +1190,6 @@
 				37D69C77290BDCEA0034D8E1 /* Recipe.swift in Sources */,
 				378EA50A291CEAF8004200F9 /* UIDatePicker+Ext.swift in Sources */,
 				37AE892329399EC400199C34 /* DateComponent+Ext.swift in Sources */,
-				37D7C1A72913579D005B8781 /* APIKey.swift in Sources */,
 				37E63631290E60E800D516D4 /* DetailIngredientCell.swift in Sources */,
 				370B2002291AB6560092F502 /* PushNotificationManager.swift in Sources */,
 				37BA15942936F01E00A7D00B /* UIImage+Ext.swift in Sources */,
@@ -1066,6 +1203,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		37993BCA29424CB100D352A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37D69C54290BCF970034D8E1 /* CookAndShare */;
+			targetProxy = 37993BC929424CB100D352A0 /* PBXContainerItemProxy */;
+		};
+		37993BE6294310DE00D352A0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37D69C54290BCF970034D8E1 /* CookAndShare */;
+			targetProxy = 37993BE5294310DE00D352A0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3787537A290F999000F06F4C /* Profile.storyboard */ = {
@@ -1127,6 +1277,98 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		37993BCC29424CB100D352A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PDRVZ7DT2S;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.TranslationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CookAndShare.app/CookAndShare";
+			};
+			name = Debug;
+		};
+		37993BCD29424CB100D352A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PDRVZ7DT2S;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.TranslationTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CookAndShare.app/CookAndShare";
+			};
+			name = Release;
+		};
+		37993BE8294310DE00D352A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PDRVZ7DT2S;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShareTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CookAndShare.app/CookAndShare";
+			};
+			name = Debug;
+		};
+		37993BE9294310DE00D352A0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PDRVZ7DT2S;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jessica.CookAndShareTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CookAndShare.app/CookAndShare";
+			};
+			name = Release;
+		};
 		37D69C67290BCF980034D8E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1329,6 +1571,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		37993BCB29424CB100D352A0 /* Build configuration list for PBXNativeTarget "TranslationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37993BCC29424CB100D352A0 /* Debug */,
+				37993BCD29424CB100D352A0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37993BE7294310DE00D352A0 /* Build configuration list for PBXNativeTarget "CookAndShareTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37993BE8294310DE00D352A0 /* Debug */,
+				37993BE9294310DE00D352A0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		37D69C50290BCF970034D8E1 /* Build configuration list for PBXProject "CookAndShare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
