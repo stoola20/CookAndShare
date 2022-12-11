@@ -198,33 +198,6 @@ class FirestoreManager {
         FirestoreEndpoint.users.collectionRef.document(userId).setData([field: value], merge: true)
     }
 
-// MARK: - Share
-    func addNewShare(_ share: Share, to document: DocumentReference) {
-        do {
-            try document.setData(from: share)
-            print("Document added with ID: \(document.documentID)")
-        } catch let error {
-            print("Error adding document: \(error)")
-        }
-    }
-
-    func updateShareReports(shareId: String, userId: String) {
-        let recipeRef = sharesCollection.document(shareId)
-        recipeRef.updateData([
-            "reports": FieldValue.arrayUnion([userId])
-        ])
-    }
-
-    func deleteSharePost(shareId: String) {
-        sharesCollection.document(shareId).delete() { err in
-            if let err = err {
-                print("Error removing document: \(err)")
-            } else {
-                print("Document successfully removed!")
-            }
-        }
-    }
-
 // MARK: - Chat
     func fetchConversation(with friendId: String, completion: @escaping (Result<Conversation?, Error>) -> Void) {
         conversationsCollection.whereField("friendIds", arrayContains: friendId).getDocuments { querySnapshot, _ in
@@ -248,15 +221,6 @@ class FirestoreManager {
                 }
                 completion(.success(conversation))
             }
-        }
-    }
-
-    func createNewConversation(_ conversation: Conversation, to document: DocumentReference) {
-        do {
-            try document.setData(from: conversation)
-            print("Document added with ID: \(document.documentID)")
-        } catch let error {
-            print("Error adding document: \(error)")
         }
     }
 

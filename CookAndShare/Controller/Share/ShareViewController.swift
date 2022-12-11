@@ -13,11 +13,12 @@ import ESPullToRefresh
 import SPAlert
 
 class ShareViewController: UIViewController {
+    typealias AlertActionHandler = (UIAlertAction) -> Void
+    var shareId = ""
+    var fromPublicVC = false
     private let firestoreManager = FirestoreManager.shared
     private var authorDict: [String: User] = [:]
     private let group = DispatchGroup()
-    var shareId = ""
-    var fromPublicVC = false
     private var shares: [Share] = [] {
         didSet {
             shares.forEach { share in
@@ -186,6 +187,31 @@ class ShareViewController: UIViewController {
         self.shares = tempShares.sorted { $0.postTime.seconds > $1.postTime.seconds }
     }
 
+    private func presentAlertController(alertTitle: String, alertMessage: String, confirmTitle: String, cancelTitle: String, handler: ((UIAlertAction) -> Void)?) {
+        let alert = UIAlertController(
+            title: alertTitle,
+            message: alertMessage,
+            preferredStyle: .actionSheet
+        )
+        let confirmAction = UIAlertAction(title: confirmTitle, style: .destructive, handler: handler)
+        let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel)
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+
+        if let popoverController = alert.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(
+                x: self.view.bounds.midX,
+                y: self.view.bounds.midY,
+                width: 0,
+                height: 0
+            )
+            popoverController.permittedArrowDirections = []
+        }
+
+        present(alert, animated: true)
+    }
+
     // MARK: - Action
     @objc func addShare() {
         if Auth.auth().currentUser == nil {
@@ -254,15 +280,14 @@ extension ShareViewController: ShareCellDelegate {
     }
 
     func deletePost(_ cell: ShareCell) {
-        let alert = UIAlertController(title: "確定刪除此貼文？", message: "此動作將無法回復。", preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "確定刪除", style: .destructive) { [weak self] _ in
-            guard
-                let self = self,
-                let indexPath = self.tableView.indexPath(for: cell)
+        let handler: AlertActionHandler = { [weak self] _ in
+            guard let self = self, let indexPath = self.tableView.indexPath(for: cell)
             else { fatalError("Wrong indexPath") }
+
             let share = self.shares[indexPath.row]
             self.shares.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .left)
+
             let shareRef = FirestoreEndpoint.shares.collectionRef.document(share.shareId)
             let userRef = FirestoreEndpoint.users.collectionRef.document(share.authorId)
             self.firestoreManager.deleteDocument(docRef: shareRef)
@@ -272,10 +297,14 @@ extension ShareViewController: ShareCellDelegate {
                 value: share.shareId
             )
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
-        alert.addAction(confirmAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true)
+
+        presentAlertController(
+            alertTitle: "確定刪除此貼文？",
+            alertMessage: "此動作將無法回復。",
+            confirmTitle: "確定刪除",
+            cancelTitle: "取消",
+            handler: handler
+        )
     }
 
     func editPost(_ cell: ShareCell) {
@@ -290,13 +319,9 @@ extension ShareViewController: ShareCellDelegate {
     }
 
     func block(user: User) {
-        let alert = UIAlertController(
-            title: "封鎖\(user.name)？",
-            message: "你將不會看到他的貼文、個人檔案或來自他的訊息。你封鎖用戶時，對方不會收到通知。",
-            preferredStyle: .actionSheet
-        )
-        let confirmAction = UIAlertAction(title: "確定封鎖", style: .destructive) { [weak self] _ in
+        let handler: AlertActionHandler = { [weak self] _ in
             guard let self = self else { return }
+
             let myRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
             self.firestoreManager.arrayUnionString(
                 docRef: myRef,
@@ -304,53 +329,36 @@ extension ShareViewController: ShareCellDelegate {
                 value: user.id
             )
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
-        alert.addAction(confirmAction)
-        alert.addAction(cancelAction)
 
-        if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(
-                x: self.view.bounds.midX,
-                y: self.view.bounds.midY,
-                width: 0,
-                height: 0
-            )
-            popoverController.permittedArrowDirections = []
-        }
-
-        present(alert, animated: true)
+        presentAlertController(
+            alertTitle: "封鎖\(user.name)？",
+            alertMessage: "你將不會看到他的貼文、個人檔案或來自他的訊息。你封鎖用戶時，對方不會收到通知。",
+            confirmTitle: "確定封鎖",
+            cancelTitle: "取消",
+            handler: handler
+        )
     }
 
     func reportShare(_ cell: ShareCell) {
-        let alert = UIAlertController(
-            title: "檢舉這則貼文？",
-            message: "你的檢舉將會匿名。",
-            preferredStyle: .actionSheet
-        )
-        let confirmAction = UIAlertAction(title: "確定檢舉", style: .destructive) { [weak self] _ in
-            guard
-                let self = self,
-                let indexPath = self.tableView.indexPath(for: cell)
-            else { return }
-            self.firestoreManager.updateShareReports(shareId: self.shares[indexPath.row].shareId, userId: Constant.getUserId())
+        let handler: AlertActionHandler = { [weak self] _ in
+            guard let self = self, let indexPath = self.tableView.indexPath(for: cell) else { return }
+
+            let shareRef = FirestoreEndpoint.shares.collectionRef.document(self.shares[indexPath.row].shareId)
+            self.firestoreManager.arrayUnionString(
+                docRef: shareRef,
+                field: Constant.reports,
+                value: Constant.getUserId()
+            )
+
             SPAlert.present(message: "謝謝你告知我們，我們會在未來減少顯示這類內容", haptic: .success)
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
-        alert.addAction(confirmAction)
-        alert.addAction(cancelAction)
 
-        if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(
-                x: self.view.bounds.midX,
-                y: self.view.bounds.midY,
-                width: 0,
-                height: 0
-            )
-            popoverController.permittedArrowDirections = []
-        }
-
-        present(alert, animated: true)
+        presentAlertController(
+            alertTitle: "檢舉這則貼文？",
+            alertMessage: "你的檢舉將會匿名。",
+            confirmTitle: "確定檢舉",
+            cancelTitle: "取消",
+            handler: handler
+        )
     }
 }
