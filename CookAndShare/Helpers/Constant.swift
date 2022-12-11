@@ -87,9 +87,13 @@ enum Constant {
     static let confirm = "確認"
 
     // user
+    static let name = "name"
+    static let imageURL = "imageURL"
+    static let fcmToken = "fcmToken"
     static let recipesId = "recipesId"
     static let savedRecipesId = "savedRecipesId"
     static let sharesId = "sharesId"
+    static let blockList = "blockList"
     static let conversationId = "conversationId"
 
     // conversation

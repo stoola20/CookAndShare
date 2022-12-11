@@ -8,7 +8,6 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseStorage
-import FirebaseAuth
 
 typealias RecipeResponse = (Result<[Recipe], Error>) -> Void
 
@@ -45,7 +44,6 @@ enum FirestoreEndpoint {
     }
 }
 
-// swiftlint:disable type_body_length
 class FirestoreManager {
     static let shared = FirestoreManager()
     let recipesCollection = Firestore.firestore().collection(Constant.firestoreRecipes)
@@ -183,15 +181,6 @@ class FirestoreManager {
     }
 
 // MARK: - User
-    func createUser(id: String, user: User) {
-        do {
-            try usersCollection.document(id).setData(from: user)
-            print("Document added with ID: \(id)")
-        } catch let error {
-            print("Error adding document: \(error)")
-        }
-    }
-
     func isNewUser(id: String, completion: @escaping (Bool) -> Void) {
         usersCollection.document(id).getDocument { document, _ in
             if let document = document, document.exists {
@@ -205,77 +194,8 @@ class FirestoreManager {
         }
     }
 
-    func updateUserName(userId: String, name: String) {
-        usersCollection.document(userId).setData(["name": name], merge: true)
-    }
-
-    func updateUserPhoto(userId: String, imageURL: String) {
-        usersCollection.document(userId).setData(["imageURL": imageURL], merge: true)
-    }
-
-    func updateFCMToken(userId: String, fcmToken: String) {
-        usersCollection.document(userId).setData(["fcmToken": fcmToken], merge: true)
-    }
-
-    func updateUserBlocklist(userId: String, blockId: String, hasBlocked: Bool) {
-        let userRef = usersCollection.document(userId)
-        if hasBlocked {
-            userRef.updateData([
-                "blockList": FieldValue.arrayRemove([blockId])
-            ])
-        } else {
-            userRef.updateData([
-                "blockList": FieldValue.arrayUnion([blockId])
-            ])
-        }
-    }
-
-    func updateUserRecipePost(recipeId: String, userId: String, isNewPost: Bool) {
-        let userRef = usersCollection.document(userId)
-        if isNewPost {
-            userRef.updateData([
-                Constant.recipesId: FieldValue.arrayUnion([recipeId])
-            ])
-        } else {
-            userRef.updateData([
-                Constant.recipesId: FieldValue.arrayRemove([recipeId])
-            ])
-        }
-    }
-
-    func updateUserSaves(recipeId: String, userId: String, hasSaved: Bool) {
-        let userRef = usersCollection.document(userId)
-        if hasSaved {
-            userRef.updateData([
-                Constant.savedRecipesId: FieldValue.arrayRemove([recipeId])
-            ])
-        } else {
-            userRef.updateData([
-                Constant.savedRecipesId: FieldValue.arrayUnion([recipeId])
-            ])
-        }
-    }
-
-    func updateUserSharePost(shareId: String, userId: String, isNewPost: Bool) {
-        let userRef = usersCollection.document(userId)
-        if isNewPost {
-            userRef.updateData([
-                Constant.sharesId: FieldValue.arrayUnion([shareId])
-            ])
-        } else {
-            userRef.updateData([
-                Constant.sharesId: FieldValue.arrayRemove([shareId])
-            ])
-        }
-    }
-
-    func updateUserConversation(userId: String, friendId: String, channelId: String) {
-        usersCollection.document(userId).updateData([
-            Constant.conversationId: FieldValue.arrayUnion([channelId])
-        ])
-        usersCollection.document(friendId).updateData([
-            Constant.conversationId: FieldValue.arrayUnion([channelId])
-        ])
+    func updateUserData(userId: String, field: String, value: String) {
+        FirestoreEndpoint.users.collectionRef.document(userId).setData([field: value], merge: true)
     }
 
 // MARK: - Share

@@ -85,10 +85,11 @@ extension BlockListViewController: UITableViewDataSource {
                 let self = self,
                 let selectedIndexPath = self.tableView.indexPath(for: cell)
             else { return }
-            self.firestoreManager.updateUserBlocklist(
-                userId: Constant.getUserId(),
-                blockId: self.blockedUsers[selectedIndexPath.row].id,
-                hasBlocked: true
+            let myRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            self.firestoreManager.arrayRemoveString(
+                docRef: myRef,
+                field: Constant.blockList,
+                value: self.blockedUsers[selectedIndexPath.row].id
             )
             self.blockedUsers.remove(at: selectedIndexPath.row)
             self.tableView.deleteRows(at: [selectedIndexPath], with: .left)

@@ -250,7 +250,12 @@ extension PublicProfileViewController: PublicProfileHeaderCellDelegate {
         )
         let confirmAction = UIAlertAction(title: "確定封鎖", style: .destructive) { [weak self] _ in
             guard let self = self else { return }
-            self.firestoreManager.updateUserBlocklist(userId: Constant.getUserId(), blockId: user.id, hasBlocked: false)
+            let myRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            self.firestoreManager.arrayUnionString(
+                docRef: myRef,
+                field: Constant.blockList,
+                value: user.id
+            )
             self.navigationController?.popToRootViewController(animated: true)
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)

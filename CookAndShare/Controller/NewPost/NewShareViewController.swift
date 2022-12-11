@@ -53,12 +53,17 @@ class NewShareViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             if share.shareId.isEmpty {
-                let document = firestoreManager.sharesCollection.document()
+                let document = FirestoreEndpoint.shares.collectionRef.document()
+                let authorRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
                 share.postTime = Timestamp(date: Date())
                 share.shareId = document.documentID
                 share.authorId = Constant.getUserId()
-                firestoreManager.addNewShare(share, to: document)
-                firestoreManager.updateUserSharePost(shareId: document.documentID, userId: Constant.getUserId(), isNewPost: true)
+                firestoreManager.setData(share, to: document)
+                firestoreManager.arrayUnionString(
+                    docRef: authorRef,
+                    field: Constant.sharesId,
+                    value: document.documentID
+                )
             } else {
                 try? firestoreManager.sharesCollection.document(share.shareId).setData(from: share, merge: true)
             }

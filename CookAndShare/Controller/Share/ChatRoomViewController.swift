@@ -193,7 +193,12 @@ class ChatRoomViewController: UIViewController {
         )
         let confirmAction = UIAlertAction(title: "確定封鎖", style: .destructive) { [weak self] _ in
             guard let self = self else { return }
-            self.firestoreManager.updateUserBlocklist(userId: Constant.getUserId(), blockId: friend.id, hasBlocked: false)
+            let myRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            self.firestoreManager.arrayUnionString(
+                docRef: myRef,
+                field: Constant.blockList,
+                value: friend.id
+            )
             self.navigationController?.popToRootViewController(animated: true)
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
@@ -227,10 +232,6 @@ class ChatRoomViewController: UIViewController {
 
             firestoreManager.updateConversation(channelId: conversation.channelId, message: message)
         } else {
-            let document = firestoreManager.conversationsCollection.document()
-            var newConversation = Conversation()
-            newConversation.channelId = document.documentID
-            newConversation.friendIds = [friend.id, Constant.getUserId()]
             let message = Message(
                 senderId: Constant.getUserId(),
                 contentType: contentType.rawValue,
@@ -238,13 +239,29 @@ class ChatRoomViewController: UIViewController {
                 time: Timestamp(date: Date()),
                 duration: duration
             )
+
+            let document = FirestoreEndpoint.conversations.collectionRef.document()
+            let myRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            let friendRef = FirestoreEndpoint.users.collectionRef.document(friend.id)
+
+            var newConversation = Conversation()
+            newConversation.channelId = document.documentID
+            newConversation.friendIds = [friend.id, Constant.getUserId()]
             newConversation.messages = [message]
-            firestoreManager.createNewConversation(newConversation, to: document)
-            firestoreManager.updateUserConversation(
-                userId: Constant.getUserId(),
-                friendId: friend.id,
-                channelId: document.documentID
+
+            firestoreManager.setData(newConversation, to: document)
+
+            firestoreManager.arrayUnionString(
+                docRef: myRef,
+                field: Constant.conversationId,
+                value: document.documentID
             )
+            firestoreManager.arrayUnionString(
+                docRef: friendRef,
+                field: Constant.conversationId,
+                value: document.documentID
+            )
+
             listen(to: newConversation)
         }
 

@@ -171,11 +171,13 @@ class ShareViewController: UIViewController {
             )
             let today = Calendar.current.component(.day, from: Date())
             if bbfTimeInterval < Date().timeIntervalSince1970 && shareDayComponent != today {
-                manager.deleteSharePost(shareId: share.shareId)
-                manager.updateUserSharePost(
-                    shareId: share.shareId,
-                    userId: share.authorId,
-                    isNewPost: false
+                let shareRef = FirestoreEndpoint.shares.collectionRef.document(share.shareId)
+                let userRef = FirestoreEndpoint.users.collectionRef.document(share.authorId)
+                manager.deleteDocument(docRef: shareRef)
+                manager.arrayRemoveString(
+                    docRef: userRef,
+                    field: Constant.sharesId,
+                    value: share.shareId
                 )
             } else {
                 tempShares.append(share)
@@ -261,8 +263,14 @@ extension ShareViewController: ShareCellDelegate {
             let share = self.shares[indexPath.row]
             self.shares.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .left)
-            self.firestoreManager.deleteSharePost(shareId: share.shareId)
-            self.firestoreManager.updateUserSharePost(shareId: share.shareId, userId: share.authorId, isNewPost: false)
+            let shareRef = FirestoreEndpoint.shares.collectionRef.document(share.shareId)
+            let userRef = FirestoreEndpoint.users.collectionRef.document(share.authorId)
+            self.firestoreManager.deleteDocument(docRef: shareRef)
+            self.firestoreManager.arrayRemoveString(
+                docRef: userRef,
+                field: Constant.sharesId,
+                value: share.shareId
+            )
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
         alert.addAction(confirmAction)
@@ -289,7 +297,12 @@ extension ShareViewController: ShareCellDelegate {
         )
         let confirmAction = UIAlertAction(title: "確定封鎖", style: .destructive) { [weak self] _ in
             guard let self = self else { return }
-            self.firestoreManager.updateUserBlocklist(userId: Constant.getUserId(), blockId: user.id, hasBlocked: false)
+            let myRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            self.firestoreManager.arrayUnionString(
+                docRef: myRef,
+                field: Constant.blockList,
+                value: user.id
+            )
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
         alert.addAction(confirmAction)

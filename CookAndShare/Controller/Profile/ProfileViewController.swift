@@ -314,7 +314,11 @@ extension ProfileViewController: UITableViewDelegate {
         default:
             guard let user = user else { return }
             do {
-                firestoreManager.updateFCMToken(userId: user.id, fcmToken: "")
+                firestoreManager.updateUserData(
+                    userId: user.id,
+                    field: Constant.fcmToken,
+                    value: ""
+                )
                 try Auth.auth().signOut()
                 showLoginVC()
             } catch let signOutError as NSError {
@@ -338,7 +342,11 @@ extension ProfileViewController: ProfileUserCellDelegate {
                 !name.isEmpty,
                 let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ProfileUserCell
             else { return }
-            self.firestoreManager.updateUserName(userId: Constant.getUserId(), name: name)
+            self.firestoreManager.updateUserData(
+                userId: Constant.getUserId(),
+                field: Constant.name,
+                value: name
+            )
             cell.userName.text = name
             self.userName = name
         }
@@ -394,7 +402,11 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             switch result {
             case .success(let url):
                 print(url)
-                self.firestoreManager.updateUserPhoto(userId: Constant.getUserId(), imageURL: url.absoluteString)
+                self.firestoreManager.updateUserData(
+                    userId: Constant.getUserId(),
+                    field: Constant.imageURL,
+                    value: url.absoluteString
+                )
                 cell.profileImageView.loadImage(url.absoluteString)
             case .failure(let error):
                 print(error)
