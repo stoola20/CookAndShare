@@ -46,10 +46,6 @@ enum FirestoreEndpoint {
 
 class FirestoreManager {
     static let shared = FirestoreManager()
-    let recipesCollection = Firestore.firestore().collection(Constant.firestoreRecipes)
-    let usersCollection = Firestore.firestore().collection(Constant.firestoreUsers)
-    let sharesCollection = Firestore.firestore().collection(Constant.firestoreShares)
-    let conversationsCollection = Firestore.firestore().collection(Constant.firestoreConversations)
     let storage = Storage.storage()
 
 // MARK: - Private
@@ -182,7 +178,7 @@ class FirestoreManager {
 
 // MARK: - User
     func isNewUser(id: String, completion: @escaping (Bool) -> Void) {
-        usersCollection.document(id).getDocument { document, _ in
+        FirestoreEndpoint.users.collectionRef.document(id).getDocument { document, _ in
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 print("Document data: \(dataDescription)")
@@ -200,7 +196,7 @@ class FirestoreManager {
 
 // MARK: - Chat
     func fetchConversation(with friendId: String, completion: @escaping (Result<Conversation?, Error>) -> Void) {
-        conversationsCollection.whereField("friendIds", arrayContains: friendId).getDocuments { querySnapshot, _ in
+        FirestoreEndpoint.conversations.collectionRef.whereField("friendIds", arrayContains: friendId).getDocuments { querySnapshot, _ in
             guard let querySnapshot = querySnapshot else { return }
             var conversation: Conversation?
             if querySnapshot.isEmpty {

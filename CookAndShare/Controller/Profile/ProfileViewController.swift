@@ -188,19 +188,19 @@ class ProfileViewController: UIViewController {
             switch result {
             case .success(let users):
                 users.forEach { otherOne in
-                    self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                    FirestoreEndpoint.users.collectionRef.document(otherOne.id).updateData([
                         "blockList": FieldValue.arrayRemove([mySelf.id])
                     ])
                     mySelf.conversationId.forEach { channelId in
                         if otherOne.conversationId.contains(channelId) {
-                            self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                            FirestoreEndpoint.users.collectionRef.document(otherOne.id).updateData([
                                 Constant.conversationId: FieldValue.arrayRemove([channelId])
                             ])
                         }
                     }
                     mySelf.recipesId.forEach { recipeId in
                         if otherOne.savedRecipesId.contains(recipeId) {
-                            self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                            FirestoreEndpoint.users.collectionRef.document(otherOne.id).updateData([
                                 Constant.savedRecipesId: FieldValue.arrayRemove([recipeId])
                             ])
                         }
@@ -211,16 +211,16 @@ class ProfileViewController: UIViewController {
             }
         }
         mySelf.conversationId.forEach { channelId in
-            self.firestoreManager.conversationsCollection.document(channelId).delete()
+            FirestoreEndpoint.conversations.collectionRef.document(channelId).delete()
         }
         mySelf.sharesId.forEach { shareId in
-            self.firestoreManager.sharesCollection.document(shareId).delete()
+            FirestoreEndpoint.shares.collectionRef.document(shareId).delete()
         }
         mySelf.recipesId.forEach { recipeId in
-            self.firestoreManager.recipesCollection.document(recipeId).delete()
+            FirestoreEndpoint.recipes.collectionRef.document(recipeId).delete()
         }
 
-        self.firestoreManager.usersCollection.document(mySelf.id).delete()
+        FirestoreEndpoint.users.collectionRef.document(mySelf.id).delete()
     }
 
     func deleteCoreData() {

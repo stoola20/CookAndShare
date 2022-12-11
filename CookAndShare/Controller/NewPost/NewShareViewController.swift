@@ -65,7 +65,7 @@ class NewShareViewController: UIViewController {
                     value: document.documentID
                 )
             } else {
-                try? firestoreManager.sharesCollection.document(share.shareId).setData(from: share, merge: true)
+                try? FirestoreEndpoint.shares.collectionRef.document(share.shareId).setData(from: share, merge: true)
             }
         }
     }
