@@ -97,6 +97,7 @@ enum Constant {
     static let conversationId = "conversationId"
 
     // conversation
+    static let messages = "messages"
     static let text = "text"
     static let image = "image"
     static let voice = "voice"

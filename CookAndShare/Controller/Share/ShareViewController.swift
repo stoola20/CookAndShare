@@ -216,9 +216,9 @@ class ShareViewController: UIViewController {
     @objc func addShare() {
         if Auth.auth().currentUser == nil {
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let loginVC = storyboard.instantiateViewController(withIdentifier: String(describing: LoginViewController.self))
-                    as? LoginViewController
+            guard let loginVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: LoginViewController.self)
+            ) as? LoginViewController
             else { fatalError("Could not create loginVC") }
             loginVC.isPresented = true
             present(loginVC, animated: true)
@@ -269,9 +269,9 @@ extension ShareViewController: ShareCellDelegate {
 
     func presentLargePhoto(url: String, heroId: String) {
         let storyboard = UIStoryboard(name: Constant.share, bundle: nil)
-        guard
-            let previewVC = storyboard.instantiateViewController(withIdentifier: String(describing: PreviewViewController.self))
-                as? PreviewViewController
+        guard let previewVC = storyboard.instantiateViewController(
+            withIdentifier: String(describing: PreviewViewController.self)
+        ) as? PreviewViewController
         else { fatalError("Could not create previewVC") }
         previewVC.imageURL = url
         previewVC.heroId = heroId

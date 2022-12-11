@@ -223,11 +223,4 @@ class FirestoreManager {
             }
         }
     }
-
-    func updateConversation(channelId: String, message: [String: Any]) {
-        let conversationRef = conversationsCollection.document(channelId)
-        conversationRef.updateData([
-            "messages": FieldValue.arrayUnion([message])
-        ])
-    }
 }

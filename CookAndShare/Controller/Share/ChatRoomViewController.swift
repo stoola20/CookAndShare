@@ -229,8 +229,8 @@ class ChatRoomViewController: UIViewController {
                 "time": Timestamp(date: Date()),
                 "duration": duration
             ]
-
-            firestoreManager.updateConversation(channelId: conversation.channelId, message: message)
+            let conversationRef = FirestoreEndpoint.conversations.collectionRef.document(conversation.channelId)
+            firestoreManager.arrayUnionDict(docRef: conversationRef, field: Constant.messages, value: message)
         } else {
             let message = Message(
                 senderId: Constant.getUserId(),
