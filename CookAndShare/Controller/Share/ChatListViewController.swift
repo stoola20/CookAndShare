@@ -72,9 +72,11 @@ class ChatListViewController: UIViewController {
                 guard let user = user else { return }
                 user.conversationId.forEach { conversationId in
                     group.enter()
-                    self.firestoreManager.fetchConversationBy(conversationId) { result in
+                    let docRef = FirestoreEndpoint.conversations.collectionRef.document(conversationId)
+                    self.firestoreManager.getDocument(docRef) { (result: Result<Conversation?, Error>) in
                         switch result {
                         case .success(let conversation):
+                            guard let conversation = conversation else { return }
                             if Set(user.blockList).isDisjoint(with: Set(conversation.friendIds)) {
                                 tempConversations.append(conversation)
                                 if let myIdIndex = conversation.friendIds.firstIndex(of: Constant.getUserId()) {

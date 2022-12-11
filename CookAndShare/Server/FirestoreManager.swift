@@ -348,27 +348,6 @@ class FirestoreManager {
         }
     }
 
-    func fetchConversationBy(_ id: String, completion: @escaping (Result<Conversation, Error>) -> Void) {
-        conversationsCollection.whereField("channelId", isEqualTo: id).getDocuments { querySnapshot, error in
-            if let error = error {
-                print("Error getting users: \(error)")
-                completion(.failure(error))
-            } else {
-                guard
-                    let querySnapshot = querySnapshot,
-                    let document = querySnapshot.documents.first
-                else { return }
-
-                do {
-                    let conversation = try document.data(as: Conversation.self)
-                    completion(.success(conversation))
-                } catch {
-                    completion(.failure(error))
-                }
-            }
-        }
-    }
-
     func createNewConversation(_ conversation: Conversation, to document: DocumentReference) {
         do {
             try document.setData(from: conversation)
