@@ -118,6 +118,43 @@ class FirestoreManager {
         }
     }
 
+    func setData<T: Codable>(_ data: T, to docRef: DocumentReference) {
+        do {
+            try docRef.setData(from: data)
+            print("Document added with ID: \(docRef.documentID)")
+        } catch let error {
+            print("Error adding document: \(error)")
+        }
+    }
+
+    func arrayUnionString(docRef: DocumentReference, field: String, value: String) {
+        docRef.updateData([
+            field: FieldValue.arrayUnion([value])
+        ])
+    }
+
+    func arrayRemoveString(docRef: DocumentReference, field: String, value: String) {
+        docRef.updateData([
+            field: FieldValue.arrayRemove([value])
+        ])
+    }
+
+    func arrayUnionDict(docRef: DocumentReference, field: String, value: [String: Any]) {
+        docRef.updateData([
+            field: FieldValue.arrayUnion([value])
+        ])
+    }
+
+    func deleteDocument(docRef: DocumentReference) {
+        docRef.delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
+
 // MARK: - Upload Photo
     func uploadPhoto(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
         guard let resizedImage = image.resizeWithWidth(width: 1200) else { return }
@@ -141,60 +178,6 @@ class FirestoreManager {
                 print(error as Any)
             } else {
                 fileReference.downloadURL(completion: completion)
-            }
-        }
-    }
-
-
-// MARK: - Recipe
-    func addNewRecipe(_ recipe: Recipe, to document: DocumentReference) {
-        do {
-            try document.setData(from: recipe)
-            print("Document added with ID: \(document.documentID)")
-        } catch let error {
-            print("Error adding document: \(error)")
-        }
-    }
-
-    func updateRecipeLikes(recipeId: String, userId: String, hasLiked: Bool) {
-        let recipeRef = recipesCollection.document(recipeId)
-        if hasLiked {
-            recipeRef.updateData([
-                Constant.likes: FieldValue.arrayRemove([userId])
-            ])
-        } else {
-            recipeRef.updateData([
-                Constant.likes: FieldValue.arrayUnion([userId])
-            ])
-        }
-    }
-
-    func updateRecipeSaves(recipeId: String, userId: String, hasSaved: Bool) {
-        let recipeRef = recipesCollection.document(recipeId)
-        if hasSaved {
-            recipeRef.updateData([
-                Constant.saves: FieldValue.arrayRemove([userId])
-            ])
-        } else {
-            recipeRef.updateData([
-                Constant.saves: FieldValue.arrayUnion([userId])
-            ])
-        }
-    }
-
-    func updateRecipeReports(recipeId: String, userId: String) {
-        let recipeRef = recipesCollection.document(recipeId)
-        recipeRef.updateData([
-            "reports": FieldValue.arrayUnion([userId])
-        ])
-    }
-
-    func deleteRecipePost(recipeId: String) {
-        recipesCollection.document(recipeId).delete() { err in
-            if let err = err {
-                print("Error removing document: \(err)")
-            } else {
-                print("Document successfully removed!")
             }
         }
     }

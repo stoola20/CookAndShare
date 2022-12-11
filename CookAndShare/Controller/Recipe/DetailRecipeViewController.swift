@@ -100,19 +100,33 @@ class DetailRecipeViewController: UIViewController {
             present(loginVC, animated: true)
         } else {
             guard let recipe = recipe else { return }
-            if !hasSaved {
+            let recipeRef = FirestoreEndpoint.recipes.collectionRef.document(recipe.recipeId)
+            let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+
+            if hasSaved {
+                firestoreManager.arrayRemoveString(
+                    docRef: recipeRef,
+                    field: Constant.saves,
+                    value: Constant.getUserId()
+                )
+                firestoreManager.arrayRemoveString(
+                    docRef: userRef,
+                    field: Constant.savedRecipesId,
+                    value: recipe.recipeId
+                )
+            } else {
                 showSPAlert(message: "收藏成功")
+                firestoreManager.arrayUnionString(
+                    docRef: recipeRef,
+                    field: Constant.saves,
+                    value: Constant.getUserId()
+                )
+                firestoreManager.arrayUnionString(
+                    docRef: userRef,
+                    field: Constant.savedRecipesId,
+                    value: recipe.recipeId
+                )
             }
-            firestoreManager.updateRecipeSaves(
-                recipeId: recipe.recipeId,
-                userId: Constant.getUserId(),
-                hasSaved: hasSaved
-            )
-            firestoreManager.updateUserSaves(
-                recipeId: recipe.recipeId,
-                userId: Constant.getUserId(),
-                hasSaved: hasSaved
-            )
             hasSaved.toggle()
         }
     }
@@ -128,11 +142,20 @@ class DetailRecipeViewController: UIViewController {
             present(loginVC, animated: true)
         } else {
             guard let recipe = recipe else { return }
-            firestoreManager.updateRecipeLikes(
-                recipeId: recipe.recipeId,
-                userId: Constant.getUserId(),
-                hasLiked: hasLiked
-            )
+            let recipeRef = FirestoreEndpoint.recipes.collectionRef.document(recipe.recipeId)
+            if hasLiked {
+                firestoreManager.arrayRemoveString(
+                    docRef: recipeRef,
+                    field: Constant.likes,
+                    value: Constant.getUserId()
+                )
+            } else {
+                firestoreManager.arrayUnionString(
+                    docRef: recipeRef,
+                    field: Constant.likes,
+                    value: Constant.getUserId()
+                )
+            }
             hasLiked.toggle()
         }
     }
@@ -198,11 +221,13 @@ class DetailRecipeViewController: UIViewController {
 
     private func updateFirestore() {
         guard let recipe = self.recipe else { return }
-        firestoreManager.deleteRecipePost(recipeId: recipe.recipeId)
-        firestoreManager.updateUserRecipePost(
-            recipeId: recipe.recipeId,
-            userId: recipe.authorId,
-            isNewPost: false
+        let userRef = FirestoreEndpoint.users.collectionRef.document(recipe.authorId)
+        let recipeRef = FirestoreEndpoint.recipes.collectionRef.document(recipe.recipeId)
+        firestoreManager.deleteDocument(docRef: recipeRef)
+        firestoreManager.arrayRemoveString(
+            docRef: userRef,
+            field: Constant.recipesId,
+            value: recipe.recipeId
         )
 
         let query = FirestoreEndpoint.users.collectionRef
@@ -211,7 +236,12 @@ class DetailRecipeViewController: UIViewController {
             switch result {
             case .success(let users):
                 users.forEach { user in
-                    self.firestoreManager.updateUserSaves(recipeId: recipe.recipeId, userId: user.id, hasSaved: true)
+                    let userRef = FirestoreEndpoint.users.collectionRef.document(user.id)
+                    self.firestoreManager.arrayRemoveString(
+                        docRef: userRef,
+                        field: Constant.savedRecipesId,
+                        value: recipe.recipeId
+                    )
                 }
             case .failure(let error):
                 self.showSPAlert(message: error.localizedDescription)
@@ -282,7 +312,12 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
     func reportRecipe() {
         let handler: AlertActionHandler = { [weak self] _ in
             guard let self = self else { return }
-            self.firestoreManager.updateRecipeReports(recipeId: self.recipeId, userId: Constant.getUserId())
+            let recipeRef = FirestoreEndpoint.recipes.collectionRef.document(self.recipeId)
+            self.firestoreManager.arrayUnionString(
+                docRef: recipeRef,
+                field: Constant.reports,
+                value: Constant.getUserId()
+            )
             SPAlert.present(message: "謝謝你告知我們，我們會在未來減少顯示這類內容", haptic: .success)
         }
 

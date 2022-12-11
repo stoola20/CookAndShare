@@ -83,25 +83,56 @@ class AllRecipeCell: UICollectionViewCell {
         storeButton.setImage(buttonImage, for: .normal)
     }
 
+    private func showSignInVC() {
+        let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+        guard let loginVC = storyboard.instantiateViewController(
+            withIdentifier: String(describing: LoginViewController.self)
+        ) as? LoginViewController
+        else { fatalError("Could not create loginVC") }
+        loginVC.isPresented = true
+        viewController?.present(loginVC, animated: true)
+    }
+
+    private func updateFirestore() {
+        let recipeRef = FirestoreEndpoint.recipes.collectionRef.document(recipeId)
+        let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+
+        if hasSaved {
+            firestoreManager.arrayRemoveString(
+                docRef: recipeRef,
+                field: Constant.saves,
+                value: Constant.getUserId()
+            )
+            firestoreManager.arrayRemoveString(
+                docRef: userRef,
+                field: Constant.savedRecipesId,
+                value: recipeId
+            )
+        } else {
+            let alertView = SPAlertView(message: "收藏成功")
+            alertView.duration = 0.8
+            alertView.present()
+            firestoreManager.arrayUnionString(
+                docRef: recipeRef,
+                field: Constant.saves,
+                value: Constant.getUserId()
+            )
+            firestoreManager.arrayUnionString(
+                docRef: userRef,
+                field: Constant.savedRecipesId,
+                value: recipeId
+            )
+        }
+        hasSaved.toggle()
+    }
+
+
     // MARK: - Action
     @IBAction func storeRecipe(_ sender: Any) {
         if Auth.auth().currentUser == nil {
-            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard let loginVC = storyboard.instantiateViewController(
-                withIdentifier: String(describing: LoginViewController.self)
-            ) as? LoginViewController
-            else { fatalError("Could not create loginVC") }
-            loginVC.isPresented = true
-            viewController?.present(loginVC, animated: true)
+            showSignInVC()
         } else {
-            if !hasSaved {
-                let alertView = SPAlertView(message: "收藏成功")
-                alertView.duration = 0.8
-                alertView.present()
-            }
-            firestoreManager.updateRecipeSaves(recipeId: recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
-            firestoreManager.updateUserSaves(recipeId: recipeId, userId: Constant.getUserId(), hasSaved: hasSaved)
-            hasSaved.toggle()
+            updateFirestore()
             updateButton()
         }
     }
