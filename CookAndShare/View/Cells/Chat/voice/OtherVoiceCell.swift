@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import Lottie
 
-class OtherVoiceCell: UITableViewCell {
+class OtherVoiceCell: UITableViewCell, MessageCell {
     var player = AVPlayer()
     var timer = Timer()
     var duration = TimeInterval()
@@ -42,7 +42,7 @@ class OtherVoiceCell: UITableViewCell {
         animationView.currentFrame = VoiceAnimateKeyFrames.prepare.rawValue
     }
 
-    func layoutCell(with message: Message, friendImageURL: String) {
+    func layoutCell(with message: Message, friendImageURL: String, viewController: ChatRoomViewController, heroId: String) {
         friendImageView.loadImage(friendImageURL, placeHolder: UIImage(named: Constant.chefMan))
         timeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
         duration = message.duration

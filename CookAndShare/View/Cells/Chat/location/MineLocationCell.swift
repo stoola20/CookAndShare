@@ -8,7 +8,7 @@
 import UIKit
 import GoogleMaps
 
-class MineLocationCell: UITableViewCell {
+class MineLocationCell: UITableViewCell, MessageCell {
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var mapTimeLabel: UILabel!
 
@@ -19,16 +19,21 @@ class MineLocationCell: UITableViewCell {
         setUpUI()
     }
 
-    func setUpUI() {
+    private func setUpUI() {
         mapView.layer.cornerRadius = 20
         mapTimeLabel.textColor = UIColor.systemBrown
         mapTimeLabel.font = UIFont.systemFont(ofSize: 13)
     }
 
-    func layoutCell(with message: Message) {
-        mapView.clear()
+    func layoutCell(with message: Message, friendImageURL: String, viewController: ChatRoomViewController, heroId: String) {
+        layoutMapView(with: message)
 
         mapTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
+    }
+
+    private func layoutMapView(with message: Message) {
+        mapView.clear()
+
         let subString = message.content.split(separator: ",")
         guard
             let lat = Double(subString[0]),

@@ -8,7 +8,7 @@
 import UIKit
 import GoogleMaps
 
-class OthersMessageCell: UITableViewCell {
+class OthersMessageCell: UITableViewCell, MessageCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var friendImageView: UIImageView!
@@ -29,7 +29,7 @@ class OthersMessageCell: UITableViewCell {
         messageLabel.textColor = UIColor.background
     }
 
-    func layoutCell(with message: Message, friendImageURL: String) {
+    func layoutCell(with message: Message, friendImageURL: String, viewController: ChatRoomViewController, heroId: String) {
         friendImageView.loadImage(friendImageURL, placeHolder: UIImage(named: Constant.chefMan))
         messageLabel.text = message.content
         timeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
