@@ -165,6 +165,7 @@ class ShareCell: UITableViewCell {
                 )
             ])
         } else {
+            seeProfileButton.isHidden = false
             moreButton.menu = UIMenu(children: [
                 UICommand(
                     title: "檢舉",
