@@ -203,14 +203,18 @@ class RecipeViewController: UIViewController {
         filterdRecipes = allRecipes?.filter { recipe in
             var isMach = true
             recipe.ingredientNames.forEach { name in
-                let containsChicken = name.localizedCaseInsensitiveContains("雞")
-                let containsBeef = name.localizedCaseInsensitiveContains("牛")
-                let containsPork = name.localizedCaseInsensitiveContains("豬")
-                let containsShrimp = name.localizedCaseInsensitiveContains("蝦")
-                let containsFish = name.localizedCaseInsensitiveContains("魚")
-                let containsMeat = name.localizedCaseInsensitiveContains("肉")
+                let containsChicken = name.contains("雞")
+                let containsBeef = name.contains("牛")
+                let containsDuck = name.contains("鴨")
+                let containsGoose = name.contains("鵝")
+                let containsPork = name.contains("豬")
+                let containsShrimp = name.contains("蝦")
+                let containsFish = name.contains("魚")
+                let containsMeat = name.contains("肉")
+                let containsSeafood = name.contains("明太子") || name.contains("蛤蜊")
+                let containsCrab = name.contains("蟹")
 
-                let notVegan = containsChicken || containsPork || containsBeef || containsFish || containsShrimp || containsMeat
+                let notVegan = containsChicken || containsPork || containsBeef || containsFish || containsShrimp || containsMeat || containsDuck || containsGoose || containsCrab || containsSeafood
                 if !notVegan { return }
                 isMach = !notVegan
             }
