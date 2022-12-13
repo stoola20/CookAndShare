@@ -150,10 +150,11 @@ class ProfileViewController: UIViewController {
         let confirmAction = UIAlertAction(title: "確認刪除", style: .destructive) { [weak self] _ in
             guard let self = self else { return }
             self.signInWithApple()
-            self.firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
-                guard let self = self else { return }
+            let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            self.firestoreManager.getDocument(userRef) { [weak self] (result: Result<User?, Error>) in
                 switch result {
                 case .success(let user):
+                    guard let self = self, let user = user else { return }
                     self.user = user
                 case .failure(let error):
                     print(error)
@@ -181,24 +182,25 @@ class ProfileViewController: UIViewController {
 
     func deleteFirestoreDocument() {
         guard let mySelf = self.user else { return }
-        self.firestoreManager.searchAllUsers { [weak self] result in
+        let query = FirestoreEndpoint.users.collectionRef
+        self.firestoreManager.getDocuments(query) { [weak self] (result: Result<[User], Error>) in
             guard let self = self else { return }
             switch result {
             case .success(let users):
                 users.forEach { otherOne in
-                    self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                    FirestoreEndpoint.users.collectionRef.document(otherOne.id).updateData([
                         "blockList": FieldValue.arrayRemove([mySelf.id])
                     ])
                     mySelf.conversationId.forEach { channelId in
                         if otherOne.conversationId.contains(channelId) {
-                            self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                            FirestoreEndpoint.users.collectionRef.document(otherOne.id).updateData([
                                 Constant.conversationId: FieldValue.arrayRemove([channelId])
                             ])
                         }
                     }
                     mySelf.recipesId.forEach { recipeId in
                         if otherOne.savedRecipesId.contains(recipeId) {
-                            self.firestoreManager.usersCollection.document(otherOne.id).updateData([
+                            FirestoreEndpoint.users.collectionRef.document(otherOne.id).updateData([
                                 Constant.savedRecipesId: FieldValue.arrayRemove([recipeId])
                             ])
                         }
@@ -209,16 +211,16 @@ class ProfileViewController: UIViewController {
             }
         }
         mySelf.conversationId.forEach { channelId in
-            self.firestoreManager.conversationsCollection.document(channelId).delete()
+            FirestoreEndpoint.conversations.collectionRef.document(channelId).delete()
         }
         mySelf.sharesId.forEach { shareId in
-            self.firestoreManager.sharesCollection.document(shareId).delete()
+            FirestoreEndpoint.shares.collectionRef.document(shareId).delete()
         }
         mySelf.recipesId.forEach { recipeId in
-            self.firestoreManager.recipesCollection.document(recipeId).delete()
+            FirestoreEndpoint.recipes.collectionRef.document(recipeId).delete()
         }
 
-        self.firestoreManager.usersCollection.document(mySelf.id).delete()
+        FirestoreEndpoint.users.collectionRef.document(mySelf.id).delete()
     }
 
     func deleteCoreData() {
@@ -250,10 +252,11 @@ extension ProfileViewController: UITableViewDataSource {
 
             cell.delegate = self
             cell.selectedBackgroundView = selectedBackground
-            firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
-                guard let self = self else { return }
+            let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            firestoreManager.getDocument(userRef) { [weak self] (result: Result<User?, Error>) in
                 switch result {
                 case .success(let user):
+                    guard let self = self, let user = user else { return }
                     self.user = user
                     self.userName = user.name
                     cell.layoutCell(with: user)
@@ -280,33 +283,30 @@ extension ProfileViewController: UITableViewDelegate {
         switch indexPath.item {
         case 0:
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let savedRecipeVC = storyboard.instantiateViewController(withIdentifier: String(describing: SavedRecipeViewController.self))
-                as? SavedRecipeViewController
+            guard let savedRecipeVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: SavedRecipeViewController.self)
+            ) as? SavedRecipeViewController
             else { fatalError("Could not instantiate ShoppingListViewController") }
             navigationController?.pushViewController(savedRecipeVC, animated: true)
         case 1:
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let shoppingListVC = storyboard.instantiateViewController(withIdentifier: String(describing: ShoppingListViewController.self))
-                as? ShoppingListViewController
+            guard let shoppingListVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: ShoppingListViewController.self)
+            ) as? ShoppingListViewController
             else { fatalError("Could not instantiate ShoppingListViewController") }
             navigationController?.pushViewController(shoppingListVC, animated: true)
         case 2:
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let publicProfileVC = storyboard.instantiateViewController(
-                    withIdentifier: String(describing: PublicProfileViewController.self)
-                )
-                as? PublicProfileViewController
+            guard let publicProfileVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: PublicProfileViewController.self)
+            ) as? PublicProfileViewController
             else { fatalError("Could not create publicProfileVC") }
             publicProfileVC.userId = Constant.getUserId()
             navigationController?.pushViewController(publicProfileVC, animated: true)
         case 3:
             let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
-            guard
-                let blockListVC = storyboard.instantiateViewController(withIdentifier: String(describing: BlockListViewController.self))
-                    as? BlockListViewController
+            guard let blockListVC = storyboard.instantiateViewController(withIdentifier: String(describing: BlockListViewController.self)
+            ) as? BlockListViewController
             else { fatalError("Could not instantiate blockListVC") }
             navigationController?.pushViewController(blockListVC, animated: true)
         case 4:
@@ -314,7 +314,11 @@ extension ProfileViewController: UITableViewDelegate {
         default:
             guard let user = user else { return }
             do {
-                firestoreManager.updateFCMToken(userId: user.id, fcmToken: "")
+                firestoreManager.updateUserData(
+                    userId: user.id,
+                    field: Constant.fcmToken,
+                    value: ""
+                )
                 try Auth.auth().signOut()
                 showLoginVC()
             } catch let signOutError as NSError {
@@ -338,7 +342,11 @@ extension ProfileViewController: ProfileUserCellDelegate {
                 !name.isEmpty,
                 let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ProfileUserCell
             else { return }
-            self.firestoreManager.updateUserName(userId: Constant.getUserId(), name: name)
+            self.firestoreManager.updateUserData(
+                userId: Constant.getUserId(),
+                field: Constant.name,
+                value: name
+            )
             cell.userName.text = name
             self.userName = name
         }
@@ -394,7 +402,11 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
             switch result {
             case .success(let url):
                 print(url)
-                self.firestoreManager.updateUserPhoto(userId: Constant.getUserId(), imageURL: url.absoluteString)
+                self.firestoreManager.updateUserData(
+                    userId: Constant.getUserId(),
+                    field: Constant.imageURL,
+                    value: url.absoluteString
+                )
                 cell.profileImageView.loadImage(url.absoluteString)
             case .failure(let error):
                 print(error)

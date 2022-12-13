@@ -58,6 +58,7 @@ enum Constant {
     static let quantityByPerson = "人份的食材"
     static let likes = "likes"
     static let saves = "saves"
+    static let reports = "reports"
     static let foodRecognition = "食物辨識"
 
     // search
@@ -85,12 +86,18 @@ enum Constant {
     static let cancel = "取消"
     static let confirm = "確認"
 
+    // user
+    static let name = "name"
+    static let imageURL = "imageURL"
+    static let fcmToken = "fcmToken"
     static let recipesId = "recipesId"
     static let savedRecipesId = "savedRecipesId"
     static let sharesId = "sharesId"
+    static let blockList = "blockList"
     static let conversationId = "conversationId"
 
     // conversation
+    static let messages = "messages"
     static let text = "text"
     static let image = "image"
     static let voice = "voice"

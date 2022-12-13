@@ -136,7 +136,11 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 
                 self.firestoreManager.isNewUser(id: authResult.user.uid) { isNewUser in
                     if !isNewUser {
-                        self.firestoreManager.updateFCMToken(userId: Constant.getUserId(), fcmToken: fcmToken)
+                        self.firestoreManager.updateUserData(
+                            userId: Constant.getUserId(),
+                            field: Constant.fcmToken,
+                            value: fcmToken
+                        )
                     } else {
                         guard let fullName = appleIDCredential.fullName else { return }
                         let user = User(
@@ -151,7 +155,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                             conversationId: [],
                             blockList: []
                         )
-                        self.firestoreManager.createUser(id: authResult.user.uid, user: user)
+                        let userRef = FirestoreEndpoint.users.collectionRef.document(authResult.user.uid)
+                        self.firestoreManager.setData(user, to: userRef)
                     }
                     print("成功以 Apple 登入 Firebase")
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)

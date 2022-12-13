@@ -51,6 +51,7 @@
 		372E3AB5291655F600250DAA /* MineVoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3AB3291655F600250DAA /* MineVoiceCell.xib */; };
 		372E3AB82916560600250DAA /* OtherVoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3AB62916560600250DAA /* OtherVoiceCell.swift */; };
 		372E3AB92916560600250DAA /* OtherVoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3AB72916560600250DAA /* OtherVoiceCell.xib */; };
+		37385D042945CD3F00D8E37A /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37385D032945CD3F00D8E37A /* MessageCell.swift */; };
 		37489AF82930B2E600B144D9 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37489AF72930B2E600B144D9 /* AuthManager.swift */; };
 		3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875369290ED37300F06F4C /* SearchViewController.swift */; };
 		3787536C290ED80900F06F4C /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787536B290ED80900F06F4C /* ResultViewController.swift */; };
@@ -220,6 +221,7 @@
 		372E3AB3291655F600250DAA /* MineVoiceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MineVoiceCell.xib; sourceTree = "<group>"; };
 		372E3AB62916560600250DAA /* OtherVoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherVoiceCell.swift; sourceTree = "<group>"; };
 		372E3AB72916560600250DAA /* OtherVoiceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherVoiceCell.xib; sourceTree = "<group>"; };
+		37385D032945CD3F00D8E37A /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		37489AF72930B2E600B144D9 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		37875369290ED37300F06F4C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3787536B290ED80900F06F4C /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 		372E3A9B29162B7500250DAA /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				37385D032945CD3F00D8E37A /* MessageCell.swift */,
 				37AE89242939A95900199C34 /* DateHeaderLabel.swift */,
 				372E3A912913E0E200250DAA /* ChatListCell.swift */,
 				372E3AA12916544F00250DAA /* voice */,
@@ -1108,6 +1111,7 @@
 				3707F48A29227AD900618458 /* LoginViewController.swift in Sources */,
 				37D69CC5290D48790034D8E1 /* FirestoreManager.swift in Sources */,
 				37E63622290E4DD500D516D4 /* RecipeTypeCell.swift in Sources */,
+				37385D042945CD3F00D8E37A /* MessageCell.swift in Sources */,
 				3787537F290F9A4000F06F4C /* ProfileUserCell.swift in Sources */,
 				372E3AB4291655F600250DAA /* MineVoiceCell.swift in Sources */,
 				372E3A922913E0E200250DAA /* ChatListCell.swift in Sources */,

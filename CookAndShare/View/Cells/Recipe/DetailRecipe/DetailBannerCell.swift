@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FirebaseFirestore
 
 protocol DetailBannerCellDelegate: AnyObject {
     func goToProfile(_ userId: String)
@@ -19,8 +18,8 @@ protocol DetailBannerCellDelegate: AnyObject {
 }
 
 class DetailBannerCell: UITableViewCell {
-    let firestoreManager = FirestoreManager.shared
-    var author: User?
+    private let firestoreManager = FirestoreManager.shared
+    private var author: User?
 
     weak var delegate: DetailBannerCellDelegate!
     @IBOutlet weak var containerView: UIView!
@@ -49,7 +48,7 @@ class DetailBannerCell: UITableViewCell {
         saveButton.addTarget(self, action: #selector(saveRecipe), for: .touchUpInside)
     }
 
-    func setUpUI() {
+    private func setUpUI() {
         profileImage.layer.cornerRadius = 20
         profileImage.contentMode = .scaleAspectFill
         containerView.layer.cornerRadius = 30
@@ -68,7 +67,7 @@ class DetailBannerCell: UITableViewCell {
         seeProfileButton.backgroundColor = .lightOrange
     }
 
-    func setGestureRecognizer() -> UITapGestureRecognizer {
+    private func setGestureRecognizer() -> UITapGestureRecognizer {
         var tapRecognizer = UITapGestureRecognizer()
         tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToProfile))
         return tapRecognizer
@@ -109,6 +108,12 @@ class DetailBannerCell: UITableViewCell {
     }
 
     func layoutCell(with recipe: Recipe, author: User) {
+        config(recipe, author)
+        configMenu(with: recipe)
+        listen(to: recipe)
+    }
+
+    private func config(_ recipe: Recipe, _ author: User) {
         profileImage.loadImage(author.imageURL, placeHolder: UIImage(named: Constant.chefMan))
         authorLabel.text = author.name
         self.author = author
@@ -116,7 +121,37 @@ class DetailBannerCell: UITableViewCell {
         titleLabel.text = recipe.title
         durationLabel.text = "⌛️ 烹調時間： \(recipe.cookDuration) 分鐘"
         storyLabel.text = recipe.description
+    }
 
+    private func listen(to recipe: Recipe) {
+        let docRef = FirestoreEndpoint.recipes.collectionRef.document(recipe.recipeId)
+        firestoreManager.listenDocument(docRef) { [weak self] (result: Result<Recipe?, Error>) in
+            switch result {
+            case .success(let recipe):
+                guard let self = self, let newRecipe = recipe else { return }
+                self.updateButtonsAndLabel(with: newRecipe)
+            case .failure(let error):
+                print("Error fetching document: \(String(describing: error))")
+            }
+        }
+    }
+
+    private func updateButtonsAndLabel(with recipe: Recipe) {
+        self.likesLabel.text = String(recipe.likes.count)
+        if recipe.likes.contains(Constant.getUserId()) {
+            self.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            self.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+
+        if recipe.saves.contains(Constant.getUserId()) {
+            self.saveButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+        } else {
+            self.saveButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        }
+    }
+
+    private func configMenu(with recipe: Recipe) {
         if recipe.authorId == Constant.getUserId() {
             moreButton.menu = UIMenu(children: [
                 UICommand(
@@ -155,31 +190,6 @@ class DetailBannerCell: UITableViewCell {
                     attributes: .destructive
                 )
             ])
-        }
-
-        Firestore.firestore().collection(Constant.firestoreRecipes).document(recipe.recipeId).addSnapshotListener { [weak self] documentSnapshot, error in
-            guard let self = self else { return }
-            guard let document = documentSnapshot else {
-                print("Error fetching document: \(String(describing: error))")
-                return
-            }
-
-            guard let newRecipe = try? document.data(as: Recipe.self) else {
-                print("Document data was empty.")
-                return
-            }
-            self.likesLabel.text = String(newRecipe.likes.count)
-            if newRecipe.likes.contains(Constant.getUserId()) {
-                self.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            } else {
-                self.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-            }
-
-            if newRecipe.saves.contains(Constant.getUserId()) {
-                self.saveButton.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
-            } else {
-                self.saveButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
-            }
         }
     }
 }

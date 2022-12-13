@@ -8,7 +8,7 @@
 import UIKit
 import GoogleMaps
 
-class MineMessageCell: UITableViewCell {
+class MineMessageCell: UITableViewCell, MessageCell {
     @IBOutlet weak var chatBubble: UIView!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -26,7 +26,7 @@ class MineMessageCell: UITableViewCell {
         timeLabel.font = UIFont.systemFont(ofSize: 13)
     }
 
-    func layoutCell(with message: Message) {
+    func layoutCell(with message: Message, friendImageURL: String, viewController: ChatRoomViewController, heroId: String) {
         messageLabel.text = message.content
         timeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
     }

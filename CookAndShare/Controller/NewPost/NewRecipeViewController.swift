@@ -136,18 +136,20 @@ class NewRecipeViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             if recipe.recipeId.isEmpty {
-                let document = firestoreManager.recipesCollection.document()
+                let document = FirestoreEndpoint.recipes.collectionRef.document()
                 recipe.recipeId = document.documentID
                 recipe.authorId = Constant.getUserId()
                 recipe.time = Timestamp(date: Date())
-                firestoreManager.addNewRecipe(recipe, to: document)
-                firestoreManager.updateUserRecipePost(
-                    recipeId: document.documentID,
-                    userId: Constant.getUserId(),
-                    isNewPost: true
+                firestoreManager.setData(recipe, to: document)
+
+                let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+                firestoreManager.arrayUnionString(
+                    docRef: userRef,
+                    field: Constant.recipesId,
+                    value: document.documentID
                 )
             } else {
-                try? firestoreManager.recipesCollection.document(recipe.recipeId).setData(from: recipe, merge: true)
+                try? FirestoreEndpoint.recipes.collectionRef.document(recipe.recipeId).setData(from: recipe, merge: true)
             }
         }
     }

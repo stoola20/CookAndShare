@@ -8,7 +8,7 @@
 import UIKit
 import Hero
 
-class MineImageCell: UITableViewCell {
+class MineImageCell: UITableViewCell, MessageCell {
     @IBOutlet weak var largeImageView: UIImageView!
     @IBOutlet weak var imageTimeLabel: UILabel!
     weak var viewController: ChatRoomViewController?
@@ -28,10 +28,12 @@ class MineImageCell: UITableViewCell {
         imageTimeLabel.font = UIFont.systemFont(ofSize: 13)
     }
 
-    func layoutCell(with message: Message) {
+    func layoutCell(with message: Message, friendImageURL: String, viewController: ChatRoomViewController, heroId: String) {
         largeImageView.loadImage(message.content, placeHolder: UIImage(named: Constant.friedRice))
+        largeImageView.heroID = heroId
         imageTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
         imageURL = message.content
+        self.viewController = viewController
     }
 
     @objc func presentLargePhoto() {

@@ -9,7 +9,7 @@ import UIKit
 import Lottie
 import AVFoundation
 
-class MineVoiceCell: UITableViewCell {
+class MineVoiceCell: UITableViewCell, MessageCell {
     var player = AVPlayer()
     var timer = Timer()
     var duration = TimeInterval()
@@ -39,7 +39,7 @@ class MineVoiceCell: UITableViewCell {
         animationView.currentFrame = VoiceAnimateKeyFrames.prepare.rawValue
     }
 
-    func layoutCell(with message: Message) {
+    func layoutCell(with message: Message, friendImageURL: String, viewController: ChatRoomViewController, heroId: String) {
         timeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
         duration = message.duration
         totalDuration = message.duration

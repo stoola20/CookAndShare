@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SPAlert
 
 class SavedRecipeViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
@@ -22,10 +23,15 @@ class SavedRecipeViewController: UIViewController {
             for recipeId in self.savedRecipsId {
                 group.enter()
                 let docRef = FirestoreEndpoint.recipes.collectionRef.document(recipeId)
-                self.firestoreManager.getDocument(docRef) { (recipe: Recipe?) in
-                    guard let recipe = recipe else { return }
-                    if !user.blockList.contains(recipe.authorId) {
-                        tempRecipes.append(recipe)
+                self.firestoreManager.getDocument(docRef) { (result: Result<Recipe?, Error>) in
+                    switch result {
+                    case .success(let recipe):
+                        guard let recipe = recipe else { return }
+                        if !user.blockList.contains(recipe.authorId) {
+                            tempRecipes.append(recipe)
+                        }
+                    case .failure(let error):
+                        SPAlert.present(message: error.localizedDescription, haptic: .error)
                     }
                     group.leave()
                 }
@@ -52,10 +58,11 @@ class SavedRecipeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         alertStackView.isHidden = true
-        firestoreManager.fetchUserData(userId: Constant.getUserId()) { [weak self] result in
-            guard let self = self else { return }
+        let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+        firestoreManager.getDocument(userRef) { [weak self] (result: Result<User?, Error>) in
             switch result {
             case .success(let user):
+                guard let self = self, let user = user else { return }
                 self.user = user
                 self.savedRecipsId = user.savedRecipesId
                 if user.savedRecipesId.isEmpty {

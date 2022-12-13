@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SPAlert
 import FirebaseAuth
 
 class PublicProfileViewController: UIViewController {
@@ -47,37 +48,44 @@ class PublicProfileViewController: UIViewController {
         var tempShares: [Share] = []
         let group = DispatchGroup()
         group.enter()
-        firestoreManager.fetchUserData(userId: userId) { result in
+        let userRef = FirestoreEndpoint.users.collectionRef.document(userId)
+        firestoreManager.getDocument(userRef) { [weak self] (result: Result<User?, Error>) in
             switch result {
             case .success(let user):
+                guard let self = self, let user = user else { return }
                 self.user = user
                 user.recipesId.forEach { recipeId in
                     group.enter()
                     let docRef = FirestoreEndpoint.recipes.collectionRef.document(recipeId)
-                    self.firestoreManager.getDocument(docRef) { [weak self] (recipe: Recipe?) in
-                        guard let self = self, let recipe = recipe else { return }
-                        tempRecipes.append(recipe)
+                    self.firestoreManager.getDocument(docRef) { (result: Result<Recipe?, Error>) in
+                        switch result {
+                        case .success(let recipe):
+                            guard let recipe = recipe else { return }
+                            tempRecipes.append(recipe)
+                        case .failure(let error):
+                            SPAlert.present(title: error.localizedDescription, preset: .error)
+                        }
                         group.leave()
                     }
                 }
                 user.sharesId.forEach { shareId in
                     group.enter()
-                    self.firestoreManager.fetchShareBy(shareId) { result in
+                    let docRef = FirestoreEndpoint.shares.collectionRef.document(shareId)
+                    self.firestoreManager.getDocument(docRef) { (result: Result<Share?, Error>) in
                         switch result {
                         case .success(let share):
+                            guard let share = share else { return }
                             tempShares.append(share)
-                            group.leave()
                         case .failure(let error):
-                            print(error)
-                            group.leave()
+                            SPAlert.present(title: error.localizedDescription, preset: .error)
                         }
+                        group.leave()
                     }
                 }
-                group.leave()
             case .failure(let error):
                 print(error)
-                group.leave()
             }
+            group.leave()
         }
 
         group.notify(queue: DispatchQueue.main) { [weak self] in
@@ -242,7 +250,12 @@ extension PublicProfileViewController: PublicProfileHeaderCellDelegate {
         )
         let confirmAction = UIAlertAction(title: "確定封鎖", style: .destructive) { [weak self] _ in
             guard let self = self else { return }
-            self.firestoreManager.updateUserBlocklist(userId: Constant.getUserId(), blockId: user.id, hasBlocked: false)
+            let myRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            self.firestoreManager.arrayUnionString(
+                docRef: myRef,
+                field: Constant.blockList,
+                value: user.id
+            )
             self.navigationController?.popToRootViewController(animated: true)
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)

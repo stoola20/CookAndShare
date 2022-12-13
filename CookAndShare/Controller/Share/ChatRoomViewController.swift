@@ -12,6 +12,7 @@ import GoogleMaps
 import AVFoundation
 import Hero
 
+// swiftlint:disable type_body_length
 class ChatRoomViewController: UIViewController {
     private var timer: Timer?
     private var recordingSession: AVAudioSession!
@@ -129,30 +130,35 @@ class ChatRoomViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), menu: menu)
     }
 
-    func fetchConversation() {
+    private func fetchConversation() {
         guard let friend = friend else {
             return
         }
-        firestoreManager.fetchConversation(with: friend.id) { result in
+        firestoreManager.fetchConversation(with: friend.id) { [weak self] result in
             switch result {
             case .success(let conversation):
-                self.conversation = conversation
-                guard let myConversation = self.conversation else { return }
-                self.firestoreManager.addListener(channelId: myConversation.channelId) { result in
-                    switch result {
-                    case .success(let conversation):
-                        self.conversation = conversation
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
+                guard let self = self, let conversation = conversation else { return }
+                self.listen(to: conversation)
             case .failure(let error):
                 print(error)
             }
         }
     }
 
-    func assembleGroupedMessages() {
+    private func listen(to conversation: Conversation) {
+        let docRef = FirestoreEndpoint.conversations.collectionRef.document(conversation.channelId)
+        self.firestoreManager.listenDocument(docRef) { (result: Result<Conversation?, Error>) in
+            switch result {
+            case .success(let conversation):
+                guard let conversation = conversation else { return}
+                self.conversation = conversation
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+
+    private func assembleGroupedMessages() {
         messages = []
         guard let conversation = conversation else { return }
 
@@ -188,7 +194,12 @@ class ChatRoomViewController: UIViewController {
         )
         let confirmAction = UIAlertAction(title: "確定封鎖", style: .destructive) { [weak self] _ in
             guard let self = self else { return }
-            self.firestoreManager.updateUserBlocklist(userId: Constant.getUserId(), blockId: friend.id, hasBlocked: false)
+            let myRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            self.firestoreManager.arrayUnionString(
+                docRef: myRef,
+                field: Constant.blockList,
+                value: friend.id
+            )
             self.navigationController?.popToRootViewController(animated: true)
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel)
@@ -219,13 +230,9 @@ class ChatRoomViewController: UIViewController {
                 "time": Timestamp(date: Date()),
                 "duration": duration
             ]
-
-            firestoreManager.updateConversation(channelId: conversation.channelId, message: message)
+            let conversationRef = FirestoreEndpoint.conversations.collectionRef.document(conversation.channelId)
+            firestoreManager.arrayUnionDict(docRef: conversationRef, field: Constant.messages, value: message)
         } else {
-            let document = firestoreManager.conversationsCollection.document()
-            var newConversation = Conversation()
-            newConversation.channelId = document.documentID
-            newConversation.friendIds = [friend.id, Constant.getUserId()]
             let message = Message(
                 senderId: Constant.getUserId(),
                 contentType: contentType.rawValue,
@@ -233,28 +240,38 @@ class ChatRoomViewController: UIViewController {
                 time: Timestamp(date: Date()),
                 duration: duration
             )
+
+            let document = FirestoreEndpoint.conversations.collectionRef.document()
+            let myRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            let friendRef = FirestoreEndpoint.users.collectionRef.document(friend.id)
+
+            var newConversation = Conversation()
+            newConversation.channelId = document.documentID
+            newConversation.friendIds = [friend.id, Constant.getUserId()]
             newConversation.messages = [message]
-            self.conversation = newConversation
-            firestoreManager.createNewConversation(newConversation, to: document)
-            firestoreManager.updateUserConversation(
-                userId: Constant.getUserId(),
-                friendId: friend.id,
-                channelId: document.documentID
+
+            firestoreManager.setData(newConversation, to: document)
+
+            firestoreManager.arrayUnionString(
+                docRef: myRef,
+                field: Constant.conversationId,
+                value: document.documentID
             )
-            firestoreManager.addListener(channelId: document.documentID) { result in
-                switch result {
-                case .success(let conversation):
-                    self.conversation = conversation
-                case .failure(let error):
-                    print(error)
-                }
-            }
+            firestoreManager.arrayUnionString(
+                docRef: friendRef,
+                field: Constant.conversationId,
+                value: document.documentID
+            )
+
+            listen(to: newConversation)
         }
 
         if !friend.blockList.contains(Constant.getUserId()) {
-            firestoreManager.fetchUserData(userId: Constant.getUserId()) { result in
+            let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
+            firestoreManager.getDocument(userRef) { (result: Result<User?, Error>) in
                 switch result {
                 case .success(let user):
+                    guard let user = user else { return }
                     let sender = PushNotificationSender()
                     sender.sendPushNotification(
                         to: friend.fcmToken,
@@ -493,74 +510,19 @@ extension ChatRoomViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.section][indexPath.row]
-        if message.senderId == Constant.getUserId() {
-            switch message.contentType {
-            case Constant.text:
-                guard
-                    let cell = tableView.dequeueReusableCell(withIdentifier: MineMessageCell.identifier, for: indexPath)
-                    as? MineMessageCell
-                else { fatalError("could not craete MineMessageCell") }
-                cell.layoutCell(with: message)
-                return cell
-            case Constant.image:
-                guard
-                    let cell = tableView.dequeueReusableCell(withIdentifier: MineImageCell.identifier, for: indexPath)
-                    as? MineImageCell
-                else { fatalError("could not craete MineMessageCell") }
-                cell.viewController = self
-                cell.largeImageView.hero.id = "\(indexPath.section)\(indexPath.row)"
-                cell.layoutCell(with: message)
-                return cell
-            case Constant.location:
-                guard
-                    let cell = tableView.dequeueReusableCell(withIdentifier: MineLocationCell.identifier, for: indexPath)
-                    as? MineLocationCell
-                else { fatalError("could not craete MineMessageCell") }
-                cell.layoutCell(with: message)
-                return cell
-            default:
-                guard
-                    let cell = tableView.dequeueReusableCell(withIdentifier: MineVoiceCell.identifier, for: indexPath)
-                    as? MineVoiceCell
-                else { fatalError("could not craete MineMessageCell") }
-                cell.layoutCell(with: message)
-                return cell
-            }
-        } else {
-            guard let friend = friend else { fatalError("Empty friend") }
-            switch message.contentType {
-            case Constant.text:
-                guard
-                    let cell = tableView.dequeueReusableCell(withIdentifier: OthersMessageCell.identifier, for: indexPath)
-                    as? OthersMessageCell
-                else { fatalError("could not craete MineMessageCell") }
-                cell.layoutCell(with: message, friendImageURL: friend.imageURL)
-                return cell
-            case Constant.image:
-                guard
-                    let cell = tableView.dequeueReusableCell(withIdentifier: OtherImageCell.identifier, for: indexPath)
-                    as? OtherImageCell
-                else { fatalError("could not craete MineMessageCell") }
-                cell.layoutCell(with: message, friendImageURL: friend.imageURL)
-                cell.viewController = self
-                cell.largeImageView.hero.id = "\(indexPath.section)\(indexPath.row)"
-                return cell
-            case Constant.location:
-                guard
-                    let cell = tableView.dequeueReusableCell(withIdentifier: OtherLocationCell.identifier, for: indexPath)
-                    as? OtherLocationCell
-                else { fatalError("could not craete MineMessageCell") }
-                cell.layoutCell(with: message, friendImageURL: friend.imageURL)
-                return cell
-            default:
-                guard
-                    let cell = tableView.dequeueReusableCell(withIdentifier: OtherVoiceCell.identifier, for: indexPath)
-                    as? OtherVoiceCell
-                else { fatalError("could not craete MineMessageCell") }
-                cell.layoutCell(with: message, friendImageURL: friend.imageURL)
-                return cell
-            }
-        }
+        let sender = message.senderId == Constant.getUserId() ? "mine" : "other"
+        guard
+            let friend = friend,
+            let messageType = MessageType(rawValue: "\(sender) \(message.contentType)"),
+            let cell = tableView.dequeueReusableCell(withIdentifier: messageType.cellIdentifier, for: indexPath) as? MessageCell
+        else { fatalError("Could not create Message Cell") }
+        cell.layoutCell(
+            with: message,
+            friendImageURL: friend.imageURL,
+            viewController: self,
+            heroId: "\(indexPath.section)\(indexPath.row)"
+        )
+        return cell
     }
 }
 

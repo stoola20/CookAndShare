@@ -8,7 +8,7 @@
 import UIKit
 import GoogleMaps
 
-class OtherLocationCell: UITableViewCell {
+class OtherLocationCell: UITableViewCell, MessageCell {
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var mapTimeLabel: UILabel!
     @IBOutlet weak var friendImageView: UIImageView!
@@ -28,11 +28,14 @@ class OtherLocationCell: UITableViewCell {
         mapTimeLabel.font = UIFont.systemFont(ofSize: 13)
     }
 
-    func layoutCell(with message: Message, friendImageURL: String) {
-        mapView.clear()
-
+    func layoutCell(with message: Message, friendImageURL: String, viewController: ChatRoomViewController, heroId: String) {
         friendImageView.loadImage(friendImageURL, placeHolder: UIImage(named: Constant.chefMan))
         mapTimeLabel.text = Date.getMessageTimeString(from: Date(timeIntervalSince1970: Double(message.time.seconds)))
+        layoutMapView(with: message)
+    }
+
+    private func layoutMapView(with message: Message) {
+        mapView.clear()
         let subString = message.content.split(separator: ",")
         guard
             let lat = Double(subString[0]),

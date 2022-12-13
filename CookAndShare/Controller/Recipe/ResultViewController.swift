@@ -7,6 +7,8 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
+import SPAlert
 
 enum SearchType {
     case title
@@ -73,19 +75,32 @@ class ResultViewController: UIViewController {
         stackView.isHidden = true
         if Auth.auth().currentUser == nil {
             let query = FirestoreEndpoint.recipes.collectionRef
-            self.firestoreManager.getDocuments(query) { (recipes: [Recipe]) in
-                self.filterRecipes(recipes: recipes)
-            }
+            getRecipes(query: query)
         } else {
             let docRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
-            firestoreManager.getDocument(docRef) { [weak self] (user: User?) in
-                guard let self = self, let user = user else { return }
-                let query = user.blockList.isEmpty
-                ? FirestoreEndpoint.recipes.collectionRef
-                : FirestoreEndpoint.recipes.collectionRef.whereField(Constant.authorId, notIn: user.blockList)
-                self.firestoreManager.getDocuments(query) { (recipes: [Recipe]) in
-                    self.filterRecipes(recipes: recipes)
+            firestoreManager.getDocument(docRef) { [weak self] (result: Result<User?, Error>) in
+                switch result {
+                case .success(let user):
+                    guard let self = self, let user = user else { return }
+                    let query = user.blockList.isEmpty
+                    ? FirestoreEndpoint.recipes.collectionRef
+                    : FirestoreEndpoint.recipes.collectionRef.whereField(Constant.authorId, notIn: user.blockList)
+                    self.getRecipes(query: query)
+                case .failure(let error):
+                    SPAlert.present(title: error.localizedDescription, preset: .error)
                 }
+            }
+        }
+    }
+
+    private func getRecipes(query: Query) {
+        firestoreManager.getDocuments(query) { [weak self] (result: Result<[Recipe], Error>) in
+            switch result {
+            case .success(let recipes):
+                guard let self = self else { return }
+                self.filterRecipes(recipes: recipes)
+            case .failure(let error):
+                SPAlert.present(title: error.localizedDescription, preset: .error)
             }
         }
     }
