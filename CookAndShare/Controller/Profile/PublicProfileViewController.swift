@@ -242,7 +242,18 @@ extension PublicProfileViewController: PublicProfileHeaderCellDelegate {
     }
 
     func blockUser() {
-        guard let user = user else { return }
+        guard let user = user, Auth.auth().currentUser != nil else {
+            // 若沒登入，無法封鎖
+            let storyboard = UIStoryboard(name: Constant.profile, bundle: nil)
+            if let loginVC = storyboard.instantiateViewController(
+                withIdentifier: String(describing: LoginViewController.self)
+            ) as? LoginViewController {
+                loginVC.isPresented = true
+                present(loginVC, animated: true)
+            }
+            return
+        }
+
         let alert = UIAlertController(
             title: "封鎖\(user.name)？",
             message: "你將不會看到他的貼文、個人檔案或來自他的訊息。你封鎖用戶時，對方不會收到通知。",
