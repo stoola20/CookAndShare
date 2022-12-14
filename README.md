@@ -31,18 +31,18 @@ A smart cooking App with recipe recording, food recognition, and food-sharing fe
 - Add the necessary ingredients to the shopping list and no longer forget to buy ingredients when you go shopping.
 
 ## Screenshots
-![1](https://user-images.githubusercontent.com/103205827/207544432-7d98cae8-f0e3-4339-ac22-3873082600e9.png)
-![2](https://user-images.githubusercontent.com/103205827/207544448-0b498e89-4b51-472b-b3f2-a530a0eec510.png)
-![3](https://user-images.githubusercontent.com/103205827/207544465-ebd51a5f-5fb4-43f9-93b9-0d4ffcb5dc66.png)
-![4](https://user-images.githubusercontent.com/103205827/207544506-c14c5008-a183-47c1-a43a-8f6eb4aadfdf.png)
+![1](https://user-images.githubusercontent.com/103205827/207550333-0bfdc8de-0010-4a89-9dc8-48e4c7fd0b13.png)
+![2](https://user-images.githubusercontent.com/103205827/207550347-e6126940-682a-4dbd-9365-dba42477e518.png)
+![3](https://user-images.githubusercontent.com/103205827/207550353-f9e4fbc2-61a6-41af-b0c7-39fc3c4ccf65.png)
+![4](https://user-images.githubusercontent.com/103205827/207550356-fad0d338-3ad9-4f2e-afe5-95220ff27b92.png)
 
-![5](https://user-images.githubusercontent.com/103205827/207544538-e81e4a37-808d-43e5-91ed-7af976ce72b3.png)
-![6](https://user-images.githubusercontent.com/103205827/207544551-c1b0fa59-8ed1-4495-aa11-e577f41d893c.png)
-![7](https://user-images.githubusercontent.com/103205827/207544561-cab9f294-442a-4706-b01d-b52c201759fc.png)
+![5](https://user-images.githubusercontent.com/103205827/207550358-da50802c-4ce9-4062-bfa7-12325c47e1c2.png)
+![6](https://user-images.githubusercontent.com/103205827/207550363-d7ec3b8e-c738-47e8-8d59-1347244f7c2b.png)
+![7](https://user-images.githubusercontent.com/103205827/207550367-59bbebaa-3041-4fde-9cc3-0cd81ed73bcf.png)
 
-![8](https://user-images.githubusercontent.com/103205827/207544572-5cedc8ff-e7ca-4d44-af79-eae93d2dd84a.png)
-![9](https://user-images.githubusercontent.com/103205827/207544580-57b1dfdb-755c-4e64-a20d-0235654edec3.png)
-![10](https://user-images.githubusercontent.com/103205827/207544592-d69b578f-f576-4934-8455-24d2a84fe10b.png)
+![8](https://user-images.githubusercontent.com/103205827/207550371-936dc436-4941-437b-a481-8e0f9bf78edd.png)
+![9](https://user-images.githubusercontent.com/103205827/207550377-c84148e8-fb42-41ac-81a9-f42d828256cc.png)
+![10](https://user-images.githubusercontent.com/103205827/207550384-bf15bb4d-17e3-44a2-8fed-e3a421d53cd3.png)
 
 ## Techniques
 - Provided multiple functions for recipe searching, including food recognition and random suggestions through **Shake Gesture**.
@@ -77,12 +77,12 @@ A smart cooking App with recipe recording, food recognition, and food-sharing fe
 ## Release Notes
 Version  | Date      | Note
 :-------:|-----------|--------------------------------
-1.1.1    |2022/12/02 | First released on App Store.
-1.2.0    |2022/12/04 | Added new features, optimized recipe UI, and fixed image flashing bugs.
 1.2.1    |2022/12/13 | Optimized recipe classification and fixed block list bug.
+1.2.0    |2022/12/04 | Added new features, optimized recipe UI, and fixed image flashing bugs.
+1.1.1    |2022/12/02 | First released on App Store.
 
 ## Requirements
-> Xcode 13 or later
+> Xcode 12 or later
 
 > iOS 14.0 or later
 
