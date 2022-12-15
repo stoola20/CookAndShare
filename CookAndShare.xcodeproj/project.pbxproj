@@ -52,6 +52,8 @@
 		372E3AB82916560600250DAA /* OtherVoiceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372E3AB62916560600250DAA /* OtherVoiceCell.swift */; };
 		372E3AB92916560600250DAA /* OtherVoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 372E3AB72916560600250DAA /* OtherVoiceCell.xib */; };
 		37385D042945CD3F00D8E37A /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37385D032945CD3F00D8E37A /* MessageCell.swift */; };
+		37385D08294AC86D00D8E37A /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37385D07294AC86D00D8E37A /* Observable.swift */; };
+		37385D0A294ACCDA00D8E37A /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37385D09294ACCDA00D8E37A /* MapViewModel.swift */; };
 		37489AF82930B2E600B144D9 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37489AF72930B2E600B144D9 /* AuthManager.swift */; };
 		3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37875369290ED37300F06F4C /* SearchViewController.swift */; };
 		3787536C290ED80900F06F4C /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787536B290ED80900F06F4C /* ResultViewController.swift */; };
@@ -222,6 +224,8 @@
 		372E3AB62916560600250DAA /* OtherVoiceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherVoiceCell.swift; sourceTree = "<group>"; };
 		372E3AB72916560600250DAA /* OtherVoiceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OtherVoiceCell.xib; sourceTree = "<group>"; };
 		37385D032945CD3F00D8E37A /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		37385D07294AC86D00D8E37A /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		37385D09294ACCDA00D8E37A /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		37489AF72930B2E600B144D9 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		37875369290ED37300F06F4C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		3787536B290ED80900F06F4C /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
@@ -436,6 +440,14 @@
 			path = voice;
 			sourceTree = "<group>";
 		};
+		37385D06294AC74E00D8E37A /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				37385D09294ACCDA00D8E37A /* MapViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
 		37875379290F993100F06F4C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -557,6 +569,7 @@
 				37D69C7C290BDEA40034D8E1 /* Controller */,
 				37D69C7A290BDE1C0034D8E1 /* View */,
 				37D69C75290BDCDF0034D8E1 /* Model */,
+				37385D06294AC74E00D8E37A /* View Model */,
 				378C1C27291F833300CF8D38 /* Source */,
 				37D69C58290BCF970034D8E1 /* AppDelegate.swift */,
 				37D69C5A290BCF970034D8E1 /* SceneDelegate.swift */,
@@ -674,6 +687,7 @@
 			children = (
 				37D69C8B290C11C40034D8E1 /* Constant.swift */,
 				37CBEC922910F26B00A62EF2 /* DateHelper.swift */,
+				37385D07294AC86D00D8E37A /* Observable.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1153,6 +1167,7 @@
 				37C622E72919FB4600A84263 /* FoodRecognitionViewController.swift in Sources */,
 				37E001AB294217A60090D8B7 /* JWTid.swift in Sources */,
 				372E3AA82916551C00250DAA /* OtherLocationCell.swift in Sources */,
+				37385D08294AC86D00D8E37A /* Observable.swift in Sources */,
 				37D69CC2290D10AE0034D8E1 /* String+Ext.swift in Sources */,
 				372E3A992913E28100250DAA /* OthersMessageCell.swift in Sources */,
 				37D69CB4290CBE310034D8E1 /* NewRecipeProcedureCell.swift in Sources */,
@@ -1168,6 +1183,7 @@
 				3787536A290ED37300F06F4C /* SearchViewController.swift in Sources */,
 				37CBEC852910B62000A62EF2 /* NewShareCell.swift in Sources */,
 				37FE7987291B935D005A3E3E /* UIColor+Ext.swift in Sources */,
+				37385D0A294ACCDA00D8E37A /* MapViewModel.swift in Sources */,
 				37875378290F992200F06F4C /* ProfileViewController.swift in Sources */,
 				370B1FFA291A27E50092F502 /* TranslationAPI.swift in Sources */,
 				37CBEC902910EFF100A62EF2 /* ShareCell.swift in Sources */,
