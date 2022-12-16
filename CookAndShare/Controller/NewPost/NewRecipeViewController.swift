@@ -60,33 +60,19 @@ class NewRecipeViewController: UIViewController {
     }
 
     func presentImagePicker() {
-        let controller = UIAlertController(title: "請選擇照片來源", message: nil, preferredStyle: .actionSheet)
-
-        let cameraAction = UIAlertAction(title: "相機", style: .default) { _ in
+        let cameraHandler: AlertActionHandler = { [weak self] _ in
+            guard let self = self else { return }
             self.imagePicker.sourceType = .camera
             self.present(self.imagePicker, animated: true)
         }
-        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default) { _ in
+
+        let photoLibraryHandler: AlertActionHandler = { [weak self] _ in
+            guard let self = self else { return }
             self.imagePicker.sourceType = .photoLibrary
             self.present(self.imagePicker, animated: true)
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cameraAction)
-        controller.addAction(photoLibraryAction)
-        controller.addAction(cancelAction)
 
-        if let popoverController = controller.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(
-                x: self.view.bounds.midX,
-                y: self.view.bounds.midY,
-                width: 0,
-                height: 0
-            )
-            popoverController.permittedArrowDirections = []
-        }
-
-        present(controller, animated: true, completion: nil)
+        presentImagePickerAlert(camaraHandler: cameraHandler, photoLibraryHandler: photoLibraryHandler)
     }
 
     @objc func addIngredient() {
