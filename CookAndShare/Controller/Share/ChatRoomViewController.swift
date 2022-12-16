@@ -321,21 +321,11 @@ class ChatRoomViewController: UIViewController {
 
     func alertLocationAccessNeeded() {
         guard let settingsAppURL = URL(string: UIApplication.openSettingsURLString) else { return }
-
-        let alert = UIAlertController(
-            title: "您的定位服務目前設為關閉",
-            message: "您可以前往設定頁面，並選擇「使用 App 期間」來允許好享煮飯取用您的位置。",
-            preferredStyle: .alert
+        presentSettingAlert(
+            alertTitle: "您的定位服務目前設為關閉",
+            alertMessage: "您可以前往設定頁面，並選擇「使用 App 期間」來允許好享煮飯取用您的位置。",
+            settingsAppURL: settingsAppURL
         )
-        let allowAction = UIAlertAction(
-            title: "前往設定頁面",
-            style: .cancel) { _ in
-                UIApplication.shared.open(settingsAppURL, options: [:], completionHandler: nil)
-        }
-        alert.addAction(UIAlertAction(title: "不用了，謝謝", style: .default))
-        alert.addAction(allowAction)
-
-        present(alert, animated: true)
     }
 
     // MARK: - Audio Message

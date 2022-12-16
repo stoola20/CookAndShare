@@ -58,4 +58,21 @@ extension UIViewController {
 
         present(controller, animated: true, completion: nil)
     }
+
+    func presentSettingAlert(alertTitle: String, alertMessage: String, settingsAppURL: URL) {
+        let alert = UIAlertController(
+            title: alertTitle,
+            message: alertMessage,
+            preferredStyle: .alert
+        )
+        let allowAction = UIAlertAction(
+            title: "前往設定頁面",
+            style: .cancel) { _ in
+                UIApplication.shared.open(settingsAppURL, options: [:], completionHandler: nil)
+        }
+        alert.addAction(UIAlertAction(title: "不用了，謝謝", style: .default))
+        alert.addAction(allowAction)
+
+        present(alert, animated: true)
+    }
 }
