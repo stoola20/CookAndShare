@@ -141,13 +141,7 @@ class ProfileViewController: UIViewController {
     }
 
     func deleteAccount() {
-        let alert = UIAlertController(
-            title: "永久刪除帳號？",
-            message: "此步驟無法回復。如果繼續，你的個人檔案、發文、訊息記錄都將被刪除，他人將無法在好享煮飯看到你。基於安全性，你將需要重新登入。",
-            preferredStyle: .actionSheet
-        )
-
-        let confirmAction = UIAlertAction(title: "確認刪除", style: .destructive) { [weak self] _ in
+        let handler: AlertActionHandler = { [weak self] _ in
             guard let self = self else { return }
             self.signInWithApple()
             let userRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
@@ -162,22 +156,13 @@ class ProfileViewController: UIViewController {
             }
         }
 
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
-        alert.addAction(confirmAction)
-        alert.addAction(cancelAction)
-
-        if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(
-                x: self.view.bounds.midX,
-                y: self.view.bounds.midY,
-                width: 0,
-                height: 0
-            )
-            popoverController.permittedArrowDirections = []
-        }
-
-        present(alert, animated: true)
+        presentAlertWith(
+            alertTitle: "永久刪除帳號？",
+            alertMessage: "此步驟無法回復。如果繼續，你的個人檔案、發文、訊息記錄都將被刪除，他人將無法在好享煮飯看到你。基於安全性，你將需要重新登入。",
+            confirmTitle: "確認刪除",
+            cancelTitle: Constant.cancel,
+            handler: handler
+        )
     }
 
     func deleteFirestoreDocument() {
@@ -357,35 +342,19 @@ extension ProfileViewController: ProfileUserCellDelegate {
     }
 
     func willChangePhoto() {
-        let controller = UIAlertController(title: "請選擇照片來源", message: nil, preferredStyle: .actionSheet)
-
-        let cameraAction = UIAlertAction(title: "相機", style: .default) { [weak self] _ in
+        let cameraHandler: AlertActionHandler = { [weak self] _ in
             guard let self = self else { return }
             self.imagePicker.sourceType = .camera
             self.present(self.imagePicker, animated: true)
         }
-        let photoLibraryAction = UIAlertAction(title: "相簿", style: .default) { [weak self] _ in
+
+        let photoLibraryHandler: AlertActionHandler = { [weak self] _ in
             guard let self = self else { return }
             self.imagePicker.sourceType = .photoLibrary
             self.present(self.imagePicker, animated: true)
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        controller.addAction(cameraAction)
-        controller.addAction(photoLibraryAction)
-        controller.addAction(cancelAction)
 
-        if let popoverController = controller.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(
-                x: self.view.bounds.midX,
-                y: self.view.bounds.midY,
-                width: 0,
-                height: 0
-            )
-            popoverController.permittedArrowDirections = []
-        }
-
-        present(controller, animated: true, completion: nil)
+        presentImagePickerAlert(camaraHandler: cameraHandler, photoLibraryHandler: photoLibraryHandler)
     }
 }
 

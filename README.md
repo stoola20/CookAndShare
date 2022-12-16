@@ -1,10 +1,14 @@
 # CookAndShare
-<p align="left">
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/103205827/208052192-a886e470-dfef-4416-a2be-75e61bc58df9.png">
+</p>
+
+<p align="center">
     <img src="https://img.shields.io/badge/platform-iOS-blue">
     <img src="https://img.shields.io/badge/release-v1.2.1-green">
 </p>
 
-<p align="left">
+<p align="center">
     <a href="https://itunes.apple.com/app/id6444237378">
     <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"></a>
 </p>
@@ -93,5 +97,3 @@ Ying Hsun Chen | <cookandsharec@gmail.com>
 
 ## License
 CookAndShare is released under the MIT license. See [LICENSE](https://github.com/stoola20/CookAndShare/blob/main/LISENCE) for details.
-
-Hsun 2022.10

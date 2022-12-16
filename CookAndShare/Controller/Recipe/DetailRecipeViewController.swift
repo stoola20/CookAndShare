@@ -17,7 +17,6 @@ enum DetailRecipeSection: CaseIterable {
 }
 
 class DetailRecipeViewController: UIViewController {
-    typealias AlertActionHandler = (UIAlertAction) -> Void
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var imgHeightConstraint: NSLayoutConstraint!
@@ -194,31 +193,6 @@ class DetailRecipeViewController: UIViewController {
         alertView.present()
     }
 
-    private func presentAlertController(alertTitle: String, alertMessage: String, confirmTitle: String, cancelTitle: String, handler: ((UIAlertAction) -> Void)?) {
-        let alert = UIAlertController(
-            title: alertTitle,
-            message: alertMessage,
-            preferredStyle: .actionSheet
-        )
-        let confirmAction = UIAlertAction(title: confirmTitle, style: .destructive, handler: handler)
-        let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel)
-        alert.addAction(confirmAction)
-        alert.addAction(cancelAction)
-
-        if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(
-                x: self.view.bounds.midX,
-                y: self.view.bounds.midY,
-                width: 0,
-                height: 0
-            )
-            popoverController.permittedArrowDirections = []
-        }
-
-        present(alert, animated: true)
-    }
-
     private func updateFirestore() {
         guard let recipe = self.recipe else { return }
         let userRef = FirestoreEndpoint.users.collectionRef.document(recipe.authorId)
@@ -271,7 +245,7 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
             self.updateFirestore()
             self.navigationController?.popViewController(animated: true)
         }
-        presentAlertController(
+        presentAlertWith(
             alertTitle: "確定刪除此貼文？",
             alertMessage: "此動作將無法回復。",
             confirmTitle: "確定刪除",
@@ -305,7 +279,7 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
             self.navigationController?.popToRootViewController(animated: true)
         }
 
-        presentAlertController(
+        presentAlertWith(
             alertTitle: "封鎖\(user.name)？",
             alertMessage: "你將不會看到他的貼文、個人檔案或來自他的訊息。你封鎖用戶時，對方不會收到通知。",
             confirmTitle: "確定封鎖",
@@ -326,7 +300,7 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
             SPAlert.present(message: "謝謝你告知我們，我們會在未來減少顯示這類內容", haptic: .success)
         }
 
-        presentAlertController(
+        presentAlertWith(
             alertTitle: "檢舉這則貼文？",
             alertMessage: "你的檢舉將會匿名。",
             confirmTitle: "確定檢舉",

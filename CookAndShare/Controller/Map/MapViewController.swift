@@ -7,15 +7,10 @@
 
 import UIKit
 import GoogleMaps
-import GooglePlaces
 
 class MapViewController: UIViewController {
-    private let dataProvider = GoogleMapDataProvider.shared
-    private let locationManager = CLLocationManager()
-    private var location = CLLocation()
+    private let viewModel = MapViewModel()
     private var dynamicLocation = CLLocation()
-    private var keyword = "市場|supermarket"
-    private let geocoder = GMSGeocoder()
     private var isFirstCamera = true
     private var infoWindow = InfoWindowView()
     private var tappedMarker = GMSMarker()
@@ -44,20 +39,17 @@ class MapViewController: UIViewController {
         marketButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
         foodBankButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
         setUpUI()
-
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 50
-        locationManager.delegate = self
-        mapView.delegate = self
+        dataBinding()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         searchThisAreaButton.isHidden = true
-        startLocationServices()
     }
 
-    func setUpUI() {
+    private func setUpUI() {
+        mapView.delegate = self
+
         let barAppearance = UINavigationBarAppearance()
         barAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.darkBrown as Any,
@@ -85,7 +77,7 @@ class MapViewController: UIViewController {
         configSearchAreaButton()
     }
 
-    func configSearchAreaButton() {
+    private func configSearchAreaButton() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         searchThisAreaButton.translatesAutoresizingMaskIntoConstraints = false
         containerView.addSubview(searchThisAreaButton)
@@ -114,51 +106,26 @@ class MapViewController: UIViewController {
         searchThisAreaButton.layer.cornerRadius = 20
     }
 
-    func startLocationServices() {
-        let locationAuthorizationStatus = CLLocationManager.authorizationStatus()
+    private func updateUIAndButtons(sender: UIButton) {
+        infoWindow.removeFromSuperview()
+        searchThisAreaButton.isHidden = true
+        buttons.forEach { button in
+            button.isSelected = false
+        }
+        sender.isSelected = true
+        backgroundCenter.isActive = false
+        backgroundCenter = buttonBackground.centerXAnchor.constraint(equalTo: sender.centerXAnchor)
+        backgroundCenter.isActive = true
 
-        switch locationAuthorizationStatus {
-        case .notDetermined:
-            self.locationManager.requestWhenInUseAuthorization()
-        case .authorizedWhenInUse, .authorizedAlways:
-            if CLLocationManager.locationServicesEnabled() {
-                self.locationManager.startUpdatingLocation()
-                mapView.isMyLocationEnabled = true
-                mapView.settings.myLocationButton = true
-            }
-        case .restricted, .denied:
-            self.alertLocationAccessNeeded()
-        @unknown default:
-            print("@unknown default")
+        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut) {
+            self.view.layoutIfNeeded()
         }
     }
 
-    func alertLocationAccessNeeded() {
-        guard let settingsAppURL = URL(string: UIApplication.openSettingsURLString) else { return }
-
-        let alert = UIAlertController(
-            title: "您的定位服務目前設為關閉",
-            message: "您可以前往設定頁面，並選擇「使用 App 期間」來允許好享煮飯取用您的位置。",
-            preferredStyle: .alert
-        )
-        let allowAction = UIAlertAction(
-            title: "前往設定頁面",
-            style: .cancel) { _ in
-                UIApplication.shared.open(settingsAppURL, options: [:], completionHandler: nil)
-        }
-        alert.addAction(UIAlertAction(title: "不用了，謝謝", style: .default))
-        alert.addAction(allowAction)
-
-        present(alert, animated: true)
-    }
-
-    func fetchNearbyPlace(keyword: String, location: CLLocation) {
-        let locationString = "\(location.coordinate.latitude),\(location.coordinate.longitude)"
-        dataProvider.fetchNearbySearch(location: locationString, keyword: keyword) { listResponse in
-            guard let listResponse = listResponse else {
-                return
-            }
-            listResponse.results.forEach { placeResult in
+    func dataBinding() {
+        viewModel.placeResults.bind { [weak self] placeResults in
+            guard let self = self else { return }
+            placeResults.forEach { placeResult in
                 DispatchQueue.main.async {
                     let marker = GMSMarker()
                     marker.isTappable = true
@@ -175,70 +142,52 @@ class MapViewController: UIViewController {
                 }
             }
         }
+
+        viewModel.authorizationStatus.bind { [weak self] authorizationStatus in
+            guard let self = self else { return }
+            switch authorizationStatus {
+            case .authorizedWhenInUse, .authorizedAlways:
+                self.mapView.isMyLocationEnabled = true
+                self.mapView.settings.myLocationButton = true
+            case .restricted, .denied:
+                self.alertLocationAccessNeeded()
+            default:
+                break
+            }
+        }
+
+        viewModel.userLocation.bind { [weak self] location in
+            guard let self = self else { return }
+            self.dynamicLocation = location
+            self.mapView.animate(toLocation: location.coordinate)
+            self.mapView.animate(toZoom: 13)
+        }
+    }
+
+    private func alertLocationAccessNeeded() {
+        guard let settingsAppURL = URL(string: UIApplication.openSettingsURLString) else { return }
+        presentSettingAlert(
+            alertTitle: "您的定位服務目前設為關閉",
+            alertMessage: "您可以前往設定頁面，並選擇「使用 App 期間」來允許好享煮飯取用您的位置。",
+            settingsAppURL: settingsAppURL
+        )
     }
 
     @objc func changeCategory(_ sender: UIButton) {
         self.mapView.clear()
-        infoWindow.removeFromSuperview()
-        searchThisAreaButton.isHidden = true
-        buttons.forEach { button in
-            button.isSelected = false
-        }
-        keyword = sender == marketButton ? "市場|supermarket" : "食物銀行"
-        fetchNearbyPlace(keyword: keyword, location: dynamicLocation)
-        sender.isSelected = true
-        backgroundCenter.isActive = false
-        backgroundCenter = buttonBackground.centerXAnchor.constraint(equalTo: sender.centerXAnchor)
-        backgroundCenter.isActive = true
-
-        UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseOut) {
-            self.view.layoutIfNeeded()
-        }
+        viewModel.keyword = sender == marketButton ? "市場|supermarket" : "食物銀行"
+        viewModel.fetchNearbyPlace(location: dynamicLocation)
+        updateUIAndButtons(sender: sender)
     }
 
     @objc func searchThisArea() {
         mapView.clear()
-        fetchNearbyPlace(keyword: keyword, location: dynamicLocation)
+        viewModel.fetchNearbyPlace(location: dynamicLocation)
     }
 
     @objc func navigate() {
         let locationString = "\(tappedMarker.position.latitude),\(tappedMarker.position.longitude)"
-        guard let url = URL(string: "comgooglemaps://?daddr=\(locationString)&directionsmode=driving&zoom=14")
-        else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-}
-
-extension MapViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .notDetermined:
-            manager.requestWhenInUseAuthorization()
-        case .authorizedWhenInUse, .authorizedAlways:
-            manager.startUpdatingLocation()
-            mapView.isMyLocationEnabled = true
-            mapView.settings.myLocationButton = true
-        case .restricted, .denied:
-            alertLocationAccessNeeded()
-        @unknown default:
-            print("@unknown default")
-        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else {
-            return
-        }
-        self.location = location
-        self.dynamicLocation = location
-        mapView.animate(toLocation: location.coordinate)
-        mapView.animate(toZoom: 13)
-        manager.stopUpdatingLocation()
-        fetchNearbyPlace(keyword: keyword, location: location)
-    }
-
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
+        viewModel.navigateTo(markerLocation: locationString)
     }
 }
 
@@ -294,7 +243,7 @@ extension MapViewController: GMSMapViewDelegate {
             isFirstCamera.toggle()
         } else {
             searchThisAreaButton.isHidden = false
-            geocoder.reverseGeocodeCoordinate(cameraPosition.target) { [weak self] _, error in
+            viewModel.geocoder.reverseGeocodeCoordinate(cameraPosition.target) { [weak self] _, error in
                 guard
                     let self = self,
                     error == nil

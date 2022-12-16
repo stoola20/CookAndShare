@@ -8,15 +8,14 @@
 import UIKit
 
 class UserInputTextField: UITextField {
-    
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12))
     }
-    
+
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12))
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.backgroundColor = UIColor.background
@@ -27,9 +26,7 @@ class UserInputTextField: UITextField {
 
     private func addUnderLine() {
         let underline = UIView()
-        
         underline.translatesAutoresizingMaskIntoConstraints = false
-        
         addSubview(underline)
 
         NSLayoutConstraint.activate([

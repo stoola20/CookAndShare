@@ -13,10 +13,10 @@ struct ListResponse: Codable {
 }
 
 struct PlaceResult: Codable {
-    var name: String
-    var placeId: String
-    var address: String
-    let geometry: Geometry
+    var name = String.empty
+    var placeId = String.empty
+    var address = String.empty
+    var geometry = Geometry(location: Location(lat: 0, lng: 0))
 
     enum CodingKeys: String, CodingKey {
         case name
@@ -27,11 +27,11 @@ struct PlaceResult: Codable {
 }
 
 struct Geometry: Codable {
-    let location: Location
+    var location: Location
 }
 
 struct Location: Codable {
-    let lat, lng: Double
+    var lat, lng: Double
 }
 
 struct DetailResponse: Codable {
