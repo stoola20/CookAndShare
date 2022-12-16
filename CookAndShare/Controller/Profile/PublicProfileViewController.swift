@@ -254,12 +254,7 @@ extension PublicProfileViewController: PublicProfileHeaderCellDelegate {
             return
         }
 
-        let alert = UIAlertController(
-            title: "封鎖\(user.name)？",
-            message: "你將不會看到他的貼文、個人檔案或來自他的訊息。你封鎖用戶時，對方不會收到通知。",
-            preferredStyle: .actionSheet
-        )
-        let confirmAction = UIAlertAction(title: "確定封鎖", style: .destructive) { [weak self] _ in
+        let handler: AlertActionHandler = { [weak self] _ in
             guard let self = self else { return }
             let myRef = FirestoreEndpoint.users.collectionRef.document(Constant.getUserId())
             self.firestoreManager.arrayUnionString(
@@ -269,21 +264,13 @@ extension PublicProfileViewController: PublicProfileHeaderCellDelegate {
             )
             self.navigationController?.popToRootViewController(animated: true)
         }
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel)
-        alert.addAction(confirmAction)
-        alert.addAction(cancelAction)
 
-        if let popoverController = alert.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(
-                x: self.view.bounds.midX,
-                y: self.view.bounds.midY,
-                width: 0,
-                height: 0
-            )
-            popoverController.permittedArrowDirections = []
-        }
-
-        present(alert, animated: true)
+        presentAlertWith(
+            alertTitle: "封鎖\(user.name)？",
+            alertMessage: "你將不會看到他的貼文、個人檔案或來自他的訊息。你封鎖用戶時，對方不會收到通知。",
+            confirmTitle: "確定封鎖",
+            cancelTitle: Constant.cancel,
+            handler: handler
+        )
     }
 }
