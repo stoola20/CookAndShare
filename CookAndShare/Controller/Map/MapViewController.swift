@@ -7,15 +7,10 @@
 
 import UIKit
 import GoogleMaps
-import GooglePlaces
 
 class MapViewController: UIViewController {
     private let viewModel = MapViewModel()
-    private let locationManager = CLLocationManager()
-    private var location = CLLocation()
     private var dynamicLocation = CLLocation()
-    private var keyword = "市場|supermarket"
-    private let geocoder = GMSGeocoder()
     private var isFirstCamera = true
     private var infoWindow = InfoWindowView()
     private var tappedMarker = GMSMarker()
@@ -44,21 +39,17 @@ class MapViewController: UIViewController {
         marketButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
         foodBankButton.addTarget(self, action: #selector(changeCategory(_:)), for: .touchUpInside)
         setUpUI()
-
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 50
-        locationManager.delegate = self
-        mapView.delegate = self
         dataBinding()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         searchThisAreaButton.isHidden = true
-        startLocationServices()
     }
 
     private func setUpUI() {
+        mapView.delegate = self
+
         let barAppearance = UINavigationBarAppearance()
         barAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.darkBrown as Any,
@@ -151,24 +142,25 @@ class MapViewController: UIViewController {
                 }
             }
         }
-    }
 
-    private func startLocationServices() {
-        let locationAuthorizationStatus = CLLocationManager.authorizationStatus()
-
-        switch locationAuthorizationStatus {
-        case .notDetermined:
-            self.locationManager.requestWhenInUseAuthorization()
-        case .authorizedWhenInUse, .authorizedAlways:
-            if CLLocationManager.locationServicesEnabled() {
-                self.locationManager.startUpdatingLocation()
-                mapView.isMyLocationEnabled = true
-                mapView.settings.myLocationButton = true
+        viewModel.authorizationStatus.bind { [weak self] authorizationStatus in
+            guard let self = self else { return }
+            switch authorizationStatus {
+            case .authorizedWhenInUse, .authorizedAlways:
+                self.mapView.isMyLocationEnabled = true
+                self.mapView.settings.myLocationButton = true
+            case .restricted, .denied:
+                self.alertLocationAccessNeeded()
+            default:
+                break
             }
-        case .restricted, .denied:
-            self.alertLocationAccessNeeded()
-        @unknown default:
-            print("@unknown default")
+        }
+
+        viewModel.userLocation.bind { [weak self] location in
+            guard let self = self else { return }
+            self.dynamicLocation = location
+            self.mapView.animate(toLocation: location.coordinate)
+            self.mapView.animate(toZoom: 13)
         }
     }
 
@@ -193,52 +185,19 @@ class MapViewController: UIViewController {
 
     @objc func changeCategory(_ sender: UIButton) {
         self.mapView.clear()
-        keyword = sender == marketButton ? "市場|supermarket" : "食物銀行"
-        viewModel.fetchNearbyPlace(keyword: keyword, location: dynamicLocation)
+        viewModel.keyword = sender == marketButton ? "市場|supermarket" : "食物銀行"
+        viewModel.fetchNearbyPlace(location: dynamicLocation)
         updateUIAndButtons(sender: sender)
     }
 
     @objc func searchThisArea() {
         mapView.clear()
-        viewModel.fetchNearbyPlace(keyword: keyword, location: dynamicLocation)
+        viewModel.fetchNearbyPlace(location: dynamicLocation)
     }
 
     @objc func navigate() {
         let locationString = "\(tappedMarker.position.latitude),\(tappedMarker.position.longitude)"
         viewModel.navigateTo(markerLocation: locationString)
-    }
-}
-
-extension MapViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .notDetermined:
-            manager.requestWhenInUseAuthorization()
-        case .authorizedWhenInUse, .authorizedAlways:
-            manager.startUpdatingLocation()
-            mapView.isMyLocationEnabled = true
-            mapView.settings.myLocationButton = true
-        case .restricted, .denied:
-            alertLocationAccessNeeded()
-        @unknown default:
-            print("@unknown default")
-        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.first else {
-            return
-        }
-        self.location = location
-        self.dynamicLocation = location
-        mapView.animate(toLocation: location.coordinate)
-        mapView.animate(toZoom: 13)
-        manager.stopUpdatingLocation()
-        viewModel.fetchNearbyPlace(keyword: keyword, location: location)
-    }
-
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
     }
 }
 
@@ -294,7 +253,7 @@ extension MapViewController: GMSMapViewDelegate {
             isFirstCamera.toggle()
         } else {
             searchThisAreaButton.isHidden = false
-            geocoder.reverseGeocodeCoordinate(cameraPosition.target) { [weak self] _, error in
+            viewModel.geocoder.reverseGeocodeCoordinate(cameraPosition.target) { [weak self] _, error in
                 guard
                     let self = self,
                     error == nil
