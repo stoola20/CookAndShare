@@ -29,7 +29,7 @@ class ResultViewController: UIViewController {
     }
     var searchType: SearchType = .title
     var searchString = String.empty
-    let firestoreManager = FirestoreManager()
+    let firestoreManager = FirestoreManager.shared
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var alertTitleLabel: UILabel!
