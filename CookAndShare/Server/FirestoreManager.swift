@@ -9,8 +9,6 @@ import Foundation
 import FirebaseFirestore
 import FirebaseStorage
 
-typealias RecipeResponse = (Result<[Recipe], Error>) -> Void
-
 enum FirestoreError: Error, LocalizedError {
     var errorDescription: String? {
         switch self {
@@ -49,6 +47,8 @@ class FirestoreManager {
     let storage = Storage.storage()
 
 // MARK: - Private
+    private init() { }
+
     private func parseDucument<T: Codable>(snapshot: DocumentSnapshot?, error: Error?) -> Result<T?, Error> {
         if let error = error {
             let errorMessage = error.localizedDescription

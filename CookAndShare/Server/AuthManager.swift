@@ -11,6 +11,8 @@ import AuthenticationServices
 class AuthManager {
     static let shared = AuthManager()
 
+    private init() { }
+
     // Adapted from https://auth0.com/docs/api-auth/tutorials/nonce#generate-a-cryptographically-random-nonce
     func randomNonceString(length: Int = 32) -> String {
         precondition(length > 0)

@@ -12,7 +12,7 @@ class TranslationManager: NSObject {
     let targetLanguage = "zh-TW"
     let sourceLanguage = "en"
 
-    override init() {
+    private override init() {
         super.init()
     }
 

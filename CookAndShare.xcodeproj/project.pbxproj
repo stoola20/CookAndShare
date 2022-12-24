@@ -77,7 +77,7 @@
 		37993BCF2942509300D352A0 /* TranslationAPITest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37993BCE2942509300D352A0 /* TranslationAPITest.swift */; };
 		37993BE4294310DE00D352A0 /* CookAndShareTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37993BE3294310DE00D352A0 /* CookAndShareTests.swift */; };
 		37A31314292E4DB8007E5E8C /* JWTClaims.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31313292E4DB8007E5E8C /* JWTClaims.swift */; };
-		37A31316292E6FF6007E5E8C /* Params.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31315292E6FF6007E5E8C /* Params.swift */; };
+		37A31316292E6FF6007E5E8C /* RefreshTokenParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A31315292E6FF6007E5E8C /* RefreshTokenParam.swift */; };
 		37AE892329399EC400199C34 /* DateComponent+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AE892229399EC400199C34 /* DateComponent+Ext.swift */; };
 		37AE89252939A95900199C34 /* DateHeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AE89242939A95900199C34 /* DateHeaderLabel.swift */; };
 		37B2E10C293497E6008BF0B8 /* Pods_CookAndShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2765B72C755ABFE4A4F5C911 /* Pods_CookAndShare.framework */; };
@@ -252,7 +252,7 @@
 		37993BE1294310DE00D352A0 /* CookAndShareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CookAndShareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37993BE3294310DE00D352A0 /* CookAndShareTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookAndShareTests.swift; sourceTree = "<group>"; };
 		37A31313292E4DB8007E5E8C /* JWTClaims.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTClaims.swift; sourceTree = "<group>"; };
-		37A31315292E6FF6007E5E8C /* Params.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Params.swift; sourceTree = "<group>"; };
+		37A31315292E6FF6007E5E8C /* RefreshTokenParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenParam.swift; sourceTree = "<group>"; };
 		37AE892229399EC400199C34 /* DateComponent+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateComponent+Ext.swift"; sourceTree = "<group>"; };
 		37AE89242939A95900199C34 /* DateHeaderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeaderLabel.swift; sourceTree = "<group>"; };
 		37BA15932936F01E00A7D00B /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
@@ -589,12 +589,12 @@
 			isa = PBXGroup;
 			children = (
 				372E3A9C29162B9C00250DAA /* CoreData */,
+				37A31315292E6FF6007E5E8C /* RefreshTokenParam.swift */,
 				37D69C76290BDCEA0034D8E1 /* Recipe.swift */,
 				37D69C78290BDD020034D8E1 /* User.swift */,
 				37D69C7D290BDF120034D8E1 /* Share.swift */,
 				37D69C7F290BDF880034D8E1 /* Conversation.swift */,
 				37D7C1A029134F2E005B8781 /* Map.swift */,
-				37D7C1A229135215005B8781 /* GoogleMapDataProvider.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -769,8 +769,8 @@
 				370B2001291AB6560092F502 /* PushNotificationManager.swift */,
 				370B2003291ABAD40092F502 /* PushNotificationSender.swift */,
 				37A31313292E4DB8007E5E8C /* JWTClaims.swift */,
-				37A31315292E6FF6007E5E8C /* Params.swift */,
 				37489AF72930B2E600B144D9 /* AuthManager.swift */,
+				37D7C1A229135215005B8781 /* GoogleMapDataProvider.swift */,
 			);
 			path = Server;
 			sourceTree = "<group>";
@@ -1165,7 +1165,7 @@
 				372E3AAC291655D400250DAA /* MineImageCell.swift in Sources */,
 				37233C72292A608D0093A2E6 /* ShoppingList+CoreDataProperties.swift in Sources */,
 				37CBECA12912025A00A62EF2 /* PublicPostHeaderView.swift in Sources */,
-				37A31316292E6FF6007E5E8C /* Params.swift in Sources */,
+				37A31316292E6FF6007E5E8C /* RefreshTokenParam.swift in Sources */,
 				37E001AD294217D20090D8B7 /* APIKey.swift in Sources */,
 				37D69CB7290CD9070034D8E1 /* NewRecipeViewController.swift in Sources */,
 				37C622E72919FB4600A84263 /* FoodRecognitionViewController.swift in Sources */,

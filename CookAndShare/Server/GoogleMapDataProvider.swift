@@ -10,6 +10,8 @@ import UIKit
 class GoogleMapDataProvider {
     static var shared = GoogleMapDataProvider()
 
+    private init() { }
+
     func fetchNearbySearch(location: String, keyword: String, completion: @escaping (ListResponse?) -> Void) {
         if let url = URL(string: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(location)&radius=3000&key=\(APIKey.apiKey)&keyword=\(keyword)&language=zh-TW".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "") {
             URLSession.shared.dataTask(with: url) { data, response, error in
