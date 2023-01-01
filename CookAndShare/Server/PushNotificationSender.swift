@@ -9,30 +9,29 @@ import UIKit
 class PushNotificationSender {
     func sendPushNotification(to token: String, title: String, body: String) {
         let urlString = "https://fcm.googleapis.com/fcm/send"
-        guard let url = NSURL(string: urlString) else { return }
+        guard let url = URL(string: urlString) else { return }
         let paramString: [String: Any] = [
             "to": token,
             "priority": "high",
-            "notification": ["title": title, "body": body],
-            "data": ["user": "test_id"]
+            "notification": ["title": title, "body": body]
         ]
-        let request = NSMutableURLRequest(url: url as URL)
+        var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = try? JSONSerialization.data(withJSONObject: paramString, options: [.prettyPrinted])
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("key=\(APIKey.serverKey)", forHTTPHeaderField: "Authorization")
-        let task = URLSession.shared.dataTask(with: request as URLRequest) { data, _, _ in
+        let task = URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else { return }
             do {
-                if let jsonData = data {
-                    print(jsonData)
-                    if let jsonDataDict = try JSONSerialization.jsonObject(
-                        with: jsonData,
-                        options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
-                        NSLog("Received data:\n\(jsonDataDict))")
-                    }
-                }
-            } catch let err as NSError {
-                print(err.debugDescription)
+                guard let jsonDataDict = try JSONSerialization.jsonObject(
+                    with: data,
+                    options: JSONSerialization.ReadingOptions.allowFragments
+                )
+                    as? [String: AnyObject]
+                else { return }
+                print("Received data:\n\(jsonDataDict))")
+            } catch {
+                print(error.localizedDescription)
             }
         }
         task.resume()
