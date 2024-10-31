@@ -5,8 +5,6 @@
 //  Created by Brandon Withrow on 1/8/19.
 //
 
-import Foundation
-
 // MARK: - TrimType
 
 enum TrimType: Int, Codable {
@@ -38,7 +36,7 @@ final class Trim: ShapeItem {
     offset = try KeyframeGroup<LottieVector1D>(dictionary: offsetDictionary)
     let trimTypeRawValue: Int = try dictionary.value(for: CodingKeys.trimType)
     guard let trimType = TrimType(rawValue: trimTypeRawValue) else {
-      throw InitializableError.invalidInput
+      throw InitializableError.invalidInput()
     }
     self.trimType = trimType
     try super.init(dictionary: dictionary)
@@ -56,6 +54,14 @@ final class Trim: ShapeItem {
   let offset: KeyframeGroup<LottieVector1D>
 
   let trimType: TrimType
+
+  /// If this trim doesn't affect the path at all then we can consider it empty
+  var isEmpty: Bool {
+    start.keyframes.count == 1
+      && start.keyframes[0].value.value == 0
+      && end.keyframes.count == 1
+      && end.keyframes[0].value.value == 100
+  }
 
   override func encode(to encoder: Encoder) throws {
     try super.encode(to: encoder)

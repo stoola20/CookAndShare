@@ -9,18 +9,10 @@ import Foundation
 
 // MARK: - CoordinateSpace
 
-public enum CoordinateSpace: Int, Codable {
+public enum CoordinateSpace: Int, Codable, Sendable {
   case type2d
   case type3d
 }
-
-// MARK: - Animation
-
-@available(*, deprecated, renamed: "LottieAnimation", message: """
-  `Lottie.Animation` has been renamed to `LottieAnimation`, to prevent conflicts \
-  with the `SwiftUI.Animation` type. This notice will be removed in Lottie 4.0.
-  """)
-public typealias Animation = LottieAnimation
 
 // MARK: - LottieAnimation
 
@@ -28,7 +20,7 @@ public typealias Animation = LottieAnimation
 ///
 /// A `LottieAnimation` holds all of the animation data backing a Lottie Animation.
 /// Codable, see JSON schema [here](https://github.com/airbnb/lottie-web/tree/master/docs/json).
-public final class LottieAnimation: Codable, DictionaryInitializable {
+public final class LottieAnimation: Codable, Sendable, DictionaryInitializable {
 
   // MARK: Lifecycle
 
@@ -47,7 +39,7 @@ public final class LottieAnimation: Codable, DictionaryInitializable {
     assetLibrary = try container.decodeIfPresent(AssetLibrary.self, forKey: .assetLibrary)
     markers = try container.decodeIfPresent([Marker].self, forKey: .markers)
 
-    if let markers = markers {
+    if let markers {
       var markerMap: [String: Marker] = [:]
       for marker in markers {
         markerMap[marker.name] = marker
@@ -76,7 +68,7 @@ public final class LottieAnimation: Codable, DictionaryInitializable {
     let layerDictionaries: [[String: Any]] = try dictionary.value(for: CodingKeys.layers)
     layers = try [LayerModel].fromDictionaries(layerDictionaries)
     if let glyphDictionaries = dictionary[CodingKeys.glyphs.rawValue] as? [[String: Any]] {
-      glyphs = try glyphDictionaries.map({ try Glyph(dictionary: $0) })
+      glyphs = try glyphDictionaries.map { try Glyph(dictionary: $0) }
     } else {
       glyphs = nil
     }
@@ -91,7 +83,7 @@ public final class LottieAnimation: Codable, DictionaryInitializable {
       assetLibrary = nil
     }
     if let markerDictionaries = dictionary[CodingKeys.markers.rawValue] as? [[String: Any]] {
-      let markers = try markerDictionaries.map({ try Marker(dictionary: $0) })
+      let markers = try markerDictionaries.map { try Marker(dictionary: $0) }
       var markerMap: [String: Marker] = [:]
       for marker in markers {
         markerMap[marker.name] = marker
@@ -117,7 +109,7 @@ public final class LottieAnimation: Codable, DictionaryInitializable {
 
   /// Return all marker names, in order, or an empty list if none are specified
   public var markerNames: [String] {
-    guard let markers = markers else { return [] }
+    guard let markers else { return [] }
     return markers.map { $0.name }
   }
 
@@ -165,4 +157,23 @@ public final class LottieAnimation: Codable, DictionaryInitializable {
   /// Markers
   let markers: [Marker]?
   let markerMap: [String: Marker]?
+
+  /// The marker to use if "reduced motion" is enabled.
+  /// Supported marker names are case insensitive, and include:
+  ///  - reduced motion
+  ///  - reducedMotion
+  ///  - reduced_motion
+  ///  - reduced-motion
+  var reducedMotionMarker: Marker? {
+    let allowedReducedMotionMarkerNames = Set([
+      "reduced motion",
+      "reduced_motion",
+      "reduced-motion",
+      "reducedmotion",
+    ])
+
+    return markers?.first(where: { marker in
+      allowedReducedMotionMarkerNames.contains(marker.name.lowercased())
+    })
+  }
 }

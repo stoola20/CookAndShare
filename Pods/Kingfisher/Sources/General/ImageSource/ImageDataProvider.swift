@@ -102,6 +102,26 @@ public struct LocalFileImageDataProvider: ImageDataProvider {
             handler(Result(catching: { try Data(contentsOf: fileURL) }))
         }
     }
+    
+    #if swift(>=5.5)
+    #if canImport(_Concurrency)
+    @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+    public var data: Data {
+        get async throws {
+            try await withCheckedThrowingContinuation { continuation in
+                loadingQueue.execute {
+                    do {
+                        let data = try Data(contentsOf: fileURL)
+                        continuation.resume(returning: data)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                }
+            }
+        }
+    }
+    #endif
+    #endif
 
     /// The URL of the local file on the disk.
     public var contentURL: URL? {
@@ -152,7 +172,7 @@ public struct RawImageDataProvider: ImageDataProvider {
     /// Creates an image data provider by the given raw `data` value and a `cacheKey` be used in Kingfisher cache.
     ///
     /// - Parameters:
-    ///   - data: The raw data reprensents an image.
+    ///   - data: The raw data represents an image.
     ///   - cacheKey: The key is used for caching the image data. You need a different key for any different image.
     public init(data: Data, cacheKey: String) {
         self.data = data

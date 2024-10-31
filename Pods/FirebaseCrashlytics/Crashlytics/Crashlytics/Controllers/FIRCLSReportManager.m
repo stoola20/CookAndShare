@@ -41,6 +41,7 @@
 #import "Crashlytics/Crashlytics/Components/FIRCLSApplication.h"
 #import "Crashlytics/Crashlytics/Components/FIRCLSUserLogging.h"
 #import "Crashlytics/Crashlytics/Controllers/FIRCLSAnalyticsManager.h"
+#import "Crashlytics/Crashlytics/Controllers/FIRCLSContextManager.h"
 #import "Crashlytics/Crashlytics/Controllers/FIRCLSExistingReportManager.h"
 #import "Crashlytics/Crashlytics/Controllers/FIRCLSManagerData.h"
 #import "Crashlytics/Crashlytics/Controllers/FIRCLSMetricKitManager.h"
@@ -135,6 +136,8 @@ typedef NSNumber FIRCLSWrappedReportAction;
 @property(nonatomic, strong) FIRCLSAnalyticsManager *analyticsManager;
 @property(nonatomic, strong) FIRCLSExistingReportManager *existingReportManager;
 
+@property(nonatomic, strong) FIRCLSContextManager *contextManager;
+
 // Internal Managers
 @property(nonatomic, strong) FIRCLSSettingsManager *settingsManager;
 @property(nonatomic, strong) FIRCLSNotificationManager *notificationManager;
@@ -165,6 +168,7 @@ typedef NSNumber FIRCLSWrappedReportAction;
   _installIDModel = managerData.installIDModel;
   _settings = managerData.settings;
   _executionIDModel = managerData.executionIDModel;
+  _contextManager = managerData.contextManager;
 
   _existingReportManager = existingReportManager;
   _analyticsManager = analyticsManager;
@@ -264,7 +268,7 @@ typedef NSNumber FIRCLSWrappedReportAction;
   return _unsentReportsHandled;
 }
 
-- (FBLPromise<NSNumber *> *)startWithProfilingMark:(FIRCLSProfileMark)mark {
+- (FBLPromise<NSNumber *> *)startWithProfiling {
   NSString *executionIdentifier = self.executionIDModel.executionID;
 
   // This needs to be called before the new report is created for
@@ -290,7 +294,7 @@ typedef NSNumber FIRCLSWrappedReportAction;
     FIRCLSErrorLog(@"Unable to setup a new report");
   }
 
-  if (![self startCrashReporterWithProfilingMark:mark report:report]) {
+  if (![self startCrashReporterWithProfilingReport:report]) {
     FIRCLSErrorLog(@"Unable to start crash reporter");
     report = nil;
   }
@@ -357,11 +361,9 @@ typedef NSNumber FIRCLSWrappedReportAction;
   }
 
   if (report != nil) {
-    // capture the start-up time here, but record it asynchronously
-    double endMark = FIRCLSProfileEnd(mark);
-
+    // empty for disabled start-up time
     dispatch_async(FIRCLSGetLoggingQueue(), ^{
-      FIRCLSUserLoggingWriteInternalKeyValue(FIRCLSStartTimeKey, [@(endMark) description]);
+      FIRCLSUserLoggingWriteInternalKeyValue(FIRCLSStartTimeKey, @"");
     });
   }
 
@@ -410,13 +412,14 @@ typedef NSNumber FIRCLSWrappedReportAction;
   }
 }
 
-- (BOOL)startCrashReporterWithProfilingMark:(FIRCLSProfileMark)mark
-                                     report:(FIRCLSInternalReport *)report {
+- (BOOL)startCrashReporterWithProfilingReport:(FIRCLSInternalReport *)report {
   if (!report) {
     return NO;
   }
 
-  if (!FIRCLSContextInitialize(report, self.settings, _fileManager)) {
+  if (![self.contextManager setupContextWithReport:report
+                                          settings:self.settings
+                                       fileManager:_fileManager]) {
     return NO;
   }
 
@@ -424,12 +427,12 @@ typedef NSNumber FIRCLSWrappedReportAction;
 
   [self.analyticsManager registerAnalyticsListener];
 
-  [self crashReportingSetupCompleted:mark];
+  [self crashReportingSetupCompleted];
 
   return YES;
 }
 
-- (void)crashReportingSetupCompleted:(FIRCLSProfileMark)mark {
+- (void)crashReportingSetupCompleted {
   // check our handlers
   FIRCLSDispatchAfter(2.0, dispatch_get_main_queue(), ^{
     FIRCLSExceptionCheckHandlers((__bridge void *)(self));
@@ -441,12 +444,12 @@ typedef NSNumber FIRCLSWrappedReportAction;
 #endif
   });
 
-  // remove the launch failure marker and record the startup time
+  // remove the launch failure marker and records and empty string since
+  // we're avoiding mach_absolute_time calls.
   dispatch_async(dispatch_get_main_queue(), ^{
     [self.launchMarker removeLaunchFailureMarker];
     dispatch_async(FIRCLSGetLoggingQueue(), ^{
-      FIRCLSUserLoggingWriteInternalKeyValue(FIRCLSFirstRunloopTurnTimeKey,
-                                             [@(FIRCLSProfileEnd(mark)) description]);
+      FIRCLSUserLoggingWriteInternalKeyValue(FIRCLSFirstRunloopTurnTimeKey, @"");
     });
   });
 }
