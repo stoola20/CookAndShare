@@ -125,7 +125,7 @@ class ShareViewController: UIViewController {
 
                     self.getShares(query: query)
                 case .failure(let error):
-                    SPAlert.present(title: error.localizedDescription, preset: .error)
+                    AlertKitAPI.present(title: error.localizedDescription, style: .iOS17AppleMusic, haptic: .error)
                 }
             }
         }
@@ -139,7 +139,7 @@ class ShareViewController: UIViewController {
             case .success(let shares):
                 self.deleteExpiredShare(from: shares, manager: self.firestoreManager)
             case .failure(let error):
-                SPAlert.present(title: error.localizedDescription, preset: .error)
+                AlertKitAPI.present(title: error.localizedDescription, style: .iOS17AppleMusic, haptic: .error)
             }
             self.group.leave()
         }
@@ -155,7 +155,7 @@ class ShareViewController: UIViewController {
                 guard let share = share else { return }
                 self.shares = [share]
             case .failure(let error):
-                SPAlert.present(title: error.localizedDescription, preset: .error)
+                AlertKitAPI.present(title: error.localizedDescription, style: .iOS17AppleMusic, haptic: .error)
             }
             self.group.leave()
         }
@@ -324,7 +324,7 @@ extension ShareViewController: ShareCellDelegate {
                 value: Constant.getUserId()
             )
 
-            SPAlert.present(message: "謝謝你告知我們，我們會在未來減少顯示這類內容", haptic: .success)
+            AlertKitAPI.present(title: "謝謝你告知我們，我們會在未來減少顯示這類內容", style: .iOS17AppleMusic, haptic: .success)
         }
 
         presentAlertWith(

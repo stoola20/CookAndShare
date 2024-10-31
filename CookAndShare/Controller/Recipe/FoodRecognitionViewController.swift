@@ -94,9 +94,9 @@ class FoodRecognitionViewController: UIViewController {
             else { fatalError("Model failed to process image") }
             if let firstResult = results.first {
                 if firstResult.confidence > 0.5 {
-                    let alertView = SPAlertView(message: "辨識成功")
+                    let alertView = AlertAppleMusic17View(title: "辨識成功", subtitle: nil, icon: nil)
                     alertView.duration = 1
-                    alertView.present()
+                    alertView.present(on: self.view)
                     TranslationManager.shared.textToTranslate = firstResult.identifier
                     TranslationManager.shared.translate { translation in
                         guard let translation = translation else {
@@ -109,7 +109,7 @@ class FoodRecognitionViewController: UIViewController {
                     }
                     self.searchButton.isHidden = false
                 } else {
-                    SPAlert.present(message: "無法辨識", haptic: .error)
+                    AlertKitAPI.present(title: "無法辨識", style: .iOS17AppleMusic, haptic: .error)
                     self.resultLabel.text = "照片無法被辨識，請嘗試重新拍攝"
                     self.searchButton.isHidden = true
                 }

@@ -51,9 +51,9 @@ class AddToShoppingListVC: UIViewController {
     }
 
     @IBAction func addToShoppingList(_ sender: UIButton) {
-        let alertView = SPAlertView(message: "已加入採買清單")
+        let alertView = AlertAppleMusic17View(title: "已加入採買清單", subtitle: nil, icon: nil)
         alertView.duration = 1
-        alertView.present(haptic: .warning) {
+        alertView.present(on: self.view) {
             self.dismiss(animated: true)
         }
 

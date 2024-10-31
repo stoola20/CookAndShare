@@ -182,15 +182,15 @@ class DetailRecipeViewController: UIViewController {
                 guard let self = self, let recipe = recipe else { return }
                 self.recipe = recipe
             case .failure(let error):
-                SPAlert.present(title: error.localizedDescription, preset: .error)
+                AlertKitAPI.present(title: error.localizedDescription, style: .iOS17AppleMusic, haptic: .error)
             }
         }
     }
 
     private func showSPAlert(message: String) {
-        let alertView = SPAlertView(message: message)
+        let alertView = AlertAppleMusic17View(title: message, subtitle: nil, icon: nil)
         alertView.duration = 0.8
-        alertView.present()
+        alertView.present(on: self.view)
     }
 
     private func updateFirestore() {
@@ -297,7 +297,7 @@ extension DetailRecipeViewController: DetailBannerCellDelegate {
                 field: Constant.reports,
                 value: Constant.getUserId()
             )
-            SPAlert.present(message: "謝謝你告知我們，我們會在未來減少顯示這類內容", haptic: .success)
+            AlertKitAPI.present(title: "謝謝你告知我們，我們會在未來減少顯示這類內容", style: .iOS17AppleMusic, haptic: .success)
         }
 
         presentAlertWith(

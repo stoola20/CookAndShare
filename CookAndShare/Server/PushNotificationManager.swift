@@ -26,7 +26,7 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
             UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { _, _ in }
             // For iOS 10 data message (sent via FCM)
         } else {
-            let settings: UIUserNotificationSettings =
+            let settings =
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
             UIApplication.shared.registerUserNotificationSettings(settings)
         }
@@ -60,5 +60,17 @@ class PushNotificationManager: NSObject, MessagingDelegate, UNUserNotificationCe
         }
 
         completionHandler()
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let notificationCenter = UNUserNotificationCenter.current()
+
+        notificationCenter.getNotificationSettings { settings in
+            if settings.soundSetting == .enabled {
+                completionHandler([.banner, .badge, .sound])
+            } else {
+                completionHandler([.banner, .badge])
+            }
+        }
     }
 }

@@ -47,9 +47,9 @@ class NewShareViewController: UIViewController {
             alert.addAction(okAction)
             present(alert, animated: true)
         } else {
-            let alertView = SPAlertView(message: "上傳成功\n謝謝你拯救美食")
+            let alertView = AlertAppleMusic17View(title: "上傳成功\n謝謝你拯救美食", subtitle: nil, icon: nil)
             alertView.duration = 1.3
-            alertView.present(haptic: .warning) {
+            alertView.present(on: self.view) {
                 self.navigationController?.popViewController(animated: true)
             }
             if share.shareId.isEmpty {

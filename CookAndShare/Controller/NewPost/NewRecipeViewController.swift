@@ -116,9 +116,9 @@ class NewRecipeViewController: UIViewController {
             alert.addAction(okAction)
             present(alert, animated: true)
         } else {
-            let alertView = SPAlertView(message: "成功上傳食譜")
+            let alertView = AlertAppleMusic17View(title: "成功上傳食譜", subtitle: nil, icon: nil)
             alertView.duration = 1.3
-            alertView.present(haptic: .warning) {
+            alertView.present(on: self.view) {
                 self.navigationController?.popViewController(animated: true)
             }
             if recipe.recipeId.isEmpty {

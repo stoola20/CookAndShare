@@ -168,8 +168,7 @@ class ProfileViewController: UIViewController {
     func deleteFirestoreDocument() {
         guard let mySelf = self.user else { return }
         let query = FirestoreEndpoint.users.collectionRef
-        self.firestoreManager.getDocuments(query) { [weak self] (result: Result<[User], Error>) in
-            guard let self = self else { return }
+        self.firestoreManager.getDocuments(query) { (result: Result<[User], Error>) in
             switch result {
             case .success(let users):
                 users.forEach { otherOne in
@@ -446,7 +445,7 @@ extension ProfileViewController: ASAuthorizationControllerDelegate {
                         }
                     }
                     self.showLoginVC()
-                    SPAlert.present(message: "帳號已刪除", haptic: .error)
+                    AlertKitAPI.present(title: "帳號已刪除", style: .iOS17AppleMusic, haptic: .error)
                 }
             }
         }
@@ -456,15 +455,15 @@ extension ProfileViewController: ASAuthorizationControllerDelegate {
         // 登入失敗，處理 Error
         switch error {
         case ASAuthorizationError.canceled:
-            SPAlert.present(message: "使用者取消登入", haptic: .error)
+            AlertKitAPI.present(title: "使用者取消登入", style: .iOS17AppleMusic, haptic: .error)
         case ASAuthorizationError.failed:
-            SPAlert.present(message: "授權請求失敗", haptic: .error)
+            AlertKitAPI.present(title: "授權請求失敗", style: .iOS17AppleMusic, haptic: .error)
         case ASAuthorizationError.invalidResponse:
-            SPAlert.present(message: "授權請求無回應", haptic: .error)
+            AlertKitAPI.present(title: "授權請求無回應", style: .iOS17AppleMusic, haptic: .error)
         case ASAuthorizationError.notHandled:
-            SPAlert.present(message: "授權請求未處理", haptic: .error)
+            AlertKitAPI.present(title: "授權請求未處理", style: .iOS17AppleMusic, haptic: .error)
         case ASAuthorizationError.unknown:
-            SPAlert.present(message: "授權失敗，原因不明", haptic: .error)
+            AlertKitAPI.present(title: "授權失敗，原因不明", style: .iOS17AppleMusic, haptic: .error)
         default:
             break
         }

@@ -31,7 +31,7 @@ class SavedRecipeViewController: UIViewController {
                             tempRecipes.append(recipe)
                         }
                     case .failure(let error):
-                        SPAlert.present(message: error.localizedDescription, haptic: .error)
+                        AlertKitAPI.present(title: error.localizedDescription, style: .iOS17AppleMusic, haptic: .error)
                     }
                     group.leave()
                 }

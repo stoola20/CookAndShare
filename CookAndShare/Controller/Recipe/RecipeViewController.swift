@@ -36,10 +36,12 @@ class RecipeViewController: UIViewController {
         didSet {
             if let filterdRecipes = filterdRecipes,
                 filterdRecipes.isEmpty {
-                SPAlert.present(message: "找不到符合的食譜結果", haptic: .warning)
-            }
-            DispatchQueue.main.async {
-                self.collectionView.reloadSections(IndexSet(integer: 2))
+                AlertKitAPI.present(title: "找不到符合的食譜結果", style: .iOS17AppleMusic, haptic: .warning)
+            } else {
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+//                    self.collectionView.reloadSections(IndexSet(integer: 2))
+                }
             }
         }
     }
@@ -152,7 +154,7 @@ class RecipeViewController: UIViewController {
                     : FirestoreEndpoint.recipes.collectionRef.whereField(Constant.authorId, notIn: user.blockList)
                     self.getRecipes(query: query)
                 case .failure(let error):
-                    SPAlert.present(title: error.localizedDescription, preset: .error)
+                    AlertKitAPI.present(title: error.localizedDescription, style: .iOS17AppleMusic, haptic: .error)
                 }
             }
         }
@@ -165,7 +167,7 @@ class RecipeViewController: UIViewController {
             case .success(let recipes):
                 self.sortRecipes(recipes: recipes)
             case .failure(let error):
-                SPAlert.present(title: error.localizedDescription, preset: .error)
+                AlertKitAPI.present(title: error.localizedDescription, style: .iOS17AppleMusic, haptic: .error)
             }
         }
     }

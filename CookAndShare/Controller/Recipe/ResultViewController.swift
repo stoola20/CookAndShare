@@ -87,7 +87,7 @@ class ResultViewController: UIViewController {
                     : FirestoreEndpoint.recipes.collectionRef.whereField(Constant.authorId, notIn: user.blockList)
                     self.getRecipes(query: query)
                 case .failure(let error):
-                    SPAlert.present(title: error.localizedDescription, preset: .error)
+                    AlertKitAPI.present(title: error.localizedDescription, style: .iOS17AppleMusic, haptic: .error)
                 }
             }
         }
@@ -100,7 +100,7 @@ class ResultViewController: UIViewController {
                 guard let self = self else { return }
                 self.filterRecipes(recipes: recipes)
             case .failure(let error):
-                SPAlert.present(title: error.localizedDescription, preset: .error)
+                AlertKitAPI.present(title: error.localizedDescription, style: .iOS17AppleMusic, haptic: .error)
             }
         }
     }

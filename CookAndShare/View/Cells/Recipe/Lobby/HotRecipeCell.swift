@@ -121,9 +121,9 @@ class HotRecipeCell: UICollectionViewCell {
                 value: recipeId
             )
         } else {
-            let alertView = SPAlertView(message: "收藏成功")
+            let alertView = AlertAppleMusic17View(title: "收藏成功", subtitle: nil, icon: nil)
             alertView.duration = 0.8
-            alertView.present()
+            alertView.present(on: self.contentView)
             firestoreManager.arrayUnionString(
                 docRef: recipeRef,
                 field: Constant.saves,

@@ -63,7 +63,8 @@ class PublicProfileViewController: UIViewController {
                             guard let recipe = recipe else { return }
                             tempRecipes.append(recipe)
                         case .failure(let error):
-                            SPAlert.present(title: error.localizedDescription, preset: .error)
+                            AlertKitAPI.present(title: error.localizedDescription, style: .iOS17AppleMusic, haptic: .error)
+                            
                         }
                         group.leave()
                     }
@@ -77,7 +78,7 @@ class PublicProfileViewController: UIViewController {
                             guard let share = share else { return }
                             tempShares.append(share)
                         case .failure(let error):
-                            SPAlert.present(title: error.localizedDescription, preset: .error)
+                            AlertKitAPI.present(title: error.localizedDescription, style: .iOS17AppleMusic, haptic: .error)
                         }
                         group.leave()
                     }
